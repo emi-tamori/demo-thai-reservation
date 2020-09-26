@@ -27,6 +27,10 @@ const lineBot = (req,res) => {
             case 'follow':
                 promises.push(greeting_follow(ev));
                 break;
+            
+            case 'message':
+                promises.push(handleMessageEvent(ev));
+                break;
         }
     }
 
@@ -38,9 +42,19 @@ const lineBot = (req,res) => {
 
 const greeting_follow = async (ev) => {
     const profile = await client.getProfile(ev.source.userId);
-    console.log('profile:',profile);
     return client.replyMessage(ev.replyToken,{
         "type":"text",
         "text":`${profile.displayName}さん、フォローありがとうございます\uDBC0\uDC04`
+    });
+}
+
+const handleMessageEvent = async (ev) => {
+    console.log('ev:',ev);
+    const profile = await client.getProfile(ev.source.userId);
+    const text = (ev.message.type === 'text') ? ev.message.text : '';
+    
+    return client.replyMessage(ev.replyToken,{
+        "type":"text",
+        "text":`${profile.displayName}さん、今${text}って言いました？`
     });
 }
