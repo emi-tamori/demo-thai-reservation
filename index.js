@@ -5,6 +5,8 @@ const { Client } = require('pg');
 
 const PORT = process.env.PORT || 5000
 
+const INITIAL_TREAT = [20,10,40,15,30,15,10];  //施術時間初期値
+
 const config = {
     channelAccessToken:process.env.ACCESS_TOKEN,
     channelSecret:process.env.CHANNEL_SECRET
@@ -64,6 +66,18 @@ const lineBot = (req,res) => {
 
 const greeting_follow = async (ev) => {
     const profile = await client.getProfile(ev.source.userId);
+
+    const table_insert = {
+        text:'INSERT INTO users (line_uid,display_name,timestamp,cuttime,shampootime,colortime,spatime) VALUES($1,$2,$3,$4,$5,$6,$7);',
+        values:[ev.source.userId,profile.displayName,ev.timestamp,INITIAL_TREAT[0],INITIAL_TREAT[1],INITIAL_TREAT[2],INITIAL_TREAT[3]]
+      };
+
+    connection.query(table_insert)
+    .then(()=>{
+        console.log('insert successfully!!')
+    })
+    .catch(e=>console.log(e));
+    
     return client.replyMessage(ev.replyToken,{
         "type":"text",
         "text":`${profile.displayName}さん、フォローありがとうございます\uDBC0\uDC04`
