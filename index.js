@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const line = require('@line/bot-sdk');
+const { Client } = require('pg');
+
 const PORT = process.env.PORT || 5000
 
 const config = {
