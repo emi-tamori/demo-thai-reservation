@@ -38,6 +38,7 @@ const lineBot = (req,res) => {
 
 const greeting_follow = async (ev) => {
     const profile = await client.getProfile(ev.source.userId);
+    console.log('profile:',profile);
     return client.replyMessage(ev.replyToken,{
         "type":"text",
         "text":`${profile.displayName}さん、フォローありがとうございます\uDBC0\uDC04`
