@@ -10,6 +10,26 @@ const config = {
 
 const client = new line.Client(config);
 
+const connection = new Client({
+    user:process.env.PG_USER,
+    host:process.env.PG_HOST,
+    database:process.env.PG_DATABASE,
+    password:process.env.PG_PASSWORD,
+    port:5432
+  });
+
+connection.connect();
+
+const create_userTable = {
+    text:'CREATE TABLE IF NOT EXISTS users (id SERIAL NOT NULL, line_uid VARCHAR(255), display_name VARCHAR(255), timestamp VARCHAR(255), cuttime SMALLINT, shampootime SMALLINT, colortime SMALLINT, spatime SMALLINT);'
+};
+
+connection.query(create_userTable)
+    .then(()=>{
+        console.log('table users created successfully!!');
+    })
+    .catch(e=>console.log(e));
+
 app
     .post('/hook',line.middleware(config),(req,res)=> lineBot(req,res))
     .listen(PORT,()=>console.log(`Listening on ${PORT}`));
