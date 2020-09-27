@@ -104,6 +104,7 @@ const handleMessageEvent = async (ev) => {
 }
 
 const handlePostbackEvent = async (ev) => {
+    console.log('postback ev:',ev);
     const profile = await client.getProfile(ev.source.userId);
     const data = ev.postback.data;
     const splitData = data.split('&');
