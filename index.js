@@ -109,7 +109,7 @@ const handlePostbackEvent = async (ev) => {
     const splitData = data.split('&');
 
     if(splitData[0] === 'menu'){
-        const orderedMenu = splitDate[1];
+        const orderedMenu = splitData[1];
         askDate(ev,orderedMenu);
     }
 }
