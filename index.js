@@ -128,7 +128,7 @@ const handlePostbackEvent = async (ev) => {
         const startTimestamp = timeConversion(selectedDate,selectedTime);
         const treatTime = await calcTreatTime(ev.source.userId,orderedMenu);
         const endTimestamp = startTimestamp + treatTime*60*1000;
-        console.log('treatTime:',treatTime);
+        console.log('endTime:',endTimestamp);
     }else if(splitData[0] === 'no'){
 
     }
@@ -140,27 +140,48 @@ const timeConversion = (date,time) => {
 }
 
 const calcTreatTime = (id,menu) => {
-  return new Promise((resolve,reject)=>{
-    const selectQuery = {
-      text: 'SELECT * FROM users WHERE line_uid = $1;',
-      values: [`${id}`]
-    };
-    connection.query(selectQuery)
-      .then(res=>{
-        console.log('res:',res);
-        console.log('res.rows[0]:',res.rows[0]);
-        if(res.rows.length){
-          const menuNumber = parseInt(menu);
-          const treatTime = INITIAL_TREAT[menuNumber];
-          resolve(treatTime);
-        }else{
-          console.log('LINE　IDに一致するユーザーが見つかりません。');
-          return;
-        }
-      })
-      .catch(e=>console.log(e));
+  const selectQuery = {
+    text: 'SELECT * FROM users WHERE line_uid = $1;',
+    values: [`${id}`]
+  };
+  connection.query(selectQuery)
+  .then(res=>{
+    console.log('res:',res);
+    console.log('res.rows[0]:',res.rows[0]);
+    if(res.rows.length){
+      const menuNumber = parseInt(menu);
+      const treatTime = INITIAL_TREAT[menuNumber];
+      return treatTime;
+    }else{
+      console.log('LINE　IDに一致するユーザーが見つかりません。');
+      return;
+    }
   })
+  .catch(e=>console.log(e));
 }
+
+// const calcTreatTime = (id,menu) => {
+//   return new Promise((resolve,reject)=>{
+//     const selectQuery = {
+//       text: 'SELECT * FROM users WHERE line_uid = $1;',
+//       values: [`${id}`]
+//     };
+//     connection.query(selectQuery)
+//       .then(res=>{
+//         console.log('res:',res);
+//         console.log('res.rows[0]:',res.rows[0]);
+//         if(res.rows.length){
+//           const menuNumber = parseInt(menu);
+//           const treatTime = INITIAL_TREAT[menuNumber];
+//           resolve(treatTime);
+//         }else{
+//           console.log('LINE　IDに一致するユーザーが見つかりません。');
+//           return;
+//         }
+//       })
+//       .catch(e=>console.log(e));
+//   });
+// }
 
 const orderChoice = (ev) => {
     return client.replyMessage(ev.replyToken,{
