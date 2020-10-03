@@ -126,8 +126,10 @@ const handlePostbackEvent = async (ev) => {
         const selectedDate = splitData[2];
         const selectedTime = splitData[3];
         const startTimestamp = timeConversion(selectedDate,selectedTime);
-        const treatTime = await calcTreatTime(ev.source.userId,orderedMenu);
+        console.log('その１');
+        const treatTime = calcTreatTime(ev.source.userId,orderedMenu);
         const endTimestamp = startTimestamp + treatTime*60*1000;
+        console.log('その4');
         console.log('endTime:',endTimestamp);
     }else if(splitData[0] === 'no'){
 
@@ -140,6 +142,7 @@ const timeConversion = (date,time) => {
 }
 
 const calcTreatTime = (id,menu) => {
+  console.log('その2');
   const selectQuery = {
     text: 'SELECT * FROM users WHERE line_uid = $1;',
     values: [`${id}`]
@@ -148,6 +151,7 @@ const calcTreatTime = (id,menu) => {
   .then(res=>{
     console.log('res:',res);
     console.log('res.rows[0]:',res.rows[0]);
+    console.log('その3');
     if(res.rows.length){
       const menuNumber = parseInt(menu);
       const treatTime = INITIAL_TREAT[menuNumber];
