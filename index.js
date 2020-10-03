@@ -126,7 +126,7 @@ const handlePostbackEvent = async (ev) => {
         const selectedDate = splitData[2];
         const selectedTime = splitData[3];
         const startTimestamp = timeConversion(selectedDate,selectedTime);
-        const treatTime = calcTreatTime(ev.source.userId,orderedMenu);
+        const treatTime = await calcTreatTime(ev.source.userId,orderedMenu);
         const endTimestamp = startTimestamp + treatTime*60*1000;
         console.log('treatTime:',treatTime);
     }else if(splitData[0] === 'no'){
