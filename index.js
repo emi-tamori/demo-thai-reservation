@@ -121,11 +121,45 @@ const handlePostbackEvent = async (ev) => {
         const selectedDate = splitData[2];
         const selectedTime = splitData[3];
         confirmation(ev,orderedMenu,selectedDate,selectedTime);
+    }else if(splitData[0] === 'yes'){
+        const orderedMenu = splitData[1];
+        const selectedDate = splitData[2];
+        const selectedTime = splitData[3];
+        const startTimestamp = timeConversion(selectedDate,selectedTime);
+        const treatTime = await calcTreatTime(ev.source.userId,orderedMenu);
+        const endTimestamp = startTimestamp + treatTime*60*1000;
+        console.log('treatTime:',treatTime);
+    }else if(splitData[0] === 'no'){
+
     }
 }
 
 const timeConversion = (date,time) => {
-  return new Date(`${date} ${9+time}:00`).getTime();
+  const selectedTime = 9 + parseInt(time);
+  return new Date(`${date} ${selectedTime}:00`).getTime();
+}
+
+const calcTreatTime = (id,menu) => {
+  return new Promise((resolve,reject)=>{
+    const selectQuery = {
+      text: 'SELECT * FROM users WHERE line_uid = $1;',
+      values: [`${id}`]
+    };
+    connection.query(selectQuery)
+      .then(res=>{
+        console.log('res:',res);
+        console.log('res.rows[0]:',res.rows[0]);
+        if(res.rows.length){
+          const menuNumber = parseInt(menu);
+          const treatTime = INITIAL_TREAT[menuNumber];
+          resolve(treatTime);
+        }else{
+          console.log('LINE　IDに一致するユーザーが見つかりません。');
+          return;
+        }
+      })
+      .catch(e=>console.log(e));
+  })
 }
 
 const orderChoice = (ev) => {
