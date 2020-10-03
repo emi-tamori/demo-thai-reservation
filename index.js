@@ -535,6 +535,7 @@ const askTime = (ev,orderedMenu,selectedDate) => {
 
 const confirmation = (ev,menu,date,time) => {
   const splitDate = date.split('-');
+  const selectedTime = 9 + parseInt(time);
   return client.replyMessage(ev.replyToken,{
     "type":"flex",
     "altText":"menuSelect",
@@ -547,7 +548,7 @@ const confirmation = (ev,menu,date,time) => {
         "contents": [
           {
             "type": "text",
-            "text": `次回予約は${splitDate[1]}月${splitDate[2]}日 ${9+time}時〜でよろしいですか？`,
+            "text": `次回予約は${splitDate[1]}月${splitDate[2]}日 ${selectedTime}時〜でよろしいですか？`,
             "size": "lg",
             "wrap": true
           }
