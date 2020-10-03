@@ -535,7 +535,7 @@ const askTime = (ev,orderedMenu,selectedDate) => {
 
 const confirmation = (ev,menu,date,time) => {
   const splitDate = date.split('-');
-  return replyMessage(ev.replyToken,{
+  return client.replyMessage(ev.replyToken,{
     "type":"flex",
     "altText":"menuSelect",
     "contents":
