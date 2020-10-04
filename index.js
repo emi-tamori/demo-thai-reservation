@@ -107,9 +107,10 @@ const handleMessageEvent = async (ev) => {
       orderChoice(ev);
     }else if(text === '予約確認'){
       const nextReservation = await checkNextReservation(ev);
+      console.log('nextReservation',nextReservation);
       return client.replyMessage(ev.replyToken,{
         "type":"text",
-        "text":`次回予約は${nextReservation.starttime}です。`
+        "text":`次回予約は${nextReservation[0].starttime}です。`
       });
     }else{
         return client.replyMessage(ev.replyToken,{
