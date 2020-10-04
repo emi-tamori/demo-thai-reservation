@@ -24,15 +24,25 @@ const connection = new Client({
 
 connection.connect();
 
-const create_userTable = {
-    text:'CREATE TABLE IF NOT EXISTS users (id SERIAL NOT NULL, line_uid VARCHAR(255), display_name VARCHAR(255), timestamp VARCHAR(255), cuttime SMALLINT, shampootime SMALLINT, colortime SMALLINT, spatime SMALLINT);'
+const create_reservationTable = {
+  text:'CREATE TABLE IF NOT EXISTS reservations (id SERIAL NOT NULL, line_uid VARCHAR(255), name VARCHAR(100), scheduledate DATE, starttime BIGINT, endtime BIGINT, menu VARCHAR(50));'
 };
 
+connection.query(create_reservationTable)
+  .then(()=>{
+      console.log('table users created successfully!!');
+  })
+  .catch(e=>console.log(e));
+
+const create_userTable = {
+  text:'CREATE TABLE IF NOT EXISTS users (id SERIAL NOT NULL, line_uid VARCHAR(255), display_name VARCHAR(255), timestamp VARCHAR(255), cuttime SMALLINT, shampootime SMALLINT, colortime SMALLINT, spatime SMALLINT);'
+};
+  
 connection.query(create_userTable)
-    .then(()=>{
-        console.log('table users created successfully!!');
-    })
-    .catch(e=>console.log(e));
+  .then(()=>{
+      console.log('table users created successfully!!');
+  })
+  .catch(e=>console.log(e));
 
 app
     .post('/hook',line.middleware(config),(req,res)=> lineBot(req,res))
@@ -126,11 +136,17 @@ const handlePostbackEvent = async (ev) => {
         const selectedDate = splitData[2];
         const selectedTime = splitData[3];
         const startTimestamp = timeConversion(selectedDate,selectedTime);
-        console.log('その１');
         const treatTime = await calcTreatTime(ev.source.userId,orderedMenu);
         const endTimestamp = startTimestamp + treatTime*60*1000;
-        console.log('その4');
-        console.log('endTime:',endTimestamp);
+        const insertQuery = {
+          text:'INSERT INTO reservations (line_uid, name, scheduledate, starttime, endtime, menu) VALUES($1,$2,$3,$4,$5,$6);',
+          values:[ev.source.userId,profile.displayName,selectedDate,startTimestamp,endTimestamp,orderedMenu]
+        };
+        connection.query(insertQuery)
+          .then(res=>{
+            
+          })
+          .catch(e=>console.log(e));
     }else if(splitData[0] === 'no'){
       // あとで何か入れる
     }
