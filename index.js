@@ -164,8 +164,7 @@ const handlePostbackEvent = async (ev) => {
 }
 
 const timeConversion = (date,time) => {
-  const selectedTime = 9 + parseInt(time);
-  console.log(`${date} ${selectedTime}:00`);
+  const selectedTime = 9 + parseInt(time) - 9;
   console.log(new Date(`${date} ${selectedTime}:00`).getTime());
   return new Date(`${date} ${selectedTime}:00`).getTime();
 }
