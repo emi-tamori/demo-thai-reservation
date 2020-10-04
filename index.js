@@ -173,7 +173,7 @@ const timeConversion = (date,time) => {
 }
 
 const dateConversion = (timestamp) => {
-  const d = new Date(timestamp);
+  const d = new Date(parseInt(timestamp));
   const month = d.getMonth()+1;
   const date = d.getDate();
   const day = d.getDay();
