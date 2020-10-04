@@ -144,7 +144,11 @@ const handlePostbackEvent = async (ev) => {
         };
         connection.query(insertQuery)
           .then(res=>{
-            
+            console.log('データ格納成功！');
+            client.replyMessage(ev.replyToken,{
+              "type":"text",
+              "text":"予約が完了しました。"
+            });
           })
           .catch(e=>console.log(e));
     }else if(splitData[0] === 'no'){
