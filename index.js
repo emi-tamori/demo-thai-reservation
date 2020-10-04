@@ -104,7 +104,12 @@ const handleMessageEvent = async (ev) => {
     const text = (ev.message.type === 'text') ? ev.message.text : '';
 
     if(text === '予約する'){
-        orderChoice(ev);
+      orderChoice(ev);
+    }else if(text === '予約確認'){
+      const nextReservation = await checkNextReservation(ev);
+      client.replyMessage(ev.replyToken,{
+        "text":`次回予約は${nextReservation.starttime}です。`
+      });
     }else{
         return client.replyMessage(ev.replyToken,{
             "type":"text",
@@ -636,5 +641,27 @@ const confirmation = (ev,menu,date,time) => {
         ]
       }
     }
+  });
+}
+
+const checkNextReservation = (ev) => {
+  return new Promise((resolve,reject)=>{
+    const id = ev.source.userId;
+    const nowTime = ev.timestamp;
+    console.log('nowTime:',nowTime);
+
+    const selectQuery = {
+      text: 'SELECT * FROM reservations WHERE line_uid = $1 ORDER BY starttime ASC;',
+      values: [`${id}`]
+    };
+    connection.query(selectQuery)
+      .then(res=>{
+        const nextReservation = res.rows.filter(object=>{
+          return parseInt(object.starttime) >= nowTime;
+        });
+        console.log('nextReservation:',nextReservation);
+        resolve(nextReservation);
+      })
+      .catch(e=>console.log(e));
   });
 }
