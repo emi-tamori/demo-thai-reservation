@@ -179,6 +179,7 @@ const dateConversion = (timestamp) => {
   const day = d.getDay();
   const hour = d.getHours();
   const min = d.getMinutes();
+  console.log(`${month}月${date}日(${WEEK[day]}) ${hour}:${min}`);
   return `${month}月${date}日(${WEEK[day]}) ${hour}:${min}`;
 }
 
