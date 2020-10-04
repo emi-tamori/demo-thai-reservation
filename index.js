@@ -6,6 +6,8 @@ const { Client } = require('pg');
 const PORT = process.env.PORT || 5000
 
 const INITIAL_TREAT = [20,10,40,15,30,15,10];  //施術時間初期値
+const MENU = ['カット','シャンプー','カラーリング','ヘッドスパ','マッサージ＆スパ','眉整え','顔そり'];
+const WEEK = [ "日", "月", "火", "水", "木", "金", "土" ];
 
 const config = {
     channelAccessToken:process.env.ACCESS_TOKEN,
@@ -107,10 +109,12 @@ const handleMessageEvent = async (ev) => {
       orderChoice(ev);
     }else if(text === '予約確認'){
       const nextReservation = await checkNextReservation(ev);
-      console.log('nextReservation',nextReservation);
+      const startTimestamp = nextReservation[0].starttime;
+      const date = dateConversion(startTimestamp);
+      const menu = MENU[parseInt(nextReservation[0].menu)];
       return client.replyMessage(ev.replyToken,{
         "type":"text",
-        "text":`次回予約は${nextReservation[0].starttime}です。`
+        "text":`次回予約は${date}、${menu}でお取りしてます\uDBC0\uDC22`
       });
     }else{
         return client.replyMessage(ev.replyToken,{
@@ -165,21 +169,28 @@ const handlePostbackEvent = async (ev) => {
 
 const timeConversion = (date,time) => {
   const selectedTime = 9 + parseInt(time) - 9;
-  console.log(new Date(`${date} ${selectedTime}:00`).getTime());
   return new Date(`${date} ${selectedTime}:00`).getTime();
+}
+
+const dateConversion = (timestamp) => {
+  const d = new Date(timestamp);
+  const month = d.getMonth()+1;
+  const date = d.getDate();
+  const day = d.getDay();
+  const hour = d.getHours();
+  const min = d.getMinutes();
+  return `${month}月${date}日(${WEEK[day]}) ${hour}:${min}`;
 }
 
 
 const calcTreatTime = (id,menu) => {
   return new Promise((resolve,reject)=>{
-    console.log('その2');
     const selectQuery = {
       text: 'SELECT * FROM users WHERE line_uid = $1;',
       values: [`${id}`]
     };
     connection.query(selectQuery)
       .then(res=>{
-        console.log('その3');
         if(res.rows.length){
           const info = res.rows[0];
           const treatArray = [info.cuttime,info.shampootime,info.colortime,info.spatime,INITIAL_TREAT[4],INITIAL_TREAT[5],INITIAL_TREAT[6]];
