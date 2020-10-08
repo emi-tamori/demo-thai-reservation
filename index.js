@@ -679,11 +679,15 @@ const checkNextReservation = (ev) => {
     };
     connection.query(selectQuery)
       .then(res=>{
-        const nextReservation = res.rows.filter(object=>{
-          return parseInt(object.starttime) >= nowTime;
-        });
-        console.log('nextReservation:',nextReservation);
-        resolve(nextReservation);
+        if(res.rows.length){
+          const nextReservation = res.rows.filter(object=>{
+            return parseInt(object.starttime) >= nowTime;
+          });
+          console.log('nextReservation:',nextReservation);
+          resolve(nextReservation);
+        }else{
+          resolve();
+        }
       })
       .catch(e=>console.log(e));
   });
