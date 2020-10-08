@@ -116,7 +116,15 @@ const handleMessageEvent = async (ev) => {
         "type":"text",
         "text":`次回予約は${date}、${menu}でお取りしてます\uDBC0\uDC22`
       });
-    }else{
+    }else if(text === '予約キャンセル'){
+      const nextReservation = await checkNextReservation(ev);
+      if(nextReservation.length){
+        console.log('次回予約があります');
+      }else{
+        console.log('次回予約なし');
+      }
+    }
+    else{
         return client.replyMessage(ev.replyToken,{
             "type":"text",
             "text":`${profile.displayName}さん、今${text}って言いました？`
@@ -662,7 +670,7 @@ const confirmation = (ev,menu,date,time) => {
 const checkNextReservation = (ev) => {
   return new Promise((resolve,reject)=>{
     const id = ev.source.userId;
-    const nowTime = ev.timestamp;
+    const nowTime = new Date().getTime();
     console.log('nowTime:',nowTime);
 
     const selectQuery = {
