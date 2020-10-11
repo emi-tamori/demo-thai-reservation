@@ -119,7 +119,50 @@ const handleMessageEvent = async (ev) => {
     }else if(text === '予約キャンセル'){
       const nextReservation = await checkNextReservation(ev);
       if(nextReservation.length){
-        console.log('次回予約があります');
+        const startTimestamp = parseInt(nextReservation[0].starttime);
+        const menu = MENU[parseInt(nextReservation[0].menu)];
+        const date = dateConversion(startTimestamp);
+        return client.replyMessage(ev.replyToken,{
+          "type":"flex",
+          "contents":
+          {
+            "type": "bubble",
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": `次回の予約は${date}から、${menu}です。この予約をキャンセルしますか？`,
+                  "size": "lg",
+                  "wrap": true
+                }
+              ]
+            },
+            "footer": {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "はい",
+                    "data": "deleteYES"
+                  }
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "いいえ",
+                    "data": "deleteNO"
+                  }
+                }
+              ]
+            }
+          }
+        })
       }else{
         console.log('次回予約なし');
       }
