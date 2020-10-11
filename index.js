@@ -109,13 +109,21 @@ const handleMessageEvent = async (ev) => {
       orderChoice(ev);
     }else if(text === '予約確認'){
       const nextReservation = await checkNextReservation(ev);
-      const startTimestamp = nextReservation[0].starttime;
-      const date = dateConversion(startTimestamp);
-      const menu = MENU[parseInt(nextReservation[0].menu)];
-      return client.replyMessage(ev.replyToken,{
-        "type":"text",
-        "text":`次回予約は${date}、${menu}でお取りしてます\uDBC0\uDC22`
-      });
+      if(nextReservation.length){
+        const startTimestamp = nextReservation[0].starttime;
+        const date = dateConversion(startTimestamp);
+        const menu = MENU[parseInt(nextReservation[0].menu)];
+        return client.replyMessage(ev.replyToken,{
+          "type":"text",
+          "text":`次回予約は${date}、${menu}でお取りしてます\uDBC0\uDC22`
+        });
+      }else{
+        return client.replyMessage(ev.replyToken,{
+          "type":"text",
+          "text":"次回の予約は入っておりません。"
+        })
+      }
+
     }else if(text === '予約キャンセル'){
       const nextReservation = await checkNextReservation(ev);
       if(nextReservation.length){
@@ -226,6 +234,7 @@ const handlePostbackEvent = async (ev) => {
             "text":"予約をキャンセルしました。"
           });
         })
+        .catch(e=>console.log(e));
     }
 }
 
