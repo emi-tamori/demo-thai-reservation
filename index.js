@@ -124,6 +124,7 @@ const handleMessageEvent = async (ev) => {
         const date = dateConversion(startTimestamp);
         return client.replyMessage(ev.replyToken,{
           "type":"flex",
+          "altText": "cancel message",
           "contents":
           {
             "type": "bubble",
