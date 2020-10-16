@@ -118,11 +118,12 @@ const handleMessageEvent = async (ev) => {
       });
     }else if(text === '予約キャンセル'){
       const nextReservation = await checkNextReservation(ev);
-      if(nextReservation.length){
-        console.log('次回予約があります');
-      }else{
-        console.log('次回予約なし');
-      }
+      console.log(nextReservation);
+      // if(nextReservation.length){
+      //   console.log('次回予約があります');
+      // }else{
+      //   console.log('次回予約なし');
+      // }
     }else{
         return client.replyMessage(ev.replyToken,{
             "type":"text",
