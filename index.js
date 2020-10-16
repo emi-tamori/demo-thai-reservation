@@ -120,8 +120,10 @@ const handleMessageEvent = async (ev) => {
       const nextReservation = await checkNextReservation(ev);
       if(typeof nextReservation === 'undefined'){
         console.log('次回予約なし');
-      }else{
+      }else if(nextReservation.length){
         console.log('次回予約があります。');
+      }else{
+        console.log('次回予約なし');
       }
       // if(nextReservation.length){
       //   console.log('次回予約があります');
