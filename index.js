@@ -118,7 +118,7 @@ const handleMessageEvent = async (ev) => {
       });
     }else if(text === '予約キャンセル'){
       const nextReservation = await checkNextReservation(ev);
-      if(!nextReservation.length || typeof nextReservation === 'undefined'){
+      if(typeof nextReservation === 'undefined'){
         console.log('次回予約なし');
       }else{
         console.log('次回予約があります。');
