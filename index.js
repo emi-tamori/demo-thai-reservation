@@ -4,7 +4,7 @@ const line = require('@line/bot-sdk');
 const path = require('path');
 const { Client } = require('pg');
 const fetch = require('node-fetch');
-const request = require('request');
+const request = require('request-promise');
 
 const PORT = process.env.PORT || 5000
 
@@ -188,9 +188,11 @@ const handleMessageEvent = async (ev) => {
         }
       }
 
-      request(options,(err,res,body)=>{
-        console.log('body:',body);
-      });
+      request(options)
+        .then(body=>{
+          console.log('body:',body);
+        })
+        .catch(e=>console.log(e));
 
         return client.replyMessage(ev.replyToken,{
             "type":"text",
