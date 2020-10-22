@@ -121,7 +121,7 @@ const handleMessageEvent = async (ev) => {
           "type":"text",
           "text":`次回予約は${date}、${menu}でお取りしてます\uDBC0\uDC22`
         });
-      }else if(text === '連携'){
+      }else if(text === 'れんけい'){
         const userId = ev.source.userId;
         const response = await fetch(`https://api.line.me/v2/bot/user/${userId}/linkToken`,{
           method:'POST',
