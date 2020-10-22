@@ -190,33 +190,34 @@ const handleMessageEvent = async (ev) => {
 
       request(options)
         .then(body=>{
-          const opt = {
-            url:'https://api.line.me/v2/bot/message/push',
-            method:'POST',
-            headers:{
-              'Authorization':'Bearer 9MB7dntiadpje+ZVTvgTaUrf5mIQcobyDuwN+p4jRXXUjiLdprXVWFgKPN2Z5Fs2dXRdUBj4P4aSBeN83WDz+KeMhLCSGG568t82bFzdTxxBMxgFQFUrbNlSsQBouMpxdxYJPxRCl919cjuBbQ1OmgdB04t89/1O/w1cDnyilFU=',
-              'Content-Type':'application/json'
-            },
-            body:{
-              "to": "{user id}",
-              "messages": [{
-                  "type": "template",
-                  "altText": "Account Link",
-                  "template": {
-                      "type": "buttons",
-                      "text": "Account Link",
-                      "actions": [{
-                          "type": "uri",
-                          "label": "Account Link",
-                          "uri": `https://google.co.jp/link?linkToken=${body}`
-                      }]
-                  }
-              }]
-            }
-          };
+          // const opt = {
+          //   url:'https://api.line.me/v2/bot/message/push',
+          //   method:'POST',
+          //   headers:{
+          //     'Authorization':'Bearer 9MB7dntiadpje+ZVTvgTaUrf5mIQcobyDuwN+p4jRXXUjiLdprXVWFgKPN2Z5Fs2dXRdUBj4P4aSBeN83WDz+KeMhLCSGG568t82bFzdTxxBMxgFQFUrbNlSsQBouMpxdxYJPxRCl919cjuBbQ1OmgdB04t89/1O/w1cDnyilFU=',
+          //     'Content-Type':'application/json'
+          //   },
+          //   body:{
+          //     "to": "{user id}",
+          //     "messages": [{
+          //         "type": "template",
+          //         "altText": "Account Link",
+          //         "template": {
+          //             "type": "buttons",
+          //             "text": "Account Link",
+          //             "actions": [{
+          //                 "type": "uri",
+          //                 "label": "Account Link",
+          //                 "uri": `https://google.co.jp/link?linkToken=${body}`
+          //             }]
+          //         }
+          //     }]
+          //   }
+          // };
 
-          request(opt)
-            .then(res=>console.log(res));
+          // request(opt)
+          //   .then(res=>console.log(res));
+          console.log('body:',body);
 
         })
         .catch(e=>console.log(e));
