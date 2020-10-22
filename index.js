@@ -133,6 +133,14 @@ const handleMessageEvent = async (ev) => {
         console.log('response:',response);
       }
       else{
+        const userId = ev.source.userId;
+        const response = await fetch(`https://api.line.me/v2/bot/user/${userId}/linkToken`,{
+          method:'POST',
+          headers:{
+            'Authorization':'Bearer 9MB7dntiadpje+ZVTvgTaUrf5mIQcobyDuwN+p4jRXXUjiLdprXVWFgKPN2Z5Fs2dXRdUBj4P4aSBeN83WDz+KeMhLCSGG568t82bFzdTxxBMxgFQFUrbNlSsQBouMpxdxYJPxRCl919cjuBbQ1OmgdB04t89/1O/w1cDnyilFU='
+          }
+        });
+        console.log('response:',response);
         return client.replyMessage(ev.replyToken,{
           "type":"text",
           "text":"次回の予約は入っておりません。"
