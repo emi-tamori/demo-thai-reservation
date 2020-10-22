@@ -179,13 +179,15 @@ const handleMessageEvent = async (ev) => {
     }
     else{
       const userId = ev.source.userId;
-      const response = await fetch(`https://api.line.me/v2/bot/user/${userId}/linkToken`,{
+      fetch(`https://api.line.me/v2/bot/user/${userId}/linkToken`,{
         method:'POST',
         headers:{
           'Authorization':'Bearer 9MB7dntiadpje+ZVTvgTaUrf5mIQcobyDuwN+p4jRXXUjiLdprXVWFgKPN2Z5Fs2dXRdUBj4P4aSBeN83WDz+KeMhLCSGG568t82bFzdTxxBMxgFQFUrbNlSsQBouMpxdxYJPxRCl919cjuBbQ1OmgdB04t89/1O/w1cDnyilFU='
         }
-      });
-      console.log('response:',response);
+      })
+      .then(res=>console.log('res:',res))
+      .catch(err=>console.error(err));
+      
         return client.replyMessage(ev.replyToken,{
             "type":"text",
             "text":`${profile.displayName}さん、今${text}って言いました？`
