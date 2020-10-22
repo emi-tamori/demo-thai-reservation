@@ -4,6 +4,7 @@ const line = require('@line/bot-sdk');
 const path = require('path');
 const { Client } = require('pg');
 const fetch = require('node-fetch');
+const request = require('request');
 
 const PORT = process.env.PORT || 5000
 
@@ -179,15 +180,18 @@ const handleMessageEvent = async (ev) => {
     }
     else{
       const userId = ev.source.userId;
-      fetch(`https://api.line.me/v2/bot/user/${userId}/linkToken`,{
+      const options = {
+        url:`https://api.line.me/v2/bot/user/${userId}/linkToken`,
         method:'POST',
         headers:{
           'Authorization':'Bearer 9MB7dntiadpje+ZVTvgTaUrf5mIQcobyDuwN+p4jRXXUjiLdprXVWFgKPN2Z5Fs2dXRdUBj4P4aSBeN83WDz+KeMhLCSGG568t82bFzdTxxBMxgFQFUrbNlSsQBouMpxdxYJPxRCl919cjuBbQ1OmgdB04t89/1O/w1cDnyilFU='
         }
-      })
-      .then(res=>console.log('res:',res))
-      .catch(err=>console.error(err));
-      
+      }
+
+      request(options,(err,res,body)=>{
+        console.log('body:',body);
+      });
+
         return client.replyMessage(ev.replyToken,{
             "type":"text",
             "text":`${profile.displayName}さん、今${text}って言いました？`
