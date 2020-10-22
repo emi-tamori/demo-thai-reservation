@@ -216,6 +216,7 @@ const handleMessageEvent = async (ev) => {
           };
 
           request(opt)
+            .then(res=>console.log(res));
 
         })
         .catch(e=>console.log(e));
