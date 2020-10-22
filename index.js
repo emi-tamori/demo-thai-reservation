@@ -190,7 +190,7 @@ const handleMessageEvent = async (ev) => {
 
       request(options)
         .then(body=>{
-          const options = {
+          const opt = {
             url:'https://api.line.me/v2/bot/message/push',
             method:'POST',
             headers:{
@@ -215,7 +215,7 @@ const handleMessageEvent = async (ev) => {
             }
           };
 
-          request(options)
+          request(opt)
 
         })
         .catch(e=>console.log(e));
