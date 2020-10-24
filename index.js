@@ -191,24 +191,24 @@ const handleMessageEvent = async (ev) => {
       request(options)
         .then(body=>{
           console.log('linkToken:',body.linkToken);
-          const dataString = { "to": `${userId}`, "messages": [{ "type": "template", "altText": "Account Link", "template": { "type": "buttons", "text": "Account Link", "actions": [{ "type": "uri", "label": "Account Link", "uri": `http://example.com/link?linkToken=${body.linkToken}` }] } }] };
+          // const dataString = { "to": `${userId}`, "messages": [{ "type": "template", "altText": "Account Link", "template": { "type": "buttons", "text": "Account Link", "actions": [{ "type": "uri", "label": "Account Link", "uri": `http://example.com/link?linkToken=${body.linkToken}` }] } }] };
 
-          const options2 = {
-            url:`https://api.line.me/v2/bot/message/push`,
-            method:'POST',
-            headers:{
-              'Content-Type':'application/json',
-              'Authorization':'Bearer 9MB7dntiadpje+ZVTvgTaUrf5mIQcobyDuwN+p4jRXXUjiLdprXVWFgKPN2Z5Fs2dXRdUBj4P4aSBeN83WDz+KeMhLCSGG568t82bFzdTxxBMxgFQFUrbNlSsQBouMpxdxYJPxRCl919cjuBbQ1OmgdB04t89/1O/w1cDnyilFU='
-            },
-            body:dataString
-          }
-          request(options2)
-            .then(res=>console.log('res:',res));
+          // const options2 = {
+          //   url:`https://api.line.me/v2/bot/message/push`,
+          //   method:'POST',
+          //   headers:{
+          //     'Content-Type':'application/json',
+          //     'Authorization':'Bearer 9MB7dntiadpje+ZVTvgTaUrf5mIQcobyDuwN+p4jRXXUjiLdprXVWFgKPN2Z5Fs2dXRdUBj4P4aSBeN83WDz+KeMhLCSGG568t82bFzdTxxBMxgFQFUrbNlSsQBouMpxdxYJPxRCl919cjuBbQ1OmgdB04t89/1O/w1cDnyilFU='
+          //   },
+          //   body:dataString
+          // }
+          // request(options2)
+          //   .then(res=>console.log('res:',res));
 
-        // return client.replyMessage(ev.replyToken,{
-        //     "type":"text",
-        //     "text":`${profile.displayName}さん、今${text}って言いました？`
-        // });
+        return client.replyMessage(ev.replyToken,{
+            "type":"text",
+            "text":`${profile.displayName}さん、linkTokenは${body.linkToken}です`
+        });
     })
     .catch(e=>console.log(e));
   }
