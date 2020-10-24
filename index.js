@@ -206,11 +206,33 @@ const handleMessageEvent = async (ev) => {
           // }
           // request(options2)
           //   .then(res=>console.log('res:',res));
-
         return client.replyMessage(ev.replyToken,{
-            "type":"text",
-            "text":`${profile.displayName}さん、linkTokenは${parsedBody["linkToken"]}です`
-        });
+          "type":"flex",
+          "altText":"link",
+          "contents":
+          {
+            "type": "bubble",
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "uri",
+                    "label": "リンク",
+                    "uri": `https://linebot-schedule.herokuapp.com/link?linkToken=${parsedBody["linkToken"]}`
+                  }
+                }
+              ]
+            }
+          }
+        })
+
+        // return client.replyMessage(ev.replyToken,{
+        //     "type":"text",
+        //     "text":`${profile.displayName}さん、linkTokenは${parsedBody["linkToken"]}です`
+        // });
     })
     .catch(e=>console.log(e));
   }
