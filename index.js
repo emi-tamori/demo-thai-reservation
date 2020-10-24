@@ -191,7 +191,7 @@ const handleMessageEvent = async (ev) => {
       request(options)
         .then(body=>{
           const linkToken = Object.values(body);
-          console.log('linkToken:',linkToken[0]);
+          console.log('linkToken:',linkToken);
           // const dataString = { "to": `${userId}`, "messages": [{ "type": "template", "altText": "Account Link", "template": { "type": "buttons", "text": "Account Link", "actions": [{ "type": "uri", "label": "Account Link", "uri": `http://example.com/link?linkToken=${body.linkToken}` }] } }] };
 
           // const options2 = {
