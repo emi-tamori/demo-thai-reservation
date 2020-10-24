@@ -190,7 +190,7 @@ const handleMessageEvent = async (ev) => {
 
       request(options)
         .then(body=>{
-          console.log('body:',body);
+          console.log('linkToken:',body.linkToken);
           const dataString = { "to": `${userId}`, "messages": [{ "type": "template", "altText": "Account Link", "template": { "type": "buttons", "text": "Account Link", "actions": [{ "type": "uri", "label": "Account Link", "uri": `http://example.com/link?linkToken=${body.linkToken}` }] } }] };
 
           const options2 = {
@@ -204,56 +204,6 @@ const handleMessageEvent = async (ev) => {
           }
           request(options2)
             .then(res=>console.log('res:',res));
-          // return client.pushMessage(ev.source.userId,{
-          //     "type":"flex",
-          //     "altText":"FlexMessage",
-          //     "contents":
-          //       {
-          //         "type": "bubble",
-          //         "header": {
-          //           "type": "box",
-          //           "layout": "vertical",
-          //           "contents": [
-          //             {
-          //               "type": "text",
-          //               "text": "管理者画面へ移動しますか?",
-          //               "color": "#ffffff"
-          //             }
-          //           ]
-          //         },
-          //         "body": {
-          //           "type": "box",
-          //           "layout": "vertical",
-          //           "contents": [
-          //             {
-          //               "type": "button",
-          //               "action": {
-          //                 "type": "uri",
-          //                 "label": "自社ホームページへ",
-          //                 "uri": `https://linebot-schedule.herokuapp.com/link?linkToken=${body}`
-          //               },
-          //               "style": "link"
-          //             },
-          //             {
-          //               "type": "button",
-          //               "action": {
-          //                 "type": "postback",
-          //                 "label": "終了",
-          //                 "data": "cancel"
-          //               },
-          //               "margin": "lg"
-          //             }
-          //           ]
-          //         },
-          //         "styles": {
-          //           "header": {
-          //             "backgroundColor": "#0000ff",
-          //             "separator": true,
-          //             "separatorColor": "#ffffff"
-          //           }
-          //         }
-          //       }
-          // });
 
         // return client.replyMessage(ev.replyToken,{
         //     "type":"text",
