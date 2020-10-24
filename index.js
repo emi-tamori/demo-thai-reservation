@@ -190,7 +190,8 @@ const handleMessageEvent = async (ev) => {
 
       request(options)
         .then(body=>{
-          console.log('linkToken:',body.linkToken);
+          const linkToken = Object.values(body);
+          console.log('linkToken:',linkToken[0]);
           // const dataString = { "to": `${userId}`, "messages": [{ "type": "template", "altText": "Account Link", "template": { "type": "buttons", "text": "Account Link", "actions": [{ "type": "uri", "label": "Account Link", "uri": `http://example.com/link?linkToken=${body.linkToken}` }] } }] };
 
           // const options2 = {
@@ -207,7 +208,7 @@ const handleMessageEvent = async (ev) => {
 
         return client.replyMessage(ev.replyToken,{
             "type":"text",
-            "text":`${profile.displayName}さん、linkTokenは${body.linkToken}です`
+            "text":`${profile.displayName}さん、linkTokenは${linkToken[0]}です`
         });
     })
     .catch(e=>console.log(e));
