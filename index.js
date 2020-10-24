@@ -190,42 +190,64 @@ const handleMessageEvent = async (ev) => {
 
       request(options)
         .then(body=>{
-          const opt = {
-            url:'https://api.line.me/v2/bot/message/push',
-            method:'POST',
-            headers:{
-              'Authorization':'Bearer 9MB7dntiadpje+ZVTvgTaUrf5mIQcobyDuwN+p4jRXXUjiLdprXVWFgKPN2Z5Fs2dXRdUBj4P4aSBeN83WDz+KeMhLCSGG568t82bFzdTxxBMxgFQFUrbNlSsQBouMpxdxYJPxRCl919cjuBbQ1OmgdB04t89/1O/w1cDnyilFU=',
-              'Content-Type':'application/json'
-            },
-            body:{
-              "to": `${userId}`,
-              "messages": [{
-                  "type": "template",
-                  "altText": "Account Link",
-                  "template": {
-                      "type": "buttons",
-                      "text": "Account Link",
-                      "actions": [{
+          return client.pushMessage(ev.source.userId,{
+              "type":"flex",
+              "altText":"FlexMessage",
+              "contents":
+                {
+                  "type": "bubble",
+                  "header": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "text",
+                        "text": "管理者画面へ移動しますか?",
+                        "color": "#ffffff"
+                      }
+                    ]
+                  },
+                  "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "button",
+                        "action": {
                           "type": "uri",
-                          "label": "Account Link",
-                          "uri": `https://google.co.jp/link?linkToken=${body}`
-                      }]
+                          "label": "自社ホームページへ",
+                          "uri": `https://linebot-schedule.herokuapp.com/link?linkToken=${body}`
+                        },
+                        "style": "link"
+                      },
+                      {
+                        "type": "button",
+                        "action": {
+                          "type": "postback",
+                          "label": "終了",
+                          "data": "cancel"
+                        },
+                        "margin": "lg"
+                      }
+                    ]
+                  },
+                  "styles": {
+                    "header": {
+                      "backgroundColor": "#0000ff",
+                      "separator": true,
+                      "separatorColor": "#ffffff"
+                    }
                   }
-              }]
-            }
-          };
+                }
+          });
 
-          request(opt)
-            .then(res=>console.log(res));
-
-        })
-        .catch(e=>console.log(e));
-
-        return client.replyMessage(ev.replyToken,{
-            "type":"text",
-            "text":`${profile.displayName}さん、今${text}って言いました？`
-        });
-    }
+        // return client.replyMessage(ev.replyToken,{
+        //     "type":"text",
+        //     "text":`${profile.displayName}さん、今${text}って言いました？`
+        // });
+    })
+    .catch(e=>console.log(e));
+  }
 }
 
 const handlePostbackEvent = async (ev) => {
