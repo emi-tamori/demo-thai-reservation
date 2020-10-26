@@ -783,14 +783,17 @@ const checkNextReservation = (ev) => {
     console.log('nowTime:',nowTime);
 
     const selectQuery = {
-      text: 'SELECT * FROM reservations WHERE line_uid = $1 ORDER BY starttime ASC;',
-      values: [`${id}`]
+      text:'SELECT * FROM reservations;'
     };
     connection.query(selectQuery)
       .then(res=>{
+        console.log(res.rows);
         if(res.rows.length){
-          const nextReservation = res.rows.filter(object=>{
-            return parseInt(object.starttime) >= nowTime;
+          const nextReservation = res.rows.filter(object1=>{
+            return object1.line_uid === id;
+          })
+          .filter(object2=>{
+            return parseInt(object2.starttime) >= nowTime;
           });
           console.log('nextReservation:',nextReservation);
           resolve(nextReservation);
@@ -799,5 +802,23 @@ const checkNextReservation = (ev) => {
         }
       })
       .catch(e=>console.log(e));
+
+    // const selectQuery = {
+    //   text: 'SELECT * FROM reservations WHERE line_uid = $1 ORDER BY starttime ASC;',
+    //   values: [`${id}`]
+    // };
+    // connection.query(selectQuery)
+    //   .then(res=>{
+    //     if(res.rows.length){
+    //       const nextReservation = res.rows.filter(object=>{
+    //         return parseInt(object.starttime) >= nowTime;
+    //       });
+    //       console.log('nextReservation:',nextReservation);
+    //       resolve(nextReservation);
+    //     }else{
+    //       resolve();
+    //     }
+    //   })
+    //   .catch(e=>console.log(e));
   });
 }
