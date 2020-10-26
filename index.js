@@ -798,7 +798,7 @@ const checkNextReservation = (ev) => {
           console.log('nextReservation:',nextReservation);
           resolve(nextReservation);
         }else{
-          resolve();
+          resolve([]);
         }
       })
       .catch(e=>console.log(e));
