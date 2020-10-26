@@ -787,7 +787,7 @@ const checkNextReservation = (ev) => {
     };
     connection.query(selectQuery)
       .then(res=>{
-        console.log(res.rows);
+        console.log('res.rows:',res.rows);
         if(res.rows.length){
           const nextReservation = res.rows.filter(object1=>{
             return object1.line_uid === id;
@@ -802,23 +802,5 @@ const checkNextReservation = (ev) => {
         }
       })
       .catch(e=>console.log(e));
-
-    // const selectQuery = {
-    //   text: 'SELECT * FROM reservations WHERE line_uid = $1 ORDER BY starttime ASC;',
-    //   values: [`${id}`]
-    // };
-    // connection.query(selectQuery)
-    //   .then(res=>{
-    //     if(res.rows.length){
-    //       const nextReservation = res.rows.filter(object=>{
-    //         return parseInt(object.starttime) >= nowTime;
-    //       });
-    //       console.log('nextReservation:',nextReservation);
-    //       resolve(nextReservation);
-    //     }else{
-    //       resolve();
-    //     }
-    //   })
-    //   .catch(e=>console.log(e));
   });
 }
