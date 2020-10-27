@@ -3,8 +3,7 @@ const app = express();
 const line = require('@line/bot-sdk');
 const path = require('path');
 const { Client } = require('pg');
-const fetch = require('node-fetch');
-const request = require('request-promise');
+const router = require('./routers/index');
 
 const PORT = process.env.PORT || 5000
 
@@ -51,9 +50,10 @@ connection.query(create_userTable)
 
 app
     .use(express.static(path.join(__dirname,'public')))
+    .use('/',router)
+    .post('/hook',line.middleware(config),(req,res)=> lineBot(req,res))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
-    .post('/hook',line.middleware(config),(req,res)=> lineBot(req,res))
     .listen(PORT,()=>console.log(`Listening on ${PORT}`));
 
 const lineBot = (req,res) => {
