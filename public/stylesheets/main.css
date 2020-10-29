@@ -1,0 +1,17 @@
+/* 共通 */
+body {
+    width:auto;
+    margin:0 auto;
+  }
+
+  /* トップページ */
+  
+.top-font{
+    font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
+}
+
+.gotoPage {
+margin:2vw 2vw;
+width:26vw;
+font-size:2vw;
+}
