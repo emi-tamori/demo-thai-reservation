@@ -11,8 +11,11 @@ body {
 }
 
 .top-font{
-    margin-top:2vw;
     font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
+}
+
+.top-string{
+    margin-top:2vw;
 }
 
 .gotoPage {
@@ -27,8 +30,4 @@ font-size:2vw;
     width:98vw;
     height:5vw;
     margin-bottom:2vw;
-}
-
-.navbar-brand{
-    vertical-align:middle;
 }
