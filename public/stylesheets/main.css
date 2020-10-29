@@ -5,8 +5,9 @@ body {
   }
 
   /* トップページ */
-  
+
 .top-font{
+    margin-top:2vw;
     font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
 }
 
