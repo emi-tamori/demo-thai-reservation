@@ -6,6 +6,10 @@ body {
 
   /* トップページ */
 
+.toppage{
+    text-align:center;
+}
+
 .top-font{
     margin-top:2vw;
     font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
