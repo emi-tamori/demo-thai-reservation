@@ -23,4 +23,8 @@ font-size:2vw;
 
 /* ナビゲーションバー */
 
-
+.nav{
+    width:98vw;
+    height:5vw;
+    margin-bottom:2vw;
+}
