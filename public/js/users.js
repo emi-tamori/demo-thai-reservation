@@ -84,7 +84,7 @@
                     // ２行目以降はユーザーデータを格納する要素とする
                     const td = document.createElement('td');
                     td.setAttribute('class',`uElements ${CLASSES[index]}`);
-                    td.innerHTML = usersData[index];
+                    td.innerHTML = usersData[i][index];
                     tr.appendChild(td);
                 }
             });
