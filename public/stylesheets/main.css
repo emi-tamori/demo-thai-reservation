@@ -12,23 +12,23 @@ body {
 
 .top-font{
     font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
-    font-size:5vw;
+    font-size:4.5vw;
 }
 
 .top-string{
-    margin-top:2vw;
+    margin-top:1vw;
 }
 
 #toUsers{
     margin:2vw 2vw;
     width:26vw;
-    font-size:2vw;
+    font-size:3vw;
 }
 
 #toReservations{
     margin:2vw 2vw;
     width:26vw;
-    font-size:2vw;
+    font-size:3vw;
 }
 
 .img{
