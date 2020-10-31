@@ -10,13 +10,16 @@
     const fetchData = async () => {
         try{
             const response = await fetch(API_URL);
+            console.log('response:',response);
             if(response.ok){
                 const data = await response.json();
+                console.log('data:',data);
                 createTable(data);
             }else{
                 alert('HTTPレスポンスエラーです')
             }
         }catch(error){
+            console.log('error:',error);
             alert('データ読み込み失敗です');
         }
     }
