@@ -25,6 +25,8 @@
     }
 
     const createTable = (data) => {
+        // div要素の取得
+        const divElement = document.getElementById('usersPage');
 
         // data.usersを２次元配列の形にする
         const usersData = [];
@@ -83,9 +85,11 @@
                     const td = document.createElement('td');
                     td.setAttribute('class',`uElements ${CLASSES[index]}`);
                     td.innerHTML = usersData[index];
+                    tr.appendChild(td);
                 }
             });
         }
+        divElement.appendChild(table);
     }
 
     const getDate = (timestamp) => {
