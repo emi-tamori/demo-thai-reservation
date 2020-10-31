@@ -12,14 +12,14 @@ body {
 
 .top-font{
     font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
-    font-size:8vw;
+    font-size:6vw;
 }
 
 .top-string{
     margin-top:2vw;
 }
 
-.gotoPage{
+.btn-outline-primary{
     margin:2vw 2vw;
     width:26vw;
     font-size:2vw;
