@@ -88,8 +88,8 @@
                     // 施術時間をクリックした時の処理
                     if(index >= 3 && index <= 6){
                         td.addEventListener('click',(e)=>{
-                            const x = e.pageX;
-                            const y = e.pageY;
+                            const x = e.clientX;
+                            const y = e.clientY;
                             createDialog(usersData[i-1],x,y);
                         })
                     }
