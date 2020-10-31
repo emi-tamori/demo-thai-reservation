@@ -84,11 +84,152 @@
                     const td = document.createElement('td');
                     td.setAttribute('class',`uElements ${CLASSES[index]}`);
                     td.innerHTML = usersData[i-1][index];
+
+                    // 施術時間をクリックした時の処理
+                    if(index >= 3 && index <= 6){
+                        td.addEventListener('click',(e)=>{
+                            const x = e.pageX;
+                            const y = e.pageY;
+                            createDialog(usersData[i-1],x,y);
+                        })
+                    }
                     tr.appendChild(td);
                 }
             });
         }
         divElement.appendChild(table);
+    }
+
+    const createDialog = (userDataArray,x,y) => {
+
+        // カード本体の定義
+        const div1 = document.createElement('div');
+        div1.setAttribute('class','card text-white bg-primary dialog-users');
+        div1.style.top = `${y}px`;
+        div1.style.left = `${x/2}px`;
+
+        // カードヘッダーの定義
+        const div2 = document.createElement('div');
+        div2.setAttribute('class','card-header');
+        div2.innerHTML = 'お客さま情報';
+        div1.appendChild(div2);
+
+        // カードボディの定義
+        const div3 = document.createElement('div');
+        div3.setAttribute('class','card-body');
+
+        // id要素の生成
+        const idElement = document.createElement('p');
+        idElement.setAttribute('id','user_id');
+        idElement.innerHTML = `ID:${userDataArray[0]}`;
+        div3.appendChild(idElement);
+
+        // form要素の生成
+        const formElement = document.createElement('form');
+        formElement.setAttribute('id','userForm');
+        formElement.setAttribute('name','userInfo');
+        formElement.setAttribute('method','post');
+
+        // 名前入力フォームの生成
+        const div_form1 = document.createElement('div');
+        div_form1.setAttribute('class','form-group');
+
+        const label_form1 = document.createElement('label');
+        label_form1.setAttribute('class','label_user');
+        label_form1.innerHTML = '名前';
+        div_form1.appendChild(label_form1);
+
+        const input_form1 = document.createElement('input');
+        input_form1.setAttribute('type','text');
+        input_form1.setAttribute('class','form-control name-input');
+        input_form1.setAttribute('name','name');
+        input_form1.value = userDataArray[1];
+        input_form1.disabled = true;
+        div_form1.appendChild(input_form1);
+
+        formElement.appendChild(div_form1);
+
+        // カット時間入力フォームの生成
+        const div_form2 = document.createElement('div');
+        div_form2.setAttribute('class','form-group inline-block menu-time');
+
+        const label_form2 = document.createElement('label');
+        label_form2.setAttribute('class','label_user');
+        label_form2.textContent = 'Cut';
+        div_form2.appendChild(label_form2);
+
+        const input_form2 = document.createElement('input');
+        input_form2.setAttribute('type','text');
+        input_form2.setAttribute('class','form-control time-input');
+        input_form2.setAttribute('name','cuttime');
+        input_form2.value = userDataArray[3];
+        input_form2.disabled = true;
+        div_form2.appendChild(input_form2);
+
+        formElement.appendChild(div_form2);
+
+        // シャンプー時間の入力フォーム生成
+        const div_form3 = document.createElement('div');
+        div_form3.setAttribute('class','form-group inline-block');
+
+        const label_form3 = document.createElement('label');
+        label_form3.setAttribute('class','label_user');
+        label_form3.textContent = 'Shampoo';
+        div_form3.appendChild(label_form3);
+
+        const input_form3 = document.createElement('input');
+        input_form3.setAttribute('type','text');
+        input_form3.setAttribute('class','form-control time-input');
+        input_form3.setAttribute('name','shampootime');
+        input_form3.value = userDataArray[4];
+        input_form3.disabled = true;
+        div_form3.appendChild(input_form3);
+
+        formElement.appendChild(div_form3);
+
+        // カラーリング時間の入力フォーム生成
+        const div_form4 = document.createElement('div');
+        div_form4.setAttribute('class','form-group inline-block menu-time');
+
+        const label_form4 = document.createElement('label');
+        label_form4.setAttribute('class','label_user');
+        label_form4.textContent = 'Color';
+        div_form4.appendChild(label_form4);
+
+        const input_form4 = document.createElement('input');
+        input_form4.setAttribute('type','text');
+        input_form4.setAttribute('class','form-control time-input');
+        input_form4.setAttribute('name','colortime');
+        input_form4.value = userDataArray[5];
+        input_form4.disabled = true;
+        div_form4.appendChild(input_form4);
+
+        formElement.appendChild(div_form4);
+
+        // ヘッドスパ時間の入力フォーム生成
+        const div_form5 = document.createElement('div');
+        div_form5.setAttribute('class','form-group inline-block');
+
+        const label_form5 = document.createElement('label');
+        label_form5.setAttribute('class','label_user');
+        label_form5.textContent = 'Spa';
+        div_form5.appendChild(label_form5);
+
+        const input_form5 = document.createElement('input');
+        input_form5.setAttribute('type','text');
+        input_form5.setAttribute('class','form-control time-input');
+        input_form5.setAttribute('name','spatime');
+        input_form5.value = targetUser.spatime;
+        input_form5.disabled = true;
+        div_form5.appendChild(input_form5);
+
+        formElement.appendChild(div_form5);
+
+        div3.appendChild(formElement);
+
+        div1.appendChild(div3);
+
+        document.body.appendChild(div1);
     }
 
     const timeConversion = (timestamp,mode) => {
