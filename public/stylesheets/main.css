@@ -34,3 +34,9 @@ font-size:2vw;
 .navbar-brand{
     font-size:2vw;
 }
+
+/* 顧客管理画面 */
+
+#usersPage{
+    text-align:center;
+}
