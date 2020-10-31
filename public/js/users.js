@@ -219,7 +219,7 @@
         input_form5.setAttribute('type','text');
         input_form5.setAttribute('class','form-control time-input');
         input_form5.setAttribute('name','spatime');
-        input_form5.value = targetUser.spatime;
+        input_form5.value = userDataArray[6];
         input_form5.disabled = true;
         div_form5.appendChild(input_form5);
 
