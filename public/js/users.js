@@ -38,16 +38,17 @@
 
             // data.reservationsからdata.usersのline_uidが一致するもの、かつ現在時刻より先の予約データのみを抽出
             const revData = data.reservations.filter(revObj1=>{
-                console.log('revObj1',revObj1);
                 return usersObj.line_uid === revObj1.line_uid;
             }).filter(revObj2=>{
-                console.log('revObj2',revObj2);
                 return parseInt(revObj2.starttime) > now;
             });
 
+            console.log('revData:',revData);
+
             // revData.starttimeを日時文字列へ変換する
             const nextReservationDate = timeConversion(parseInt(revData.starttime),1);
-
+            console.log('nextReservationDate:',nextReservationDate);
+            
             // usersObj.timestampを日時文字列へ変換する
             const resistrationDate = timeConversion(parseInt(usersObj.timestamp),0);
 
