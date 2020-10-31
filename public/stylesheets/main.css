@@ -41,6 +41,11 @@ font-size:2vw;
     text-align:center;
 }
 
+#usersTable{
+    margin-top:2vw;
+    margin-left:2vw;
+}
+
 .uTitles{
     border:solid 1px #aaa;
     text-align:center;
