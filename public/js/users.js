@@ -48,7 +48,7 @@
             // revData.starttimeを日時文字列へ変換する
             const nextReservationDate = timeConversion(parseInt(revData.starttime),1);
             console.log('nextReservationDate:',nextReservationDate);
-            
+
             // usersObj.timestampを日時文字列へ変換する
             const resistrationDate = timeConversion(parseInt(usersObj.timestamp),0);
 
@@ -98,6 +98,7 @@
     }
 
     const timeConversion = (timestamp,mode) => {
+        console.log('timestamp in conversion',timestamp);
         const date = new Date(timestamp);
         const y = date.getFullYear();
         const m = ("0" + (date.getMonth()+1)).slice(-2);
@@ -105,7 +106,11 @@
         const h = ("0" + date.getHours()).slice(-2);
         const i = ("0" + date.getMinutes()).slice(-2);
 
-        return (mode === 0) ? `${y}/${m}/${d}` : `${y}/${m}/${d} ${h}:${i}`
+        if(mode === 0){
+            return `${y}/${m}/${d}`
+        }else{
+            return `${y}/${m}/${d} ${h}:${i}`
+        }
     }
 
 })();
