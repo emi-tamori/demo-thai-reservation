@@ -31,7 +31,7 @@
         data.users.forEach(usersObj=>{
 
             // 現在時刻のタイムスタンプ取得
-            const now = new Data().getTime();
+            const now = new Date().getTime();
             console.log('now:',now);
 
             // data.reservationsからdata.usersのline_uidが一致するもの、かつ現在時刻より先の予約データのみを抽出
