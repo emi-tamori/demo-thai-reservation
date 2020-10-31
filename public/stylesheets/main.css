@@ -19,7 +19,13 @@ body {
     margin-top:2vw;
 }
 
-.btn-outline-primary{
+#toUsers{
+    margin:2vw 2vw;
+    width:26vw;
+    font-size:2vw;
+}
+
+#toReservations{
     margin:2vw 2vw;
     width:26vw;
     font-size:2vw;
