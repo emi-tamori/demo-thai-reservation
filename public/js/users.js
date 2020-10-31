@@ -34,7 +34,6 @@
 
             // 現在時刻のタイムスタンプ取得
             const now = new Date().getTime();
-            console.log('now:',now);
 
             // data.reservationsからdata.usersのline_uidが一致するもの、かつ現在時刻より先の予約データのみを抽出
             const revData = data.reservations.filter(revObj1=>{
@@ -43,10 +42,8 @@
                 return parseInt(revObj2.starttime) > now;
             });
 
-            console.log('revData:',revData);
-
             // revData.starttimeを日時文字列へ変換する
-            const nextReservationDate = timeConversion(parseInt(revData.starttime),1);
+            const nextReservationDate = timeConversion(parseInt(revData[0].starttime),1);
             console.log('nextReservationDate:',nextReservationDate);
 
             // usersObj.timestampを日時文字列へ変換する
