@@ -44,8 +44,6 @@
 
             // revData.starttimeを日時文字列へ変換する
             const nextReservationDate = (revData.length) ? timeConversion(parseInt(revData[0].starttime),1) : '予約なし';
-            
-            console.log('nextReservationDate:',nextReservationDate);
 
             // usersObj.timestampを日時文字列へ変換する
             const resistrationDate = timeConversion(parseInt(usersObj.timestamp),0);
@@ -62,8 +60,6 @@
                 nextReservationDate
             ]);
         });
-
-        console.log('usersData:',usersData);
 
         // 次回予約日を計算し、usersDataへpushする
         const l = usersData.length+1;  //表題の分＋１している

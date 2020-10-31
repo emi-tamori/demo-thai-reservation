@@ -40,3 +40,58 @@ font-size:2vw;
 #usersPage{
     text-align:center;
 }
+
+.uTitles{
+    border:solid 1px #aaa;
+    text-align:center;
+    background:#333;
+    color:#fff;
+    font-size:2vw;
+}
+
+.uElements{
+    border:solid 1px #aaa;
+    text-align:center;
+    font-size:2vw;
+    height:3vh;
+  }
+
+.row-id{
+    width:5vw;
+    font-size:2vw;
+}
+
+.row-name{
+    width:18w;
+    font-size:2.5vw;
+}
+
+.row-resist{
+    width:18vw;
+    font-size:2.5vw;
+}
+
+.row-cut{
+    width:8vw;
+    font-size:2.5vw;
+}
+
+.row-shampoo{
+    width:10vw;
+    font-size:2.5vw;
+}
+
+.row-color{
+    width:8vw;
+    font-size:2.5vw;
+}
+
+.row-spa{
+    width:8vw;
+    font-size:2.5vw;
+}
+
+.row-nextrev{
+    width:18vw;
+    font-size:2.5vw;
+}
