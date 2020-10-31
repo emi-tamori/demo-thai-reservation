@@ -44,10 +44,10 @@
             });
 
             // revData.starttimeを日時文字列へ変換する
-            const nextReservationDate = getDate(parseInt(revData.starttime));
+            const nextReservationDate = timeConversion(parseInt(revData.starttime),1);
 
             // usersObj.timestampを日時文字列へ変換する
-            const resistrationDate = getDate(parseInt(usersObj.timestamp));
+            const resistrationDate = timeConversion(parseInt(usersObj.timestamp),0);
 
             // usersData配列へ配列を格納
             usersData.push([
@@ -61,6 +61,8 @@
                 nextReservationDate
             ]);
         });
+
+        console.log('usersData:',usersData);
 
         // 次回予約日を計算し、usersDataへpushする
         const l = usersData.length+1;  //表題の分＋１している
@@ -92,14 +94,15 @@
         divElement.appendChild(table);
     }
 
-    const getDate = (timestamp) => {
+    const timeConversion = (timestamp,mode) => {
         const date = new Date(timestamp);
         const y = date.getFullYear();
         const m = ("0" + (date.getMonth()+1)).slice(-2);
         const d = ("0" + date.getDate()).slice(-2);
         const h = ("0" + date.getHours()).slice(-2);
         const i = ("0" + date.getMinutes()).slice(-2);
-        return `${y}/${m}/${d} ${h}:${i}`;
+
+        return (mode === 0) ? `${y}/${m}/${d}` : `${y}/${m}/${d} ${h}:${i}`
     }
 
 })();
