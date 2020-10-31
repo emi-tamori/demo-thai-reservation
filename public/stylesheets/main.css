@@ -47,6 +47,7 @@ font-size:2vw;
     background:#333;
     color:#fff;
     font-size:2vw;
+    margin-top:1vw;
 }
 
 .uElements{
@@ -57,12 +58,13 @@ font-size:2vw;
   }
 
 .row-id{
-    width:5vw;
+    width:6vw;
     font-size:2vw;
+    margin-left:1vw;
 }
 
 .row-name{
-    width:18w;
+    width:20w;
     font-size:2.5vw;
 }
 
