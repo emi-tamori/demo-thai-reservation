@@ -28,7 +28,7 @@ module.exports = {
                                 users:users.rows,
                                 reservations:reservations.rows
                             }
-                            console.log('data:',data);
+                            console.log('data in models:',data);
                             resolve(data);
                         })
                         .catch(e=>console.log(e))
