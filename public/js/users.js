@@ -139,6 +139,7 @@
         input_form1.setAttribute('name','name');
         input_form1.value = userDataArray[1];
         input_form1.disabled = true;
+        input_form1.style = 'font-size:2vw;'
         div_form1.appendChild(input_form1);
 
         formElement.appendChild(div_form1);
