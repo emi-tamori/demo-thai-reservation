@@ -137,7 +137,7 @@ body {
     text-align:left;
     border:1px solid #aaa;
     box-shadow:2px 2px 4px #888;
-    font-size:2.5vw;
+    font-size:2vw;
 }
 
 .card-header{
@@ -196,6 +196,17 @@ padding-bottom:1vw;
     width:14vw;
     margin:2vw 2vw;
 }
+
+.card-footer{
+    padding:1vw 0;
+    background-color:#aaa;
+    font-size:2vw;
+  }
+
+.closeButton{
+    width:30vw;
+}
+
 
 /* .custom-select{
     height:4vw;
