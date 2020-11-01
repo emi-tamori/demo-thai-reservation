@@ -225,10 +225,11 @@
 
         // ボタン要素の作成
         const divButton = document.createElement('div');
+        divButton.setAttribute('id','usercard-button-area');
 
         //編集ボタンの作成
         const editButton = document.createElement('input');
-        editButton.setAttribute('class','btn btn-warning cardButton');
+        editButton.setAttribute('class','btn btn-warning card-button');
         editButton.value = '編集';
         editButton.type = 'button';
 

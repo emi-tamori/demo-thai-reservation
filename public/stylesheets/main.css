@@ -186,6 +186,16 @@ padding-bottom:1vw;
     padding:0.5vw 0.5vw;
 }
 
+#usercard-button-area{
+    margin:1vw 1vw;
+}
+
+.card-button{
+    font-size:2vw;
+    padding:1vw 1vw;
+    width:5vw;
+}
+
 /* .custom-select{
     height:4vw;
     padding:0;
