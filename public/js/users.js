@@ -241,10 +241,16 @@
             input_form3.disabled = false;
             input_form4.disabled = false;
             input_form5.disabled = false;
-
+            deleteButton.style.display = 'none';
         });
 
-        divButton.appendChild(editButton);
+        //削除ボタンの作成
+        const deleteButton = document.createElement('input');
+        deleteButton.setAttribute('class','btn btn-danger card-button');
+        deleteButton.value = '削除';
+        deleteButton.type = 'button';
+
+        divButton.appendChild(deleteButton);
         div1.appendChild(divButton);
 
         document.body.appendChild(div1);
