@@ -191,9 +191,10 @@ padding-bottom:1vw;
 }
 
 .card-button{
-    font-size:2vw;
+    font-size:2.5vw;
     padding:1vw 1vw;
-    width:5vw;
+    width:14vw;
+    margin:2vw 2vw;
 }
 
 /* .custom-select{
