@@ -160,6 +160,7 @@
         input_form2.value = userDataArray[3];
         input_form2.disabled = true;
         input_form2.style = 'font-size:2vw;'
+        input_form2.style = 'width:15vw;'
         div_form2.appendChild(input_form2);
 
         formElement.appendChild(div_form2);
@@ -180,6 +181,7 @@
         input_form3.value = userDataArray[4];
         input_form3.disabled = true;
         input_form3.style = 'font-size:2vw;'
+        input_form3.style = 'width:15vw;'
         div_form3.appendChild(input_form3);
 
         formElement.appendChild(div_form3);
