@@ -136,13 +136,13 @@ background-color:#09f;
 font-size:2.5vw;
 }
 
-.card-footer{
+/* .card-footer{
 padding:0;
 background-color:#aaa;
 font-size:3vw;
 padding-top:1vw;
 padding-bottom:1vw;
-}
+} */
 
 .form-group{
 margin-bottom:1vw;
@@ -173,8 +173,3 @@ font-size:2.5vw;
     padding:0;
     background:#fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.5vw center/1vw 1vw;
 } */
-
-.form-control{
-    height:4vw;
-    font-size:2vw;
-}
