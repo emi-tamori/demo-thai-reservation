@@ -90,8 +90,8 @@
                         td.addEventListener('click',(e)=>{
                             const x = e.pageX;
                             const y = e.pageY;
-                            createDialog(usersData[i-1],x,y);
-                        })
+                            createCard(usersData[i-1],x,y);
+                        });
                     }
                     tr.appendChild(td);
                 }
@@ -100,7 +100,7 @@
         divElement.appendChild(table);
     }
 
-    const createDialog = (userDataArray,x,y) => {
+    const createCard = (userDataArray,x,y) => {
 
         // カード本体の定義
         const divCard = document.createElement('div');
@@ -252,6 +252,10 @@
         deleteButton.value = '削除';
         deleteButton.type = 'button';
 
+        deleteButton.addEventListener('click',()=>{
+            // 処理を書く
+        });
+
         divButton.appendChild(deleteButton);
         divCard.appendChild(divButton);
 
@@ -268,6 +272,86 @@
         divFooter.appendChild(closeButton);
 
         divCard.appendChild(divFooter);
+
+        // マウスイベント
+        divHeader.onmousedown = (e) =>{
+
+            let shiftX = e.clientX - divCard.getBoundingClientRect().left;
+            let shiftY = e.clientY - divCard.getBoundingClientRect().top;
+
+            const moveAt = (pageX,pageY) => {
+                if(pageX-shiftX>=0){
+                    divCard.style.left = pageX - shiftX + 'px';
+                }else{
+                    divCard.style.left = 0 + 'px';
+                }
+
+                if(pageY-shiftY>=0){
+                    divCard.style.top = pageY - shiftY + 'px';
+                }else{
+                    divCard.style.top = 0;
+                }
+            }
+
+            moveAt(e.pageX,e.pageY);
+
+            const onMouseMove = (e) => {
+                moveAt(e.pageX,e.pageY);
+            }
+
+            document.addEventListener('mousemove',onMouseMove);
+
+            divHeader.onmouseup = () => {
+                document.removeEventListener('mousemove',onMouseMove);
+                divHeader.onmouseup = null;
+            }
+
+            divHeader.onmouseleave = () => {
+                document.removeEventListener('mousemove',onMouseMove);
+                divHeader.onmouseleave = null;
+            }
+        }
+
+        // タッチイベント
+        divHeader.ontouchstart = (event) =>{
+
+            const e = event.changedTouches[0];
+
+            let shiftX = e.clientX - divCard.getBoundingClientRect().left;
+            let shiftY = e.clientY - divCard.getBoundingClientRect().top;
+
+            const moveAt = (pageX,pageY) => {
+                if(pageX-shiftX>=0){
+                    divCard.style.left = pageX - shiftX + 'px';
+                }else{
+                    divCard.style.left = 0 + 'px';
+                }
+
+                if(pageY-shiftY>=0){
+                    divCard.style.top = pageY - shiftY + 'px';
+                }else{
+                    divCard.style.top = 0;
+                }
+            }
+
+            moveAt(e.pageX,e.pageY);
+
+            const onMouseMove = (event) => {
+                const e = event.changedTouches[0];
+                moveAt(e.pageX,e.pageY);
+            }
+
+            document.addEventListener('touchmove',onMouseMove);
+
+            divHeader.ontouchend = () => {
+                document.removeEventListener('touchmove',onMouseMove);
+                divHeader.ontouchend = null;
+            }
+        }
+
+        divHeader.ondragstart = () => {
+            return false;
+        }
 
         document.body.appendChild(divCard);
     }

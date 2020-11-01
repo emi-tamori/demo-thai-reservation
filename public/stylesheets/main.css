@@ -170,14 +170,6 @@ body {
     padding:0.5vw 2vw;
 }
 
-/* .card-footer{
-padding:0;
-background-color:#aaa;
-font-size:3vw;
-padding-top:1vw;
-padding-bottom:1vw;
-} */
-
 .form-group{
     margin:0vw 1vw;
 }
@@ -187,7 +179,7 @@ padding-bottom:1vw;
 }
 
 .name-input{
-    width:30vw;
+    width:32vw;
     height:4vw;
     font-size:2.5vw;
 }
