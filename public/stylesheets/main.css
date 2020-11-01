@@ -47,10 +47,11 @@ body {
 }
 
 .navbar-brand{
-    font-size:2vw;
+    font-size:3vw;
 }
 
-.navbar-toggler-icon{
+.navbar-toggler{
+    padding:1vw 2vw;
     font-size:2vw;
 }
 
