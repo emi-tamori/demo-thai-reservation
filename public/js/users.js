@@ -118,11 +118,14 @@
         const div3 = document.createElement('div');
         div3.setAttribute('class','card-body');
 
+        const div4 = document.createElement('div');
+        div4.setAttribute('class','idAndName inline-block');
+
         // id要素の生成
         const idElement = document.createElement('p');
         idElement.setAttribute('id','user_id');
         idElement.innerHTML = `ID:${userDataArray[0]}`;
-        div3.appendChild(idElement);
+        div4.appendChild(idElement);
 
         // form要素の生成
         const formElement = document.createElement('form');
@@ -147,7 +150,9 @@
         input_form1.disabled = true;
         div_form1.appendChild(input_form1);
 
-        formElement.appendChild(div_form1);
+        div4.appendChild(div_form1);
+
+        formElement.appendChild(div4);
 
         // カット時間入力フォームの生成
         const div_form2 = document.createElement('div');
