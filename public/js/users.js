@@ -219,9 +219,32 @@
 
         formElement.appendChild(div_form5);
 
+        // 子要素の親要素へのappendChild
         div3.appendChild(formElement);
-
         div1.appendChild(div3);
+
+        // ボタン要素の作成
+        const divButton = document.createElement('div');
+
+        //編集ボタンの作成
+        const editButton = document.createElement('input');
+        editButton.setAttribute('class','btn btn-warning cardButton');
+        editButton.value = '編集';
+        editButton.type = 'button';
+
+        //編集ボタンクリック時の動作
+        editButton.addEventListener('click',()=>{
+            //各インプットの入力をできるようにする
+            input_form1.disabled = false;
+            input_form2.disabled = false;
+            input_form3.disabled = false;
+            input_form4.disabled = false;
+            input_form5.disabled = false;
+
+        });
+
+        divButton.appendChild(editButton);
+        div1.appendChild(divButton);
 
         document.body.appendChild(div1);
     }
