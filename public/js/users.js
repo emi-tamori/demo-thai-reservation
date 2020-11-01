@@ -244,6 +244,8 @@
             deleteButton.style.display = 'none';
         });
 
+        divButton.appendChild(editButton);
+
         //削除ボタンの作成
         const deleteButton = document.createElement('input');
         deleteButton.setAttribute('class','btn btn-danger card-button');
