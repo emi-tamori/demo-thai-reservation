@@ -146,6 +146,10 @@ background-color:#09f;
 font-size:2.5vw;
 }
 
+.card-body{
+    padding:1vw;
+}
+
 /* .card-footer{
 padding:0;
 background-color:#aaa;
@@ -158,9 +162,7 @@ padding-bottom:1vw;
     margin:1vw 1vw;
 } */
 
-.card-body{
-    margin:1vw;
-}
+
 
 .label_user{
 margin-bottom:0;
