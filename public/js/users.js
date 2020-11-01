@@ -76,7 +76,7 @@
                 if(i===0){
                     // 最初の行は表題（th）とする
                     const th = document.createElement('th');
-                    th.setAttribute('class',`uTitles ${CLASSES[index]}`);
+                    th.setAttribute('class',`uTitles`);
                     th.innerHTML = value;
                     tr.appendChild(th);
                 }else{

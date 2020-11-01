@@ -108,9 +108,19 @@ body {
     font-size:2.5vw;
 }
 
+.row-cut:hover{
+    background-color:rgb(222, 231, 97);
+    cursor:pointer;
+}
+
 .row-shampoo{
     width:10vw;
     font-size:2.5vw;
+}
+
+.row-shampoo:hover{
+    background-color:rgb(222, 231, 97);
+    cursor:pointer;
 }
 
 .row-color{
@@ -118,9 +128,19 @@ body {
     font-size:2.5vw;
 }
 
+.row-color:hover{
+    background-color:rgb(222, 231, 97);
+    cursor:pointer;
+}
+
 .row-spa{
     width:8vw;
     font-size:2.5vw;
+}
+
+.row-spa:hover{
+    background-color:rgb(222, 231, 97);
+    cursor:pointer;
 }
 
 .row-nextrev{
@@ -191,7 +211,7 @@ padding-bottom:1vw;
 }
 
 .card-button{
-    font-size:2.5vw;
+    font-size:2vw;
     padding:1vw 1vw;
     width:14vw;
     margin:2vw 2vw;
@@ -207,6 +227,15 @@ padding-bottom:1vw;
     width:30vw;
 }
 
+#close-form:hover{
+    background-color:#333;
+    cursor:pointer;
+}
+  
+  #close-form:active{
+    background-color:#333;
+    cursor:pointer;
+}
 
 /* .custom-select{
     height:4vw;
