@@ -141,9 +141,9 @@ body {
 }
 
 .card-header{
-padding:1.5vw;
-background-color:#09f;
-font-size:2.5vw;
+    padding:1.5vw;
+    background-color:#09f;
+    font-size:2.5vw;
 }
 
 .card-body{
@@ -163,19 +163,19 @@ padding-bottom:1vw;
 }
 
 .label_user{
-margin-bottom:0;
+    margin-bottom:0;
 }
 
 .name-input{
-width:30vw;
-height:4vw;
-font-size:2.5vw;
+    width:30vw;
+    height:4vw;
+    font-size:2.5vw;
 }
 
 .time-input{
-width:15vw;
-height:4vw;
-font-size:2.5vw;
+    width:14vw;
+    height:4vw;
+    font-size:2.5vw;
 }
 
 .menu-time{
