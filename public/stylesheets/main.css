@@ -113,3 +113,53 @@ body {
     width:18vw;
     font-size:2.5vw;
 }
+
+/* 顧客情報カード */
+
+.card-user{
+    position:absolute;
+    width:40vw;
+    height:auto;
+    text-align:left;
+    border:1px solid #aaa;
+    box-shadow:2px 2px 4px #888;
+    font-size:2.5vw;
+}
+
+.card-header{
+padding:1.5vw;
+background-color:#09f;
+font-size:3vw;
+}
+
+.card-footer{
+padding:0;
+background-color:#aaa;
+font-size:3vw;
+padding-top:1vw;
+padding-bottom:1vw;
+}
+
+#user_id{
+margin-bottom:1vw;
+}
+
+.form-group{
+margin-bottom:1vw;
+}
+
+.label_user{
+margin-bottom:0;
+}
+
+.name-input{
+width:30vw;
+height:4vw;
+font-size:2.5vw;
+}
+
+.time-input{
+width:15vw;
+height:4vw;
+font-size:2.5vw;
+}

@@ -104,7 +104,7 @@
 
         // カード本体の定義
         const div1 = document.createElement('div');
-        div1.setAttribute('class','card text-white bg-primary dialog-users');
+        div1.setAttribute('class','card text-white bg-primary card-user');
         div1.style.top = `${y}px`;
         div1.style.left = `${x/2}px`;
 
