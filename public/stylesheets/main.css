@@ -56,6 +56,10 @@ body {
     font-size:2vw;
 }
 
+.nav-item{
+    font-size:2vw;
+}
+
 /* 顧客管理画面 */
 
 #usersPage{
