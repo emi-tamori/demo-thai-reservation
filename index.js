@@ -5,6 +5,7 @@ const path = require('path');
 const { Client } = require('pg');
 const router = require('./routers/index');
 const apiRouter = require('./routers/api');
+const multipart = require('connect-multiparty');
 
 const PORT = process.env.PORT || 5000
 
@@ -51,6 +52,7 @@ connection.query(create_userTable)
 
 app
     .use(express.static(path.join(__dirname,'public')))
+    .use(multipart())
     .use('/',router)
     .use('/api',apiRouter)
     .post('/hook',line.middleware(config),(req,res)=> lineBot(req,res))
