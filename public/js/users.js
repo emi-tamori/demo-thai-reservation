@@ -259,7 +259,7 @@
                     const data = new FormData(formElement);
                     console.log('FormData:',...data.entries());
                     
-                    fetch(`/api/users/${usersData[0]}`,{
+                    fetch(`/api/users/${userDataArray[0]}`,{
                         method:'POST',
                         body:data,
                         creadentials:'same-origin'
