@@ -56,8 +56,8 @@ app
     .use('/',router)
     .use('/api',apiRouter)
     .post('/hook',line.middleware(config),(req,res)=> lineBot(req,res))
-    .use(express.json())
-    .use(express.urlencoded({extended:true}))
+    // .use(express.json())
+    // .use(express.urlencoded({extended:true}))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
     .listen(PORT,()=>console.log(`Listening on ${PORT}`));
