@@ -12,6 +12,7 @@ module.exports = {
 
     putUser: (req,res) => {
         const id = parseInt(req.params.id);
+        console.log('req:',req);
         const {name,cuttime,shampootime,colortime,spatime} = req.body;
 
         try{
