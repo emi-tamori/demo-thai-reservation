@@ -12,7 +12,6 @@ module.exports = {
 
     putUser: (req,res) => {
         const id = parseInt(req.params.id);
-        console.log('req:',req);
         const {name,cuttime,shampootime,colortime,spatime} = req.body;
 
         try{
@@ -21,6 +20,7 @@ module.exports = {
                     console.log('message:',message);
                     res.status(200).send(message);
                 })
+                .catch(e=>console.log(e));
         }catch(error){
             res.status(400).json({message:error.message});
         }

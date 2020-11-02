@@ -266,6 +266,13 @@
                     })
                     .then(response=>{
                         console.log('response:',response);
+                        if(response.ok){
+                            response.text()
+                                .then(text=>alert(`${text}`))
+                                .catch(e=>console.log(e));
+                        }else{
+                            alert('HTTPレスポンスエラーです')
+                        }
                     })
                     .catch(e=>{
                         throw e;
