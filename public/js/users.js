@@ -258,6 +258,18 @@
                 if(!isNaN(document.userInfo.cuttime.value) && !isNaN(document.userInfo.shampootime.value) && !isNaN(document.userInfo.colortime.value) && !isNaN(document.userInfo.spatime.value)){
                     const data = new FormData(formElement);
                     console.log('FormData:',...data.entries());
+                    
+                    fetch(`/api/users/${usersData[0]}`,{
+                        method:'POST',
+                        body:data,
+                        creadentials:'same-origin'
+                    })
+                    .then(response=>{
+                        console.log('response:',response);
+                    })
+                    .catch(e=>{
+                        throw e;
+                    });
                 }else{
                     alert('時間は半角数値を入力してください。');
                 }
