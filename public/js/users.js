@@ -268,7 +268,10 @@
                         console.log('response:',response);
                         if(response.ok){
                             response.text()
-                                .then(text=>alert(`${text}`))
+                                .then(text=>{
+                                    alert(`${text}`);
+                                    document.location.reload();
+                                })
                                 .catch(e=>console.log(e));
                         }else{
                             alert('HTTPレスポンスエラーです')
