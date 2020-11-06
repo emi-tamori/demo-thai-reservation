@@ -1041,18 +1041,23 @@ const checkAllReservation = (ev) => {
    console.log('day = '+ day);
    //const day = ev.postback.data.params;
    console.log('ev:',ev);
-   
+
    const selectQuery = {
-     text:'SELECT * FROM reservations;'
-   };
+        text:'SELECT * FROM schedules WHERE scheduledate = $1 ORDER BY starttime ASC;',
+        values:[`${day}`]
+    };
+   
+//    const selectQuery = {
+//      text:'SELECT * FROM reservations;'
+//    };
    connection.query(selectQuery)
    .then(res=>{
      if(res.rows.length){
-       const alltReservation = res.rows.filter(object=>{
-         //return parseInt(object.starttime) >= nowTime;
-         console.log('object.scheduledate'  + object.scheduledate);
-         return object.scheduledate === day;
-       });
+         const alltReservation = res.rows;
+    //    const alltReservation = res.rows.filter(object=>{
+    //      console.log('object.scheduledate'  + object.scheduledate);
+    //      return object.scheduledate === day;
+    //    });
        console.log('allReservation:', alltReservation);
        
        resolve(alltReservation);
