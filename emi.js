@@ -1043,7 +1043,7 @@ const checkAllReservation = (ev) => {
    console.log('ev:',ev);
 
    const selectQuery = {
-        text:'SELECT * FROM schedules WHERE scheduledate = $1 ORDER BY starttime ASC;',
+        text:'SELECT * FROM reservations WHERE scheduledate = $1 ORDER BY starttime ASC;',
         values:[`${day}`]
     };
    
