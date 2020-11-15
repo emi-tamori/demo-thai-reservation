@@ -880,21 +880,24 @@ const checkReservable = (ev,menu,date) => {
         const ts11 = new Date(`${date} 11:00`).getTime() - 9*60*60*1000;
         console.log('10,11',ts10,ts11);
 
+        // 10時に関する予約を抽出
         const reservedArray10 = [];
         reservedArray.forEach(array=>{
           if(array[0]<ts10 && (array[1]>ts10 && array[1]<ts11)){
-            reservedArray10.push(array.push(0));
+            const newArray = array.concat([0]);
+            reservedArray10.push(newArray);
           }
           else if((array[0]>=ts10 && array[0]<ts11) && array[1]>ts11){
-            reservedArray10.push(array.push(1));
+            const newArray = array.concat([1]);
+            reservedArray10.push(newArray);
           }
           else if((array[0]>=ts10 && array[0]<ts11) && (array[1]>array[0] && array[1]<=ts11)){
-            console.log('ここだよ');
             const newArray = array.concat([2]);
-            console.log('concat',newArray);
+            reservedArray10.push(newArray);
           }
           else if(array[0]<ts10 && array[1]>ts11){
-            reservedArray10.push(array.push(3));
+            const newArray = array.concat([3]);
+            reservedArray10.push(newArray);
           }
         });
         console.log('reservedArray10',reservedArray10);
