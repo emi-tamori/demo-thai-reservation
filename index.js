@@ -856,7 +856,7 @@ const checkReservable = (ev,menu,date) => {
     console.log('treatTime:',treatTime);
 
     const select_query = {
-      text:'SELECT * FROM schedules WHERE scheduledate = $1 ORDER BY starttime ASC;',
+      text:'SELECT * FROM reservations WHERE scheduledate = $1 ORDER BY starttime ASC;',
       values:[`${date}`]
     };
 
