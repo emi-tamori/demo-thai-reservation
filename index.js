@@ -322,15 +322,19 @@ const orderChoice = (ev,selected) => {
     if(duplicationRemovedArray.size === ordersArray.length){
       selectedNew = selected;
     }else{
+      //重複メニュー弾き
       ordersArray.pop();
-      ordersArray.forEach((value,index,array)=>{
-        array[index] = parseInt(value);
-      }).sort((a,b)=>{
+      //数値型化
+      const numericArray = ordersArray.map(value=>{
+        return parseInt(value);
+      })
+      //昇順ソート
+      numericArray.sort((a,b)=>{
         return (a<b ? -1:1);
       }).forEach((value,index)=>{
         selectedNew += index === 0 ? value : '%' + value;
       });
-      console.log('ordersArray2:',ordersArray);
+      console.log('numericArray:',numericArray);
     }
   }else{
     selectedNew = selected;
@@ -349,7 +353,7 @@ const orderChoice = (ev,selected) => {
   if(selectedNew){
     title = '他にご希望はありますか？'
     orderedArrayNew.forEach((value,index)=>{
-      menu += index !== 0 ? ',' + MENU[value] : '選択中：' + MENU[value];
+      menu += index !== 0 ? ',' + MENU[parseInt(value)] : '選択中：' + MENU[parseInt(value)];
     });
   }else{
     title = 'メニューを選択してください';
