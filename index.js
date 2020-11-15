@@ -210,12 +210,12 @@ const handlePostbackEvent = async (ev) => {
       // メニューが何も選ばれていない時の処理
       const orderedMenu = splitData[1];
       if(!orderedMenu){
-        return replyMessage(ev.replyToken,{
+        return client.replyMessage(ev.replyToken,{
           "type":"text",
           "text":"何かメニューを選んでください。"
         });
       }
-      
+
       askDate(ev,orderedMenu);
     }
     
