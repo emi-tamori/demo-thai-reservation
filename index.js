@@ -323,7 +323,9 @@ const orderChoice = (ev,selected) => {
       selectedNew = selected;
     }else{
       ordersArray.pop();
-      ordersArray.forEach((value,index)=>{
+      ordersArray.sort((a,b)=>{
+        return (a<b ? -1:1);
+      }).forEach((value,index)=>{
         selectedNew += index === 0 ? value : '%' + value;
       });
     }
@@ -333,11 +335,9 @@ const orderChoice = (ev,selected) => {
   
   const orderedArrayNew = selectedNew.split('%');
 
-  // 数値型変換および昇順ソート
+  // 数値型変換
   const parsedArray = orderedArrayNew.map(value=>{
     return parseInt(value);
-  }).sort((a,b)=>{
-    return (a<b ? -1:1);
   });
 
   // タイトルと選択メニュー表示
