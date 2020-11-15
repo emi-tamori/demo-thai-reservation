@@ -316,36 +316,39 @@ const orderChoice = (ev,selected) => {
 
   if(selected.match(/%/)){
     const ordersArray = selected.split('%');
-    
+    console.log('ordersArray1:',ordersArray);
     // 重複チェック
     const duplicationRemovedArray = new Set(ordersArray);
     if(duplicationRemovedArray.size === ordersArray.length){
       selectedNew = selected;
     }else{
       ordersArray.pop();
-      ordersArray.sort((a,b)=>{
+      ordersArray.forEach((value,index,array)=>{
+        array[index] = parseInt(value);
+      }).sort((a,b)=>{
         return (a<b ? -1:1);
       }).forEach((value,index)=>{
         selectedNew += index === 0 ? value : '%' + value;
       });
+      console.log('ordersArray2:',ordersArray);
     }
   }else{
     selectedNew = selected;
   }
-  
+  console.log('selectedNew:',selectedNew);
   const orderedArrayNew = selectedNew.split('%');
 
   // 数値型変換
-  const parsedArray = orderedArrayNew.map(value=>{
-    return parseInt(value);
-  });
+  // const parsedArray = orderedArrayNew.map(value=>{
+  //   return parseInt(value);
+  // });
 
   // タイトルと選択メニュー表示
   let title = '';
   let menu = '';
   if(selectedNew){
     title = '他にご希望はありますか？'
-    parsedArray.forEach((value,index)=>{
+    orderedArrayNew.forEach((value,index)=>{
       menu += index !== 0 ? ',' + MENU[value] : '選択中：' + MENU[value];
     });
   }else{
