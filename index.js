@@ -335,19 +335,23 @@ const orderChoice = (ev,selected) => {
   console.log('selectedNew１:',selectedNew);
   const ordersArrayNew = selectedNew.split('%');
 
-  //数値型化
-  const numericArray = ordersArrayNew.map(value=>{
-    return parseInt(value);
-  });
-  //昇順ソート
-  numericArray.sort((a,b)=>{
-    return (a<b ? -1:1);
-  });
-  //selectedNew更新
-  selectedNew = '';
-  numericArray.forEach((value,index)=>{
-    selectedNew += index === 0 ? value : '%' + value;
-  });
+  const numericArray = [];
+  if(selectedNew){
+    //数値型化
+    numericArray = ordersArrayNew.map(value=>{
+      return parseInt(value);
+    });
+    //昇順ソート
+    numericArray.sort((a,b)=>{
+      return (a<b ? -1:1);
+    });
+    //selectedNew更新
+    selectedNew = '';
+    numericArray.forEach((value,index)=>{
+      selectedNew += index === 0 ? value : '%' + value;
+    });
+  }
+
   console.log('selectedNew2:',selectedNew);
 
   // タイトルと選択メニュー表示
