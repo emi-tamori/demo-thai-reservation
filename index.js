@@ -874,9 +874,28 @@ const checkReservable = (ev,menu,date) => {
           return [parseInt(object.starttime),parseInt(object.endtime)];
         });
         console.log('reservedArray:',reservedArray);
-        const ts10 = new Date(`${date} 10:00`).getTime();
-        const ts11 = new Date(`${date} 11:00`).getTime();
+
+        // herokuサーバー基準なので、日本の時刻は９時間分進んでしまうため、引く
+        const ts10 = new Date(`${date} 10:00`).getTime() - 9*60*60*1000;
+        const ts11 = new Date(`${date} 11:00`).getTime() - 9*60*60*1000;
         console.log('10,11',ts10,ts11);
+
+        const reservedArray10 = [];
+        reservedArray.forEach(array=>{
+          if(array[0]<ts10 && (array[1]>ts10 && array[1]<ts11)){
+            reservedArray10.push(array.push(0));
+          }
+          else if((array[0]>ts10 && array[0]<ts11) && array[1]>ts11){
+            reservedArray10.push(array.push(1));
+          }
+          else if((array[0]>ts10 && array[0]<ts11) && (array[1]>array[0] && array[1]<ts11)){
+            reservedArray10.push(array.push(2));
+          }
+          else if(array[0]<ts10 && array[1]>ts11){
+            reservedArray10.push(array.push(3));
+          }
+        });
+        console.log('reservedArray10',reservedArray10);
       })
       .catch(e=>console.log(e));
   })
