@@ -889,7 +889,9 @@ const checkReservable = (ev,menu,date) => {
             reservedArray10.push(array.push(1));
           }
           else if((array[0]>=ts10 && array[0]<ts11) && (array[1]>array[0] && array[1]<=ts11)){
-            reservedArray10.push(array.push(2));
+            console.log('ここだよ');
+            const newArray = array.push(2);
+            reservedArray10.push(newArray);
           }
           else if(array[0]<ts10 && array[1]>ts11){
             reservedArray10.push(array.push(3));
