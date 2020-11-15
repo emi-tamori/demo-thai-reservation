@@ -863,6 +863,13 @@ const checkReservable = (ev,menu,date) => {
     connection.query(select_query)
       .then(res=>{
         console.log('res.rows:',res.rows);
+        const reservedArray = res.rows.map(object=>{
+          return [parseInt(object.starttime),parseInt(object.endtime)];
+        });
+        console.log('reservedArray:',reservedArray);
+        const ts10 = new Date(`${date} 10:00`);
+        const ts11 = new Date(`${date} 11:00`);
+        console.log('10,11',ts10,ts11);
       })
       .catch(e=>console.log(e));
   })
