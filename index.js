@@ -901,6 +901,28 @@ const checkReservable = (ev,menu,date) => {
           }
         });
         console.log('reservedArray10',reservedArray10);
+
+        // reservedArray10の最後の要素を抽出
+        const l = reservedArray10.length;
+        const pattern = reservedArray10[l-1][2];
+
+        switch(pattern){
+          case 0:
+            //何か書く
+            break;
+
+          case 1:
+            //何か書く
+            break;
+          
+          case 2:
+            console.log('case2ですよ');
+            break;
+          
+          case 3:
+            //何か書く
+            break;
+        }
       })
       .catch(e=>console.log(e));
   })
