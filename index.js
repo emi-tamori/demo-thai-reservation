@@ -890,8 +890,8 @@ const checkReservable = (ev,menu,date) => {
           }
           else if((array[0]>=ts10 && array[0]<ts11) && (array[1]>array[0] && array[1]<=ts11)){
             console.log('ここだよ');
-            const newArray = array.push(2);
-            reservedArray10.push(newArray);
+            const newArray = array.concat([2]);
+            console.log('concat',newArray);
           }
           else if(array[0]<ts10 && array[1]>ts11){
             reservedArray10.push(array.push(3));
