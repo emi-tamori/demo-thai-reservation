@@ -906,6 +906,9 @@ const checkReservable = (ev,menu,date) => {
         const l = reservedArray10.length;
         const pattern = reservedArray10[l-1][2];
 
+        //予約可能な時間を格納する配列を用意
+        const reservableArray10 = [];
+
         switch(pattern){
           case 0:
             //何か書く
@@ -916,7 +919,7 @@ const checkReservable = (ev,menu,date) => {
             break;
           
           case 2:
-            console.log('case2ですよ');
+            //何か書く
             break;
           
           case 3:
