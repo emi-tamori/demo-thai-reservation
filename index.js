@@ -411,7 +411,7 @@ const orderChoice = (ev,selected) => {
                     "action": {
                       "type": "postback",
                       "label": "カット",
-                      "data": `menu&${newSelected}&0`
+                      "data": `menu&${selectedNew}&0`
                     },
                     "style": "primary",
                     "color": `${colors[0]}`,
@@ -422,7 +422,7 @@ const orderChoice = (ev,selected) => {
                     "action": {
                       "type": "postback",
                       "label": "シャンプー",
-                      "data": `menu&${newSelected}&1`
+                      "data": `menu&${selectedNew}&1`
                     },
                     "style": "primary",
                     "color": `${colors[1]}`,
@@ -439,7 +439,7 @@ const orderChoice = (ev,selected) => {
                     "action": {
                       "type": "postback",
                       "label": "ｶﾗｰﾘﾝｸﾞ",
-                      "data": `menu&${newSelected}&2`
+                      "data": `menu&${selectedNew}&2`
                     },
                     "margin": "md",
                     "style": "primary",
@@ -450,7 +450,7 @@ const orderChoice = (ev,selected) => {
                     "action": {
                       "type": "postback",
                       "label": "ヘッドスパ",
-                      "data": `menu&${newSelected}&3`
+                      "data": `menu&${selectedNew}&3`
                     },
                     "margin": "md",
                     "style": "primary",
@@ -468,7 +468,7 @@ const orderChoice = (ev,selected) => {
                     "action": {
                       "type": "postback",
                       "label": "ﾏｯｻｰｼﾞ&ﾊﾟｯｸ",
-                      "data": `menu&${newSelected}&4`
+                      "data": `menu&${selectedNew}&4`
                     },
                     "margin": "md",
                     "style": "primary",
@@ -479,7 +479,7 @@ const orderChoice = (ev,selected) => {
                     "action": {
                       "type": "postback",
                       "label": "顔そり",
-                      "data": `menu&${newSelected}&5`
+                      "data": `menu&${selectedNew}&5`
                     },
                     "style": "primary",
                     "color": `${colors[5]}`,
@@ -497,7 +497,7 @@ const orderChoice = (ev,selected) => {
                     "action": {
                       "type": "postback",
                       "label": "眉整え",
-                      "data": `menu&${newSelected}&6`
+                      "data": `menu&${selectedNew}&6`
                     },
                     "margin": "md",
                     "style": "primary",
@@ -508,7 +508,7 @@ const orderChoice = (ev,selected) => {
                     "action": {
                       "type": "postback",
                       "label": "選択終了",
-                      "data": `end&${newSelected}`
+                      "data": `end&${selectedNew}`
                     },
                     "margin": "md",
                     "style": "primary",
