@@ -209,6 +209,13 @@ const handlePostbackEvent = async (ev) => {
     else if(splitData[0] === 'end'){
       // メニューが何も選ばれていない時の処理
       const orderedMenu = splitData[1];
+      if(!orderedMenu){
+        return replyMessage(ev.replyToken,{
+          "type":"text",
+          "text":"何かメニューを選んでください。"
+        });
+      }
+      
       askDate(ev,orderedMenu);
     }
     
@@ -867,8 +874,8 @@ const checkReservable = (ev,menu,date) => {
           return [parseInt(object.starttime),parseInt(object.endtime)];
         });
         console.log('reservedArray:',reservedArray);
-        const ts10 = new Date(`${date} 10:00`);
-        const ts11 = new Date(`${date} 11:00`);
+        const ts10 = new Date(`${date} 10:00`).getTime();
+        const ts11 = new Date(`${date} 11:00`).getTime();
         console.log('10,11',ts10,ts11);
       })
       .catch(e=>console.log(e));
