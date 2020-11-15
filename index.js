@@ -213,9 +213,10 @@ const handlePostbackEvent = async (ev) => {
     }
     
     else if(splitData[0] === 'date'){
-        const orderedMenu = splitData[1];
-        const selectedDate = ev.postback.params.date;
-        askTime(ev,orderedMenu,selectedDate);
+      const orderedMenu = splitData[1];
+      const selectedDate = ev.postback.params.date;
+      checkReservable(ev,orderedMenu,selectedDate);
+      // askTime(ev,orderedMenu,selectedDate);
     }
     
     else if(splitData[0] === 'time'){
@@ -296,9 +297,12 @@ const calcTreatTime = (id,menu) => {
       .then(res=>{
         if(res.rows.length){
           const info = res.rows[0];
+          const menuArray = menu.split('%');
           const treatArray = [info.cuttime,info.shampootime,info.colortime,info.spatime,INITIAL_TREAT[4],INITIAL_TREAT[5],INITIAL_TREAT[6]];
-          const menuNumber = parseInt(menu);
-          const treatTime = treatArray[menuNumber];
+          let treatTime = 0;
+          menuArray.forEach(value=>{
+            treatTime += treatArray[parseInt(value)];
+          });
           resolve(treatTime);
         }else{
           console.log('LINE　IDに一致するユーザーが見つかりません。');
@@ -843,4 +847,12 @@ const checkNextReservation = (ev) => {
       })
       .catch(e=>console.log(e));
   });
+}
+
+const checkReservable = async (ev,menu,date) => {
+  return new Promise((resolve,reject)=>{
+    const id = ev.source.userId;
+    const treatTime = await calcTreatTime(id,menu);
+    console.log('treatTime:',treatTime);
+  })
 }
