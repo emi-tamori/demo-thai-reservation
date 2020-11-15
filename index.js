@@ -359,7 +359,7 @@ const orderChoice = (ev,selected) => {
   //ボタン配色
   const colors = [];
   for(let i=0;i<7;i++){
-    if(parsedArray.some(num=> num === i)){
+    if(orderedArrayNew.some(num=> num === i)){
       colors.push('#00AA00');
     }else{
       colors.push('#999999');
