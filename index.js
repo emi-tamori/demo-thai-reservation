@@ -338,8 +338,8 @@ const orderChoice = (ev,selected) => {
   const numericArray = [];
   if(selectedNew){
     //数値型化
-    numericArray = ordersArrayNew.map(value=>{
-      return parseInt(value);
+    ordersArrayNew.forEach(value=>{
+      numericArray.push(parseInt(value));
     });
     //昇順ソート
     numericArray.sort((a,b)=>{
