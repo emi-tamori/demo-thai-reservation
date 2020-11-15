@@ -849,8 +849,8 @@ const checkNextReservation = (ev) => {
   });
 }
 
-const checkReservable = async (ev,menu,date) => {
-  return new Promise((resolve,reject)=>{
+const checkReservable = (ev,menu,date) => {
+  return new Promise( async (resolve,reject)=>{
     const id = ev.source.userId;
     const treatTime = await calcTreatTime(id,menu);
     console.log('treatTime:',treatTime);
