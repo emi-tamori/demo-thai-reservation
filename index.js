@@ -854,5 +854,16 @@ const checkReservable = (ev,menu,date) => {
     const id = ev.source.userId;
     const treatTime = await calcTreatTime(id,menu);
     console.log('treatTime:',treatTime);
+
+    const select_query = {
+      text:'SELECT * FROM schedules WHERE scheduledate = $1 ORDER BY starttime ASC;',
+      values:[`${date}`]
+    };
+
+    connection.query(select_query)
+      .then(res=>{
+        console.log('res.rows:',res.rows);
+      })
+      .catch(e=>console.log(e));
   })
 }
