@@ -8,7 +8,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node emi.js",
+    "start": "node index.js",
     "test": "node test.js"
   },
   "author": "ken",

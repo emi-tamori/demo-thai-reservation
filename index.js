@@ -118,7 +118,7 @@ const handleMessageEvent = async (ev) => {
     const text = (ev.message.type === 'text') ? ev.message.text : '';
 
     if(text === '予約する'){
-      orderChoice(ev);
+      orderChoice(ev,'');
     }else if(text === '予約確認'){
       const nextReservation = await checkNextReservation(ev);
       if(nextReservation.length){
@@ -185,50 +185,10 @@ const handleMessageEvent = async (ev) => {
       }
     }
     else{
-      const userId = ev.source.userId;
-      const options = {
-        url:`https://api.line.me/v2/bot/user/${userId}/linkToken`,
-        method:'POST',
-        headers:{
-          'Authorization':'Bearer 9MB7dntiadpje+ZVTvgTaUrf5mIQcobyDuwN+p4jRXXUjiLdprXVWFgKPN2Z5Fs2dXRdUBj4P4aSBeN83WDz+KeMhLCSGG568t82bFzdTxxBMxgFQFUrbNlSsQBouMpxdxYJPxRCl919cjuBbQ1OmgdB04t89/1O/w1cDnyilFU='
-        }
-      }
-
-      request(options)
-        .then(body=>{
-          const parsedBody = JSON.parse(body);
-          console.log('parsedBody:',parsedBody)
-          console.log('linkToken:',parsedBody["linkToken"]);
-
-        return client.replyMessage(ev.replyToken,{
-          "type":"flex",
-          "altText":"link",
-          "contents":
-          {
-            "type": "bubble",
-            "body": {
-              "type": "box",
-              "layout": "vertical",
-              "contents": [
-                {
-                  "type": "button",
-                  "action": {
-                    "type": "uri",
-                    "label": "リンク",
-                    "uri": `https://linebot-schedule.herokuapp.com/?linkToken=${parsedBody["linkToken"]}`
-                  }
-                }
-              ]
-            }
-          }
-        })
-
-        // return client.replyMessage(ev.replyToken,{
-        //     "type":"text",
-        //     "text":`${profile.displayName}さん、linkTokenは${parsedBody["linkToken"]}です`
-        // });
-    })
-    .catch(e=>console.log(e));
+      return client.replyMessage(ev.replyToken,{
+        "type":"text",
+        "text":`${text}`
+      });
   }
 }
 
@@ -239,18 +199,33 @@ const handlePostbackEvent = async (ev) => {
     const splitData = data.split('&');
 
     if(splitData[0] === 'menu'){
-        const orderedMenu = splitData[1];
-        askDate(ev,orderedMenu);
-    }else if(splitData[0] === 'date'){
+        const ordered = splitData[1];
+        const newOrdered = splitData[2];
+        const orderedMenu = ordered ? ordered + '%' + newOrdered : newOrdered;
+        orderChoice(ev,orderedMenu);
+        // askDate(ev,orderedMenu);
+    }
+
+    else if(splitData[0] === 'end'){
+      // メニューが何も選ばれていない時の処理
+      const orderedMenu = splitData[1];
+      askDate(ev,orderedMenu);
+    }
+    
+    else if(splitData[0] === 'date'){
         const orderedMenu = splitData[1];
         const selectedDate = ev.postback.params.date;
         askTime(ev,orderedMenu,selectedDate);
-    }else if(splitData[0] === 'time'){
+    }
+    
+    else if(splitData[0] === 'time'){
         const orderedMenu = splitData[1];
         const selectedDate = splitData[2];
         const selectedTime = splitData[3];
         confirmation(ev,orderedMenu,selectedDate,selectedTime);
-    }else if(splitData[0] === 'yes'){
+    }
+    
+    else if(splitData[0] === 'yes'){
         const orderedMenu = splitData[1];
         const selectedDate = splitData[2];
         const selectedTime = splitData[3];
@@ -270,9 +245,13 @@ const handlePostbackEvent = async (ev) => {
             });
           })
           .catch(e=>console.log(e));
-    }else if(splitData[0] === 'no'){
+    }
+    
+    else if(splitData[0] === 'no'){
       // あとで何か入れる
-    }else if(splitData[0] === 'delete'){
+    }
+    
+    else if(splitData[0] === 'delete'){
       const id = parseInt(splitData[1]);
       const deleteQuery = {
         text:'DELETE FROM reservations WHERE id = $1;',
@@ -330,180 +309,235 @@ const calcTreatTime = (id,menu) => {
   });
 }
 
-const orderChoice = (ev) => {
-    return client.replyMessage(ev.replyToken,{
-        "type":"flex",
-        "altText":"menuSelect",
-        "contents":
-        {
-            "type": "bubble",
-            "header": {
-              "type": "box",
-              "layout": "vertical",
-              "contents": [
-                {
-                  "type": "text",
-                  "text": "メニューを選択して下さい",
-                  "align": "center",
-                  "size": "lg"
-                }
-              ]
-            },
-            "hero": {
-              "type": "box",
-              "layout": "vertical",
-              "contents": [
-                {
-                  "type": "text",
-                  "text": "(１つのみ選択可能です)",
-                  "size": "md",
-                  "align": "center"
-                },
-                {
-                  "type": "separator"
-                }
-              ]
-            },
-            "body": {
-              "type": "box",
-              "layout": "vertical",
-              "contents": [
-                {
-                  "type": "box",
-                  "layout": "horizontal",
-                  "contents": [
-                    {
-                      "type": "button",
-                      "action": {
-                        "type": "postback",
-                        "label": "カット",
-                        "data": "menu&0"
-                      },
-                      "style": "primary",
-                      "color": "#999999",
-                      "margin": "md"
-                    },
-                    {
-                      "type": "button",
-                      "action": {
-                        "type": "postback",
-                        "label": "シャンプー",
-                        "data": "menu&1"
-                      },
-                      "style": "primary",
-                      "color": "#999999",
-                      "margin": "md"
-                    }
-                  ]
-                },
-                {
-                  "type": "box",
-                  "layout": "horizontal",
-                  "contents": [
-                    {
-                      "type": "button",
-                      "action": {
-                        "type": "postback",
-                        "label": "ｶﾗｰﾘﾝｸﾞ",
-                        "data": "menu&2"
-                      },
-                      "margin": "md",
-                      "style": "primary",
-                      "color": "#999999"
-                    },
-                    {
-                      "type": "button",
-                      "action": {
-                        "type": "postback",
-                        "label": "ヘッドスパ",
-                        "data": "menu&3"
-                      },
-                      "margin": "md",
-                      "style": "primary",
-                      "color": "#999999"
-                    }
-                  ],
-                  "margin": "md"
-                },
-                {
-                  "type": "box",
-                  "layout": "horizontal",
-                  "contents": [
-                    {
-                      "type": "button",
-                      "action": {
-                        "type": "postback",
-                        "label": "ﾏｯｻｰｼﾞ&ﾊﾟｯｸ",
-                        "data": "menu&4"
-                      },
-                      "margin": "md",
-                      "style": "primary",
-                      "color": "#999999"
-                    },
-                    {
-                      "type": "button",
-                      "action": {
-                        "type": "postback",
-                        "label": "顔そり",
-                        "data": "menu&5"
-                      },
-                      "style": "primary",
-                      "color": "#999999",
-                      "margin": "md"
-                    }
-                  ],
-                  "margin": "md"
-                },
-                {
-                  "type": "box",
-                  "layout": "horizontal",
-                  "contents": [
-                    {
-                      "type": "button",
-                      "action": {
-                        "type": "postback",
-                        "label": "眉整え",
-                        "data": "menu&6"
-                      },
-                      "margin": "md",
-                      "style": "primary",
-                      "color": "#999999"
-                    },
-                    {
-                      "type": "button",
-                      "action": {
-                        "type": "postback",
-                        "label": "選択終了",
-                        "data": "end"
-                      },
-                      "margin": "md",
-                      "style": "primary",
-                      "color": "#0000ff"
-                    }
-                  ],
-                  "margin": "md"
-                },
-                {
-                  "type": "separator"
-                }
-              ]
-            },
-            "footer": {
-              "type": "box",
-              "layout": "vertical",
-              "contents": [
-                {
-                  "type": "button",
-                  "action": {
-                    "type": "postback",
-                    "label": "キャンセル",
-                    "data": "cancel"
-                  }
-                }
-              ]
-            }
-          }
+const orderChoice = (ev,selected) => {
+  console.log('selected:',selected);
+
+  let selectedNew = '';
+
+  if(selected.match(/%/)){
+    const ordersArray = selected.split('%');
+    
+    // 重複チェック
+    const duplicationRemovedArray = new Set(ordersArray);
+    if(duplicationRemovedArray.size === ordersArray.length){
+      selectedNew = selected;
+    }else{
+      ordersArray.pop();
+      ordersArray.forEach((value,index)=>{
+        selectedNew += index === 0 ? value : '%' + value;
+      });
+    }
+  }else{
+    selectedNew = selected;
+  }
+  
+  const orderedArrayNew = selectedNew.split('%');
+
+  // 数値型変換および昇順ソート
+  const parsedArray = orderedArrayNew.map(value=>{
+    return parseInt(value);
+  }).sort((a,b)=>{
+    return (a<b ? -1:1);
+  });
+
+  // タイトルと選択メニュー表示
+  let title = '';
+  let menu = '';
+  if(selectedNew){
+    title = '他にご希望はありますか？'
+    parsedArray.forEach((value,index)=>{
+      menu += index !== 0 ? ',' + MENU[value] : '選択中：' + MENU[value];
     });
+  }else{
+    title = 'メニューを選択してください';
+    menu = '(複数選択可能です)';
+  }
+
+  //ボタン配色
+  const colors = [];
+  for(let i=0;i<7;i++){
+    if(parsedArray.some(num=> num === i)){
+      colors.push('#00AA00');
+    }else{
+      colors.push('#999999');
+    }
+  }
+
+  return client.replyMessage(ev.replyToken,{
+      "type":"flex",
+      "altText":"menuSelect",
+      "contents":
+      {
+          "type": "bubble",
+          "header": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": `${title}`,
+                "align": "center",
+                "size": "lg",
+                "wrap":true
+              }
+            ]
+          },
+          "hero": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": `${menu}`,
+                "size": "md",
+                "align": "center",
+                "wrap":true
+              },
+              {
+                "type": "separator"
+              }
+            ]
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "postback",
+                      "label": "カット",
+                      "data": `menu&${newSelected}&0`
+                    },
+                    "style": "primary",
+                    "color": `${colors[0]}`,
+                    "margin": "md"
+                  },
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "postback",
+                      "label": "シャンプー",
+                      "data": `menu&${newSelected}&1`
+                    },
+                    "style": "primary",
+                    "color": `${colors[1]}`,
+                    "margin": "md"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "postback",
+                      "label": "ｶﾗｰﾘﾝｸﾞ",
+                      "data": `menu&${newSelected}&2`
+                    },
+                    "margin": "md",
+                    "style": "primary",
+                    "color": `${colors[2]}`
+                  },
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "postback",
+                      "label": "ヘッドスパ",
+                      "data": `menu&${newSelected}&3`
+                    },
+                    "margin": "md",
+                    "style": "primary",
+                    "color": `${colors[3]}`
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "postback",
+                      "label": "ﾏｯｻｰｼﾞ&ﾊﾟｯｸ",
+                      "data": `menu&${newSelected}&4`
+                    },
+                    "margin": "md",
+                    "style": "primary",
+                    "color": `${colors[4]}`
+                  },
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "postback",
+                      "label": "顔そり",
+                      "data": `menu&${newSelected}&5`
+                    },
+                    "style": "primary",
+                    "color": `${colors[5]}`,
+                    "margin": "md"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "postback",
+                      "label": "眉整え",
+                      "data": `menu&${newSelected}&6`
+                    },
+                    "margin": "md",
+                    "style": "primary",
+                    "color": `${colors[6]}`
+                  },
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "postback",
+                      "label": "選択終了",
+                      "data": `end&${newSelected}`
+                    },
+                    "margin": "md",
+                    "style": "primary",
+                    "color": "#0000ff"
+                  }
+                ],
+                "margin": "md"
+              },
+              {
+                "type": "separator"
+              }
+            ]
+          }
+          // "footer": {
+          //   "type": "box",
+          //   "layout": "vertical",
+          //   "contents": [
+          //     {
+          //       "type": "button",
+          //       "action": {
+          //         "type": "postback",
+          //         "label": "キャンセル",
+          //         "data": "cancel"
+          //       }
+          //     }
+          //   ]
+          // }
+        }
+  });
 }
 
 const askDate = (ev,orderedMenu) => {
