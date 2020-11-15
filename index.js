@@ -324,35 +324,38 @@ const orderChoice = (ev,selected) => {
     }else{
       //重複メニュー弾き
       ordersArray.pop();
-      //数値型化
-      const numericArray = ordersArray.map(value=>{
-        return parseInt(value);
-      })
-      //昇順ソート
-      numericArray.sort((a,b)=>{
-        return (a<b ? -1:1);
-      }).forEach((value,index)=>{
+      //selectedNew生成
+      ordersArray.forEach((value,index)=>{
         selectedNew += index === 0 ? value : '%' + value;
       });
-      console.log('numericArray:',numericArray);
     }
   }else{
     selectedNew = selected;
   }
-  console.log('selectedNew:',selectedNew);
-  const orderedArrayNew = selectedNew.split('%');
+  console.log('selectedNew１:',selectedNew);
+  const ordersArrayNew = selectedNew.split('%');
 
-  // 数値型変換
-  // const parsedArray = orderedArrayNew.map(value=>{
-  //   return parseInt(value);
-  // });
+  //数値型化
+  const numericArray = ordersArrayNew.map(value=>{
+    return parseInt(value);
+  });
+  //昇順ソート
+  numericArray.sort((a,b)=>{
+    return (a<b ? -1:1);
+  });
+  //selectedNew更新
+  selectedNew = '';
+  numericArray.forEach((value,index)=>{
+    selectedNew += index === 0 ? value : '%' + value;
+  });
+  console.log('selectedNew2:',selectedNew);
 
   // タイトルと選択メニュー表示
   let title = '';
   let menu = '';
   if(selectedNew){
     title = '他にご希望はありますか？'
-    orderedArrayNew.forEach((value,index)=>{
+    numericArray.forEach((value,index)=>{
       menu += index !== 0 ? ',' + MENU[parseInt(value)] : '選択中：' + MENU[parseInt(value)];
     });
   }else{
@@ -363,7 +366,7 @@ const orderChoice = (ev,selected) => {
   //ボタン配色
   const colors = [];
   for(let i=0;i<7;i++){
-    if(orderedArrayNew.some(num=> num === i)){
+    if(numericArray.some(num=> num === i)){
       colors.push('#00AA00');
     }else{
       colors.push('#999999');
