@@ -890,15 +890,13 @@ const checkReservable = (ev,menu,date) => {
         for(let i=0; i<CLOSETIME-OPENTIME; i++){
           reservedArray.forEach(array=>{
             if(array[0]<timeStamps[i] && (array[1]>timeStamps[i] && array[1]<timeStamps[i+1])){
-              separatedByTime.push(array.concat([0]));
+              separatedByTime[i].push(array.concat([0]));
             }else if((array[0]>=timeStamps[i] && array[0]<timeStamps[i+1]) && array[1]>timeStamps[i+1]){
-              separatedByTime.push(array.concat([1]));
+              separatedByTime[i].push(array.concat([1]));
             }else if((array[0]>=timeStamps[i] && array[0]<timeStamps[i+1])&&(array[1]>array[0] && array[1]<=timeStamps[i+1])){
-              separatedByTime.push(array.concat([2]));
+              separatedByTime[i].push(array.concat([2]));
             }else if(array[0]<timeStamps[i] && array[1]>timeStamps[i+1]){
-              separatedByTime.push(array.concat([3]));
-            }else{
-              separatedByTime.push([]);
+              separatedByTime[i].push(array.concat([3]));
             }
           });
         }
