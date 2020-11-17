@@ -947,7 +947,7 @@ const checkReservable = (ev,menu,date) => {
               intervalArray.push([]);
             }
           }else{
-            intervalArray.push([60*60*1000,timeStamps[i]]);
+            intervalArray.push([[60*60*1000,timeStamps[i]]]);
           }
         }
         console.log('intervalArray:',intervalArray);
