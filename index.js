@@ -959,9 +959,11 @@ const checkReservable = (ev,menu,date) => {
           const tempArray = [];
           array2.forEach(array=>{
             let interval = array[0];
+            let target = array[1];
             while(interval>treatTimeToMs){
-              tempArray.push(array[1]);
+              tempArray.push(target);
               interval -= treatTimeToMs;
+              target += treatTimeToMs;
             }            
           });
           reservableArray.push(tempArray);
