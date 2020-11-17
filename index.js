@@ -890,34 +890,42 @@ const checkReservable = (ev,menu,date) => {
         for(let i=0; i<CLOSETIME-OPENTIME; i++){
           const tempArray = [];
           reservedArray.forEach(array=>{
+            //パターン0
             if(array[0]<timeStamps[i] && (array[1]>timeStamps[i] && array[1]<timeStamps[i+1])){
               tempArray.push(array.concat([0]));
-            }else if((array[0]>=timeStamps[i] && array[0]<timeStamps[i+1]) && array[1]>timeStamps[i+1]){
+            }
+            //パターン１
+            else if((array[0]>=timeStamps[i] && array[0]<timeStamps[i+1]) && array[1]>=timeStamps[i+1]){
               tempArray.push(array.concat([1]));
-            }else if((array[0]>=timeStamps[i] && array[0]<timeStamps[i+1])&&(array[1]>array[0] && array[1]<=timeStamps[i+1])){
+            }
+            //パターン２
+            else if((array[0]>=timeStamps[i] && array[0]<timeStamps[i+1])&&(array[1]>array[0] && array[1]<timeStamps[i+1])){
               tempArray.push(array.concat([2]));
-            }else if(array[0]<timeStamps[i] && array[1]>timeStamps[i+1]){
+            }
+            //パターン３
+            else if(array[0]<timeStamps[i] && array[1]>timeStamps[i+1]){
               tempArray.push(array.concat([3]));
             }
           });
           separatedByTime.push(tempArray);
         }
 
+        //ある時間帯の最後の要素がパターン0とパターン2の場合、次の時間帯の最初の要素を加える
+        for(let i=0; i<separatedByTime.length; i++){
+          if(separatedByTime[i].length){ 
+            const l = separatedByTime[i].length - 1;
+            const pattern = separatedByTime[i][l][2];
+            if(pattern === 0 || pattern === 2){
+              separatedByTime[i].push(separatedByTime[i+1][0]);
+            }
+          }
+        }
+
         console.log('separatedByTime:',separatedByTime);
 
-        //予約と予約の間隔を格納する２次元配列
-        const intervalArray10 = [];
+        //予約と予約の間隔を格納する２次元配列を生成する
+        const intervalArray = [];
 
-        // if(reservedArray10.lenght){
-        //   // 先頭要素のパターンを抽出
-        //   const pattern = reservedArray10[0][2];
-        //   for(let i=0;i<reservedArray10.length;i++){
-        //     switch(pattern){
-        //       case 0:
-
-        //     }
-        //   }
-        // }
       })
       .catch(e=>console.log(e));
   })
