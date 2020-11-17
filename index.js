@@ -964,7 +964,8 @@ const checkReservable = (ev,menu,date) => {
           });
           reservableArray.push(tempArray);
         });
-        
+
+        console.log('reservableArray:',reservableArray);
       })
       .catch(e=>console.log(e));
   });
