@@ -12,6 +12,8 @@ const PORT = process.env.PORT || 5000
 const INITIAL_TREAT = [20,10,40,15,30,15,10];  //施術時間初期値
 const MENU = ['カット','シャンプー','カラーリング','ヘッドスパ','マッサージ＆スパ','眉整え','顔そり'];
 const WEEK = [ "日", "月", "火", "水", "木", "金", "土" ];
+const OPENTIME = 9;
+const CLOSETIME = 19;
 
 const config = {
     channelAccessToken:process.env.ACCESS_TOKEN,
@@ -875,57 +877,47 @@ const checkReservable = (ev,menu,date) => {
         });
         console.log('reservedArray:',reservedArray);
 
+        //各時間のタイムスタンプ
         // herokuサーバー基準なので、日本の時刻は９時間分進んでしまうため、引く
-        const ts10 = new Date(`${date} 10:00`).getTime() - 9*60*60*1000;
-        const ts11 = new Date(`${date} 11:00`).getTime() - 9*60*60*1000;
-        console.log('10,11',ts10,ts11);
-
-        // 10時に関する予約を抽出
-        const reservedArray10 = [];
-        reservedArray.forEach(array=>{
-          if(array[0]<ts10 && (array[1]>ts10 && array[1]<ts11)){
-            const newArray = array.concat([0]);
-            reservedArray10.push(newArray);
-          }
-          else if((array[0]>=ts10 && array[0]<ts11) && array[1]>ts11){
-            const newArray = array.concat([1]);
-            reservedArray10.push(newArray);
-          }
-          else if((array[0]>=ts10 && array[0]<ts11) && (array[1]>array[0] && array[1]<=ts11)){
-            const newArray = array.concat([2]);
-            reservedArray10.push(newArray);
-          }
-          else if(array[0]<ts10 && array[1]>ts11){
-            const newArray = array.concat([3]);
-            reservedArray10.push(newArray);
-          }
-        });
-        console.log('reservedArray10',reservedArray10);
-
-        // reservedArray10の最後の要素を抽出
-        const l = reservedArray10.length;
-        const pattern = reservedArray10[l-1][2];
-
-        //予約可能な時間を格納する配列を用意
-        const reservableArray10 = [];
-
-        switch(pattern){
-          case 0:
-            //何か書く
-            break;
-
-          case 1:
-            //何か書く
-            break;
-          
-          case 2:
-            //何か書く
-            break;
-          
-          case 3:
-            //何か書く
-            break;
+        const timeStamps = [];
+        for(let i=OPENTIME; i<CLOSETIME; i++){
+          timeStamps.push(new Date(`${date} ${i}:00`).getTime()-9*60*60*1000);
         }
+        console.log('timestamps',timeStamps);
+
+        //この日の予約を各時間帯に関する予約へ分割し、それを２次元配列に格納していく。
+        const separatedByTime = [];
+        for(let i=0; i<CLOSETIME-OPENTIME; i++){
+          reservedArray.forEach(array=>{
+            if(array[0]<timeStamps[i] && (array[1]>timeStamps[i] && array[1]<timeStamps[i+1])){
+              separatedByTime.push(array.concat([0]));
+            }else if((array[0]>=timeStamps[i] && array[0]<timeStamps[i+1]) && array[1]>timeStamps[i+1]){
+              separatedByTime.push(array.concat([1]));
+            }else if((array[0]>=timeStamps[i] && array[0]<timeStamps[i+1])&&(array[1]>array[0] && array[1]<=timeStamps[i+1])){
+              separatedByTime.push(array.concat([2]));
+            }else if(array[0]<timeStamps[i] && array[1]>timeStamps[i+1]){
+              separatedByTime.push(array.concat([3]));
+            }else{
+              separatedByTime.push([]);
+            }
+          });
+        }
+
+        console.log('separatedByTime:',separatedByTime);
+
+        //予約と予約の間隔を格納する２次元配列
+        const intervalArray10 = [];
+
+        // if(reservedArray10.lenght){
+        //   // 先頭要素のパターンを抽出
+        //   const pattern = reservedArray10[0][2];
+        //   for(let i=0;i<reservedArray10.length;i++){
+        //     switch(pattern){
+        //       case 0:
+
+        //     }
+        //   }
+        // }
       })
       .catch(e=>console.log(e));
   })
