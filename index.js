@@ -912,7 +912,7 @@ const checkReservable = (ev,menu,date) => {
 
         //ある時間帯の最後の要素がパターン0とパターン2の場合、次の時間帯の最初の要素を加える
         for(let i=0; i<separatedByTime.length; i++){
-          if(separatedByTime[i].length){ 
+          if(separatedByTime[i].length && separatedByTime[i+1].length){ 
             const l = separatedByTime[i].length - 1;
             const pattern = separatedByTime[i][l][2];
             if(pattern === 0 || pattern === 2){
