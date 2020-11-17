@@ -912,11 +912,16 @@ const checkReservable = (ev,menu,date) => {
 
         //ある時間帯の最後の要素がパターン0とパターン2の場合、次の時間帯の最初の要素を加える
         for(let i=0; i<separatedByTime.length; i++){
-          if(separatedByTime[i].length && separatedByTime[i+1].length){ 
-            const l = separatedByTime[i].length - 1;
-            const pattern = separatedByTime[i][l][2];
-            if(pattern === 0 || pattern === 2){
-              separatedByTime[i].push(separatedByTime[i+1][0]);
+          if(separatedByTime[i].length){
+            if(separatedByTime[i+1].length){
+              const l = separatedByTime[i].length - 1;
+              const pattern = separatedByTime[i][l][2];
+              if(pattern === 0 || pattern === 2){
+                separatedByTime[i].push(separatedByTime[i+1][0]);
+              }
+            }else{
+              //次の時間帯に予約が入っていなければとりあえず、timeStamps[i]から2時間分のタイムスタンプを格納
+              separatedByTime[i].push([timeStamps[i]+60*60*1000*2]);
             }
           }
         }
@@ -925,8 +930,23 @@ const checkReservable = (ev,menu,date) => {
 
         //予約と予約の間隔を格納する２次元配列を生成する
         const intervalArray = [];
-
+        for(let i=0; i<separatedByTime.length; i++){
+          if(separatedByTime[i].length){
+            const pattern = separatedByTime[i][0][2];
+            if(pattern === 0 || pattern === 2){
+              for(let j=0; j<separatedByTime[i].length-1; j++){
+                intervalArray[i].push([separatedByTime[i][j+1][0]-separatedByTime[i][j][1], separatedByTime[i][j+1][0]]);
+              }
+            }else if(pattern === 1){
+              intervalArray[i].push([separatedByTime[i][j][0]-timeStamps[i],timeStamps[i]]);
+            }else if(pattern === 3){
+              intervalArray[i].push([]);
+            }
+          }else{
+            intervalArray[i].push([60*60*1000,timeStamps[i]]);
+          }
+        }
       })
       .catch(e=>console.log(e));
-  })
+  });
 }
