@@ -951,15 +951,17 @@ const checkReservable = (ev,menu,date) => {
         }
         console.log('intervalArray:',intervalArray);
         console.log('treatTime:',treatTime);
+
+        const treatTimeToMs = treatTime*60*1000;
         //reservableArrayを生成
         const reservableArray = [];
         intervalArray.forEach(array2=>{
           const tempArray = [];
           array2.forEach(array=>{
             let interval = array[0];
-            while(interval>treatTime){
+            while(interval>treatTimeToMs){
               tempArray.push(array[1]);
-              interval -= treatTime;
+              interval -= treatTimeToMs;
             }            
           });
           reservableArray.push(tempArray);
