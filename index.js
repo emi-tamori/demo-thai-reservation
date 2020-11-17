@@ -886,7 +886,7 @@ const checkReservable = (ev,menu,date) => {
         }
         console.log('timestamps',timeStamps);
 
-        //この日の予約を各時間帯に関する予約へ分割し、それを２次元配列に格納していく。
+        //この日の予約を各時間帯に関する予約へ分割し、それを3次元配列に格納していく。
         const separatedByTime = [];
         for(let i=0; i<CLOSETIME-OPENTIME; i++){
           const tempArray = [];
@@ -929,7 +929,7 @@ const checkReservable = (ev,menu,date) => {
 
         console.log('separatedByTime:',separatedByTime);
 
-        //予約と予約の間隔を格納する２次元配列を生成する
+        //予約と予約の間隔を格納する3次元配列を生成する
         const intervalArray = [];
         for(let i=0; i<separatedByTime.length; i++){
           if(separatedByTime[i].length){
