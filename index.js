@@ -863,6 +863,7 @@ const checkReservable = (ev,menu,date) => {
     const id = ev.source.userId;
     const treatTime = await calcTreatTime(id,menu);
     console.log('treatTime:',treatTime);
+    const treatTimeToMs = treatTime*60*1000;
 
     const select_query = {
       text:'SELECT * FROM reservations WHERE scheduledate = $1 ORDER BY starttime ASC;',
@@ -920,8 +921,8 @@ const checkReservable = (ev,menu,date) => {
                 separatedByTime[i].push(separatedByTime[i+1][0]);
               }
             }else{
-              //次の時間帯に予約が入っていなければとりあえず、timeStamps[i]から2時間分のタイムスタンプを格納
-              separatedByTime[i].push([timeStamps[i]+60*60*1000*2]);
+              //次の時間帯に予約が入っていなければとりあえず、timeStamps[i]から1時間+treatTime分のタイムスタンプを格納
+              separatedByTime[i].push([timeStamps[i]+60*60*1000+treatTimeToMs]);
             }
           }
         }
@@ -952,7 +953,6 @@ const checkReservable = (ev,menu,date) => {
         console.log('intervalArray:',intervalArray);
         console.log('treatTime:',treatTime);
 
-        const treatTimeToMs = treatTime*60*1000;
         //reservableArrayを生成
         const reservableArray = [];
         intervalArray.forEach(array2=>{
