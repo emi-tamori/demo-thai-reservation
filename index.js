@@ -888,15 +888,15 @@ const checkReservable = (ev,menu,date) => {
         //この日の予約を各時間帯に関する予約へ分割し、それを２次元配列に格納していく。
         const separatedByTime = [];
         for(let i=0; i<CLOSETIME-OPENTIME; i++){
-          reservedArray.forEach(array=>{
+          separatedByTime[i] = reservedArray.map(array=>{
             if(array[0]<timeStamps[i] && (array[1]>timeStamps[i] && array[1]<timeStamps[i+1])){
-              separatedByTime[i].push(array.concat([0]));
+              return array.concat([0]);
             }else if((array[0]>=timeStamps[i] && array[0]<timeStamps[i+1]) && array[1]>timeStamps[i+1]){
-              separatedByTime[i].push(array.concat([1]));
+              return array.concat([1]);
             }else if((array[0]>=timeStamps[i] && array[0]<timeStamps[i+1])&&(array[1]>array[0] && array[1]<=timeStamps[i+1])){
-              separatedByTime[i].push(array.concat([2]));
+              return array.concat([2]);
             }else if(array[0]<timeStamps[i] && array[1]>timeStamps[i+1]){
-              separatedByTime[i].push(array.concat([3]));
+              return array.concat([3]);
             }
           });
         }
