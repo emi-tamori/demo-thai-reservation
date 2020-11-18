@@ -771,17 +771,28 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
                     "color": `${color[9]}`,
                     "margin": "md"
                   },
-                  // {
-                  //   "type": "button",
-                  //   "action": {
-                  //     "type": "postback",
-                  //     "label": "終了",
-                  //     "data": "end"
-                  //   },
-                  //   "style": "primary",
-                  //   "color": "#0000ff",
-                  //   "margin": "md"
-                  // }
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "postback",
+                      "label": "",
+                      "data": ""
+                    },
+                    "style": "primary",
+                    "color": "#999999",
+                    "margin": "md"
+                  },
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "postback",
+                      "label": "",
+                      "data": ""
+                    },
+                    "style": "primary",
+                    "color": "#999999",
+                    "margin": "md"
+                  }
                 ],
                 "margin": "md"
               }
@@ -791,9 +802,16 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
   });
 }
 
-const confirmation = (ev,menu,date,time) => {
+const confirmation = async (ev,menu,date,time,n) => {
   const splitDate = date.split('-');
   const selectedTime = 9 + parseInt(time);
+  const reservableArray = await checkReservable(ev,menu,date);
+  const candidates = reservableArray[parseInt(time)];
+
+  if(candidates[n]){
+    const proposalTime = dateConversion(candidates[n]);
+  }
+
   return client.replyMessage(ev.replyToken,{
     "type":"flex",
     "altText":"menuSelect",
@@ -806,7 +824,8 @@ const confirmation = (ev,menu,date,time) => {
         "contents": [
           {
             "type": "text",
-            "text": `次回予約は${splitDate[1]}月${splitDate[2]}日 ${selectedTime}時〜でよろしいですか？`,
+            "text":  `次回予約は${proposalTime}でよろしいですか？`,
+            // "text": `次回予約は${splitDate[1]}月${splitDate[2]}日 ${selectedTime}時〜でよろしいですか？`,
             "size": "lg",
             "wrap": true
           }
