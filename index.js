@@ -225,6 +225,7 @@ const handlePostbackEvent = async (ev) => {
       const orderedMenu = splitData[1];
       const selectedDate = ev.postback.params.date;
       const reservableArray = await checkReservable(ev,orderedMenu,selectedDate);
+      console.log('reservable in date:',reservableArray);
       askTime(ev,orderedMenu,selectedDate,reservableArray);
     }
     
