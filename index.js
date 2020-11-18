@@ -225,7 +225,6 @@ const handlePostbackEvent = async (ev) => {
       const orderedMenu = splitData[1];
       const selectedDate = ev.postback.params.date;
       const reservableArray = await checkReservable(ev,orderedMenu,selectedDate);
-      console.log('reservable in date:',reservableArray);
       askTime(ev,orderedMenu,selectedDate,reservableArray);
     }
     
@@ -772,28 +771,28 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
                     "color": `${color[9]}`,
                     "margin": "md"
                   },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "",
-                      "data": ""
-                    },
-                    "style": "primary",
-                    "color": "#999999",
-                    "margin": "md"
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "",
-                      "data": ""
-                    },
-                    "style": "primary",
-                    "color": "#999999",
-                    "margin": "md"
-                  }
+                  // {
+                  //   "type": "button",
+                  //   "action": {
+                  //     "type": "postback",
+                  //     "label": "",
+                  //     "data": ""
+                  //   },
+                  //   "style": "primary",
+                  //   "color": "#999999",
+                  //   "margin": "md"
+                  // },
+                  // {
+                  //   "type": "button",
+                  //   "action": {
+                  //     "type": "postback",
+                  //     "label": "",
+                  //     "data": ""
+                  //   },
+                  //   "style": "primary",
+                  //   "color": "#999999",
+                  //   "margin": "md"
+                  // }
                 ],
                 "margin": "md"
               }
