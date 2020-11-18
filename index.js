@@ -810,51 +810,53 @@ const confirmation = async (ev,menu,date,time,n) => {
 
   if(candidates[n]){
     const proposalTime = dateConversion(candidates[n]);
+    
+    return client.replyMessage(ev.replyToken,{
+      "type":"flex",
+      "altText":"menuSelect",
+      "contents":
+      {
+        "type": "bubble",
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "text":  `次回予約は${proposalTime}でよろしいですか？`,
+              // "text": `次回予約は${splitDate[1]}月${splitDate[2]}日 ${selectedTime}時〜でよろしいですか？`,
+              "size": "lg",
+              "wrap": true
+            }
+          ]
+        },
+        "footer": {
+          "type": "box",
+          "layout": "horizontal",
+          "contents": [
+            {
+              "type": "button",
+              "action": {
+                "type": "postback",
+                "label": "はい",
+                "data": `yes&${menu}&${date}&${time}`
+              }
+            },
+            {
+              "type": "button",
+              "action": {
+                "type": "postback",
+                "label": "いいえ",
+                "data": `no&${menu}&${date}&${time}`
+              }
+            }
+          ]
+        }
+      }
+    });
   }
 
-  return client.replyMessage(ev.replyToken,{
-    "type":"flex",
-    "altText":"menuSelect",
-    "contents":
-    {
-      "type": "bubble",
-      "body": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "text",
-            "text":  `次回予約は${proposalTime}でよろしいですか？`,
-            // "text": `次回予約は${splitDate[1]}月${splitDate[2]}日 ${selectedTime}時〜でよろしいですか？`,
-            "size": "lg",
-            "wrap": true
-          }
-        ]
-      },
-      "footer": {
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-          {
-            "type": "button",
-            "action": {
-              "type": "postback",
-              "label": "はい",
-              "data": `yes&${menu}&${date}&${time}`
-            }
-          },
-          {
-            "type": "button",
-            "action": {
-              "type": "postback",
-              "label": "いいえ",
-              "data": `no&${menu}&${date}&${time}`
-            }
-          }
-        ]
-      }
-    }
-  });
+
 }
 
 const checkNextReservation = (ev) => {
