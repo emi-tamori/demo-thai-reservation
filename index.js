@@ -232,7 +232,7 @@ const handlePostbackEvent = async (ev) => {
         const orderedMenu = splitData[1];
         const selectedDate = splitData[2];
         const selectedTime = splitData[3];
-        confirmation(ev,orderedMenu,selectedDate,selectedTime);
+        confirmation(ev,orderedMenu,selectedDate,selectedTime,0);
     }
     
     else if(splitData[0] === 'yes'){
