@@ -6,6 +6,7 @@ const { Client } = require('pg');
 const router = require('./routers/index');
 const apiRouter = require('./routers/api');
 const multipart = require('connect-multiparty');
+const nodemailer = require('nodemailer');
 
 const PORT = process.env.PORT || 5000
 
@@ -51,6 +52,20 @@ connection.query(create_userTable)
       console.log('table users created successfully!!');
   })
   .catch(e=>console.log(e));
+
+//Gmail用設定
+const smtp_config = {
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth:{
+    user:'kentaro523@gmail.com',
+    pass:'python357'
+  }
+};
+
+const transporter = nodemailer.createTransport(smtp_config);
 
 app
     .use(express.static(path.join(__dirname,'public')))
@@ -251,6 +266,17 @@ const handlePostbackEvent = async (ev) => {
             client.replyMessage(ev.replyToken,{
               "type":"text",
               "text":"予約が完了しました。"
+            });
+            //Gmail送信
+            const message = {
+              from: 'kentaro523@gmail.com',
+              to: 'kenkenkentaro523@gmail.com',
+              subject: 'test',
+              text: 'test body'
+            };
+
+            transporter.sendMail(message,(err,response)=>{
+              systemLogger.info(err || response);
             });
           })
           .catch(e=>console.log(e));
