@@ -238,7 +238,7 @@ const handlePostbackEvent = async (ev) => {
     else if(splitData[0] === 'yes'){
         const orderedMenu = splitData[1];
         const selectedDate = splitData[2];
-        const fixedTime = splitData[3];
+        const fixedTime = parseInt(splitData[3]);
         const treatTime = await calcTreatTime(ev.source.userId,orderedMenu);
         const endTime = fixedTime + treatTime*60*1000;
         const insertQuery = {
