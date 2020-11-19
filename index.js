@@ -276,7 +276,8 @@ const handlePostbackEvent = async (ev) => {
             };
 
             transporter.sendMail(message,(err,response)=>{
-              systemLogger.info(err || response);
+              if(err) console.error(err);
+              console.log(response);
             });
           })
           .catch(e=>console.log(e));
