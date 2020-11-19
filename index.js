@@ -238,13 +238,12 @@ const handlePostbackEvent = async (ev) => {
     else if(splitData[0] === 'yes'){
         const orderedMenu = splitData[1];
         const selectedDate = splitData[2];
-        const selectedTime = splitData[3];
-        const startTimestamp = timeConversion(selectedDate,selectedTime);
+        const fixedTime = splitData[3];
         const treatTime = await calcTreatTime(ev.source.userId,orderedMenu);
-        const endTimestamp = startTimestamp + treatTime*60*1000;
+        const endTime = fixedTime + treatTime*60*1000;
         const insertQuery = {
           text:'INSERT INTO reservations (line_uid, name, scheduledate, starttime, endtime, menu) VALUES($1,$2,$3,$4,$5,$6);',
-          values:[ev.source.userId,profile.displayName,selectedDate,startTimestamp,endTimestamp,orderedMenu]
+          values:[ev.source.userId,profile.displayName,selectedDate,fixedTime,endTime,orderedMenu]
         };
         connection.query(insertQuery)
           .then(res=>{
@@ -253,12 +252,27 @@ const handlePostbackEvent = async (ev) => {
               "type":"text",
               "text":"予約が完了しました。"
             });
+            client.pushMessage('Ubca9519f029b6af8e53a9b54ffe92cae',{
+              "type":"text",
+              "text":"あなたの予約が入りました^^"
+            });
           })
           .catch(e=>console.log(e));
     }
     
     else if(splitData[0] === 'no'){
-      // あとで何か入れる
+      const orderedMenu = splitData[1];
+      const selectedDate = splitData[2];
+      const selectedTime = splitData[3];
+      const num = parseInt(splitData[4]);
+      if(num === -1){
+        return client.replyMessage(ev.replyToken,{
+          "type":"text",
+          "text":"申し訳ありません。この時間帯には予約可能な時間がありません><;"
+        });
+      }else{
+        confirmation(ev,orderedMenu,selectedDate,selectedTime,num);
+      }
     }
     
     else if(splitData[0] === 'delete'){
@@ -807,56 +821,54 @@ const confirmation = async (ev,menu,date,time,n) => {
   const selectedTime = 9 + parseInt(time);
   const reservableArray = await checkReservable(ev,menu,date);
   const candidates = reservableArray[parseInt(time)];
+  const n_dash = (n>=candidates.length-1) ? -1 : n+1;
+  console.log('n_dash:',n_dash);
 
-  if(candidates[n]){
-    const proposalTime = dateConversion(candidates[n]);
-    
-    return client.replyMessage(ev.replyToken,{
-      "type":"flex",
-      "altText":"menuSelect",
-      "contents":
-      {
-        "type": "bubble",
-        "body": {
-          "type": "box",
-          "layout": "vertical",
-          "contents": [
-            {
-              "type": "text",
-              "text":  `次回予約は${proposalTime}でよろしいですか？`,
-              // "text": `次回予約は${splitDate[1]}月${splitDate[2]}日 ${selectedTime}時〜でよろしいですか？`,
-              "size": "lg",
-              "wrap": true
+  const proposalTime = dateConversion(candidates[n]);
+
+  return client.replyMessage(ev.replyToken,{
+    "type":"flex",
+    "altText":"menuSelect",
+    "contents":
+    {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text":  `次回予約は${proposalTime}でよろしいですか？`,
+            // "text": `次回予約は${splitDate[1]}月${splitDate[2]}日 ${selectedTime}時〜でよろしいですか？`,
+            "size": "lg",
+            "wrap": true
+          }
+        ]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": "はい",
+              "data": `yes&${menu}&${date}&${candidates[n]}`
             }
-          ]
-        },
-        "footer": {
-          "type": "box",
-          "layout": "horizontal",
-          "contents": [
-            {
-              "type": "button",
-              "action": {
-                "type": "postback",
-                "label": "はい",
-                "data": `yes&${menu}&${date}&${time}`
-              }
-            },
-            {
-              "type": "button",
-              "action": {
-                "type": "postback",
-                "label": "いいえ",
-                "data": `no&${menu}&${date}&${time}`
-              }
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": "いいえ",
+              "data": `no&${menu}&${date}&${time}&${n_dash}`
             }
-          ]
-        }
+          }
+        ]
       }
-    });
-  }
-
-
+    }
+  });
 }
 
 const checkNextReservation = (ev) => {
