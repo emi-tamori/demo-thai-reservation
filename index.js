@@ -252,10 +252,6 @@ const handlePostbackEvent = async (ev) => {
               "type":"text",
               "text":"予約が完了しました。"
             });
-            client.pushMessage('Ubca9519f029b6af8e53a9b54ffe92cae',{
-              "type":"text",
-              "text":"あなたの予約が入りました^^"
-            });
           })
           .catch(e=>console.log(e));
     }
