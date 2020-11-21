@@ -247,7 +247,14 @@ const handlePostbackEvent = async (ev) => {
         const orderedMenu = splitData[1];
         const selectedDate = splitData[2];
         const selectedTime = splitData[3];
-        confirmation(ev,orderedMenu,selectedDate,selectedTime,0);
+        if(selectedTime >= 0){
+          confirmation(ev,orderedMenu,selectedDate,selectedTime,0);
+        }else{
+          return client.replyMessage(ev.replyToken,{
+            "type":"text",
+            "text":"申し訳ありません。この時間帯には予約可能な時間がありません><;"
+          });
+        }
     }
     
     else if(splitData[0] === 'yes'){
@@ -629,11 +636,15 @@ const askDate = (ev,orderedMenu) => {
 }
 
 const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
+  const time = [];
   const color = [];
+  //予約時間帯とボタン色配列を生成
   for(let i=0;i<reservableArray.length;i++){
     if(reservableArray[i].length){
+      time.push(i);
       color.push('#00AA00');
     }else{
+      time.push(-1);
       color.push('#FF0000');
     }
   }
@@ -683,7 +694,7 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
                     "action": {
                       "type": "postback",
                       "label": "9時-",
-                      "data":`time&${orderedMenu}&${selectedDate}&0`
+                      "data":`time&${orderedMenu}&${selectedDate}&${time[0]}`
                     },
                     "style": "primary",
                     "color": `${color[0]}`,
@@ -694,7 +705,7 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
                     "action": {
                       "type": "postback",
                       "label": "10時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&1`
+                      "data": `time&${orderedMenu}&${selectedDate}&${time[1]}`
                     },
                     "style": "primary",
                     "color": `${color[1]}`,
@@ -705,7 +716,7 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
                     "action": {
                       "type": "postback",
                       "label": "11時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&2`
+                      "data": `time&${orderedMenu}&${selectedDate}&${time[2]}`
                     },
                     "style": "primary",
                     "color": `${color[2]}`,
@@ -722,7 +733,7 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
                     "action": {
                       "type": "postback",
                       "label": "12時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&3`
+                      "data": `time&${orderedMenu}&${selectedDate}&${time[3]}`
                     },
                     "style": "primary",
                     "color": `${color[3]}`,
@@ -733,7 +744,7 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
                     "action": {
                       "type": "postback",
                       "label": "13時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&4`
+                      "data": `time&${orderedMenu}&${selectedDate}&${time[4]}`
                     },
                     "style": "primary",
                     "color": `${color[4]}`,
@@ -744,7 +755,7 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
                     "action": {
                       "type": "postback",
                       "label": "14時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&5`
+                      "data": `time&${orderedMenu}&${selectedDate}&${time[5]}`
                     },
                     "style": "primary",
                     "color": `${color[5]}`,
@@ -762,7 +773,7 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
                     "action": {
                       "type": "postback",
                       "label": "15時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&6`
+                      "data": `time&${orderedMenu}&${selectedDate}&${time[6]}`
                     },
                     "style": "primary",
                     "color": `${color[6]}`,
@@ -773,7 +784,7 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
                     "action": {
                       "type": "postback",
                       "label": "16時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&7`
+                      "data": `time&${orderedMenu}&${selectedDate}&${time[7]}`
                     },
                     "style": "primary",
                     "color": `${color[7]}`,
@@ -784,7 +795,7 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
                     "action": {
                       "type": "postback",
                       "label": "17時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&8`
+                      "data": `time&${orderedMenu}&${selectedDate}&${time[8]}`
                     },
                     "style": "primary",
                     "color": `${color[8]}`,
@@ -802,34 +813,34 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
                     "action": {
                       "type": "postback",
                       "label": "18時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&9`
+                      "data": `time&${orderedMenu}&${selectedDate}&${time[9]}`
                     },
                     "style": "primary",
                     "color": `${color[9]}`,
                     "margin": "md"
                   },
-                  // {
-                  //   "type": "button",
-                  //   "action": {
-                  //     "type": "postback",
-                  //     "label": "",
-                  //     "data": ""
-                  //   },
-                  //   "style": "primary",
-                  //   "color": "#999999",
-                  //   "margin": "md"
-                  // },
-                  // {
-                  //   "type": "button",
-                  //   "action": {
-                  //     "type": "postback",
-                  //     "label": "",
-                  //     "data": ""
-                  //   },
-                  //   "style": "primary",
-                  //   "color": "#999999",
-                  //   "margin": "md"
-                  // }
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "postback",
+                      "label": " ",
+                      "data": "null"
+                    },
+                    "style": "primary",
+                    "color": "#999999",
+                    "margin": "md"
+                  },
+                  {
+                    "type": "button",
+                    "action": {
+                      "type": "postback",
+                      "label": " ",
+                      "data": "null"
+                    },
+                    "style": "primary",
+                    "color": "#999999",
+                    "margin": "md"
+                  }
                 ],
                 "margin": "md"
               }
