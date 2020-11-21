@@ -261,19 +261,19 @@ const handlePostbackEvent = async (ev) => {
             const reservableArray = await checkReservable(ev,orderedMenu,selectedDate);
             askTime(ev,orderedMenu,selectedDate,reservableArray);
           }else{
-            return client.replyMessage(replyToken,{
+            return client.replyMessage(ev.replyToken,{
               "type":"text",
               "text":`${FUTURE_LIMIT}日より先の予約はできません><;`
             });
           }
         }else{
-          return client.replyMessage(replyToken,{
+          return client.replyMessage(ev.replyToken,{
             "type":"text",
             "text":"定休日には予約できません><;"
           });
         }
       }else{
-        return client.replyMessage(replyToken,{
+        return client.replyMessage(ev.replyToken,{
           "type":"text",
           "text":"過去の日にちには予約できません><;"
         });
