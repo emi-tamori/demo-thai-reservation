@@ -6,15 +6,17 @@ const { Client } = require('pg');
 const router = require('./routers/index');
 const apiRouter = require('./routers/api');
 const multipart = require('connect-multiparty');
-const nodemailer = require('nodemailer');
+// const nodemailer = require('nodemailer');
 
 const PORT = process.env.PORT || 5000
 
 const INITIAL_TREAT = [20,10,40,15,30,15,10];  //施術時間初期値
 const MENU = ['カット','シャンプー','カラーリング','ヘッドスパ','マッサージ＆スパ','眉整え','顔そり'];
 const WEEK = [ "日", "月", "火", "水", "木", "金", "土" ];
-const OPENTIME = 9;
-const CLOSETIME = 19;
+const OPENTIME = 9; //開店時間
+const CLOSETIME = 19; //閉店時間
+const REGULAR_COLOSE = [4]; //定休日の曜日
+const FUTURE_LIMIT = 60; //何日先まで予約可能かの上限
 
 const config = {
     channelAccessToken:process.env.ACCESS_TOKEN,
@@ -239,8 +241,43 @@ const handlePostbackEvent = async (ev) => {
     else if(splitData[0] === 'date'){
       const orderedMenu = splitData[1];
       const selectedDate = ev.postback.params.date;
-      const reservableArray = await checkReservable(ev,orderedMenu,selectedDate);
-      askTime(ev,orderedMenu,selectedDate,reservableArray);
+
+      //「過去の日にち」、「定休日」、「２ヶ月先」の予約はできないようフィルタリングする
+      const today_y = new Date().getFullYear();
+      const today_m = new Date().getMonth() + 1;
+      const today_d = new Date().getDate();
+      const today = new Date(`${today_y}/${today_m}/${today_d} 0:00`).getTime() - 9*60*60*1000;
+      const targetDate = new Date(`${selectedDate} 0:00`).getTime() - 9*60*60*1000;
+
+      //選択日が過去でないことの判定
+      if(targetDate>=today){
+        const targetDay = new Date(`${selectedDate}`).getDay();
+        const dayCheck = REGULAR_COLOSE.some(day => day === targetDay);
+        //定休日でないことの判定
+        if(!dayCheck){
+          const futureLimit = today + FUTURE_LIMIT*24*60*60*1000;
+          //２ヶ月先でないことの判定
+          if(targetDate <= futureLimit){
+            const reservableArray = await checkReservable(ev,orderedMenu,selectedDate);
+            askTime(ev,orderedMenu,selectedDate,reservableArray);
+          }else{
+            return client.replyMessage(replyToken,{
+              "type":"text",
+              "text":`${FUTURE_LIMIT}日より先の予約はできません><;`
+            });
+          }
+        }else{
+          return client.replyMessage(replyToken,{
+            "type":"text",
+            "text":"定休日には予約できません><;"
+          });
+        }
+      }else{
+        return client.replyMessage(replyToken,{
+          "type":"text",
+          "text":"過去の日にちには予約できません><;"
+        });
+      }
     }
     
     else if(splitData[0] === 'time'){
