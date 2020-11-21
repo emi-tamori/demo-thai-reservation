@@ -997,9 +997,10 @@ const checkReservable = (ev,menu,date) => {
         //予約と予約の間隔を格納する3次元配列を生成する
         const intervalArray = [];
         for(let i=0; i<separatedByTime.length; i++){
+          //時間帯に予約が入っている場合
           if(separatedByTime[i].length){
             const pattern = separatedByTime[i][0][2];
-
+            //パターン0,2の場合
             if(pattern === 0 || pattern === 2){
               const tempArray = [];
               for(let j=0; j<separatedByTime[i].length-1; j++){
