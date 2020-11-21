@@ -54,18 +54,18 @@ connection.query(create_userTable)
   .catch(e=>console.log(e));
 
 //Gmail用設定
-const smtp_config = {
-  service: 'gmail',
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth:{
-    user:'kentaro523@gmail.com',
-    pass:'python357'
-  }
-};
+// const smtp_config = {
+//   service: 'gmail',
+//   host: 'smtp.gmail.com',
+//   port: 465,
+//   secure: true,
+//   auth:{
+//     user:'kentaro523@gmail.com',
+//     pass:'python357'
+//   }
+// };
 
-const transporter = nodemailer.createTransport(smtp_config);
+// const transporter = nodemailer.createTransport(smtp_config);
 
 app
     .use(express.static(path.join(__dirname,'public')))
@@ -247,6 +247,8 @@ const handlePostbackEvent = async (ev) => {
         const orderedMenu = splitData[1];
         const selectedDate = splitData[2];
         const selectedTime = splitData[3];
+
+        //予約不可の時間帯は-1が返ってくるためそれを条件分岐
         if(selectedTime >= 0){
           confirmation(ev,orderedMenu,selectedDate,selectedTime,0);
         }else{
@@ -261,33 +263,48 @@ const handlePostbackEvent = async (ev) => {
         const orderedMenu = splitData[1];
         const selectedDate = splitData[2];
         const fixedTime = parseInt(splitData[3]);
+       
+        //施術時間の取得
         const treatTime = await calcTreatTime(ev.source.userId,orderedMenu);
-        const endTime = fixedTime + treatTime*60*1000;
-        const insertQuery = {
-          text:'INSERT INTO reservations (line_uid, name, scheduledate, starttime, endtime, menu) VALUES($1,$2,$3,$4,$5,$6);',
-          values:[ev.source.userId,profile.displayName,selectedDate,fixedTime,endTime,orderedMenu]
-        };
-        connection.query(insertQuery)
-          .then(res=>{
-            console.log('データ格納成功！');
-            client.replyMessage(ev.replyToken,{
-              "type":"text",
-              "text":"予約が完了しました。"
-            });
-            //Gmail送信
-            const message = {
-              from: 'kentaro523@gmail.com',
-              to: 'kenkenkentaro523@gmail.com',
-              subject: 'test',
-              text: 'test body'
-            };
 
-            transporter.sendMail(message,(err,response)=>{
-              if(err) console.error(err);
-              console.log(response);
-            });
-          })
-          .catch(e=>console.log(e));
+        //予約完了時間の計算
+        const endTime = fixedTime + treatTime*60*1000;
+
+        //予約確定前の最終チェック→予約ブッキング無しfalse、予約ブッキングありtrue
+        const check = finalCheck(selectedDate,fixedTime,endTime);
+
+        if(!check){
+          const insertQuery = {
+            text:'INSERT INTO reservations (line_uid, name, scheduledate, starttime, endtime, menu) VALUES($1,$2,$3,$4,$5,$6);',
+            values:[ev.source.userId,profile.displayName,selectedDate,fixedTime,endTime,orderedMenu]
+          };
+          connection.query(insertQuery)
+            .then(res=>{
+              console.log('データ格納成功！');
+              client.replyMessage(ev.replyToken,{
+                "type":"text",
+                "text":"予約が完了しました。"
+              });
+              //Gmail送信
+              // const message = {
+              //   from: 'kentaro523@gmail.com',
+              //   to: 'kenkenkentaro523@gmail.com',
+              //   subject: 'test',
+              //   text: 'test body'
+              // };
+  
+              // transporter.sendMail(message,(err,response)=>{
+              //   if(err) console.error(err);
+              //   console.log(response);
+              // });
+            })
+            .catch(e=>console.log(e));
+        }else{
+          return client.replyMessage(ev.replyToken,{
+            "type":"text",
+            "text":"先に予約を取られてしまいました><; 申し訳ありませんが、再度別の時間で予約を取ってください。"
+          });
+        }
     }
     
     else if(splitData[0] === 'no'){
@@ -321,11 +338,6 @@ const handlePostbackEvent = async (ev) => {
         })
         .catch(e=>console.log(e));
     }
-}
-
-const timeConversion = (date,time) => {
-  const selectedTime = 9 + parseInt(time) - 9;
-  return new Date(`${date} ${selectedTime}:00`).getTime();
 }
 
 const dateConversion = (timestamp) => {
@@ -1052,6 +1064,29 @@ const checkReservable = (ev,menu,date) => {
         console.log('reservableArray:',reservableArray);
 
         resolve(reservableArray);
+      })
+      .catch(e=>console.log(e));
+  });
+}
+
+const finalCheck = (date,startTime,endTime) => {
+  return new Promise((resolve,reject) => {
+    // let answer = null;
+    const select_query = {
+      text:`SELECT * FROM reservations WHERE scheduledate = '${date}';`
+    }
+    connection.query(select_query)
+      .then(res=>{
+        if(res.rows.length){
+          const check = res.rows.some(object=>{
+            return ((startTime>object.starttime && startTime<object.endtime)
+            || (startTime<=object.starttime && endTime>=object.endtime)
+            || (endTime>object.starttime && endTime<object.endtime));
+          });
+          resolve(check);
+        }else{
+          resolve(false);
+        }
       })
       .catch(e=>console.log(e));
   });
