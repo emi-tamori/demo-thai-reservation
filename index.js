@@ -307,18 +307,6 @@ const handlePostbackEvent = async (ev) => {
                 "type":"text",
                 "text":"予約が完了しました。"
               });
-              //Gmail送信
-              // const message = {
-              //   from: 'kentaro523@gmail.com',
-              //   to: 'kenkenkentaro523@gmail.com',
-              //   subject: 'test',
-              //   text: 'test body'
-              // };
-  
-              // transporter.sendMail(message,(err,response)=>{
-              //   if(err) console.error(err);
-              //   console.log(response);
-              // });
             })
             .catch(e=>console.log(e));
         }else{
