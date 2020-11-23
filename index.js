@@ -55,20 +55,6 @@ connection.query(create_userTable)
   })
   .catch(e=>console.log(e));
 
-//Gmail用設定
-// const smtp_config = {
-//   service: 'gmail',
-//   host: 'smtp.gmail.com',
-//   port: 465,
-//   secure: true,
-//   auth:{
-//     user:'kentaro523@gmail.com',
-//     pass:'python357'
-//   }
-// };
-
-// const transporter = nodemailer.createTransport(smtp_config);
-
 app
     .use(express.static(path.join(__dirname,'public')))
     .use(multipart())
@@ -222,7 +208,6 @@ const handlePostbackEvent = async (ev) => {
         const newOrdered = splitData[2];
         const orderedMenu = ordered ? ordered + '%' + newOrdered : newOrdered;
         orderChoice(ev,orderedMenu);
-        // askDate(ev,orderedMenu);
     }
 
     else if(splitData[0] === 'end'){
