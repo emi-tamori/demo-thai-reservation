@@ -990,19 +990,19 @@ const checkReservable = (ev,menu,date) => {
           const tempArray = [];
           reservedArray.forEach(array=>{
             //パターン0
-            if(array[0]<timeStamps[i] && (array[1]>timeStamps[i] && array[1]<timeStamps[i+1])){
+            if(array[0]<=timeStamps[i] && (array[1]>timeStamps[i] && array[1]<timeStamps[i+1])){
               tempArray.push(array.concat([0]));
             }
             //パターン１
-            else if((array[0]>=timeStamps[i] && array[0]<timeStamps[i+1]) && array[1]>=timeStamps[i+1]){
+            else if((array[0]>timeStamps[i] && array[0]<timeStamps[i+1]) && array[1]>=timeStamps[i+1]){
               tempArray.push(array.concat([1]));
             }
             //パターン２
-            else if((array[0]>=timeStamps[i] && array[0]<timeStamps[i+1])&&(array[1]>array[0] && array[1]<timeStamps[i+1])){
+            else if((array[0]>timeStamps[i] && array[0]<timeStamps[i+1])&&(array[1]>array[0] && array[1]<timeStamps[i+1])){
               tempArray.push(array.concat([2]));
             }
             //パターン３
-            else if(array[0]<timeStamps[i] && array[1]>timeStamps[i+1]){
+            else if(array[0]<=timeStamps[i] && array[1]>=timeStamps[i+1]){
               tempArray.push(array.concat([3]));
             }
           });
