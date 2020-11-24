@@ -293,7 +293,7 @@ const handlePostbackEvent = async (ev) => {
         const endTime = fixedTime + treatTime*60*1000;
 
         //予約確定前の最終チェック→予約ブッキング無しfalse、予約ブッキングありtrue
-        const check = finalCheck(selectedDate,fixedTime,endTime);
+        const check = await finalCheck(selectedDate,fixedTime,endTime);
 
         if(!check){
           const insertQuery = {
@@ -1081,23 +1081,19 @@ const checkReservable = (ev,menu,date) => {
 
 const finalCheck = (date,startTime,endTime) => {
   return new Promise((resolve,reject) => {
-    // let answer = null;
     const select_query = {
       text:`SELECT * FROM reservations WHERE scheduledate = '${date}';`
     }
     connection.query(select_query)
       .then(res=>{
-        console.log('res.rows:',res.rows);
         if(res.rows.length){
           const check = res.rows.some(object=>{
             return ((startTime>object.starttime && startTime<object.endtime)
             || (startTime<=object.starttime && endTime>=object.endtime)
             || (endTime>object.starttime && endTime<object.endtime));
           });
-          console.log('check:',check);
           resolve(check);
         }else{
-          console.log('elseだよ');
           resolve(false);
         }
       })
