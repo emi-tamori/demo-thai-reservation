@@ -1019,10 +1019,10 @@ const checkReservable = (ev,menu,date) => {
                 separatedByTime[i].push(separatedByTime[i+1][0]);
               }
             }
-            // else{
-            //   //次の時間帯に予約が入っていなければとりあえず、timeStamps[i]から1時間+treatTime分のタイムスタンプを格納
-            //   separatedByTime[i].push([timeStamps[i]+60*60*1000+treatTimeToMs]);
-            // }
+            else{
+              //次の時間帯に予約が入っていなければとりあえず、timeStamps[i]から1時間+treatTime分のタイムスタンプを格納
+              separatedByTime[i].push([timeStamps[i]+60*60*1000+treatTimeToMs]);
+            }
           }
         }
 
@@ -1033,6 +1033,7 @@ const checkReservable = (ev,menu,date) => {
         for(let i=0; i<separatedByTime.length; i++){
           //時間帯に予約が入っている場合
           if(separatedByTime[i].length){
+            //separatedByTime[i]の先頭のパターンを取得
             const pattern = separatedByTime[i][0][2];
             //パターン0,2の場合
             if(pattern === 0 || pattern === 2){
