@@ -1087,14 +1087,17 @@ const finalCheck = (date,startTime,endTime) => {
     }
     connection.query(select_query)
       .then(res=>{
+        console.log('res.rows:',res.rows);
         if(res.rows.length){
           const check = res.rows.some(object=>{
             return ((startTime>object.starttime && startTime<object.endtime)
             || (startTime<=object.starttime && endTime>=object.endtime)
             || (endTime>object.starttime && endTime<object.endtime));
           });
+          console.log('check:',check);
           resolve(check);
         }else{
+          console.log('elseだよ');
           resolve(false);
         }
       })
