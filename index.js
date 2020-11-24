@@ -1018,10 +1018,11 @@ const checkReservable = (ev,menu,date) => {
               if(pattern === 0 || pattern === 2){
                 separatedByTime[i].push(separatedByTime[i+1][0]);
               }
-            }else{
-              //次の時間帯に予約が入っていなければとりあえず、timeStamps[i]から1時間+treatTime分のタイムスタンプを格納
-              separatedByTime[i].push([timeStamps[i]+60*60*1000+treatTimeToMs]);
             }
+            // else{
+            //   //次の時間帯に予約が入っていなければとりあえず、timeStamps[i]から1時間+treatTime分のタイムスタンプを格納
+            //   separatedByTime[i].push([timeStamps[i]+60*60*1000+treatTimeToMs]);
+            // }
           }
         }
 
