@@ -1048,7 +1048,7 @@ const checkReservable = (ev,menu,date) => {
           }else if(i<separatedByTime.length-1 && separatedByTime[i+1].length){
             intervalArray.push([[separatedByTime[i+1][0][0] - timeStamps[i],timeStamps[i]]]);
           }else{
-            intervalArray.push([[60*60*1000+treatTime,timeStamps[i]]]);
+            intervalArray.push([[60*60*1000+treatTime*60*1000,timeStamps[i]]]);
           }      
         }
         
