@@ -1037,18 +1037,18 @@ const checkReservable = (ev,menu,date) => {
             if(pattern === 0 || pattern === 2){
               const tempArray = [];
               for(let j=0; j<separatedByTime[i].length-1; j++){
-                tempArray.push([separatedByTime[i][j+1][0]-separatedByTime[i][j][1], separatedByTime[i][j][1]]);
+                tempArray.push([[separatedByTime[i][j+1][0]-separatedByTime[i][j][1], separatedByTime[i][j][1]]]);
               }
               intervalArray.push(tempArray);
             }else if(pattern === 1){
-              intervalArray.push([separatedByTime[i][0][0]-timeStamps[i],timeStamps[i]]);
+              intervalArray.push([[separatedByTime[i][0][0]-timeStamps[i],timeStamps[i]]]);
             }else if(pattern === 3){
               intervalArray.push([]);
             }
           }else if(i<separatedByTime.length-1 && separatedByTime[i+1].length){
-            intervalArray.push([separatedByTime[i+1][0][0] - timeStamps[i],timeStamps[i]]);
+            intervalArray.push([[separatedByTime[i+1][0][0] - timeStamps[i],timeStamps[i]]]);
           }else{
-            intervalArray.push([[60*60*1000*2,timeStamps[i]]]);
+            intervalArray.push([[60*60*1000+treatTime,timeStamps[i]]]);
           }      
         }
         
