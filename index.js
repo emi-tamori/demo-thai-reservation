@@ -1041,6 +1041,7 @@ const checkReservable = (ev,menu,date) => {
               for(let j=0; j<separatedByTime[i].length-1; j++){
                 tempArray.push([[separatedByTime[i][j+1][0]-separatedByTime[i][j][1], separatedByTime[i][j][1]]]);
               }
+              console.log('temparray in 0 or 2:',tempArray);
               intervalArray.push(tempArray);
             }else if(pattern === 1){
               intervalArray.push([[separatedByTime[i][0][0]-timeStamps[i],timeStamps[i]]]);
