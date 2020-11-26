@@ -6,7 +6,7 @@ const { Client } = require('pg');
 const router = require('./routers/index');
 const apiRouter = require('./routers/api');
 const multipart = require('connect-multiparty');
-// const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 
 const PORT = process.env.PORT || 5000
 
@@ -182,7 +182,34 @@ const handleMessageEvent = async (ev) => {
             }
           }
         });
-      }else{
+      }
+      else if(text === 'メール'){
+        const message = {
+          from: 'kentaro523@gmail.com',
+          to: 'kenkenkentaro523@gmail.com',
+          subject: 'test',
+          text: 'テストですよ'
+        };
+
+        const auth = {
+          type: 'OAuth2',
+          user: 'kentaro523@gmail.com',
+          clientId: '577907910528-fcl9km6ior1oeoajo01fieu3g1fmekj6.apps.googleusercontent.com',
+          clientSecret: '8kWg1XcXHVamlIgBRJ2XbaOg',
+          refreshToken: '1//04rTr9w04tC5NCgYIARAAGAQSNwF-L9IrOWe7pqGGW1tgKbw2fCJZNO1ePA1ITiGI7U3R5uzGIOhw8ruVoSBZZt3a30rayYOTcvg'
+        };
+
+        const transport = {
+          service: 'gmail',
+          auth: auth
+        };
+
+        const transporter = nodemailer.createTransport(transport);
+        transporter.sendMail(message,(err,response)=>{
+          console.log(err || response);
+        });
+      }      
+      else{
         return client.replyMessage(ev.replyToken,{
           "type":"text",
           "text":"次回予約は入っておりません。"
