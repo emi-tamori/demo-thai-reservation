@@ -297,7 +297,7 @@ const handlePostbackEvent = async (ev) => {
         const selectedDate = splitData[2];
         const selectedTime = splitData[3];
 
-        const targetDateTime = new Date(`${selectedDate} ${9+parseInt(selectedTime)}:00`).getTime();
+        const targetDateTime = new Date(`${selectedDate} ${9+parseInt(selectedTime)}:00`).getTimezoneOffset();
         console.log('targetDateTime:',targetDateTime);
         const nowTime = new Date().getTime();
         console.log('nowTime:',nowTime);
