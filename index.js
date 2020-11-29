@@ -297,18 +297,26 @@ const handlePostbackEvent = async (ev) => {
         const selectedDate = splitData[2];
         const selectedTime = splitData[3];
 
+        //選んだ時間が過去の時間かを判定する
         const targetDateTime = new Date(`${selectedDate} ${9+parseInt(selectedTime)}:00`).getTime() - 9*60*60*1000;
         console.log('targetDateTime:',targetDateTime);
         const nowTime = new Date().getTime();
         console.log('nowTime:',nowTime);
 
-        //予約不可の時間帯は-1が返ってくるためそれを条件分岐
-        if(selectedTime >= 0){
-          confirmation(ev,orderedMenu,selectedDate,selectedTime,0);
+        if(targetDateTime>nowTime){
+          //予約不可の時間帯は-1が返ってくるためそれを条件分岐
+          if(selectedTime >= 0){
+            confirmation(ev,orderedMenu,selectedDate,selectedTime,0);
+          }else{
+            return client.replyMessage(ev.replyToken,{
+              "type":"text",
+              "text":"申し訳ありません。この時間帯には予約可能な時間がありません><;"
+            });
+          }
         }else{
           return client.replyMessage(ev.replyToken,{
             "type":"text",
-            "text":"申し訳ありません。この時間帯には予約可能な時間がありません><;"
+            "text":"申し訳ありません。過去の時間は選べません><;"
           });
         }
     }
