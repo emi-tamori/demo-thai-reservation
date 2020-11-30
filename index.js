@@ -1052,21 +1052,35 @@ const checkReservable = (ev,menu,date) => {
         console.log('separatedByTime1:',separatedByTime);
 
         //ある時間帯の最後の要素がパターン0とパターン2の場合、次の時間帯の最初の要素を加える
-        for(let i=0; i<separatedByTime.length-1; i++){
-          if(separatedByTime[i].length){
-            if(separatedByTime[i+1].length){
-              const l = separatedByTime[i].length - 1;
+        for(let i=0; i<separatedByTime.length; i++){
+          while(i<separatedByTime.length-1){
+            if(separatedByTime[i].length){
+              const l = separatedByTime[i].length -1;
               const pattern = separatedByTime[i][l][2];
-              if(pattern === 0 || pattern === 2){
-                separatedByTime[i].push(separatedByTime[i+1][0]);
-              }
-            }
-            else{
-              //次の時間帯に予約が入っていなければとりあえず、timeStamps[i]から1時間+treatTime分のタイムスタンプを格納
-              separatedByTime[i].push([timeStamps[i]+60*60*1000+treatTimeToMs]);
+              if(pattern === 0 || pattern === 2) separatedByTime[i].push(separatedByTime[i+1][0]);
+            }else{
+              //次の時間帯に予約が入っていなければとりあえずtimeStamps[i]から1時間+treatTime分のタイムスタンプを格納
+              separatedByTime[i].push([timeStamp[i] + 60*60*1000 + treatTimeToMs]);
             }
           }
+          //最後の予約時間帯のケース
+          separatedByTime[separatedByTime.length-1].push(timeStamp[separatedByTime.length-1] + 60*60*1000 + treatTimeToMs);
         }
+        // for(let i=0; i<separatedByTime.length-1; i++){
+        //   if(separatedByTime[i].length){
+        //     if(separatedByTime[i+1].length){
+        //       const l = separatedByTime[i].length - 1;
+        //       const pattern = separatedByTime[i][l][2];
+        //       if(pattern === 0 || pattern === 2){
+        //         separatedByTime[i].push(separatedByTime[i+1][0]);
+        //       }
+        //     }
+        //     else{
+        //       //次の時間帯に予約が入っていなければとりあえず、timeStamps[i]から1時間+treatTime分のタイムスタンプを格納
+        //       separatedByTime[i].push([timeStamps[i]+60*60*1000+treatTimeToMs]);
+        //     }
+        //   }
+        // }
 
         console.log('separatedByTime2:',separatedByTime);
 
