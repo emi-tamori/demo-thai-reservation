@@ -1049,6 +1049,8 @@ const checkReservable = (ev,menu,date) => {
           separatedByTime.push(tempArray);
         }
 
+        console.log('separatedByTime1:',separatedByTime);
+
         //ある時間帯の最後の要素がパターン0とパターン2の場合、次の時間帯の最初の要素を加える
         for(let i=0; i<separatedByTime.length; i++){
           if(separatedByTime[i].length){
@@ -1066,7 +1068,7 @@ const checkReservable = (ev,menu,date) => {
           }
         }
 
-        console.log('separatedByTime:',separatedByTime);
+        console.log('separatedByTime2:',separatedByTime);
 
         //予約と予約の間隔を格納する3次元配列を生成する
         const intervalArray = [];
