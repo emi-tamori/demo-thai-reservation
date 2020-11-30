@@ -1064,7 +1064,7 @@ const checkReservable = (ev,menu,date) => {
             }
           }else{
             //最後の予約時間帯のケース
-            separatedByTime[separatedByTime.length-1].push(timeStamps[separatedByTime.length-1] + 60*60*1000 + treatTimeToMs);
+            separatedByTime[separatedByTime.length-1].push([timeStamps[separatedByTime.length-1] + 60*60*1000 + treatTimeToMs]);
           }
         }
         // for(let i=0; i<separatedByTime.length-1; i++){
