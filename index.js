@@ -1060,11 +1060,11 @@ const checkReservable = (ev,menu,date) => {
               if(pattern === 0 || pattern === 2) separatedByTime[i].push(separatedByTime[i+1][0]);
             }else{
               //次の時間帯に予約が入っていなければとりあえずtimeStamps[i]から1時間+treatTime分のタイムスタンプを格納
-              separatedByTime[i].push([timeStamp[i] + 60*60*1000 + treatTimeToMs]);
+              separatedByTime[i].push([timeStamps[i] + 60*60*1000 + treatTimeToMs]);
             }
           }
           //最後の予約時間帯のケース
-          separatedByTime[separatedByTime.length-1].push(timeStamp[separatedByTime.length-1] + 60*60*1000 + treatTimeToMs);
+          separatedByTime[separatedByTime.length-1].push(timeStamps[separatedByTime.length-1] + 60*60*1000 + treatTimeToMs);
         }
         // for(let i=0; i<separatedByTime.length-1; i++){
         //   if(separatedByTime[i].length){
