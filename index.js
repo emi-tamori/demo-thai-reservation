@@ -1062,9 +1062,10 @@ const checkReservable = (ev,menu,date) => {
               //次の時間帯に予約が入っていなければとりあえずtimeStamps[i]から1時間+treatTime分のタイムスタンプを格納
               separatedByTime[i].push([timeStamps[i] + 60*60*1000 + treatTimeToMs]);
             }
+          }else{
+            //最後の予約時間帯のケース
+            separatedByTime[separatedByTime.length-1].push(timeStamps[separatedByTime.length-1] + 60*60*1000 + treatTimeToMs);
           }
-          //最後の予約時間帯のケース
-          separatedByTime[separatedByTime.length-1].push(timeStamps[separatedByTime.length-1] + 60*60*1000 + treatTimeToMs);
         }
         // for(let i=0; i<separatedByTime.length-1; i++){
         //   if(separatedByTime[i].length){
