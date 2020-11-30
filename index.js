@@ -1052,22 +1052,44 @@ const checkReservable = (ev,menu,date) => {
         console.log('separatedByTime1:',separatedByTime);
 
         //ある時間帯の最後の要素がパターン0とパターン2の場合、次の時間帯の最初の要素を加える
+        // for(let i=0; i<separatedByTime.length; i++){
+        //   if(i<separatedByTime.length-1){
+        //     if(separatedByTime[i].length){
+        //       if(separatedByTime[i+1].length){
+        //         const l = separatedByTime[i].length -1;
+        //         const pattern = separatedByTime[i][l][2];
+        //         if(pattern === 0 || pattern === 2) separatedByTime[i].push(separatedByTime[i+1][0]);
+        //       }else{
+        //         //次の時間帯に予約が入っていなければとりあえずtimeStamps[i]から1時間+treatTime分のタイムスタンプを格納
+        //         separatedByTime[i].push([timeStamps[i] + 60*60*1000 + treatTimeToMs]);
+        //       }              
+        //     }
+        //   }else{
+        //     //最後の予約時間帯のケース
+        //     separatedByTime[separatedByTime.length-1].push([timeStamps[separatedByTime.length-1] + 60*60*1000 + treatTimeToMs]);
+        //   }
+        // }
+
+        //ここから
         for(let i=0; i<separatedByTime.length; i++){
-          if(i<separatedByTime.length-1){
+          if(separatedByTime[i].length && i !== separatedByTime.length-1){
             if(separatedByTime[i+1].length){
-              const l = separatedByTime[i].length -1;
+              const l = separatedByTime[i].length - 1;
               const pattern = separatedByTime[i][l][2];
               if(pattern === 0 || pattern === 2) separatedByTime[i].push(separatedByTime[i+1][0]);
-            }else{
-              //次の時間帯に予約が入っていなければとりあえずtimeStamps[i]から1時間+treatTime分のタイムスタンプを格納
-              separatedByTime[i].push([timeStamps[i] + 60*60*1000 + treatTimeToMs]);
             }
-          }else{
-            //最後の予約時間帯のケース
-            separatedByTime[separatedByTime.length-1].push([timeStamps[separatedByTime.length-1] + 60*60*1000 + treatTimeToMs]);
+            else{
+              //次の時間帯に予約が入っていなければとりあえず、timeStamps[i]から1時間+treatTime分のタイムスタンプを格納
+              separatedByTime[i].push([timeStamps[i]+60*60*1000+treatTimeToMs]);
+            }
+          }else if(separatedByTime[i].length && i === separatedByTime.length-1){
+            const l = separatedByTime[i].length - 1;
+            const pattern = separatedByTime[i][l][2];
+            if(pattern === 0 || pattern === 2) separatedByTime[i].push(separatedByTime[i+1][0]);
           }
         }
-        // for(let i=0; i<separatedByTime.length-1; i++){
+
+        // for(let i=0; i<separatedByTime.length; i++){
         //   if(separatedByTime[i].length){
         //     if(separatedByTime[i+1].length){
         //       const l = separatedByTime[i].length - 1;
