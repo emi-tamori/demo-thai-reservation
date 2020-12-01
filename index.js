@@ -1158,7 +1158,7 @@ const checkReservable = (ev,menu,date,num) => {
         });
 
         //シフトによりマスキング
-        const shift = SHIFT[`${STAFFS[num]}`];
+        const shift = SHIFT1[`${STAFFS[num]}`];
         console.log('shift:',shift);
         const filteredArray = [];
         reservableArray.forEach((value,index) => {
