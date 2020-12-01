@@ -81,16 +81,6 @@ STAFFS.forEach(name=>{
     .catch(e=>console.log(e));
 })
 
-// const create_reservationTable = {
-//   text:'CREATE TABLE IF NOT EXISTS reservations (id SERIAL NOT NULL, line_uid VARCHAR(255), name VARCHAR(100), scheduledate DATE, starttime BIGINT, endtime BIGINT, menu VARCHAR(50));'
-// };
-
-// connection.query(create_reservationTable)
-//   .then(()=>{
-//       console.log('table users created successfully!!');
-//   })
-//   .catch(e=>console.log(e));
-
 app
     .use(express.static(path.join(__dirname,'public')))
     .use(multipart())
@@ -306,8 +296,16 @@ const handlePostbackEvent = async (ev) => {
           const futureLimit = today + FUTURE_LIMIT*24*60*60*1000;
           //２ヶ月先でないことの判定
           if(targetDate <= futureLimit){
-            const reservableArray = await checkReservable(ev,orderedMenu,selectedDate);
-            askTime(ev,orderedMenu,selectedDate,reservableArray);
+
+            //スタッフ人数分のreservableArrayを取得
+            const reservableArray = [];
+            for(let i=0; i<STAFFS.length; i++){
+              const staff_reservable = await checkReservable(ev,orderedMenu,selectedDate,i);
+              reservableArray.push(staff_reservable);
+            }
+            console.log('reservableArray:',reservableArray);
+            // const reservableArray = await checkReservable(ev,orderedMenu,selectedDate);
+            // askTime(ev,orderedMenu,selectedDate,reservableArray);
           }else{
             return client.replyMessage(ev.replyToken,{
               "type":"text",
@@ -1032,7 +1030,7 @@ const checkNextReservation = (ev) => {
   });
 }
 
-const checkReservable = (ev,menu,date) => {
+const checkReservable = (ev,menu,date,num) => {
   return new Promise( async (resolve,reject)=>{
     const id = ev.source.userId;
     const treatTime = await calcTreatTime(id,menu);
@@ -1040,7 +1038,7 @@ const checkReservable = (ev,menu,date) => {
     const treatTimeToMs = treatTime*60*1000;
 
     const select_query = {
-      text:'SELECT * FROM reservations WHERE scheduledate = $1 ORDER BY starttime ASC;',
+      text:`SELECT * FROM reservations.${STAFFS[num]} WHERE scheduledate = $1 ORDER BY starttime ASC;`,
       values:[`${date}`]
     };
 
