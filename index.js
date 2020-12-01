@@ -1157,9 +1157,18 @@ const checkReservable = (ev,menu,date,num) => {
           reservableArray.push(tempArray);
         });
 
-        console.log('reservableArray:',reservableArray);
-
-        resolve(reservableArray);
+        //シフトによりマスキング
+        const shift = SHIFT[`${STAFFS[num]}`];
+        console.log('shift:',shift);
+        const filteredArray = [];
+        reservableArray.forEach((value,index) => {
+          if(shift[index]){
+            filteredArray.push(value);
+          }else{
+            filteredArray.push([]);
+          }
+        });
+        resolve(filteredArray);
       })
       .catch(e=>console.log(e));
   });
