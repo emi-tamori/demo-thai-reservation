@@ -16,7 +16,24 @@ const WEEK = [ "日", "月", "火", "水", "木", "金", "土" ];
 const OPENTIME = 9; //開店時間
 const CLOSETIME = 19; //閉店時間
 const REGULAR_COLOSE = [4]; //定休日の曜日
-const FUTURE_LIMIT = 60; //何日先まで予約可能かの上限
+const FUTURE_LIMIT = 3; //何日先まで予約可能かの上限
+
+const STAFFS = ['ken','emi','taro'];
+const SHIFT1 = {
+  ken:[0,0,0,0,0,1,1,1,1,1],
+  emi:[1,1,1,1,1,1,1,1,1,1],
+  taro:[0,0,0,0,0,0,0,0,0,0]
+};
+const SHIFT2 = {
+  ken:[0,0,0,0,0,1,1,1,1,1],
+  emi:[0,0,0,0,0,1,1,1,1,1],
+  taro:[1,1,1,1,1,1,1,1,1,1]
+};
+const SHIFT3 = {
+  ken:[0,1,1,1,0,0,0,0,0,0],
+  emi:[0,0,1,1,1,1,1,1,0,0],
+  taro:[0,1,1,1,1,1,1,1,1,1]
+};
 
 const config = {
     channelAccessToken:process.env.ACCESS_TOKEN,
@@ -35,16 +52,7 @@ const connection = new Client({
 
 connection.connect();
 
-const create_reservationTable = {
-  text:'CREATE TABLE IF NOT EXISTS reservations (id SERIAL NOT NULL, line_uid VARCHAR(255), name VARCHAR(100), scheduledate DATE, starttime BIGINT, endtime BIGINT, menu VARCHAR(50));'
-};
-
-connection.query(create_reservationTable)
-  .then(()=>{
-      console.log('table users created successfully!!');
-  })
-  .catch(e=>console.log(e));
-
+//ユーザーテーブルの作成
 const create_userTable = {
   text:'CREATE TABLE IF NOT EXISTS users (id SERIAL NOT NULL, line_uid VARCHAR(255), display_name VARCHAR(255), timestamp VARCHAR(255), cuttime SMALLINT, shampootime SMALLINT, colortime SMALLINT, spatime SMALLINT);'
 };
@@ -54,6 +62,34 @@ connection.query(create_userTable)
       console.log('table users created successfully!!');
   })
   .catch(e=>console.log(e));
+
+//スキーマの作成
+const create_schema ={
+  text:'CREATE SCHEMA reservations'
+};
+connection.query(create_schema)
+  .then(()=>console.log('schema created successfully'))
+  .catch(e=>console.log(e));
+
+//スタッフごとの予約テーブルの作成
+STAFFS.forEach(name=>{
+  const create_table = {
+    text:`CREATE TABLE IF NOT EXISTS reservations.${name} (id SERIAL NOT NULL, line_uid VARCHAR(100), name VARCHAR(100), scheduledate DATE, starttime BIGINT, endtime BIGINT, menu VARCHAR(20));`
+  };
+  connection.query(create_table)
+    .then(()=>console.log(`${name}'s table created successfully`))
+    .catch(e=>console.log(e));
+})
+
+// const create_reservationTable = {
+//   text:'CREATE TABLE IF NOT EXISTS reservations (id SERIAL NOT NULL, line_uid VARCHAR(255), name VARCHAR(100), scheduledate DATE, starttime BIGINT, endtime BIGINT, menu VARCHAR(50));'
+// };
+
+// connection.query(create_reservationTable)
+//   .then(()=>{
+//       console.log('table users created successfully!!');
+//   })
+//   .catch(e=>console.log(e));
 
 app
     .use(express.static(path.join(__dirname,'public')))
