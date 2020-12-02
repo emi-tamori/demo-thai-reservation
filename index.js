@@ -962,7 +962,9 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
 }
 
 const confirmation = async (ev,menu,date,time,n) => {
-  await getNumberOfReservations(date);
+  //各スタッフの予約数
+  const numberOfReservations = await getNumberOfReservations(date);
+  console.log('numberOfReservations:',numberOfReservations);
   const splitDate = date.split('-');
   const selectedTime = 9 + parseInt(time);
 
@@ -1220,8 +1222,10 @@ const finalCheck = (date,startTime,endTime) => {
   });
 }
 
+//予約選択日における各スタッフの予約数を取得する
 const getNumberOfReservations = (date) => { 
   return new Promise((resolve,reject) => {
+    const numberOfReservations = [];
     for(let i=0; i<STAFFS.length; i++){
       const select_query = {
         text:`SELECT * FROM reservations.${STAFFS[i]} WHERE scheduledate = $1 ORDER BY starttime ASC;`,
@@ -1229,9 +1233,10 @@ const getNumberOfReservations = (date) => {
       }
       connection.query(select_query)
         .then(res=>{
-          console.log('res.rows.length:',res.rows.length);
+          numberOfReservations.push(res.rows.length);
         })
         .catch(e=>console.log(e));
     }
+    resolve(numberOfReservations);
   })
 }
