@@ -1236,9 +1236,9 @@ const getNumberOfReservations = (date) => {
         .then(res=>{
           console.log('res.rows.length=',res.rows.length);
           numberOfReservations.push(res.rows.length);
+          if(i === STAFFS.length - 1) resolve(numberOfReservations);
         })
         .catch(e=>console.log(e));
     }
-    resolve(numberOfReservations);
   })
 }
