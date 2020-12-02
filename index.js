@@ -1109,7 +1109,7 @@ const checkReservable = (ev,menu,date,num) => {
           separatedByTime.push(tempArray);
         }
 
-        console.log('separatedByTime1:',separatedByTime);
+        // console.log('separatedByTime1:',separatedByTime);
 
         //ある時間帯の最後の要素がパターン0とパターン2の場合、次の時間帯の最初の要素を加える
         for(let i=0; i<separatedByTime.length; i++){
@@ -1135,7 +1135,7 @@ const checkReservable = (ev,menu,date,num) => {
           }
         }
 
-        console.log('separatedByTime2:',separatedByTime);
+        // console.log('separatedByTime2:',separatedByTime);
 
         //予約と予約の間隔を格納する3次元配列を生成する
         const intervalArray = [];
@@ -1164,8 +1164,8 @@ const checkReservable = (ev,menu,date,num) => {
           }      
         }
         
-        console.log('intervalArray:',intervalArray);
-        console.log('treatTime:',treatTime);
+        // console.log('intervalArray:',intervalArray);
+        // console.log('treatTime:',treatTime);
 
         //reservableArrayを生成
         const reservableArray = [];
@@ -1185,7 +1185,6 @@ const checkReservable = (ev,menu,date,num) => {
 
         //シフトによりマスキング
         const shift = SHIFT1[`${STAFFS[num]}`];
-        console.log('shift:',shift);
         const filteredArray = [];
         reservableArray.forEach((value,index) => {
           if(shift[index]){
