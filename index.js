@@ -21,7 +21,7 @@ const FUTURE_LIMIT = 3; //何日先まで予約可能かの上限
 const STAFFS = ['ken','emi','taro'];
 const SHIFT1 = {
   ken:[0,0,0,0,0,1,1,1,1,1],
-  emi:[1,1,1,1,1,1,1,1,1,1],
+  emi:[0,1,0,1,1,1,1,1,1,1],
   taro:[0,0,0,0,0,0,0,0,0,0]
 };
 const SHIFT2 = {
@@ -305,7 +305,7 @@ const handlePostbackEvent = async (ev) => {
             }
             console.log('reservableArray:',reservableArray);
             // const reservableArray = await checkReservable(ev,orderedMenu,selectedDate);
-            // askTime(ev,orderedMenu,selectedDate,reservableArray);
+            askTime(ev,orderedMenu,selectedDate,reservableArray);
           }else{
             return client.replyMessage(ev.replyToken,{
               "type":"text",
@@ -734,9 +734,14 @@ const askDate = (ev,orderedMenu) => {
 const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
   const time = [];
   const color = [];
-  //予約時間帯とボタン色配列を生成
-  for(let i=0;i<reservableArray.length;i++){
-    if(reservableArray[i].length){
+
+  //予約可能時間帯とボタン色配列を生成
+  for(let i=0; i<CLOSETIME-OPENTIME; i++){
+    let count = 0;
+    for(let j=0; j<reservableArray.length; j++){
+      if(reservableArray[j][i].length) count++;
+    }
+    if(count>0){
       time.push(i);
       color.push('#00AA00');
     }else{
@@ -744,6 +749,16 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
       color.push('#FF0000');
     }
   }
+
+  // for(let i=0;i<reservableArray.length;i++){
+  //   if(reservableArray[i].length){
+  //     time.push(i);
+  //     color.push('#00AA00');
+  //   }else{
+  //     time.push(-1);
+  //     color.push('#FF0000');
+  //   }
+  // }
 
   return client.replyMessage(ev.replyToken,{
       "type":"flex",
