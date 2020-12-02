@@ -971,7 +971,7 @@ const confirmation = async (ev,menu,date,time,n) => {
   //スタッフ人数分のreservableArrayを取得
   const reservableArray = [];
   for(let i=0; i<STAFFS.length; i++){
-    const staff_reservable = await checkReservable(ev,orderedMenu,selectedDate,i);
+    const staff_reservable = await checkReservable(ev,menu,date,i);
     reservableArray.push(staff_reservable);
   }
 
