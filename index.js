@@ -1083,7 +1083,7 @@ const checkReservable = (ev,menu,date,num) => {
         for(let i=OPENTIME; i<CLOSETIME+1; i++){
           timeStamps.push(new Date(`${date} ${i}:00`).getTime()-9*60*60*1000);
         }
-        
+
         // console.log('timestamps',timeStamps);
 
         //この日の予約を各時間帯に関する予約へ分割し、それを3次元配列に格納していく。
@@ -1234,6 +1234,7 @@ const getNumberOfReservations = (date) => {
       }
       connection.query(select_query)
         .then(res=>{
+          console.log('res.rows.length=',res.rows.length);
           numberOfReservations.push(res.rows.length);
         })
         .catch(e=>console.log(e));
