@@ -65,7 +65,7 @@ connection.query(create_userTable)
 
 //スキーマの作成
 const create_schema ={
-  text:'CREATE SCHEMA reservations'
+  text:'CREATE SCHEMA IF NOT EXISTS reservations'
 };
 connection.query(create_schema)
   .then(()=>console.log('schema created successfully'))
