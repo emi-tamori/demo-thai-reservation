@@ -1074,7 +1074,8 @@ const checkReservable = (ev,menu,date,num) => {
         const reservedArray = res.rows.map(object=>{
           return [parseInt(object.starttime),parseInt(object.endtime)];
         });
-        console.log('reservedArray:',reservedArray);
+
+        // console.log('reservedArray:',reservedArray);
 
         //各時間のタイムスタンプ
         // herokuサーバー基準なので、日本の時刻は９時間分進んでしまうため、引く
@@ -1082,7 +1083,8 @@ const checkReservable = (ev,menu,date,num) => {
         for(let i=OPENTIME; i<CLOSETIME+1; i++){
           timeStamps.push(new Date(`${date} ${i}:00`).getTime()-9*60*60*1000);
         }
-        console.log('timestamps',timeStamps);
+        
+        // console.log('timestamps',timeStamps);
 
         //この日の予約を各時間帯に関する予約へ分割し、それを3次元配列に格納していく。
         const separatedByTime = [];
