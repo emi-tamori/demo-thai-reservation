@@ -1229,7 +1229,7 @@ const getNumberOfReservations = (date) => {
       }
       connection.query(select_query)
         .then(res=>{
-          console.log('res.rows:',res.rows);
+          console.log('res.rows.length:',res.rows.length);
         })
         .catch(e=>console.log(e));
     }
