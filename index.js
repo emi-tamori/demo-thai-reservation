@@ -962,9 +962,18 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
 }
 
 const confirmation = async (ev,menu,date,time,n) => {
+  await getNumberOfReservations(date);
   const splitDate = date.split('-');
   const selectedTime = 9 + parseInt(time);
-  const reservableArray = await checkReservable(ev,menu,date);
+
+  //スタッフ人数分のreservableArrayを取得
+  const reservableArray = [];
+  for(let i=0; i<STAFFS.length; i++){
+    const staff_reservable = await checkReservable(ev,orderedMenu,selectedDate,i);
+    reservableArray.push(staff_reservable);
+  }
+
+  // const reservableArray = await checkReservable(ev,menu,date);
   const candidates = reservableArray[parseInt(time)];
   const n_dash = (n>=candidates.length-1) ? -1 : n+1;
   console.log('n_dash:',n_dash);
@@ -1209,4 +1218,20 @@ const finalCheck = (date,startTime,endTime) => {
       })
       .catch(e=>console.log(e));
   });
+}
+
+const getNumberOfReservations = (date) => { 
+  return new Promise((resolve,reject) => {
+    for(let i=0; i<STAFFS.length; i++){
+      const select_query = {
+        text:`SELECT * FROM reservations.${STAFFS[i]} WHERE scheduledate = $1 ORDER BY starttime ASC;`,
+        values:[`${date}`]
+      }
+      connection.query(select_query)
+        .then(res=>{
+          console.log('res.rows:',res.rows);
+        })
+        .catch(e=>console.log(e));
+    }
+  })
 }
