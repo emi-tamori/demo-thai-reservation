@@ -373,7 +373,7 @@ const handlePostbackEvent = async (ev) => {
               //Gmail送信設定
               const message = {
                 from: 'kentaro523@gmail.com',
-                to: MAIL.STAFFS[staffNumber],
+                to: MAIL[`${STAFFS[staffNumber]}`],
                 subject: `${STAFFS[staffNumber]}さんに予約が入りました！！`,
                 text: `${date}に${menu}で予約が入りました！`
               };
