@@ -975,8 +975,23 @@ const confirmation = async (ev,menu,date,time,n) => {
     reservableArray.push(staff_reservable);
   }
 
+  //予約候補の決定
+  const targets = reservableArray.map( (array,index) => {
+    return index === parseInt(time);
+  });
+
+  console.log('targets:',targets);
+  let candidates = [];
+  for(let i=0; i<targets.length; i++){
+    if(targets[i].length && !candidates.length){
+      candidates.push(targets[i]);
+    }else if(targets[i].length && candidates.length){
+      
+    }
+  }
+
   // const reservableArray = await checkReservable(ev,menu,date);
-  const candidates = reservableArray[parseInt(time)];
+  // const candidates = reservableArray[parseInt(time)];
   const n_dash = (n>=candidates.length-1) ? -1 : n+1;
   console.log('n_dash:',n_dash);
 
