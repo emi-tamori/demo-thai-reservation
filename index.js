@@ -24,6 +24,11 @@ const SHIFT1 = {
   emi:[0,1,0,1,1,1,1,1,1,1],
   taro:[0,0,0,0,0,0,0,0,0,0]
 };
+const MAIL = {
+  ken: 'kentaro523@gmail.com',
+  emi: 'kenkenkentaro523@gmail.com',
+  taro: 'kentaro1q81@gmail.com'
+}
 
 const config = {
     channelAccessToken:process.env.ACCESS_TOKEN,
@@ -207,30 +212,7 @@ const handleMessageEvent = async (ev) => {
       }
     }
     else if(text === 'メール'){
-      const message = {
-        from: 'kentaro523@gmail.com',
-        to: 'kenkenkentaro523@gmail.com',
-        subject: 'test',
-        text: 'テストですよ'
-      };
-
-      const auth = {
-        type: 'OAuth2',
-        user: 'kentaro523@gmail.com',
-        clientId: '577907910528-fcl9km6ior1oeoajo01fieu3g1fmekj6.apps.googleusercontent.com',
-        clientSecret: '8kWg1XcXHVamlIgBRJ2XbaOg',
-        refreshToken: '1//04rTr9w04tC5NCgYIARAAGAQSNwF-L9IrOWe7pqGGW1tgKbw2fCJZNO1ePA1ITiGI7U3R5uzGIOhw8ruVoSBZZt3a30rayYOTcvg'
-      };
-
-      const transport = {
-        service: 'gmail',
-        auth: auth
-      };
-
-      const transporter = nodemailer.createTransport(transport);
-      transporter.sendMail(message,(err,response)=>{
-        console.log(err || response);
-      });
+      
     }   
     else{
       return client.replyMessage(ev.replyToken,{
@@ -357,6 +339,18 @@ const handlePostbackEvent = async (ev) => {
         //予約日時の表記取得
         const date = dateConversion(fixedTime);
 
+        //メニュー表記の取得
+        const menuArray = orderedMenu.split('%');
+        let menu = '';
+        menuArray.forEach((value,index) => {
+          if(index !== 0){
+            menu += ',' + MENU[parseInt(value)];
+          }else{
+            menu += MENU[parseInt(value)];
+          }
+          
+        })
+
         //予約完了時間の計算
         const endTime = fixedTime + treatTime*60*1000;
 
@@ -373,7 +367,33 @@ const handlePostbackEvent = async (ev) => {
               console.log('データ格納成功！');
               client.replyMessage(ev.replyToken,{
                 "type":"text",
-                "text":`${date}で予約をお取りしたました（スタッフ：${STAFFS[staffNumber]}）`
+                "text":`${date}に${menu}で予約をお取りしたました（スタッフ：${STAFFS[staffNumber]}）`
+              });
+
+              //Gmail送信設定
+              const message = {
+                from: 'kentaro523@gmail.com',
+                to: MAIL.STAFFS[staffNumber],
+                subject: `${STAFFS[staffNumber]}さんに予約が入りました！！`,
+                text: `${date}に${menu}で予約が入りました！`
+              };
+        
+              const auth = {
+                type: 'OAuth2',
+                user: 'kentaro523@gmail.com',
+                clientId: process.env.GMAIL_CLIENT_ID,
+                clientSecret: process.env.GMAIL_CLIENT_SECRET,
+                refreshToken: process.env.GMAIL_REFRESH_TOKEN
+              };
+        
+              const transport = {
+                service: 'gmail',
+                auth: auth
+              };
+        
+              const transporter = nodemailer.createTransport(transport);
+              transporter.sendMail(message,(err,response)=>{
+                console.log(err || response);
               });
             })
             .catch(e=>console.log(e));
