@@ -978,8 +978,8 @@ const confirmation = async (ev,menu,date,time,n) => {
   console.log('reservableArray=',reservableArray);
 
   //予約候補の決定
-  const targets = reservableArray.map( (array,index) => {
-    return index === parseInt(time);
+  const targets = reservableArray.map( array => {
+    return array[parseInt(time)];
   });
 
   console.log('targets:',targets);
