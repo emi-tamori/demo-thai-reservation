@@ -359,6 +359,7 @@ const handlePostbackEvent = async (ev) => {
         const orderedMenu = splitData[1];
         const selectedDate = splitData[2];
         const fixedTime = parseInt(splitData[3]);
+        const staffNumber = parseInt(splitData[4]);
        
         //施術時間の取得
         const treatTime = await calcTreatTime(ev.source.userId,orderedMenu);
@@ -367,11 +368,11 @@ const handlePostbackEvent = async (ev) => {
         const endTime = fixedTime + treatTime*60*1000;
 
         //予約確定前の最終チェック→予約ブッキング無しfalse、予約ブッキングありtrue
-        const check = await finalCheck(selectedDate,fixedTime,endTime);
+        const check = await finalCheck(selectedDate,fixedTime,endTime,staffNumber);
 
         if(!check){
           const insertQuery = {
-            text:'INSERT INTO reservations (line_uid, name, scheduledate, starttime, endtime, menu) VALUES($1,$2,$3,$4,$5,$6);',
+            text:`INSERT INTO reservations.${STAFFS[staffNumber]} (line_uid, name, scheduledate, starttime, endtime, menu) VALUES($1,$2,$3,$4,$5,$6);`,
             values:[ev.source.userId,profile.displayName,selectedDate,fixedTime,endTime,orderedMenu]
           };
           connection.query(insertQuery)
@@ -977,20 +978,35 @@ const confirmation = async (ev,menu,date,time,n) => {
 
   console.log('reservableArray=',reservableArray);
 
-  //予約候補の決定
+  //対象時間の候補抜き出し
   const targets = reservableArray.map( array => {
     return array[parseInt(time)];
   });
-
   console.log('targets:',targets);
-  let candidates = [];
+
+  //誰の予約とするかを決定する（その日の予約数が一番少ないスタッフ）
+  const maskingArray = [];
   for(let i=0; i<targets.length; i++){
-    if(targets[i].length && !candidates.length){
-      candidates.push(targets[i]);
-    }else if(targets[i].length && candidates.length){
-      
+    if(targets[i].length){
+      maskingArray.push(numberOfReservations[i]);
+    }else{
+      maskingArray.push(-1);
     }
   }
+  console.log('maskignArray=',maskingArray);
+
+  //予約可能かつ予約回数が一番少ないスタッフを選定する
+  let tempNumber = 1000;
+  let staffNumber;
+  maskingArray.forEach((value,index)=>{
+    if(value>=0 && value<tempNumber){
+      tempNumber = value;
+      staffNumber = index;
+    }
+  });
+
+  const candidates = targets[staffNumber];
+  console.log('candidates=',candidates);
 
   // const reservableArray = await checkReservable(ev,menu,date);
   // const candidates = reservableArray[parseInt(time)];
@@ -1012,7 +1028,6 @@ const confirmation = async (ev,menu,date,time,n) => {
           {
             "type": "text",
             "text":  `次回予約は${proposalTime}でよろしいですか？`,
-            // "text": `次回予約は${splitDate[1]}月${splitDate[2]}日 ${selectedTime}時〜でよろしいですか？`,
             "size": "lg",
             "wrap": true
           }
@@ -1027,7 +1042,7 @@ const confirmation = async (ev,menu,date,time,n) => {
             "action": {
               "type": "postback",
               "label": "はい",
-              "data": `yes&${menu}&${date}&${candidates[n]}`
+              "data": `yes&${menu}&${date}&${candidates[n]}&${staffNumber}`
             }
           },
           {
@@ -1218,10 +1233,10 @@ const checkReservable = (ev,menu,date,num) => {
   });
 }
 
-const finalCheck = (date,startTime,endTime) => {
+const finalCheck = (date,startTime,endTime,staffNumber) => {
   return new Promise((resolve,reject) => {
     const select_query = {
-      text:`SELECT * FROM reservations WHERE scheduledate = '${date}';`
+      text:`SELECT * FROM reservations.${STAFFS[staffNumber]} WHERE scheduledate = '${date}';`
     }
     connection.query(select_query)
       .then(res=>{
