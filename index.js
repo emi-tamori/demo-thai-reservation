@@ -24,16 +24,6 @@ const SHIFT1 = {
   emi:[0,1,0,1,1,1,1,1,1,1],
   taro:[0,0,0,0,0,0,0,0,0,0]
 };
-const SHIFT2 = {
-  ken:[0,0,0,0,0,1,1,1,1,1],
-  emi:[0,0,0,0,0,1,1,1,1,1],
-  taro:[1,1,1,1,1,1,1,1,1,1]
-};
-const SHIFT3 = {
-  ken:[0,1,1,1,0,0,0,0,0,0],
-  emi:[0,0,1,1,1,1,1,1,0,0],
-  taro:[0,1,1,1,1,1,1,1,1,1]
-};
 
 const config = {
     channelAccessToken:process.env.ACCESS_TOKEN,
@@ -364,6 +354,9 @@ const handlePostbackEvent = async (ev) => {
         //施術時間の取得
         const treatTime = await calcTreatTime(ev.source.userId,orderedMenu);
 
+        //予約日時の表記取得
+        const date = dateConversion(fixedTime);
+
         //予約完了時間の計算
         const endTime = fixedTime + treatTime*60*1000;
 
@@ -380,7 +373,7 @@ const handlePostbackEvent = async (ev) => {
               console.log('データ格納成功！');
               client.replyMessage(ev.replyToken,{
                 "type":"text",
-                "text":"予約が完了しました。"
+                "text":`${date}で予約をお取りしたました（スタッフ：${STAFFS[staffNumber]}）`
               });
             })
             .catch(e=>console.log(e));
