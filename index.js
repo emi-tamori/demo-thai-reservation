@@ -975,6 +975,8 @@ const confirmation = async (ev,menu,date,time,n) => {
     reservableArray.push(staff_reservable);
   }
 
+  console.log('reservableArray=',reservableArray);
+
   //予約候補の決定
   const targets = reservableArray.map( (array,index) => {
     return index === parseInt(time);
