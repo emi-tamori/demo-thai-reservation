@@ -210,10 +210,7 @@ const handleMessageEvent = async (ev) => {
           "text":"次回予約は入っておりません。"
         });
       }
-    }
-    else if(text === 'メール'){
-      
-    }   
+    } 
     else{
       return client.replyMessage(ev.replyToken,{
         "type":"text",
@@ -763,16 +760,6 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
       color.push('#FF0000');
     }
   }
-
-  // for(let i=0;i<reservableArray.length;i++){
-  //   if(reservableArray[i].length){
-  //     time.push(i);
-  //     color.push('#00AA00');
-  //   }else{
-  //     time.push(-1);
-  //     color.push('#FF0000');
-  //   }
-  // }
 
   return client.replyMessage(ev.replyToken,{
       "type":"flex",
