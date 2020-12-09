@@ -248,15 +248,15 @@ const handleMessageEvent = async (ev) => {
     else if(text === 'メール送信'){
       //Gmail送信設定
       const message = {
-        from    : 'kentaro523@gmail.com',   
-        to      : 'kentaro523@gmail.com',
+        from    : 'monsan.emi83@gmail.com',   
+        to      : 'monsan.emi83@gmail.com',
         subject : 'テストメール',
         text    : 'LINE bot予約用テストメール送信'
       };
 
       const auth = {
         type: 'OAuth2',
-        user: 'kentaro523@gmail.com',
+        user: 'monsan.emi83@gmail.com',
         clientId: '157862044897-15590nr5qoav47ffahqgkh9850cctcqd.apps.googleusercontent.com',
         clientSecret: 'iVaDhnshAbx9bcr3eME5jZNo',
         refreshToken: '1//04nCazqTd7j9xCgYIARAAGAQSNwF-L9Ir6kLbwwQ5HwD40pjxE1TX_DsRendX9mA3raDknH9BKJqRKQpX7hsjpE0tpBmdqCzLcyg'
