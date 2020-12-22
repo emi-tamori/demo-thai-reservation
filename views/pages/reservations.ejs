@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>予約管理画面</title>
+    <%- include ("../partials/header.ejs") %>
 </head>
 <body>
-    <h1>予約管理画面です</h1>
+    <%- include ("../partials/nav.ejs") %>
+
+    <div id='reservationsPage'>
+        <h1 class='top-font'>予約管理ページ</h1>
+    </div>
+
+    <%- include ("../partials/footer.ejs") %>
+    <script src='js/reservations.js'></script>
 </body>
 </html>
