@@ -1,5 +1,5 @@
 (()=>{
-    const API_URL = 'https://linebot-reservation.herokuapp.com/api/';
+    const API_URL = 'https://linebot-reservation2.herokuapp.com/api/';
     const HEADERS = ['ID','名前','登録日','Cut','Shampoo','Color','Spa','次回予約'];
     const CLASSES = ['row-id','row-name','row-resist','row-cut','row-shampoo','row-color','row-spa','row-nextrev'];
 

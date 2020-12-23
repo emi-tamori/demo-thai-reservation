@@ -1,5 +1,5 @@
 (()=>{
-  const API_URL = 'https://linebot-reservation.herokuapp.com/api/';
+  const API_URL = 'https://linebot-reservation2.herokuapp.com/api/';
 
   window.addEventListener('load',()=>{
     fetchData();
