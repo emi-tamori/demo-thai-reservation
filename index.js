@@ -368,30 +368,30 @@ const handlePostbackEvent = async (ev) => {
               });
 
               //Gmail送信設定
-              const message = {
-                from: 'kentaro523@gmail.com',
-                to: MAIL[`${STAFFS[staffNumber]}`],
-                subject: `${STAFFS[staffNumber]}さんに予約が入りました！！`,
-                text: `${date}に${menu}で予約が入りました！`
-              };
+              // const message = {
+              //   from: 'kentaro523@gmail.com',
+              //   to: MAIL[`${STAFFS[staffNumber]}`],
+              //   subject: `${STAFFS[staffNumber]}さんに予約が入りました！！`,
+              //   text: `${date}に${menu}で予約が入りました！`
+              // };
         
-              const auth = {
-                type: 'OAuth2',
-                user: 'kentaro523@gmail.com',
-                clientId: process.env.GMAIL_CLIENT_ID,
-                clientSecret: process.env.GMAIL_CLIENT_SECRET,
-                refreshToken: process.env.GMAIL_REFRESH_TOKEN
-              };
+              // const auth = {
+              //   type: 'OAuth2',
+              //   user: 'kentaro523@gmail.com',
+              //   clientId: process.env.GMAIL_CLIENT_ID,
+              //   clientSecret: process.env.GMAIL_CLIENT_SECRET,
+              //   refreshToken: process.env.GMAIL_REFRESH_TOKEN
+              // };
         
-              const transport = {
-                service: 'gmail',
-                auth: auth
-              };
+              // const transport = {
+              //   service: 'gmail',
+              //   auth: auth
+              // };
         
-              const transporter = nodemailer.createTransport(transport);
-              transporter.sendMail(message,(err,response)=>{
-                console.log(err || response);
-              });
+              // const transporter = nodemailer.createTransport(transport);
+              // transporter.sendMail(message,(err,response)=>{
+              //   console.log(err || response);
+              // });
             })
             .catch(e=>console.log(e));
         }else{
