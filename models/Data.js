@@ -32,7 +32,13 @@ module.exports = {
                         connection.query(pickup_reservations)
                             .then(res=>{
                                 reservations.push(res.rows);
-                                if(index === STAFFS.length-1) resolve(reservations);
+                                if(index === STAFFS.length-1) {
+                                    const data = {
+                                        users: users.rows,
+                                        reservations
+                                    }
+                                    resolve(data);
+                                }
                             })
                             .catch(e=>console.log(e));
                     })
