@@ -9,6 +9,8 @@ const connection = new Client({
   });
 connection.connect();
 
+const STAFFS = ['ken','emi','taro'];
+
 module.exports = {
     
     findData: () => {
@@ -16,22 +18,34 @@ module.exports = {
             const pickup_users = {
                 text:'SELECT * FROM users;'
             };
-            const pickup_reservations = {
-                text:'SELECT * FROM reservations;'
-            };
+            // const pickup_reservations = {
+            //     text:'SELECT * FROM reservations;'
+            // };
 
             connection.query(pickup_users)
                 .then(users=>{
-                    connection.query(pickup_reservations)
-                        .then(reservations=>{
-                            const data = {
-                                users:users.rows,
-                                reservations:reservations.rows
-                            }
-                            console.log('data in models:',data);
-                            resolve(data);
-                        })
-                        .catch(e=>console.log(e))
+                    const reservations = [];
+                    STAFFS.forEach((name,index)=>{
+                        const pickup_reservations = {
+                            text: `SELECT * FROM reservations.${name};`
+                        }
+                        connection.query(pickup_reservations)
+                            .then(res=>{
+                                reservations.push(res.rows);
+                                if(index === STAFFS.length-1) resolve(reservations);
+                            })
+                            .catch(e=>console.log(e));
+                    })
+                    // connection.query(pickup_reservations)
+                    //     .then(reservations=>{
+                    //         const data = {
+                    //             users:users.rows,
+                    //             reservations:reservations.rows
+                    //         }
+                    //         console.log('data in models:',data);
+                    //         resolve(data);
+                    //     })
+                    //     .catch(e=>console.log(e))
                 })
                 .catch(e=>console.log(e))
         });
