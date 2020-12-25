@@ -243,10 +243,12 @@ body {
     color:white;
     text-align:center;
     border:solid 0.1vw white;
+    font-size:2vw;
 }
 
 .table-element{
     width:14vw;
     height:4vw;
     border: solid 0.1vw black;
+    font-size:1vw;
 }

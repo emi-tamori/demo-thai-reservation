@@ -63,8 +63,8 @@
         trDate.appendChild(thDate);
         trWeek.appendChild(thWeek);
       }else{
-        const date = new Date(nowTime+i*ONEDAY).getDate();
-        const week = WEEKS[new Date(nowTime+i*ONEDAY).getDay()];
+        const date = new Date(nowTime+(i-1)*ONEDAY).getDate();
+        const week = WEEKS[new Date(nowTime+(i-1)*ONEDAY).getDay()];
         thDate.innerHTML = date;
         thWeek.innerHTML = week;
         trDate.appendChild(thDate);
