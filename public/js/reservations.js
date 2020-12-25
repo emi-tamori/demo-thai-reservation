@@ -1,6 +1,7 @@
 (()=>{
   const API_URL = 'https://linebot-reservation2.herokuapp.com/api/';
   const WEEKS = ["日", "月", "火", "水", "木", "金", "土"];
+  const ONEDAY = 24*60*60*1000;
 
   window.addEventListener('load',()=>{
     fetchData();
@@ -27,10 +28,6 @@
 
     const reservationsData = data.reservations;
     
-    //テーブルエレメント生成
-    const table = document.createElement('table');
-    table.setAttribute('id','reservationTable');
-    
     //現在のタイムスタンプを取得
     const nowTime = new Date().getTime();
     console.log('nowtime:',nowTime);
@@ -38,13 +35,30 @@
     //年月日生成
     const year = new Date(nowTime).getFullYear();
     const month = new Date(nowTime).getMonth()+1;
-    const date = new Date(nowTime).getDate();
-    const week = WEEKS[new Date(nowTime).getDay()];
 
-    //test
+    //日時ラベル
     const p = document.createElement('p');
     p.innerHTML = `${year}年${month}月${date}日（${week}）`;
     divElement.appendChild(p);
+        
+    //テーブルエレメント生成
+    const table = document.createElement('table');
+    table.setAttribute('id','reservationTable');
+
+    //テーブルヘッダ
+    const tableHeader = document.createElement('thead');
+    for(let i=0;i<7;i++){
+      const thDate = document.createElement('th');
+      const thWeek = document.createElement('th');
+      const date = new Date(nowTime+i*ONEDAY).getDate();
+      const week = WEEKS[new Date(nowTime+i*ONEDAY).getDay()];
+      thDate.innerHTML = date;
+      thWeek.innerHTML = week;
+      tableHeader.appendChild(thDate);
+      tableHeader.appendChild(thWeek);
+    }
+    table.appendChild(tableHeader);
+    divElement.appendChild(table);
   }
 
 })();
