@@ -42,7 +42,7 @@
     const p = document.createElement('p');
     p.innerHTML = `${year}年${month}月`;
     divElement.appendChild(p);
-        
+    
     //テーブルエレメント生成
     const table = document.createElement('table');
     table.setAttribute('id','reservationTable');
@@ -54,7 +54,9 @@
 
     for(let i=0;i<8;i++){
       const thDate = document.createElement('th');
+      thDate.setAttribute('class','table-header');
       const thWeek = document.createElement('th');
+      thWeek.setAttribute('class','table-header');
       if(i === 0){
         thDate.innerHTML = 'Date';
         thWeek.innerHTML = 'Week';
@@ -75,15 +77,17 @@
     
     //テーブル要素生成
     const tableBody = document.createElement('tbody');
-    for(let i=0;i<CLOSETIME-OPENTIME+1;i++){
+    for(let i=0;i<CLOSETIME-OPENTIME;i++){
       const trElement = document.createElement('tr');
       for(let j=0;j<8;j++){
         if(j === 0){
           const td = document.createElement('td');
+          td.setAttribute('class','table-header');
           td.innerHTML = `${OPENTIME+i}:00`;
           trElement.appendChild(td);
         }else{
           const td = document.createElement('td');
+          td.setAttribute('class','table-element');
           td.innerHTML = 'test';
           trElement.appendChild(td);
         }
