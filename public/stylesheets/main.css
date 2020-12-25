@@ -236,6 +236,9 @@ body {
 } */
 
 /* 予約ページ */
+#reservationsPage{
+    text-align:center;
+}
 .table-header{
     width:14vw;
     height:4vw;
