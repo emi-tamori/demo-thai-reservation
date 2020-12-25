@@ -45,8 +45,11 @@
     const table = document.createElement('table');
     table.setAttribute('id','reservationTable');
 
-    //テーブルヘッダ
+    //テーブルヘッダ生成
     const tableHeader = document.createElement('thead');
+    const trDate = document.createElement('tr');
+    const trWeek = document.createElement('tr');
+
     for(let i=0;i<7;i++){
       const thDate = document.createElement('th');
       const thWeek = document.createElement('th');
@@ -54,9 +57,11 @@
       const week = WEEKS[new Date(nowTime+i*ONEDAY).getDay()];
       thDate.innerHTML = date;
       thWeek.innerHTML = week;
-      tableHeader.appendChild(thDate);
-      tableHeader.appendChild(thWeek);
+      trDate.appendChild(thDate);
+      trWeek.appendChild(thWeek);
     }
+    tableHeader.appendChild(trDate);
+    tableHeader.appendChild(trWeek);
     table.appendChild(tableHeader);
     divElement.appendChild(table);
   }
