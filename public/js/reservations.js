@@ -38,7 +38,7 @@
 
     //日時ラベル
     const p = document.createElement('p');
-    p.innerHTML = `${year}年${month}月${date}日（${week}）`;
+    p.innerHTML = `${year}年${month}月`;
     divElement.appendChild(p);
         
     //テーブルエレメント生成
