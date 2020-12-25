@@ -80,7 +80,7 @@
       for(let j=0;j<8;j++){
         if(j === 0){
           const td = document.createElement('td');
-          td.innerHTML = `${OPENTIE+i}:00`;
+          td.innerHTML = `${OPENTIME+i}:00`;
           trElement.appendChild(td);
         }else{
           const td = document.createElement('td');
