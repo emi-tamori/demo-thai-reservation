@@ -241,9 +241,12 @@ body {
     height:4vw;
     background:black;
     color:white;
+    text-align:center;
+    border:solid 0.1vw white;
 }
 
 .table-element{
     width:14vw;
     height:4vw;
+    border: solid 0.1vw black;
 }
