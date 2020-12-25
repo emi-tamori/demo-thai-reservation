@@ -2,6 +2,8 @@
   const API_URL = 'https://linebot-reservation2.herokuapp.com/api/';
   const WEEKS = ["日", "月", "火", "水", "木", "金", "土"];
   const ONEDAY = 24*60*60*1000;
+  const OPENTIME = 12;
+  const CLOSETIME = 23;
 
   window.addEventListener('load',()=>{
     fetchData();
@@ -70,6 +72,25 @@
     tableHeader.appendChild(trDate);
     tableHeader.appendChild(trWeek);
     table.appendChild(tableHeader);
+    
+    //テーブル要素生成
+    const tableBody = document.createElement('tbody');
+    for(let i=0;i<CLOSETIME-OPENTIME+1;i++){
+      const trElement = document.createElement('tr');
+      for(let j=0;j<8;j++){
+        if(j === 0){
+          const td = document.createElement('td');
+          td.innerHTML = `${OPENTIE+i}:00`;
+          trElement.appendChild(td);
+        }else{
+          const td = document.createElement('td');
+          td.innerHTML = 'test';
+          trElement.appendChild(td);
+        }
+      }
+      tableBody.appendChild(trElement);
+    }
+    table.appendChild(tableBody);
     divElement.appendChild(table);
   }
 
