@@ -28,6 +28,8 @@
   const createReservationTable = (data) => {
     const divElement = document.getElementById('reservationsPage');
 
+    let index = 0;
+
     const reservationsData = data.reservations;
     
     //現在のタイムスタンプを取得
@@ -37,6 +39,20 @@
     //年月日生成
     const year = new Date(nowTime).getFullYear();
     const month = new Date(nowTime).getMonth()+1;
+
+    //日送りボタン
+    const backButton = document.createElement('button');
+    const forwardButton = document.createElement('button');
+    backButton.addEventListener('click',()=>{
+      index--;
+      console.log('index=',index);
+    });
+    forwardButton.addEventListener('click',()=>{
+      index++;
+      console.log('index=',index);
+    });
+    divElement.appendChild(backButton);
+    divElement.appendChild(forwardButton);
 
     //日時ラベル
     const p = document.createElement('p');
