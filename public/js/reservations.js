@@ -42,7 +42,7 @@
     const week = WEEKS[new Date(nowTime).getDay()];
 
     //test
-    const p = document.createElementById('p');
+    const p = document.createElement('p');
     p.innerHTML = `${year}年${month}月${date}日（${week}）`;
     divElement.appendChild(p);
   }
