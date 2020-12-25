@@ -50,15 +50,22 @@
     const trDate = document.createElement('tr');
     const trWeek = document.createElement('tr');
 
-    for(let i=0;i<7;i++){
+    for(let i=0;i<8;i++){
       const thDate = document.createElement('th');
       const thWeek = document.createElement('th');
-      const date = new Date(nowTime+i*ONEDAY).getDate();
-      const week = WEEKS[new Date(nowTime+i*ONEDAY).getDay()];
-      thDate.innerHTML = date;
-      thWeek.innerHTML = week;
-      trDate.appendChild(thDate);
-      trWeek.appendChild(thWeek);
+      if(i === 0){
+        thDate.innerHTML = 'Date';
+        thWeek.innerHTML = 'Week';
+        trDate.appendChild(thDate);
+        trWeek.appendChild(thWeek);
+      }else{
+        const date = new Date(nowTime+i*ONEDAY).getDate();
+        const week = WEEKS[new Date(nowTime+i*ONEDAY).getDay()];
+        thDate.innerHTML = date;
+        thWeek.innerHTML = week;
+        trDate.appendChild(thDate);
+        trWeek.appendChild(thWeek);
+      }
     }
     tableHeader.appendChild(trDate);
     tableHeader.appendChild(trWeek);
