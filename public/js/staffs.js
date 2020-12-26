@@ -24,7 +24,7 @@
     
     //スタッフの追加
     const formElement = document.createElement('form');
-    formElement.setAttirbute('id','staffForm');
+    formElement.setAttribute('id','staffForm');
     formElement.setAttribute('name','staffName');
     
     //スタッフ追加フォーム
@@ -46,7 +46,7 @@
     postButton.setAttribute('class','btn btn-primary post-button');
     postButton.value = '登録';
     postButton.type = 'button';
-    
+
     postButton.addEventListener('click',(e)=>{
       e.preventDefault();
       const data = new FormData(formElement);
