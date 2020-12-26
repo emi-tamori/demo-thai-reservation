@@ -36,7 +36,7 @@ module.exports = {
 
     staffRegistration: (req,res) => {
         const {name} = req.body;
-        console.log('name in req.body');
+        console.log('name in req.body',name);
         try{
             Data.staffRegister({name})
                 .then(message=>{
