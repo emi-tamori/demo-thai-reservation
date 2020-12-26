@@ -67,7 +67,6 @@ module.exports = {
             };
             connection.query(pickup_staffs)
                 .then(res=>{
-                    console.log('shifts res.rows',res.rows);
                     resolve(res.rows)
                 })
                 .catch(e=>console.log(e));
@@ -76,9 +75,9 @@ module.exports = {
 
     staffRegister: ({name}) =>{
         return new Promise((resolve,reject) => {
+            console.log('name in staffregister',name);
             const insert_query = {
-                text: 'INSERT INTO shifts (name) VALUES($1);',
-                values: [name]
+                text: `INSERT INTO shifts (name) VALUES('${name}');`
             };
             connection.query(insert_query)
                 .then(()=>{
