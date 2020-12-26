@@ -63,11 +63,11 @@ module.exports = {
     getStaffs: () => {
         return new Promise((resolve,reject)=>{
             const pickup_staffs = {
-                text:'SELECT * from staffs;'
+                text:'SELECT * from shifts;'
             };
             connection.query(pickup_staffs)
                 .then(res=>{
-                    console.log('staff res.rows',res.rows);
+                    console.log('shifts res.rows',res.rows);
                     resolve(res.rows)
                 })
                 .catch(e=>console.log(e));

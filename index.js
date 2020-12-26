@@ -70,6 +70,7 @@ for(let i=0; i<NUMBER_OF_SHIFTS; i++){
     }
   }
 }
+//シフトテーブルの生成
 const create_shiftTable = {
   text: shiftText
 }
