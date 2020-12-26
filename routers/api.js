@@ -12,6 +12,10 @@ router
 
 router 
     .route('/staffs')
-    .get(controller.getStaffs)
+    .get(controller.getStaffs);
+
+router 
+    .route('/staffs')
+    .post(controller.staffRegistration);
 
 module.exports = router;

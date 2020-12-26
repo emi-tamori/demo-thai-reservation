@@ -261,3 +261,8 @@ body {
     border: solid 0.1vw black;
     font-size:1vw;
 }
+
+/* スタッフ管理ページ */
+#staffsPage{
+    text-align:center;
+}

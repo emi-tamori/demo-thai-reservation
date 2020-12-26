@@ -72,5 +72,19 @@ module.exports = {
                 })
                 .catch(e=>console.log(e));
         })
+    },
+
+    staffRegister: ({name}) =>{
+        return new Promise((resolve,reject) => {
+            const insert_query = {
+                text: 'INSERT INTO shifts (name) VALUES($1);',
+                values: [name]
+            };
+            connection.query(insert_query)
+                .then(()=>{
+                    console.log('スタッフ登録完了');
+                    resolve('スタッフ登録完了');
+                })
+        })
     }
 }
