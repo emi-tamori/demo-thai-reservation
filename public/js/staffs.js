@@ -39,7 +39,7 @@
     const input_staff = document.createElement('input');
     input_staff.setAttribute('type','text');
     input_staff.setAttribute('class','form-group staff-input');
-    input_staff.setAttribute('name','staff-name');
+    input_staff.setAttribute('name','name');
     div_input_staff.appendChild(input_staff);
 
     const postButton = document.createElement('input');
