@@ -18,9 +18,6 @@ module.exports = {
             const pickup_users = {
                 text:'SELECT * FROM users;'
             };
-            // const pickup_reservations = {
-            //     text:'SELECT * FROM reservations;'
-            // };
 
             connection.query(pickup_users)
                 .then(users=>{
@@ -42,16 +39,6 @@ module.exports = {
                             })
                             .catch(e=>console.log(e));
                     })
-                    // connection.query(pickup_reservations)
-                    //     .then(reservations=>{
-                    //         const data = {
-                    //             users:users.rows,
-                    //             reservations:reservations.rows
-                    //         }
-                    //         console.log('data in models:',data);
-                    //         resolve(data);
-                    //     })
-                    //     .catch(e=>console.log(e))
                 })
                 .catch(e=>console.log(e))
         });
@@ -71,5 +58,19 @@ module.exports = {
                 })
                 .catch(e=>console.log(e.stack));
         });
+    },
+
+    getStaffs: () => {
+        return new Promise((resolve,reject)=>{
+            const pickup_staffs = {
+                text:'SELECT * from staffs;'
+            };
+            connection.query(pickup_staffs)
+                .then(res=>{
+                    console.log('staff res.rows',res.rows);
+                    resolve(res.rows)
+                })
+                .catch(e=>console.log(e));
+        })
     }
 }

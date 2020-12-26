@@ -10,4 +10,8 @@ router
     .route('/users/:id')
     .post(controller.putUser);
 
+router 
+    .route('/staffs')
+    .get(controller.getStaffs)
+
 module.exports = router;
