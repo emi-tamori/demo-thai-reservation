@@ -10,6 +10,9 @@ router
    })
    .get('/reservations',(req,res)=>{
        res.render('pages/reservations');
+   })
+   .get('/staffs',(req,res)=>{
+       res.render('pages/staffs');
    });
 
 module.exports = router;

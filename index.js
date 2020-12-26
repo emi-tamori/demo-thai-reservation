@@ -70,7 +70,6 @@ for(let i=0; i<NUMBER_OF_SHIFTS; i++){
     }
   }
 }
-console.log('shiftText=',shiftText);
 const create_shiftTable = {
   text: shiftText
 }
