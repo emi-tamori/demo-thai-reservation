@@ -85,30 +85,32 @@
     const tableHeader = document.createElement('thead');
     const trHead = document.createElement('tr');
 
-    for(let i=0;i<CLOSETIME-OPENTIME+2;i++){
-      if(i===0){
+    for(let i=OPENTIME-2;i<CLOSETIME;i++){
+      if(i===OPENTIME-2){
         const th = document.createElement('th');
         th.innerHTML = 'id';
         trHead.appendChild(th);
-      }else if(i===1){
+      }else if(i===OPENTIME-1){
         const th = document.createElement('th');
         th.innerHTML = 'Name';
         trHead.appendChild(th);
       }else{
-
+        const th = document.createElement('th');
+        th.innerHTML = `${i}`;
+        trHead.appendChild(th);
       }
     }
     tableHeader.appendChild(trHead);
     table.appendChild(tableHeader);
     divElement.appendChild(table);
     //スタッフのリスト化
-    // const ulElement = document.createElement('ul');
-    // data.forEach(object=>{
-    //   const liElement = document.createElement('li');
-    //   liElement.innerHTML = `${object.id}:${object.name}`
-    //   ulElement.appendChild(liElement);
-    // });
-    // divElement.appendChild(ulElement);
+    const ulElement = document.createElement('ul');
+    data.forEach(object=>{
+      const liElement = document.createElement('li');
+      liElement.innerHTML = `${object.id}:${object.name}`
+      ulElement.appendChild(liElement);
+    });
+    divElement.appendChild(ulElement);
   }
 
 })();
