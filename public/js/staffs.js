@@ -1,5 +1,8 @@
 (()=>{
   const API_URL = 'https://linebot-reservation2.herokuapp.com/api/staffs';
+  const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
+  const OPENTIME = 9; //開店時間
+  const CLOSETIME = 19; //閉店時間
 
   window.addEventListener('load',()=>{
     fetchData();
@@ -76,14 +79,36 @@
     formElement.appendChild(div_input_staff);
     divElement.appendChild(formElement);
 
+    const table = document.createElement('table');
+
+    //テーブルヘッダー生成
+    const tableHeader = document.createElement('thead');
+    const trHead = document.createElement('tr');
+
+    for(let i=0;i<CLOSETIME-OPENTIME+2;i++){
+      if(i===0){
+        const th = document.createElement('th');
+        th.innerHTML = 'id';
+        trHead.appendChild(th);
+      }else if(i===1){
+        const th = document.createElement('th');
+        th.innerHTML = 'Name';
+        trHead.appendChild(th);
+      }else{
+
+      }
+    }
+    tableHeader.appendChild(trHead);
+    table.appendChild(tableHeader);
+    divElement.appendChild(table);
     //スタッフのリスト化
-    const ulElement = document.createElement('ul');
-    data.forEach(object=>{
-      const liElement = document.createElement('li');
-      liElement.innerHTML = `${object.id}:${object.name}`
-      ulElement.appendChild(liElement);
-    });
-    divElement.appendChild(ulElement);
+    // const ulElement = document.createElement('ul');
+    // data.forEach(object=>{
+    //   const liElement = document.createElement('li');
+    //   liElement.innerHTML = `${object.id}:${object.name}`
+    //   ulElement.appendChild(liElement);
+    // });
+    // divElement.appendChild(ulElement);
   }
 
 })();
