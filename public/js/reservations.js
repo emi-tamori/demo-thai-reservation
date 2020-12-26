@@ -2,6 +2,7 @@
   const API_URL = 'https://linebot-reservation2.herokuapp.com/api/';
   const WEEKS = ["日", "月", "火", "水", "木", "金", "土"];
   const ONEDAY = 24*60*60*1000;
+  const ONEWEEK = ONEDAY*7;
   const OPENTIME = 12;
   const CLOSETIME = 23;
 
@@ -31,14 +32,6 @@
     let index = 0;
 
     const reservationsData = data.reservations;
-    
-    //現在のタイムスタンプを取得
-    const nowTime = new Date().getTime();
-    console.log('nowtime:',nowTime);
-
-    //年月日生成
-    const year = new Date(nowTime).getFullYear();
-    const month = new Date(nowTime).getMonth()+1;
 
     //日送りボタン
     const backButton = document.createElement('button');
@@ -53,6 +46,14 @@
     });
     divElement.appendChild(backButton);
     divElement.appendChild(forwardButton);
+        
+    //現在のタイムスタンプを取得
+    const nowTime = new Date().getTime();
+    console.log('nowtime:',nowTime);
+
+    //年月日生成
+    const year = new Date(nowTime).getFullYear();
+    const month = new Date(nowTime).getMonth()+1;
 
     //日時ラベル
     const p = document.createElement('p');

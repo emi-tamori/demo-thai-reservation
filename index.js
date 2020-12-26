@@ -17,6 +17,7 @@ const OPENTIME = 9; //開店時間
 const CLOSETIME = 19; //閉店時間
 const REGULAR_COLOSE = [4]; //定休日の曜日
 const FUTURE_LIMIT = 3; //何日先まで予約可能かの上限
+const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
 
 const STAFFS = ['ken','emi','taro'];
 const SHIFT1 = {
@@ -56,6 +57,25 @@ connection.query(create_userTable)
   .then(()=>{
       console.log('table users created successfully!!');
   })
+  .catch(e=>console.log(e));
+
+//シフト文字列の生成
+let shiftText = 'CREATE TABLE IF NOT EXISTS shifts (id SERIAL NOT NULL, name VARCHAR(50),';
+for(let i=0; i<NUMBER_OF_SHIFTS; i++){
+  for(j=OPENTIME; j<CLOSETIME; j++){
+    if(i === NUMBER_OF_SHIFTS-1 && j === CLOSETIME-1){
+      shiftText += 'd'+i+'h'+j+' SMALLINT'+');';
+    }else{
+      shiftText += 'd'+i+'h'+j+' SMALLINT'+',';
+    }
+  }
+}
+console.log('shiftText=',shiftText);
+const create_shiftTable = {
+  text: shiftText
+}
+connection.query(create_shiftTable)
+  .then(()=>console.log('shifts created successfully!'))
   .catch(e=>console.log(e));
 
 //スキーマの作成
