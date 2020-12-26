@@ -74,6 +74,7 @@
     });
     div_input_staff.appendChild(postButton);
     formElement.appendChild(div_input_staff);
+    divElement.appendChild(formElement);
 
     //スタッフのリスト化
     const ulElement = document.createElement('ul');
