@@ -71,7 +71,10 @@
       .catch(e=>{
         throw e;
       });
-    })
+    });
+    div_input_staff.appendChild(postButton);
+    formElement.appendChild(div_input_staff);
+
     //スタッフのリスト化
     const ulElement = document.createElement('ul');
     data.forEach(object=>{
