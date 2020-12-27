@@ -309,6 +309,11 @@ body {
     font-size: 1.5vw;
 }
 
+.tbody-shift:hover{
+    cursor: pointer;
+    background:rgb(222, 231, 97);
+}
+
 .switching{
     font-size: 2vw;
     cursor: pointer;

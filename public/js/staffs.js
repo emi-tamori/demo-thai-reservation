@@ -161,6 +161,9 @@
             td.innerHTML = '-';
           }else{
             td.innerHTML = object[`d${index.num}h${i}`];
+            td.addEventListener('click',()=>{
+              toggle(td.textContent);
+            })
           }
           td.setAttribute('class','tbody-shift');
         }
@@ -203,5 +206,9 @@
     divElement.innerHTML = '';
     createStaffTable(value);
   } 
+
+  const toggle = (text) => {
+    console.log('toggled',text);
+  }
 
 })();
