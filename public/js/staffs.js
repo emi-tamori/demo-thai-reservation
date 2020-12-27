@@ -79,6 +79,14 @@
     formElement.appendChild(div_input_staff);
     divElement.appendChild(formElement);
 
+    //日送りボタン
+    const div_arrow = document.createElement('div');
+    const left_arrow = document.createElement('i');
+    left_arrow.setAttribute('class','far fa-arrow-alt-circle-left');
+    div_arrow.appendChild(left_arrow);
+
+    divElement.appendChild(div_arrow);
+
     //テーブル要素宣言
     const table = document.createElement('table');
 
@@ -117,6 +125,8 @@
     data.forEach(object=>{
       for(let i=0;i<NUMBER_OF_SHIFTS;i++){
         const tr = document.createElement('tr');
+        const td_id = document.createElement('td');
+        const td_ //セルの結合を実装中（出かけるため備忘）
         for(let j=OPENTIME-3; j<CLOSETIME; j++){
           const td = document.createElement('td');
           if(j===OPENTIME-3){
