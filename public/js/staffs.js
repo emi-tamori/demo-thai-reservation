@@ -26,7 +26,6 @@
       num: 0
     };
     Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
-    console.log('text:',text)
 
     console.log('create table data:',data);
     const divElement = document.getElementById('staffsPage');
