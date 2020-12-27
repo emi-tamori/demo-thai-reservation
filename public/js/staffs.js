@@ -114,12 +114,15 @@
         const tr = document.createElement('tr');
         for(let j=OPENTIME-3; j<CLOSETIME; j++){
           const td = document.createElement('td');
+          td.setAttribute('class','table-element');
           if(j===OPENTIME-3){
             td.innerHTML = object.id;
           }else if(j===OPENTIME-2){
             td.innerHTML = object.name;
           }else if(j===OPENTIME-1){
             td.innerHTML = `date${i}`;
+          }else{
+            td.innerHTML = object[`d${i}h${j}`];
           }
           tr.appendChild(td);
         }
