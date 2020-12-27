@@ -228,6 +228,7 @@
       STAFFS_DATA[staffNumber][`d${dateNum}h${timeNum}`] = 1;
     }
     console.log('targetShift',targetObj,targetShift);
+    createStaffTable(dateNum);
   }
 
 })();
