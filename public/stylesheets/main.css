@@ -268,21 +268,24 @@ body {
 }
 
 .id-header{
-    width: 4vw;
+    width: 5vw;
     background: rgb(69, 69, 173);
     color: white;
+    border: 0.1vw solid white;
 }
 
 .name-header{
-    width: 10vw;
+    width: 12vw;
     background: rgb(69, 69, 173);
     color: white;
+    border: 0.1vw solid white;
 }
 
 .date-header{
-    width: 10vw;
+    width: 12vw;
     background: rgb(69, 69, 173);
     color: white;
+    border: 0.1vw solid white;
 }
 
 

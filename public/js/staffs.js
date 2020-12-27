@@ -88,7 +88,7 @@
     for(let i=OPENTIME-3;i<CLOSETIME;i++){
       const th = document.createElement('th');
       if(i===OPENTIME-3){
-        th.innerHTML = 'id';
+        th.innerHTML = 'ID';
         th.setAttribute('class','id-header');
       }else if(i===OPENTIME-2){
         th.innerHTML = 'Name';
