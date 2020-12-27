@@ -90,22 +90,17 @@
     formElement.appendChild(div_input_staff);
     divElement.appendChild(formElement);
 
-    //月日表示＆日送りボタン
+    //表示用dateの取得
     const dateArray = createDateArray();
 
-    const div_date = document.createElement('div');
+    const div_switch = document.createElement('div');
     const left_arrow = document.createElement('i');
     left_arrow.setAttribute('class','far fa-arrow-alt-circle-left switching');
     left_arrow.addEventListener('click',()=>{
       console.log('left clicked!',index.num);
       if(index.num>0) index.num--;
     });
-    div_date.appendChild(left_arrow);
-
-    const span_date = document.createElement('span');
-    span_date.setAttribute('class','date-display');
-    span_date.innerHTML = dateArray[index.num];
-    div_date.appendChild(span_date);
+    div_switch.appendChild(left_arrow);
 
     const right_arrow = document.createElement('i');
     right_arrow.setAttribute('class','far fa-arrow-alt-circle-right switching');
@@ -113,9 +108,14 @@
       console.log('right clicked!',index.num);
       if(index.num<NUMBER_OF_SHIFTS-1) index.num++;
     });
-    div_date.appendChild(right_arrow);
+    div_switch.appendChild(right_arrow);
+    divElement.appendChild(div_switch);
 
-    divElement.appendChild(div_date);
+    //日にち表示エリア
+    const p_date = document.createElement('p');
+    p_date.setAttribute('class','date-display');
+    p_date.innerHTML = dateArray[index.num];
+    divElement.appendChild(p_date);
 
     //テーブル要素宣言
     const table = document.createElement('table');
