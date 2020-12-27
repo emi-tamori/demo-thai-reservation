@@ -32,7 +32,7 @@
     let index = {
       num
     };
-    Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
+    // Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
 
     console.log('create table data:',data);
     
