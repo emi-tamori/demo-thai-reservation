@@ -25,8 +25,8 @@
     let index = {
       num: 0
     };
-    const text = Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
-    console.log('text:',text);
+    Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
+    console.log('text:',text)
 
     console.log('create table data:',data);
     const divElement = document.getElementById('staffsPage');
@@ -112,6 +112,8 @@
 
     divElement.appendChild(div_date);
 
+    onChange(0);
+
     //テーブル要素宣言
     const table = document.createElement('table');
 
@@ -194,16 +196,17 @@
       set: newValue => {
         const oldValue = value;
         value = newValue;
-        func(oldValue,newValue);
+        func(newValue);
       },
       configurable: true
     });
   }
 
-  const onChange = (v1,v2) => {
-    console.log('v1',v1);
-    console.log('v2',v2);
-    return 'changed!';
+  const onChange = (value) => {
+    const p = document.createElement('p');
+    const dateArray = createDateArray();
+    p.innerHTML = dateArray[value];
+    divElement.appendChild(p);
   } 
 
 })();
