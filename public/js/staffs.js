@@ -3,7 +3,7 @@
   const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
   const OPENTIME = 9; //開店時間
   const CLOSETIME = 19; //閉店時間
-  let STAFFS_DATA;
+  let STAFFS_DATA; //スタッフシフトデータ格納用
 
   //HTML要素の読み込み
   const divElement = document.getElementById('staffsPage');
@@ -32,7 +32,6 @@
     let index = {
       num
     };
-    console.log('index.num',index.num,num);
     Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
     console.log('index.num',index.num,num);
     console.log('create table data:',data);
@@ -145,35 +144,28 @@
     //テーブル要素生成
     const tbody = document.createElement('tbody');
 
-    //日時生成
-    
-    console.log('dateArray:',dateArray);
-
     data.forEach(object=>{
-      for(let i=0;i<NUMBER_OF_SHIFTS;i++){
-        const tr = document.createElement('tr');
-        const td_id = document.createElement('td');
+      const tr = document.createElement('tr');
 
-        for(let j=OPENTIME-2; j<CLOSETIME; j++){
-          const td = document.createElement('td');
-          if(j===OPENTIME-2){
-            td.innerHTML = object.id;
-            td.setAttribute('class','tbody-id');
-          }else if(j===OPENTIME-1){
-            td.innerHTML = object.name;
-            td.setAttribute('class','tbody-name');
+      for(let i=OPENTIME-2; i<CLOSETIME; i++){
+        const td = document.createElement('td');
+        if(i===OPENTIME-2){
+          td.innerHTML = object.id;
+          td.setAttribute('class','tbody-id');
+        }else if(i===OPENTIME-1){
+          td.innerHTML = object.name;
+          td.setAttribute('class','tbody-name');
+        }else{
+          if(object[`d${index.num}h${i}`] === null){
+            td.innerHTML = '-';
           }else{
-            if(object[`d${i}h${j}`] === null){
-              td.innerHTML = '-';
-            }else{
-              td.innerHTML = object[`d${i}h${j}`];
-            }
-            td.setAttribute('class','tbody-shift');
+            td.innerHTML = object[`d${index.num}h${i}`];
           }
-          tr.appendChild(td);
+          td.setAttribute('class','tbody-shift');
         }
-        tbody.appendChild(tr);
+        tr.appendChild(td);
       }
+      tbody.appendChild(tr);
     });
     table.appendChild(tbody);
     divElement.appendChild(table);
