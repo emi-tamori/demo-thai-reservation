@@ -22,7 +22,11 @@
   }
 
   const createStaffTable = (data) => {
-    let index = 0;
+    let index = {
+      num: 0
+    };
+    Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
+    
     console.log('create table data:',data);
     const divElement = document.getElementById('staffsPage');
     
@@ -87,8 +91,8 @@
     const left_arrow = document.createElement('i');
     left_arrow.setAttribute('class','far fa-arrow-alt-circle-left switching');
     left_arrow.addEventListener('click',()=>{
-      console.log('left clicked!',index);
-      if(index>0) index--;
+      console.log('left clicked!',index.num);
+      if(index>0) index.num--;
     });
     div_date.appendChild(left_arrow);
 
@@ -100,8 +104,8 @@
     const right_arrow = document.createElement('i');
     right_arrow.setAttribute('class','far fa-arrow-alt-circle-right switching');
     right_arrow.addEventListener('click',()=>{
-      console.log('right clicked!',index);
-      if(index<NUMBER_OF_SHIFTS) index++;
+      console.log('right clicked!',index.num);
+      if(index<NUMBER_OF_SHIFTS) index.num++;
     });
     div_date.appendChild(right_arrow);
 
@@ -181,5 +185,23 @@
     }
     return dateArray;
   }
+
+  const watchIndexValue = (obj, propName, func) => {
+    let value = obj[propName];
+    Object.defineProperty(obj, propName, {
+      get: () => value,
+      set: newValue => {
+        const oldValue = value;
+        value = newValue;
+        func(oldValue,newValue);
+      },
+      configurable: true
+    });
+  }
+
+  const onChange = (v1,v2) => {
+    console.log('v1',v1);
+    console.log('v2',v2);
+  } 
 
 })();
