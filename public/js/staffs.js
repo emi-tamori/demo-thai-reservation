@@ -220,6 +220,13 @@
   const toggle = (staffNumber,dateNum,timeNum,data) => {
     const targetObj = data[staffNumber];
     const targetShift = targetObj[`d${dateNum}h${timeNum}`];
+    if(targetShift === null){
+      STAFFS_DATA[staffNumber][`d${dateNum}h${timeNum}`] = 1;
+    }else if(targetShift === 1){
+      STAFFS_DATA[staffNumber][`d${dateNum}h${timeNum}`] = 0;
+    }else{
+      STAFFS_DATA[staffNumber][`d${dateNum}h${timeNum}`] = 1;
+    }
     console.log('targetShift',targetObj,targetShift);
   }
 
