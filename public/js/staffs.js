@@ -3,7 +3,7 @@
   const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
   const OPENTIME = 9; //開店時間
   const CLOSETIME = 19; //閉店時間
-  const STAFFS_DATA = null;
+  const STAFFS_DATA = [];
 
   //HTML要素の読み込み
   const divElement = document.getElementById('staffsPage');
