@@ -157,19 +157,25 @@
           td.innerHTML = object.name;
           td.setAttribute('class','tbody-name');
         }else{
-          if(object[`d${index.num}h${i}`] === null){
-            td.innerHTML = '-';
-          }else{
-            const span = document.createElement('span');
-            span.innerHTML = object[`d${index.num}h${i}`];
-            span.addEventListener('click',()=>{
-              console.log('clicked at span!',staffNumber,index.num,i,data);
-              toggle(staffNumber,index.num,i,data);
-            });
-            td.setAttribute('class','tbody-shift');
-            td.appendChild(span);
-          }
+          td.innerHTML = object[`d${index.num}h${i}`];
+          td.addEventListener('click',()=>{
+            toggle(staffNumber,index.num,i,data);
+          });
           td.setAttribute('class','tbody-shift');
+
+          // if(object[`d${index.num}h${i}`] === null){
+          //   td.innerHTML = '-';
+          // }else{
+          //   const span = document.createElement('span');
+          //   span.innerHTML = object[`d${index.num}h${i}`];
+          //   span.addEventListener('click',()=>{
+          //     console.log('clicked at span!',staffNumber,index.num,i,data);
+          //     toggle(staffNumber,index.num,i,data);
+          //   });
+          //   td.setAttribute('class','tbody-shift');
+          //   td.appendChild(span);
+          // }
+          // td.setAttribute('class','tbody-shift');
         }
         tr.appendChild(td);
       }
