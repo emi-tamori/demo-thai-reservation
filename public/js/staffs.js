@@ -4,6 +4,9 @@
   const OPENTIME = 9; //開店時間
   const CLOSETIME = 19; //閉店時間
 
+  //HTML要素の読み込み
+  const divElement = document.getElementById('staffsPage');
+
   window.addEventListener('load',()=>{
     fetchData();
   });
@@ -28,7 +31,6 @@
     Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
 
     console.log('create table data:',data);
-    const divElement = document.getElementById('staffsPage');
     
     //スタッフの追加
     const formElement = document.createElement('form');
