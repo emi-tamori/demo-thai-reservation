@@ -85,24 +85,28 @@
     const tableHeader = document.createElement('thead');
     const trHead = document.createElement('tr');
 
-    for(let i=OPENTIME-2;i<CLOSETIME;i++){
-      if(i===OPENTIME-2){
-        const th = document.createElement('th');
+    for(let i=OPENTIME-3;i<CLOSETIME;i++){
+      const th = document.createElement('th');
+      if(i===OPENTIME-3){
         th.innerHTML = 'id';
-        trHead.appendChild(th);
-      }else if(i===OPENTIME-1){
-        const th = document.createElement('th');
+        th.setAttribute('class','id-header');
+      }else if(i===OPENTIME-2){
         th.innerHTML = 'Name';
-        trHead.appendChild(th);
-      }else{
-        const th = document.createElement('th');
-        th.innerHTML = `${i}`;
-        trHead.appendChild(th);
+        th.setAttribute('class','name-header');
+      }else if(i===OPENTIME-1){
+        th.innerHTML = 'Date';
+        th.setAttribute('class','date-header');
       }
+      else{
+        th.innerHTML = `${i}`;
+        th.setAttribute('class','time-header');
+      }
+      trHead.appendChild(th);
     }
     tableHeader.appendChild(trHead);
     table.appendChild(tableHeader);
     divElement.appendChild(table);
+
     //スタッフのリスト化
     const ulElement = document.createElement('ul');
     data.forEach(object=>{

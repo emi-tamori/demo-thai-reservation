@@ -266,3 +266,28 @@ body {
 #staffsPage{
     text-align:center;
 }
+
+.id-header{
+    width: 4vw;
+    background: rgb(69, 69, 173);
+    color: white;
+}
+
+.name-header{
+    width: 10vw;
+    background: rgb(69, 69, 173);
+    color: white;
+}
+
+.date-header{
+    width: 10vw;
+    background: rgb(69, 69, 173);
+    color: white;
+}
+
+
+.time-header{
+    width: 4vw;
+    background: rgb(69, 69, 173);
+    color: white;
+}
