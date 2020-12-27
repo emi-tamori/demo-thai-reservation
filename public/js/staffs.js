@@ -32,7 +32,7 @@
     let index = {
       num
     };
-    // Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
+    Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
 
     console.log('create table data:',data);
     
@@ -116,8 +116,6 @@
     div_date.appendChild(right_arrow);
 
     divElement.appendChild(div_date);
-
-    onChange(0);
 
     //テーブル要素宣言
     const table = document.createElement('table');
