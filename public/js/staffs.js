@@ -87,6 +87,7 @@
     const left_arrow = document.createElement('i');
     left_arrow.setAttribute('class','far fa-arrow-alt-circle-left switching');
     left_arrow.addEventListener('click',()=>{
+      console.log('left clicked!',index);
       if(index>0) index--;
     });
     div_date.appendChild(left_arrow);
@@ -99,6 +100,7 @@
     const right_arrow = document.createElement('i');
     right_arrow.setAttribute('class','far fa-arrow-alt-circle-right switching');
     right_arrow.addEventListener('click',()=>{
+      console.log('right clicked!',index);
       if(index<NUMBER_OF_SHIFTS) index++;
     });
     div_date.appendChild(right_arrow);
