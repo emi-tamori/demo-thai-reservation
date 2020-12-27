@@ -160,10 +160,13 @@
           if(object[`d${index.num}h${i}`] === null){
             td.innerHTML = '-';
           }else{
-            td.innerHTML = object[`d${index.num}h${i}`];
-            td.addEventListener('click',()=>{
+            const span = document.createElement('span');
+            span.innerHTML = object[`d${index.num}h${i}`];
+            span.addEventListener('click',()=>{
               toggle(staffNumber,index.num,i,data);
-            })
+            });
+            td.setAttribute('class','tbody-shift');
+            td.appendChild(span);
           }
           td.setAttribute('class','tbody-shift');
         }
