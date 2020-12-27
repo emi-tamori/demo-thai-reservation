@@ -126,7 +126,7 @@
       for(let i=0;i<NUMBER_OF_SHIFTS;i++){
         const tr = document.createElement('tr');
         const td_id = document.createElement('td');
-        const td_ //セルの結合を実装中（出かけるため備忘）
+        
         for(let j=OPENTIME-3; j<CLOSETIME; j++){
           const td = document.createElement('td');
           if(j===OPENTIME-3){
