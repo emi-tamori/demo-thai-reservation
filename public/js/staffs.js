@@ -26,7 +26,7 @@
       num: 0
     };
     Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
-    
+
     console.log('create table data:',data);
     const divElement = document.getElementById('staffsPage');
     
@@ -92,20 +92,20 @@
     left_arrow.setAttribute('class','far fa-arrow-alt-circle-left switching');
     left_arrow.addEventListener('click',()=>{
       console.log('left clicked!',index.num);
-      if(index>0) index.num--;
+      if(index.num>0) index.num--;
     });
     div_date.appendChild(left_arrow);
 
     const span_date = document.createElement('span');
     span_date.setAttribute('class','date-display');
-    span_date.innerHTML = dateArray[index];
+    span_date.innerHTML = dateArray[index.num];
     div_date.appendChild(span_date);
 
     const right_arrow = document.createElement('i');
     right_arrow.setAttribute('class','far fa-arrow-alt-circle-right switching');
     right_arrow.addEventListener('click',()=>{
       console.log('right clicked!',index.num);
-      if(index<NUMBER_OF_SHIFTS) index.num++;
+      if(index.num<NUMBER_OF_SHIFTS) index.num++;
     });
     div_date.appendChild(right_arrow);
 
