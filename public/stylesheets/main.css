@@ -322,3 +322,11 @@ body {
     border: 0.1vw solid rgb(107, 106, 106);
     font-size: 1.5vw;
 }
+
+.switching{
+    font-size: 2vw;
+}
+
+.date-display{
+    font-size: 2vw;
+}

@@ -22,6 +22,7 @@
   }
 
   const createStaffTable = (data) => {
+    let index = 0;
     console.log('create table data:',data);
     const divElement = document.getElementById('staffsPage');
     
@@ -79,13 +80,24 @@
     formElement.appendChild(div_input_staff);
     divElement.appendChild(formElement);
 
-    //日送りボタン
-    const div_arrow = document.createElement('div');
-    const left_arrow = document.createElement('i');
-    left_arrow.setAttribute('class','far fa-arrow-alt-circle-left');
-    div_arrow.appendChild(left_arrow);
+    //月日表示＆日送りボタン
+    const dateArray = createDateArray();
 
-    divElement.appendChild(div_arrow);
+    const div_date = document.createElement('div');
+    const left_arrow = document.createElement('i');
+    left_arrow.setAttribute('class','far fa-arrow-alt-circle-left switching');
+    div_date.appendChild(left_arrow);
+
+    const span_date = document.createElement('span');
+    span_date.setAttribute('class','date-display');
+    span_date.innerHTML = dateArray[0];
+    div_date.appendChild(span_date);
+
+    const right_arrow = document.createElement('i');
+    right_arrow.setAttribute('class','far fa-arrow-alt-circle-right switching');
+    div_date.appendChild(right_arrow);
+
+    divElement.appendChild(div_date);
 
     //テーブル要素宣言
     const table = document.createElement('table');
@@ -119,14 +131,14 @@
     const tbody = document.createElement('tbody');
 
     //日時生成
-    const dateArray = createDateArray();
+    
     console.log('dateArray:',dateArray);
 
     data.forEach(object=>{
       for(let i=0;i<NUMBER_OF_SHIFTS;i++){
         const tr = document.createElement('tr');
         const td_id = document.createElement('td');
-        
+
         for(let j=OPENTIME-3; j<CLOSETIME; j++){
           const td = document.createElement('td');
           if(j===OPENTIME-3){
