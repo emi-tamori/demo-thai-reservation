@@ -109,6 +109,11 @@
 
     //テーブル要素生成
     const tbody = document.createElement('tbody');
+
+    //日時生成
+    const dateArray = createDateArray();
+    console.log('dateArray:',dateArray);
+
     data.forEach(object=>{
       for(let i=0;i<NUMBER_OF_SHIFTS;i++){
         const tr = document.createElement('tr');
@@ -121,7 +126,7 @@
             td.innerHTML = object.name;
             td.setAttribute('class','tbody-name');
           }else if(j===OPENTIME-1){
-            td.innerHTML = `date${i}`;
+            td.innerHTML = dateArray[i];
             td.setAttribute('class','tbody-date');
           }else{
             if(object[`d${i}h${j}`] === null){
@@ -138,15 +143,20 @@
     });
     table.appendChild(tbody);
     divElement.appendChild(table);
+  }
 
-    //スタッフのリスト化
-    const ulElement = document.createElement('ul');
-    data.forEach(object=>{
-      const liElement = document.createElement('li');
-      liElement.innerHTML = `${object.id}:${object.name}`
-      ulElement.appendChild(liElement);
-    });
-    divElement.appendChild(ulElement);
+  const createDateArray = () => {
+    const today = new Date().getTime();
+    const weeks = ["日", "月", "火", "水", "木", "金", "土"];
+    const oneDay = 24*60*60*1000;
+    const dateArray = [];
+    for(let i=0;i<NUMBER_OF_SHIFTS;i++){
+      const month = new Date(today+i*oneDay).getMonth()+1;
+      const date = new Date(today+i*oneDay).getDate();
+      const day = weeks[new Date(today+i*oneDay).getDay()];
+      dateArray.push(`${month}月${date}日(${day})`);
+    }
+    return dateArray;
   }
 
 })();
