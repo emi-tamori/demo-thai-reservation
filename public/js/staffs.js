@@ -25,7 +25,8 @@
     let index = {
       num: 0
     };
-    Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
+    const text = Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
+    console.log('text:',text);
 
     console.log('create table data:',data);
     const divElement = document.getElementById('staffsPage');
@@ -202,6 +203,7 @@
   const onChange = (v1,v2) => {
     console.log('v1',v1);
     console.log('v2',v2);
+    return 'changed!';
   } 
 
 })();
