@@ -32,8 +32,9 @@
     let index = {
       num
     };
+    console.log('index.num',index.num,num);
     Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
-
+    console.log('index.num',index.num,num);
     console.log('create table data:',data);
     
     //スタッフの追加
