@@ -163,6 +163,7 @@
             const span = document.createElement('span');
             span.innerHTML = object[`d${index.num}h${i}`];
             span.addEventListener('click',()=>{
+              console.log('clicked at span!',staffNumber,index.num,i,data);
               toggle(staffNumber,index.num,i,data);
             });
             td.setAttribute('class','tbody-shift');
