@@ -299,7 +299,26 @@ body {
     font-size: 1.5vw;
 }
 
-.table-element{
+.tbody-id{
+    width: 5vw;
+    border: 0.1vw solid rgb(107, 106, 106);
+    font-size: 1.5vw;
+}
+
+.tbody-name{
+    width: 12vw;
+    border: 0.1vw solid rgb(107, 106, 106);
+    font-size: 1.5vw;
+}
+
+.tbody-date{
+    width: 12vw;
+    border: 0.1vw solid rgb(107, 106, 106);
+    font-size: 1.5vw;
+}
+
+.tbody-shift{
+    width: 4vw;
     border: 0.1vw solid rgb(107, 106, 106);
     font-size: 1.5vw;
 }

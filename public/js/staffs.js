@@ -114,15 +114,22 @@
         const tr = document.createElement('tr');
         for(let j=OPENTIME-3; j<CLOSETIME; j++){
           const td = document.createElement('td');
-          td.setAttribute('class','table-element');
           if(j===OPENTIME-3){
             td.innerHTML = object.id;
+            td.setAttribute('class','tbody-id');
           }else if(j===OPENTIME-2){
             td.innerHTML = object.name;
+            td.setAttribute('class','tbody-name');
           }else if(j===OPENTIME-1){
             td.innerHTML = `date${i}`;
+            td.setAttribute('class','tbody-date');
           }else{
-            td.innerHTML = object[`d${i}h${j}`];
+            if(object[`d${i}h${j}`] === null){
+              td.innerHTML = '-';
+            }else{
+              td.innerHTML = object[`d${i}h${j}`];
+            }
+            td.setAttribute('class','tbody-shift');
           }
           tr.appendChild(td);
         }
