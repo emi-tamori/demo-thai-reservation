@@ -3,6 +3,7 @@
   const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
   const OPENTIME = 9; //開店時間
   const CLOSETIME = 19; //閉店時間
+  const STAFFS_DATA = null;
 
   //HTML要素の読み込み
   const divElement = document.getElementById('staffsPage');
@@ -16,7 +17,8 @@
       const response = await fetch(API_URL);
       if(response.ok){
         const data = await response.json();
-        createStaffTable(data);
+        STAFFS_DATA = data;
+        createStaffTable(0);
       }
     }catch(error){
       console.log('error:',error);
@@ -24,9 +26,11 @@
     }
   }
 
-  const createStaffTable = (data) => {
+  const createStaffTable = (num) => {
+    const data = STAFFS_DATA;
+
     let index = {
-      num: 0
+      num
     };
     Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
 
@@ -204,10 +208,7 @@
   }
 
   const onChange = (value) => {
-    const p = document.createElement('p');
-    const dateArray = createDateArray();
-    p.innerHTML = dateArray[value];
-    divElement.appendChild(p);
+    createStaffTable(value);
   } 
 
 })();
