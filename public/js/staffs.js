@@ -111,7 +111,7 @@
     right_arrow.setAttribute('class','far fa-arrow-alt-circle-right switching');
     right_arrow.addEventListener('click',()=>{
       console.log('right clicked!',index.num);
-      if(index.num<NUMBER_OF_SHIFTS) index.num++;
+      if(index.num<NUMBER_OF_SHIFTS-1) index.num++;
     });
     div_date.appendChild(right_arrow);
 
