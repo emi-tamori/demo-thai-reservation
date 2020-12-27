@@ -207,6 +207,7 @@
   }
 
   const onChange = (value) => {
+    divElement.innerHTML = '';
     createStaffTable(value);
   } 
 
