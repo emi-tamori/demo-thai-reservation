@@ -27,7 +27,7 @@
   }
 
   const createStaffTable = (num) => {
-    const data = STAFFS_DATA;
+    const data = Array.from(STAFFS_DATA);
 
     let index = {
       num
@@ -145,7 +145,7 @@
     //テーブル要素生成
     const tbody = document.createElement('tbody');
 
-    data.forEach(object=>{
+    data.forEach((object,staffNumber)=>{
       const tr = document.createElement('tr');
 
       for(let i=OPENTIME-2; i<CLOSETIME; i++){
@@ -162,7 +162,7 @@
           }else{
             td.innerHTML = object[`d${index.num}h${i}`];
             td.addEventListener('click',()=>{
-              toggle(td.textContent);
+              toggle(staffNumber,index.num,i,data);
             })
           }
           td.setAttribute('class','tbody-shift');
@@ -207,8 +207,10 @@
     createStaffTable(value);
   } 
 
-  const toggle = (text) => {
-    console.log('toggled',text);
+  const toggle = (staffNumber,dateNum,timeNum,data) => {
+    const targetObj = data[staffNumber];
+    const targetShift = targetObj[`d${dateNum}h${timeNum}`];
+    console.log('targetShift',targetObj,targetShift);
   }
 
 })();
