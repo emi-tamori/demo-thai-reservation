@@ -79,6 +79,7 @@
     formElement.appendChild(div_input_staff);
     divElement.appendChild(formElement);
 
+    //テーブル要素宣言
     const table = document.createElement('table');
 
     //テーブルヘッダー生成
@@ -105,6 +106,27 @@
     }
     tableHeader.appendChild(trHead);
     table.appendChild(tableHeader);
+
+    //テーブル要素生成
+    const tbody = document.createElement('tbody');
+    data.forEach(object=>{
+      for(let i=0;i<NUMBER_OF_SHIFTS;i++){
+        const tr = document.createElement('tr');
+        for(let j=OPENTIME-3; j<CLOSETIME; j++){
+          const td = document.createElement('td');
+          if(j===OPENTIME-3){
+            td.innerHTML = object.id;
+          }else if(j===OPENTIME-2){
+            td.innerHTML = object.name;
+          }else if(j===OPENTIME-1){
+            td.innerHTML = `date${i}`;
+          }
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      }
+    });
+    table.appendChild(tbody);
     divElement.appendChild(table);
 
     //スタッフのリスト化
