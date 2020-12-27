@@ -283,14 +283,6 @@ body {
     font-size: 1.5vw;
 }
 
-.date-header{
-    width: 12vw;
-    background: rgb(69, 69, 173);
-    color: white;
-    border: 0.1vw solid white;
-    font-size: 1.5vw;
-}
-
 .time-header{
     width: 4vw;
     background: rgb(69, 69, 173);
@@ -311,12 +303,6 @@ body {
     font-size: 1.5vw;
 }
 
-.tbody-date{
-    width: 12vw;
-    border: 0.1vw solid rgb(107, 106, 106);
-    font-size: 1.5vw;
-}
-
 .tbody-shift{
     width: 4vw;
     border: 0.1vw solid rgb(107, 106, 106);
@@ -325,6 +311,7 @@ body {
 
 .switching{
     font-size: 2vw;
+    cursor: pointer;
 }
 
 .date-display{

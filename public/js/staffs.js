@@ -86,15 +86,21 @@
     const div_date = document.createElement('div');
     const left_arrow = document.createElement('i');
     left_arrow.setAttribute('class','far fa-arrow-alt-circle-left switching');
+    left_arrow.addEventListener('click',()=>{
+      if(index>0) index--;
+    });
     div_date.appendChild(left_arrow);
 
     const span_date = document.createElement('span');
     span_date.setAttribute('class','date-display');
-    span_date.innerHTML = dateArray[0];
+    span_date.innerHTML = dateArray[index];
     div_date.appendChild(span_date);
 
     const right_arrow = document.createElement('i');
     right_arrow.setAttribute('class','far fa-arrow-alt-circle-right switching');
+    right_arrow.addEventListener('click',()=>{
+      if(index<NUMBER_OF_SHIFTS) index++;
+    });
     div_date.appendChild(right_arrow);
 
     divElement.appendChild(div_date);
@@ -106,19 +112,15 @@
     const tableHeader = document.createElement('thead');
     const trHead = document.createElement('tr');
 
-    for(let i=OPENTIME-3;i<CLOSETIME;i++){
+    for(let i=OPENTIME-2;i<CLOSETIME;i++){
       const th = document.createElement('th');
-      if(i===OPENTIME-3){
+      if(i===OPENTIME-2){
         th.innerHTML = 'ID';
         th.setAttribute('class','id-header');
-      }else if(i===OPENTIME-2){
+      }else if(i===OPENTIME-1){
         th.innerHTML = 'Name';
         th.setAttribute('class','name-header');
-      }else if(i===OPENTIME-1){
-        th.innerHTML = 'Date';
-        th.setAttribute('class','date-header');
-      }
-      else{
+      }else{
         th.innerHTML = `${i}`;
         th.setAttribute('class','time-header');
       }
@@ -139,17 +141,14 @@
         const tr = document.createElement('tr');
         const td_id = document.createElement('td');
 
-        for(let j=OPENTIME-3; j<CLOSETIME; j++){
+        for(let j=OPENTIME-2; j<CLOSETIME; j++){
           const td = document.createElement('td');
-          if(j===OPENTIME-3){
+          if(j===OPENTIME-2){
             td.innerHTML = object.id;
             td.setAttribute('class','tbody-id');
-          }else if(j===OPENTIME-2){
+          }else if(j===OPENTIME-1){
             td.innerHTML = object.name;
             td.setAttribute('class','tbody-name');
-          }else if(j===OPENTIME-1){
-            td.innerHTML = dateArray[i];
-            td.setAttribute('class','tbody-date');
           }else{
             if(object[`d${i}h${j}`] === null){
               td.innerHTML = '-';
