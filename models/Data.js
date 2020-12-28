@@ -104,8 +104,8 @@ module.exports = {
                             arrangedData.push(copiedObj);
                         }
                         console.log('copied',copiedObj);
-                        resolve(copiedObj);
                     });
+                    resolve(arrangedData);
                 })
                 .catch(e=>console.log(e));
         })
