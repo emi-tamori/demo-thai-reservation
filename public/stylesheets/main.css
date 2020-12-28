@@ -332,16 +332,17 @@ body {
 
 .staff-input{
     font-size: 2vw;
-    width: 15vw;
+    width: 20vw;
     height: 3vw;
 }
 
 .staff-input-area{
-    margin-bottom: 1vw;
+    text-align: left;
 }
 
 .post-button{
     font-size: 1.8vw;
+    padding: 0.2vw 1vw;
 }
 .button-area{
     margin-bottom:1vw;
