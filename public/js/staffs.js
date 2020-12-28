@@ -94,7 +94,7 @@
     postShiftButton.setAttribute('class','btn btn-primary post-button');
     postShiftButton.value = 'シフトデータ送信';
     postShiftButton.addEventListener('click',()=>{
-      const jsonData = JSON.stringify(data);
+      const jsonData = JSON.stringify({username: 'test'});
       console.log('jsondata',jsonData);
       // const formData = getFormData(data);
       // console.log('Formdata:',...formData.entries());
