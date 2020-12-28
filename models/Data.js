@@ -70,8 +70,7 @@ module.exports = {
             };
             connection.query(pickup_staffs)
                 .then(res=>{
-                    const nowTime = new Date().getTime();
-                    console.log('nowTime',nowTime);
+                    const nowTime = new Date().getTime()+24*60*60*1000;
                     const arrangedData = [];
                     res.rows.forEach(obj=>{
                         const copiedObj = JSON.parse(JSON.stringify(obj))
@@ -103,7 +102,6 @@ module.exports = {
                             }
                             arrangedData.push(copiedObj);
                         }
-                        console.log('copied',copiedObj);
                     });
                     resolve(arrangedData);
                 })
