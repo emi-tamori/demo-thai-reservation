@@ -47,5 +47,10 @@ module.exports = {
         }catch(error){
             res.status(400).json({message:error.message});
         }
+    },
+
+    shiftsRegistration: (req,res) => {
+        const data = req.body;
+        console.log('data in controller',data);
     }
 }

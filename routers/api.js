@@ -18,4 +18,8 @@ router
     .route('/staffs')
     .post(controller.staffRegistration);
 
+router
+    .route('/shifts')
+    .post(controller.shiftsRegistration);
+
 module.exports = router;

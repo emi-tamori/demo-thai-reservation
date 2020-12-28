@@ -72,7 +72,6 @@
         credentials: 'same-origin'
       })
       .then(response=>{
-        console.log('response in fetch',response);
         if(response.ok){
           response.text()
             .then(text=>{
@@ -89,6 +88,28 @@
     div_input_staff.appendChild(postButton);
     formElement.appendChild(div_input_staff);
     divElement.appendChild(formElement);
+
+    //データ送信用ボタン
+    const postShiftButton = document.createElement('button');
+    postShiftButton.setAttribute('class','btn btn-primary post-button');
+    postShiftButton.value = 'シフトデータ送信';
+    postShiftButton.addEventListener('click',()=>{
+      fetch('/api/shifts',{
+        method: 'POST',
+        body: data,
+        credentials: 'same-origin'
+      })
+      .then(response=>{
+        if(response.ok){
+          response.text()
+            .then(text=>alert(`${text}`))
+            .catch(e=>console.log(e))
+        }
+      })
+      .catch(e=>{
+        throw e;
+      });
+    });
 
     //表示用dateの取得
     const dateArray = createDateArray();
