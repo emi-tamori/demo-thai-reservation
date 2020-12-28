@@ -72,12 +72,14 @@ module.exports = {
                 .then(res=>{
                     const nowTime = new Date().getTime();
                     console.log('nowTime',nowTime);
+                    const arrangedData = [];
                     res.rows.forEach(obj=>{
                         const copiedObj = JSON.parse(JSON.stringify(obj))
                         const today = new Date(nowTime).getDate();
                         const updatedAt = new Date(res.rows.updatedat).getDate();
+                        console.log('today updatedAt',today,updatedAt);
                         if(nowTime-res.rows.updatedat<24*60*60*1000 && today===updatedAt){
-                            resolve(res.rows);
+                            arrangedData.push(copiedObj);
                         }else if(nowTime-res.rows.updatedat<24*60*60*1000*NUMBER_OF_SHIFTS && today !== updatedAt){
                             const gap = today - updatedAt;
                             console.log('gap:',gap);
@@ -91,15 +93,17 @@ module.exports = {
                                     copiedObj[`d${i}h${j}`] = null;
                                 }
                             }
-                            resolve(copiedObj);
+                            arrangedData.push(copiedObj);
                         }else{
                             for(let i=0;i<NUMBER_OF_SHIFTS;i++){
                                 for(let j=OPENTIME;j<CLOSETIME;j++){
                                     copiedObj[`d${i}h${j}`] = null;
                                 }
                             }
-                            resolve(copiedObj);
+                            arrangedData.push(copiedObj);
                         }
+                        console.log('copied',copiedObj);
+                        resolve(copiedObj);
                     });
                 })
                 .catch(e=>console.log(e));
