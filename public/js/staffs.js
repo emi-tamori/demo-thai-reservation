@@ -1,3 +1,5 @@
+const { spanner } = require("googleapis/build/src/apis/spanner");
+
 (()=>{
   const API_URL = 'https://linebot-reservation2.herokuapp.com/api/staffs';
   const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
@@ -48,23 +50,23 @@
     //スタッフ追加フォーム
     const div_input_staff = document.createElement('div');
     div_input_staff.setAttribute('class','form-group');
-
+      //スタッフラベル
     const label_staff = document.createElement('label');
     label_staff.setAttribute('class','label_staff');
     label_staff.innerHTML = 'スタッフ名';
     div_input_staff.appendChild(label_staff);
-
+      //スタッフ名入力欄
     const input_staff = document.createElement('input');
     input_staff.setAttribute('type','text');
     input_staff.setAttribute('class','form-group staff-input');
     input_staff.setAttribute('name','name');
     div_input_staff.appendChild(input_staff);
-
+      //スタッフ名登録ボタン（post）
     const postButton = document.createElement('input');
     postButton.setAttribute('class','btn btn-primary post-button');
     postButton.value = '登録';
     postButton.type = 'button';
-
+      //登録ボタンのクリック時処理
     postButton.addEventListener('click',(e)=>{
       e.preventDefault();
       const data = new FormData(formElement);
@@ -92,6 +94,26 @@
     div_input_staff.appendChild(postButton);
     formElement.appendChild(div_input_staff);
     divElement.appendChild(formElement);
+
+    //日送りボタン
+    const div_switch = document.createElement('div');
+    const left_arrow = document.createElement('span');
+    left_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-left switching"></i>戻る'
+    // left_arrow.setAttribute('class','far fa-arrow-alt-circle-left switching');
+    left_arrow.addEventListener('click',()=>{
+      console.log('left clicked!',index.num);
+      if(index.num>0) index.num--;
+    });
+    div_switch.appendChild(left_arrow);
+
+    const right_arrow = document.createElement('i');
+    right_arrow.setAttribute('class','far fa-arrow-alt-circle-right switching');
+    right_arrow.addEventListener('click',()=>{
+      console.log('right clicked!',index.num);
+      if(index.num<NUMBER_OF_SHIFTS-1) index.num++;
+    });
+    div_switch.appendChild(right_arrow);
+    divElement.appendChild(div_switch);
 
     //データ送信用ボタン
     const postShiftButton = document.createElement('button');
@@ -124,23 +146,7 @@
     });
     divElement.appendChild(postShiftButton);
 
-    const div_switch = document.createElement('div');
-    const left_arrow = document.createElement('i');
-    left_arrow.setAttribute('class','far fa-arrow-alt-circle-left switching');
-    left_arrow.addEventListener('click',()=>{
-      console.log('left clicked!',index.num);
-      if(index.num>0) index.num--;
-    });
-    div_switch.appendChild(left_arrow);
-
-    const right_arrow = document.createElement('i');
-    right_arrow.setAttribute('class','far fa-arrow-alt-circle-right switching');
-    right_arrow.addEventListener('click',()=>{
-      console.log('right clicked!',index.num);
-      if(index.num<NUMBER_OF_SHIFTS-1) index.num++;
-    });
-    div_switch.appendChild(right_arrow);
-    divElement.appendChild(div_switch);
+    
 
     //日にち表示エリア
     const p_date = document.createElement('p');
