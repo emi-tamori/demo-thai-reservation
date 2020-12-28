@@ -212,6 +212,8 @@
     const tr_foot = document.createElement('tr');
     const td_foot = document.createElement('td');
     td_foot.colSpan = '12';
+    td_foot.innerHTML='test';
+    td_foot.setAttribute('class','table-footer');
     tr_foot.appendChild(td_foot);
     tfoot.appendChild(tr_foot);
     table.appendChild(tfoot);

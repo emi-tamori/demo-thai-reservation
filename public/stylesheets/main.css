@@ -347,3 +347,6 @@ body {
     margin-bottom:1vw;
     margin-top:1vw;
 }
+.table-footer{
+    border: 0.1vw solid rgb(107, 106, 106);
+}
