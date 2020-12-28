@@ -10,6 +10,9 @@ const connection = new Client({
 connection.connect();
 
 const STAFFS = ['ken','emi','taro'];
+const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
+const OPENTIME = 9; //開店時間
+const CLOSETIME = 19; //閉店時間
 
 module.exports = {
     
@@ -86,10 +89,35 @@ module.exports = {
                 })
         })
     },
-
+    // `UPDATE users SET (display_name,cuttime,shampootime,colortime,spatime) = ('${name}',${cuttime},${shampootime},${colortime},${spatime}) WHERE id=${id};`
     shiftRegister: (data) => {
         return new Promise((resolve,reject)=>{
-            console.log
+            //UPDATEクエリ文生成
+            data.forEach((obj,index)=>{
+                let update_query = 'UPDATE shifts SET (';
+                let update_query2 = '(';
+                for(let i=0;i<NUMBER_OF_SHIFTS;i++){
+                    for(let j=OPENTIME;j<CLOSETIME;j++){
+                        if(i=== NUMBER_OF_SHIFTS-1 && j===CLOSETIME-1){
+                            update_query += `d${i}h${j}`+') = ';
+                            update_query2 += obj[`d${i}h${j}`]+') ';
+                        }else{
+                            update_query += `d${i}h${j}`+',';
+                            update_query2 += obj[`d${i}h${j}`]+',';
+                        }
+                    }
+                }
+                update_query += update_query2 + `WHERE id=${obj.id};`;
+                console.log('update_query:',update_query);
+
+                //データアップデート
+                connection.query(update_query)
+                    .then(()=>{
+                        console.log(`${obj.name}のシフトデータ更新成功!`);
+                        if(index===data.length-1) resolve('データ更新成功');
+                    })
+                    .catch(e=>console.log(e));
+            })
         })
     }
 }

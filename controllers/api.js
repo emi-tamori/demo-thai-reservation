@@ -52,6 +52,11 @@ module.exports = {
     shiftsRegistration: (req,res) => {
         const data = req.body;
         console.log('data in controller',data[0]);
-
+        Data.shiftRegister(data)
+            .then(message=>{
+                console.log('message=',message);
+                res.status(200).send(message);
+            })
+            .catch(e=>console.log(e));
     }
 }
