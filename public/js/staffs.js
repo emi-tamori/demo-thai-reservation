@@ -206,6 +206,16 @@
       tbody.appendChild(tr);
     });
     table.appendChild(tbody);
+
+    //新規スタッフ登録欄
+    const tfoot = document.createElement('tfoot');
+    const tr_foot = document.createElement('tr');
+    const td_foot = document.createElement('td');
+    td_foot.colSpan = '12';
+    tr_foot.appendChild(td_foot);
+    tfoot.appendChild(tr_foot);
+    table.appendChild(tfoot);
+
     divElement.appendChild(table);
   }
 
