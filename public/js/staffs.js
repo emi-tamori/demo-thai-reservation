@@ -110,7 +110,7 @@
     const tableHeader = document.createElement('thead');
     const trHead = document.createElement('tr');
 
-    for(let i=OPENTIME-2;i<CLOSETIME;i++){
+    for(let i=OPENTIME-2;i<CLOSETIME+1;i++){
       const th = document.createElement('th');
       if(i===OPENTIME-2){
         th.innerHTML = 'ID';
@@ -118,7 +118,11 @@
       }else if(i===OPENTIME-1){
         th.innerHTML = 'Name';
         th.setAttribute('class','name-header');
-      }else{
+      }else if(i===CLOSETIME){
+        th.innerHTML = 'Delete'
+        th.setAttribute('class','delete-header');
+      }
+      else{
         th.innerHTML = `${i}`;
         th.setAttribute('class','time-header');
       }
@@ -133,7 +137,7 @@
     data.forEach((object,staffNumber)=>{
       const tr = document.createElement('tr');
 
-      for(let i=OPENTIME-2; i<CLOSETIME; i++){
+      for(let i=OPENTIME-2; i<CLOSETIME+1; i++){
         const td = document.createElement('td');
         if(i===OPENTIME-2){
           td.innerHTML = object.id;
@@ -141,7 +145,11 @@
         }else if(i===OPENTIME-1){
           td.innerHTML = object.name;
           td.setAttribute('class','tbody-name');
-        }else{
+        }else if(i===CLOSETIME){
+          td.innerHTML='<i class="fas fa-user-slash"></i>';
+          td.setAttribute('class','tbody-delete');
+        }
+        else{
           td.innerHTML = object[`d${index.num}h${i}`];
           td.addEventListener('click',()=>{
             toggle(staffNumber,index.num,i,data);
@@ -158,7 +166,7 @@
     const tfoot = document.createElement('tfoot');
     const tr_foot = document.createElement('tr');
     const td_foot = document.createElement('td');
-    td_foot.colSpan = '12';
+    td_foot.colSpan = `${CLOSETIME-OPENTIME+3}`;
     td_foot.setAttribute('class','table-footer');
 
     //スタッフの追加
