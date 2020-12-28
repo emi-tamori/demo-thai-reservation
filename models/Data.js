@@ -134,7 +134,7 @@ module.exports = {
     staffDeleter: (name) => {
         return new Promise((resolve,reject)=>{
             const delete_shifts = {
-                text: `DELETE FROM shifts WHERE name=${name};`
+                text: `DELETE FROM shifts WHERE name='${name}';`
             };
             connection.query(delete_shifts)
                 .then(()=>{
