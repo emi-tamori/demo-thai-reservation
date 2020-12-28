@@ -146,7 +146,12 @@
           td.innerHTML = object.name;
           td.setAttribute('class','tbody-name');
         }else if(i===CLOSETIME){
-          td.innerHTML='<i class="fas fa-user-slash"></i>';
+          const icon = document.createElement('i');
+          icon.setAttribute('class','fas fa-user-slash delete-icon');
+          icon.addEventListener('click',()=>{
+            console.log('delete icon clicked!',object.id);
+          });
+          td.appendChild(icon);
           td.setAttribute('class','tbody-delete');
         }
         else{

@@ -322,6 +322,17 @@ body {
     background:rgb(182, 179, 181);
 }
 
+.tbody-delete{
+    width: 6vw;
+    border: 0.1vw solid rgb(107, 106, 106);
+    font-size: 1.8vw;
+}
+
+.delete-icon:hover{
+    cursor: pointer;
+    background: rgb(199, 95, 95)
+}
+
 .switching{
     font-size: 2vw;
     cursor: pointer;
