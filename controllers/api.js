@@ -49,6 +49,21 @@ module.exports = {
         }
     },
 
+    staffDelete: (req,res) => {
+        const id = parseInt(req.params.id);
+        console.log('delete id',id);
+        try{
+            Data.staffDeleter(id)
+                .then(message=>{
+                    console.log('message=',message);
+                    res.status(200).send(message);
+                })
+                .catch(e=>console.log(e));
+        }catch(error){
+            res.status(400).json({message:error.message});
+        }
+    },
+
     shiftsRegistration: (req,res) => {
         const data = req.body;
         console.log('data in controller',data[0]);

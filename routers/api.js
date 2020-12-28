@@ -19,6 +19,10 @@ router
     .post(controller.staffRegistration);
 
 router
+    .route('/staffs/:id')
+    .delete(controller.staffDelete);
+
+router
     .route('/shifts')
     .post(controller.shiftsRegistration);
 

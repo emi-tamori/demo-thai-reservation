@@ -120,7 +120,22 @@ module.exports = {
                     console.log('スタッフ登録完了');
                     resolve('スタッフ登録完了');
                 })
-        })
+                .catch(e=>console.log(e));
+        });
+    },
+
+    staffDeleter: (id) => {
+        return new Promise((resolve,reject)=>{
+            const delete_query = {
+                text: `DELETE FROM shifts WHERE id=${id};`
+            };
+            connection.query(delete_query)
+                .then(()=>{
+                    console.log('スタッフ削除完了');
+                    resolve('スタッフを削除しました');
+                })
+                .catch(e=>console.log(e));
+        });
     },
 
     shiftRegister: (data) => {

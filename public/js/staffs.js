@@ -153,11 +153,28 @@
           td.innerHTML = object.name;
           td.setAttribute('class','tbody-name');
         }else if(i===CLOSETIME){
+
           //削除欄の実装
           const icon = document.createElement('i');
           icon.setAttribute('class','fas fa-user-slash delete-icon');
+          //削除アイコンクリック時の処理
           icon.addEventListener('click',()=>{
-            console.log('delete icon clicked!',object.id);
+            fetch(`/api/staffs/${object.id}`,{
+              method: 'DELETE',
+              credentials: 'same-origin'
+            })
+            .then(response=>{
+              if(response.ok){
+                response.text()
+                  .then(text=>alert(`${text}`))
+                  .catch(e=>console.log(e));
+              }else{
+                alert('HTTPSレスポンスエラーです');
+              }
+            })
+            .catch(e=>{
+              throw e;
+            });
           });
           td.appendChild(icon);
           td.setAttribute('class','tbody-delete');
@@ -173,6 +190,7 @@
       }
       tbody.appendChild(tr);
     });
+
     table.appendChild(tbody);
 
     //新規スタッフ登録欄(テーブルフッター)
