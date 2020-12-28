@@ -73,7 +73,7 @@ module.exports = {
                     const nowTime = new Date().getTime();
                     console.log('nowTime',nowTime);
                     res.rows.forEach(obj=>{
-                        const copiedObj = JSON.parse(JSON.strigify(obj))
+                        const copiedObj = JSON.parse(JSON.stringify(obj))
                         const today = new Date(nowTime).getDate();
                         const updatedAt = new Date(res.rows.updatedat).getDate();
                         if(nowTime-res.rows.updatedat<24*60*60*1000 && today===updatedAt){
