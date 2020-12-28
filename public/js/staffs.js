@@ -47,7 +47,7 @@
     
     //スタッフ追加フォーム
     const div_input_staff = document.createElement('div');
-    div_input_staff.setAttribute('class','form-group');
+    div_input_staff.setAttribute('class','form-group staff-input-area');
       //スタッフラベル
     const label_staff = document.createElement('label');
     label_staff.setAttribute('class','label-staff');
@@ -101,6 +101,7 @@
 
     //戻るボタン
     const div_switch = document.createElement('div');
+    div_switch.setAttribute('class','button-area');
     const left_arrow = document.createElement('span');
     left_arrow.setAttribute('class','switching');
     left_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-left"></i>戻る'
@@ -113,7 +114,7 @@
 
     //進むボタン
     const right_arrow = document.createElement('span');
-    left_arrow.setAttribute('class','switching');
+    right_arrow.setAttribute('class','switching');
     right_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-right"></i>進む'
     right_arrow.addEventListener('click',()=>{
       console.log('right clicked!',index.num);
