@@ -1,5 +1,3 @@
-const { spanner } = require("googleapis/build/src/apis/spanner");
-
 (()=>{
   const API_URL = 'https://linebot-reservation2.herokuapp.com/api/staffs';
   const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
@@ -106,8 +104,9 @@ const { spanner } = require("googleapis/build/src/apis/spanner");
     });
     div_switch.appendChild(left_arrow);
 
-    const right_arrow = document.createElement('i');
-    right_arrow.setAttribute('class','far fa-arrow-alt-circle-right switching');
+    const right_arrow = document.createElement('span');
+    right_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-right switching"></i>進む'
+    // right_arrow.setAttribute('class','far fa-arrow-alt-circle-right switching');
     right_arrow.addEventListener('click',()=>{
       console.log('right clicked!',index.num);
       if(index.num<NUMBER_OF_SHIFTS-1) index.num++;
