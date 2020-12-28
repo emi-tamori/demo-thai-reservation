@@ -50,7 +50,7 @@ module.exports = {
     },
 
     shiftsRegistration: (req,res) => {
-        const data = JSON.parse(req.body);
+        const data = req.body;
         console.log('data in controller',data);
     }
 }
