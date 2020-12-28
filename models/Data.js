@@ -70,7 +70,37 @@ module.exports = {
             };
             connection.query(pickup_staffs)
                 .then(res=>{
-                    resolve(res.rows)
+                    const nowTime = new Date().getTime();
+                    console.log('nowTime',nowTime);
+                    res.rows.forEach(obj=>{
+                        const copiedObj = JSON.parse(JSON.strigify(obj))
+                        const today = new Date(nowTime).getDate();
+                        const updatedAt = new Date(res.rows.updatedat).getDate();
+                        if(nowTime-res.rows.updatedat<24*60*60*1000 && today===updatedAt){
+                            resolve(res.rows);
+                        }else if(nowTime-res.rows.updatedat<24*60*60*1000*NUMBER_OF_SHIFTS && today !== updatedAt){
+                            const gap = today - updatedAt;
+                            console.log('gap:',gap);
+                            for(let i=0; i<NUMBER_OF_SHIFTS-gap; i++){
+                                for(let j=OPENTIME;j<CLOSETIME;j++){
+                                    copiedObj[`d${i}h${j}`] = copiedObj[`d${gap+i}h${j}`];
+                                }
+                            }
+                            for(let i=NUMBER_OF_SHIFTS-gap;i<NUMBER_OF_SHIFTS;i++){
+                                for(let j=OPENTIME;j<CLOSETIME;j++){
+                                    copiedObj[`d${i}h${j}`] = null;
+                                }
+                            }
+                            resolve(copiedObj);
+                        }else{
+                            for(let i=0;i<NUMBER_OF_SHIFTS;i++){
+                                for(let j=OPENTIME;j<CLOSETIME;j++){
+                                    copiedObj[`d${i}h${j}`] = null;
+                                }
+                            }
+                            resolve(copiedObj);
+                        }
+                    });
                 })
                 .catch(e=>console.log(e));
         })
@@ -89,7 +119,7 @@ module.exports = {
                 })
         })
     },
-    // `UPDATE users SET (display_name,cuttime,shampootime,colortime,spatime) = ('${name}',${cuttime},${shampootime},${colortime},${spatime}) WHERE id=${id};`
+
     shiftRegister: (data) => {
         return new Promise((resolve,reject)=>{
             //UPDATEクエリ文生成
