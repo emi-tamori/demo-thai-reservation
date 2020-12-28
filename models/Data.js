@@ -117,22 +117,36 @@ module.exports = {
             };
             connection.query(insert_query)
                 .then(()=>{
-                    console.log('スタッフ登録完了');
-                    resolve('スタッフ登録完了');
+                    const create_query = {
+                        text:`CREATE TABLE IF NOT EXISTS reservations.${name} (id SERIAL NOT NULL, line_uid VARCHAR(100), name VARCHAR(100), scheduledate DATE, starttime BIGINT, endtime BIGINT, menu VARCHAR(20));`
+                    };
+                    connection.query(create_query)
+                        .then(()=>{
+                            console.log('スタッフ登録完了');
+                            resolve('スタッフ登録完了');
+                        })
+                        .catch(e=>console.log(e));
                 })
                 .catch(e=>console.log(e));
         });
     },
 
-    staffDeleter: (id) => {
+    staffDeleter: (name) => {
         return new Promise((resolve,reject)=>{
-            const delete_query = {
-                text: `DELETE FROM shifts WHERE id=${id};`
+            const delete_shifts = {
+                text: `DELETE FROM shifts WHERE name=${name};`
             };
-            connection.query(delete_query)
+            connection.query(delete_shifts)
                 .then(()=>{
-                    console.log('スタッフ削除完了');
-                    resolve('スタッフを削除しました');
+                    const delete_reservations = {
+                        text: `DROP TABLE reservations.${name};`
+                    }
+                    connection.query(delete_reservations)
+                        .then(()=>{
+                            console.log('スタッフ削除完了');
+                            resolve('スタッフを削除しました');
+                        })
+                        .catch(e=>console.log(e));
                 })
                 .catch(e=>console.log(e));
         });

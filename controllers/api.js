@@ -50,10 +50,10 @@ module.exports = {
     },
 
     staffDelete: (req,res) => {
-        const id = parseInt(req.params.id);
-        console.log('delete id',id);
+        const name = parseInt(req.params.name);
+        console.log('delete name',name);
         try{
-            Data.staffDeleter(id)
+            Data.staffDeleter(name)
                 .then(message=>{
                     console.log('message=',message);
                     res.status(200).send(message);

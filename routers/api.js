@@ -19,7 +19,7 @@ router
     .post(controller.staffRegistration);
 
 router
-    .route('/staffs/:id')
+    .route('/staffs/:name')
     .delete(controller.staffDelete);
 
 router

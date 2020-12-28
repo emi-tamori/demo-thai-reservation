@@ -8,10 +8,12 @@
   //HTML要素の読み込み
   const divElement = document.getElementById('staffsPage');
 
+  //ページ読み込み時fetch実行
   window.addEventListener('load',()=>{
     fetchData();
   });
 
+  //fetch関数
   const fetchData = async () => {
     try{
       const response = await fetch(API_URL);
@@ -159,7 +161,7 @@
           icon.setAttribute('class','fas fa-user-slash delete-icon');
           //削除アイコンクリック時の処理
           icon.addEventListener('click',()=>{
-            fetch(`/api/staffs/${object.id}`,{
+            fetch(`/api/staffs/${object.name}`,{
               method: 'DELETE',
               credentials: 'same-origin'
             })
