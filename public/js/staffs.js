@@ -93,14 +93,15 @@
     formElement.appendChild(div_input_staff);
     divElement.appendChild(formElement);
 
+    const div_switch = document.createElement('div');
+
     //日にち表示エリア
-    const p_date = document.createElement('p');
-    p_date.setAttribute('class','date-display');
-    p_date.innerHTML = dateArray[index.num];
-    divElement.appendChild(p_date);
+    const span_date = document.createElement('span');
+    span_date.setAttribute('class','date-display');
+    span_date.innerHTML = dateArray[index.num];
+    div_switch.appendChild(span_date);
 
     //戻るボタン
-    const div_switch = document.createElement('div');
     div_switch.setAttribute('class','button-area');
     const left_arrow = document.createElement('span');
     left_arrow.setAttribute('class','switching');
