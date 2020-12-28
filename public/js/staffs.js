@@ -27,7 +27,11 @@
   }
 
   const createStaffTable = (num) => {
+    //STAFFS_DATAのディープコピー
     const data = Array.from(STAFFS_DATA);
+    //表示用dateの取得
+    const nowTime = new Date().getTime();
+    const dateArray = createDateArray(nowTime);
 
     let index = {
       num
@@ -92,8 +96,11 @@
     //データ送信用ボタン
     const postShiftButton = document.createElement('button');
     postShiftButton.setAttribute('class','btn btn-primary post-button');
-    postShiftButton.value = 'シフトデータ送信';
+    postShiftButton.textContent = 'シフトデータ送信';
     postShiftButton.addEventListener('click',()=>{
+      data.forEach(obj=>{
+        obj.updatedat = nowTime;
+      });
       const jsonData = JSON.stringify(data);
       console.log('jsondata',jsonData);
       fetch('/api/shifts',{
@@ -116,9 +123,6 @@
       });
     });
     divElement.appendChild(postShiftButton);
-
-    //表示用dateの取得
-    const dateArray = createDateArray();
 
     const div_switch = document.createElement('div');
     const left_arrow = document.createElement('i');
@@ -198,8 +202,8 @@
     divElement.appendChild(table);
   }
 
-  const createDateArray = () => {
-    const today = new Date().getTime();
+  const createDateArray = (nowTime) => {
+    const today = nowTime;
     const weeks = ["日", "月", "火", "水", "木", "金", "土"];
     const oneDay = 24*60*60*1000;
     const dateArray = [];

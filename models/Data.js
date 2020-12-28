@@ -95,9 +95,7 @@ module.exports = {
             //UPDATEクエリ文生成
             data.forEach((obj,index)=>{
                 let update_query = 'UPDATE shifts SET (updatedat,';
-                const updatedAt = new Date().getTime();
-                console.log('updatedAt',updatedAt);
-                let update_query2 = `(${updatedAt},`;
+                let update_query2 = `(${obj.updatedat},`;
                 for(let i=0;i<NUMBER_OF_SHIFTS;i++){
                     for(let j=OPENTIME;j<CLOSETIME;j++){
                         if(i=== NUMBER_OF_SHIFTS-1 && j===CLOSETIME-1){
