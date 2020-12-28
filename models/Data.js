@@ -79,9 +79,9 @@ module.exports = {
                         console.log('updatedat',copiedObj.updatedat);
                         const updatedAt = new Date(parseInt(copiedObj.updatedat)).getDate();
                         console.log('today updatedAt',today,updatedAt);
-                        if(nowTime-res.rows.updatedat<24*60*60*1000 && today===updatedAt){
+                        if(nowTime-parseInt(copiedObj.updatedat)<24*60*60*1000 && today===updatedAt){
                             arrangedData.push(copiedObj);
-                        }else if(nowTime-res.rows.updatedat<24*60*60*1000*NUMBER_OF_SHIFTS && today !== updatedAt){
+                        }else if(nowTime-parseInt(copiedObj.updatedat)<24*60*60*1000*NUMBER_OF_SHIFTS && today !== updatedAt){
                             const gap = today - updatedAt;
                             console.log('gap:',gap);
                             for(let i=0; i<NUMBER_OF_SHIFTS-gap; i++){
