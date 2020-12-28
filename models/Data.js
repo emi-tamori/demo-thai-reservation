@@ -77,7 +77,7 @@ module.exports = {
                         const today = new Date(nowTime).getDate();
                         console.log('updatedat',copiedObj.updatedat);
                         const updatedAt = new Date(parseInt(copiedObj.updatedat)).getDate();
-                        console.log('today updatedAt',today,updatedAt);
+                        console.log('today updatedAt nowtime',today,updatedAt,nowTime);
                         if(nowTime-parseInt(copiedObj.updatedat)<24*60*60*1000 && today===updatedAt){
                             arrangedData.push(copiedObj);
                         }else if(nowTime-parseInt(copiedObj.updatedat)<24*60*60*1000*NUMBER_OF_SHIFTS && today !== updatedAt){
