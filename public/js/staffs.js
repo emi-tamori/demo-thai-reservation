@@ -93,26 +93,31 @@
     formElement.appendChild(div_input_staff);
     divElement.appendChild(formElement);
 
-    //日送りボタン
+    //日にち表示エリア
+    const p_date = document.createElement('p');
+    p_date.setAttribute('class','date-display');
+    p_date.innerHTML = dateArray[index.num];
+    divElement.appendChild(p_date);
+
+    //戻るボタン
     const div_switch = document.createElement('div');
     const left_arrow = document.createElement('span');
     left_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-left switching"></i>戻る'
-    // left_arrow.setAttribute('class','far fa-arrow-alt-circle-left switching');
+
     left_arrow.addEventListener('click',()=>{
       console.log('left clicked!',index.num);
       if(index.num>0) index.num--;
     });
     div_switch.appendChild(left_arrow);
 
+    //進むボタン
     const right_arrow = document.createElement('span');
     right_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-right switching"></i>進む'
-    // right_arrow.setAttribute('class','far fa-arrow-alt-circle-right switching');
     right_arrow.addEventListener('click',()=>{
       console.log('right clicked!',index.num);
       if(index.num<NUMBER_OF_SHIFTS-1) index.num++;
     });
     div_switch.appendChild(right_arrow);
-    divElement.appendChild(div_switch);
 
     //データ送信用ボタン
     const postShiftButton = document.createElement('button');
@@ -143,15 +148,8 @@
         throw e;
       });
     });
-    divElement.appendChild(postShiftButton);
-
-    
-
-    //日にち表示エリア
-    const p_date = document.createElement('p');
-    p_date.setAttribute('class','date-display');
-    p_date.innerHTML = dateArray[index.num];
-    divElement.appendChild(p_date);
+    div_switch.appendChild(postShiftButton);
+    divElement.appendChild(div_switch);
 
     //テーブル要素宣言
     const table = document.createElement('table');
