@@ -94,12 +94,16 @@
     postShiftButton.setAttribute('class','btn btn-primary post-button');
     postShiftButton.value = 'シフトデータ送信';
     postShiftButton.addEventListener('click',()=>{
-      const formData = new FormData();
-      formData.append('username','test');
-      console.log('Formdata:',...formData.entries());
+      const jsonData = JSON.stringify(data[0]);
+      console.log('jsondata',jsonData);
+      // const formData = getFormData(data);
+      // console.log('Formdata:',...formData.entries());
       fetch('/api/shifts',{
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: jsonData,
         credentials: 'same-origin'
       })
       .then(response=>{
@@ -187,20 +191,6 @@
             toggle(staffNumber,index.num,i,data);
           });
           td.setAttribute('class','tbody-shift');
-
-          // if(object[`d${index.num}h${i}`] === null){
-          //   td.innerHTML = '-';
-          // }else{
-          //   const span = document.createElement('span');
-          //   span.innerHTML = object[`d${index.num}h${i}`];
-          //   span.addEventListener('click',()=>{
-          //     console.log('clicked at span!',staffNumber,index.num,i,data);
-          //     toggle(staffNumber,index.num,i,data);
-          //   });
-          //   td.setAttribute('class','tbody-shift');
-          //   td.appendChild(span);
-          // }
-          // td.setAttribute('class','tbody-shift');
         }
         tr.appendChild(td);
       }
@@ -256,6 +246,10 @@
     console.log
     divElement.innerHTML = '';
     createStaffTable(dateNum);
+  }
+
+  const getFormData = (array) => {
+
   }
 
 })();
