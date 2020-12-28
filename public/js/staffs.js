@@ -39,59 +39,6 @@
     Object.getOwnPropertyNames(index).forEach(propName=>watchIndexValue(index,propName,onChange));
     console.log('index.num',index.num,num);
     console.log('create table data:',data);
-    
-    //スタッフの追加
-    const formElement = document.createElement('form');
-    formElement.setAttribute('id','staffForm');
-    formElement.setAttribute('name','staffName');
-    
-    //スタッフ追加フォーム
-    const div_input_staff = document.createElement('div');
-    div_input_staff.setAttribute('class','form-group staff-input-area');
-      //スタッフラベル
-    const label_staff = document.createElement('label');
-    label_staff.setAttribute('class','label-staff');
-    label_staff.innerHTML = 'スタッフ名';
-    div_input_staff.appendChild(label_staff);
-      //スタッフ名入力欄
-    const input_staff = document.createElement('input');
-    input_staff.setAttribute('type','text');
-    input_staff.setAttribute('class','form-group staff-input');
-    input_staff.setAttribute('name','name');
-    div_input_staff.appendChild(input_staff);
-      //スタッフ名登録ボタン（post）
-    const postButton = document.createElement('input');
-    postButton.setAttribute('class','btn btn-primary post-button');
-    postButton.value = '登録';
-    postButton.type = 'button';
-      //登録ボタンのクリック時処理
-    postButton.addEventListener('click',(e)=>{
-      e.preventDefault();
-      const data = new FormData(formElement);
-      console.log('Formdata:',...data.entries());
-
-      fetch('/api/staffs',{
-        method: 'POST',
-        body: data,
-        credentials: 'same-origin'
-      })
-      .then(response=>{
-        if(response.ok){
-          response.text()
-            .then(text=>{
-              alert(`${text}`);
-              document.location.reload();
-            })
-            .catch(e=>console.log(e));
-        }
-      })
-      .catch(e=>{
-        throw e;
-      });
-    });
-    div_input_staff.appendChild(postButton);
-    formElement.appendChild(div_input_staff);
-    divElement.appendChild(formElement);
 
     const div_switch = document.createElement('div');
 
@@ -207,13 +154,66 @@
     });
     table.appendChild(tbody);
 
-    //新規スタッフ登録欄
+    //新規スタッフ登録欄(テーブルフッター)
     const tfoot = document.createElement('tfoot');
     const tr_foot = document.createElement('tr');
     const td_foot = document.createElement('td');
     td_foot.colSpan = '12';
-    td_foot.innerHTML='test';
     td_foot.setAttribute('class','table-footer');
+
+    //スタッフの追加
+    const formElement = document.createElement('form');
+    formElement.setAttribute('id','staffForm');
+    formElement.setAttribute('name','staffName');
+    
+    //スタッフ追加フォーム
+    const div_input_staff = document.createElement('div');
+    div_input_staff.setAttribute('class','form-group staff-input-area');
+      //スタッフラベル
+    const label_staff = document.createElement('label');
+    label_staff.setAttribute('class','label-staff');
+    label_staff.innerHTML = 'スタッフ名';
+    div_input_staff.appendChild(label_staff);
+      //スタッフ名入力欄
+    const input_staff = document.createElement('input');
+    input_staff.setAttribute('type','text');
+    input_staff.setAttribute('class','form-group staff-input');
+    input_staff.setAttribute('name','name');
+    div_input_staff.appendChild(input_staff);
+      //スタッフ名登録ボタン（post）
+    const postButton = document.createElement('input');
+    postButton.setAttribute('class','btn btn-primary post-button');
+    postButton.value = '登録';
+    postButton.type = 'button';
+      //登録ボタンのクリック時処理
+    postButton.addEventListener('click',(e)=>{
+      e.preventDefault();
+      const data = new FormData(formElement);
+      console.log('Formdata:',...data.entries());
+
+      fetch('/api/staffs',{
+        method: 'POST',
+        body: data,
+        credentials: 'same-origin'
+      })
+      .then(response=>{
+        if(response.ok){
+          response.text()
+            .then(text=>{
+              alert(`${text}`);
+              document.location.reload();
+            })
+            .catch(e=>console.log(e));
+        }
+      })
+      .catch(e=>{
+        throw e;
+      });
+    });
+    div_input_staff.appendChild(postButton);
+    formElement.appendChild(div_input_staff);
+    td_foot.appendChild(formElement);
+
     tr_foot.appendChild(td_foot);
     tfoot.appendChild(tr_foot);
     table.appendChild(tfoot);
