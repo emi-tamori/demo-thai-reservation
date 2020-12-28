@@ -85,5 +85,11 @@ module.exports = {
                     resolve('スタッフ登録完了');
                 })
         })
+    },
+
+    shiftRegister: (data) => {
+        return new Promise((resolve,reject)=>{
+            console.log
+        })
     }
 }

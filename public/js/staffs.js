@@ -246,8 +246,4 @@
     createStaffTable(dateNum);
   }
 
-  const getFormData = (array) => {
-
-  }
-
 })();
