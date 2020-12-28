@@ -110,6 +110,7 @@
         throw e;
       });
     });
+    divElement.appendChild(postShiftButton);
 
     //表示用dateの取得
     const dateArray = createDateArray();
