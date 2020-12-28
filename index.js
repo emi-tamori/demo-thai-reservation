@@ -7,7 +7,6 @@ const router = require('./routers/index');
 const apiRouter = require('./routers/api');
 const multipart = require('connect-multiparty');
 const nodemailer = require('nodemailer');
-// const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 5000
 
@@ -101,10 +100,8 @@ app
     .use(express.static(path.join(__dirname,'public')))
     .use(multipart())
     .post('/hook',line.middleware(config),(req,res)=> lineBot(req,res))
-    .use(express.json())
-    .use(express.urlencoded({extended:true}))
-    // .use(bodyParser.urlencoded({extended:true}))
-    // .use(bodyParser.json())
+    .use(express.json()) //これが/apiルーティングの前にこないと、ダメ
+    .use(express.urlencoded({extended:true}))　//これが/apiルーティングの前にこないと、ダメ
     .use('/',router)
     .use('/api',apiRouter)
     .set('views', path.join(__dirname, 'views'))

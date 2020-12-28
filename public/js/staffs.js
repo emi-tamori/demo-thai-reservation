@@ -94,12 +94,14 @@
     postShiftButton.setAttribute('class','btn btn-primary post-button');
     postShiftButton.value = 'シフトデータ送信';
     postShiftButton.addEventListener('click',()=>{
-      const formData = new FormData();
-      formData.append('ken',{d0:1,d1:0});
-      console.log('Formdata:',...formData.entries());
+      const jsonData = JSON.stringify(data[0]);
+      console.log('jsondata',jsonData);
       fetch('/api/shifts',{
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type':'application/json'
+        },
+        body: jsonData,
         credentials: 'same-origin'
       })
       .then(response=>{
