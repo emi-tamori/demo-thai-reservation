@@ -70,7 +70,7 @@ module.exports = {
             };
             connection.query(pickup_staffs)
                 .then(res=>{
-                    const nowTime = new Date().getTime()+24*60*60*1000*2;
+                    const nowTime = new Date().getTime();
                     const arrangedData = [];
                     res.rows.forEach(obj=>{
                         const copiedObj = JSON.parse(JSON.stringify(obj))
