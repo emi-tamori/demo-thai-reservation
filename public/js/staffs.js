@@ -96,7 +96,10 @@
     postShiftButton.addEventListener('click',()=>{
       fetch('/api/shifts',{
         method: 'POST',
-        body: data,
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data[0]),
         credentials: 'same-origin'
       })
       .then(response=>{
