@@ -27,6 +27,13 @@
   }
 
   const createStaffTable = (num) => {
+
+    //表題
+    const title = document.createElement('p');
+    title.setAttribute('class','top-font');
+    title.innerHTML = 'スタッフ管理ページ';
+    divElement.appendChild(title);
+
     //STAFFS_DATAのディープコピー
     const data = Array.from(STAFFS_DATA);
     //表示用dateの取得
@@ -45,7 +52,7 @@
     //日にち表示エリア
     const span_date = document.createElement('span');
     span_date.setAttribute('class','date-display');
-    span_date.innerHTML = dateArray[index.num];
+    span_date.innerHTML = '| '+dateArray[index.num]+' |';
     div_switch.appendChild(span_date);
 
     //戻るボタン
@@ -104,7 +111,7 @@
 
     //テーブル要素宣言
     const table = document.createElement('table');
-    table.style.marginLeft = `${(100-(20+4*(CLOSETIME-OPENTIME)))/2}vw`;
+    table.style.marginLeft = `${(100-(26+4*(CLOSETIME-OPENTIME)))/2}vw`;
 
     //テーブルヘッダー生成
     const tableHeader = document.createElement('thead');
@@ -146,6 +153,7 @@
           td.innerHTML = object.name;
           td.setAttribute('class','tbody-name');
         }else if(i===CLOSETIME){
+          //削除欄の実装
           const icon = document.createElement('i');
           icon.setAttribute('class','fas fa-user-slash delete-icon');
           icon.addEventListener('click',()=>{
