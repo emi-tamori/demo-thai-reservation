@@ -50,7 +50,7 @@ module.exports = {
     },
 
     staffDelete: (req,res) => {
-        const name = parseInt(req.params.name);
+        const name = req.params.name;
         console.log('delete name',name);
         try{
             Data.staffDeleter(name)
