@@ -317,8 +317,25 @@ body {
 .switching{
     font-size: 2vw;
     cursor: pointer;
+    margin: 1vw 2vw;
 }
 
 .date-display{
     font-size: 2vw;
+}
+
+.label-staff{
+    font-size: 2vw;
+    margin-right:1.5vw;
+}
+
+.staff-input{
+    font-size: 2vw;
+    width: 8vw;
+    height: 3vw;
+}
+
+.post-button{
+    font-size: 2vw;
+    margin: 1vw 2vw;
 }

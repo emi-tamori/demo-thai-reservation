@@ -50,7 +50,7 @@
     div_input_staff.setAttribute('class','form-group');
       //スタッフラベル
     const label_staff = document.createElement('label');
-    label_staff.setAttribute('class','label_staff');
+    label_staff.setAttribute('class','label-staff');
     label_staff.innerHTML = 'スタッフ名';
     div_input_staff.appendChild(label_staff);
       //スタッフ名入力欄
@@ -102,7 +102,8 @@
     //戻るボタン
     const div_switch = document.createElement('div');
     const left_arrow = document.createElement('span');
-    left_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-left switching"></i>戻る'
+    left_arrow.setAttribute('class','switching');
+    left_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-left"></i>戻る'
 
     left_arrow.addEventListener('click',()=>{
       console.log('left clicked!',index.num);
@@ -112,7 +113,8 @@
 
     //進むボタン
     const right_arrow = document.createElement('span');
-    right_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-right switching"></i>進む'
+    left_arrow.setAttribute('class','switching');
+    right_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-right"></i>進む'
     right_arrow.addEventListener('click',()=>{
       console.log('right clicked!',index.num);
       if(index.num<NUMBER_OF_SHIFTS-1) index.num++;
