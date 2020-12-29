@@ -141,8 +141,8 @@
     const dateArray = [];
     const weekArray = [];
     for(let i=0;i<7;i++){
-      const date = new Date(today+i*oneDay).getDate();
-      const day = weeks[new Date(today+i*oneDay).getDay()];
+      const date = new Date(nowTime+i*oneDay).getDate();
+      const day = weeks[new Date(nowTime+i*oneDay).getDay()];
       dateArray.push(date);
       weekArray.push(day)
     }
