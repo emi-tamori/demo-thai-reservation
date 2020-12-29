@@ -5,6 +5,9 @@
   const ONEWEEK = ONEDAY*7;
   const OPENTIME = 9;
   const CLOSETIME = 19;
+  
+  //大元のdiv要素取得
+  const divElement = document.getElementById('reservationsPage');
 
   window.addEventListener('load',()=>{
     fetchData();
@@ -27,15 +30,19 @@
   }
 
   const createReservationTable = (data,num) => {
-    //大元のdiv要素取得
-    const divElement = document.getElementById('reservationsPage');
 
-    //週切り換え用index
-    let index = {
-      num
+    //変化監視対象プロパティ
+    let props = {
+      index: num,
+      usersData: data.users,
+      reservationsData: data.reservations,
+      staffsData: data.staffs
     };
 
     //index.numの変化検知用
+    Object
+    .getOwnPropertyNames(props)
+    .forEach(propName=>watchIndexValue(props,propName,onChange));
 
     //表題
     const title = document.createElement('p');
@@ -47,7 +54,7 @@
     let today = new Date();
     today.setHours(0,0,0,0); //0:00にセット
     today_ts = new Date(today).getTime();
-    const dateObject = createDateObject(today_ts);
+    const dateObject = createDateObject(today_ts+props.index*ONEWEEK);
 
     const div_menu = document.createElement('div');
     div_menu.setAttribute('class','button-area');
@@ -153,6 +160,24 @@
       dateArray,
       weekArray
     };
+  }
+
+  const watchIndexValue = (obj, propName, func) => {
+    let value = obj[propName];
+    Object.defineProperty(obj, propName, {
+      get: () => value,
+      set: newValue => {
+        const oldValue = value;
+        value = newValue;
+        func(newValue,obj.reservationsData);
+      },
+      configurable: true
+    });
+  }
+
+  const onChange = (value,data) => {
+    divElement.innerHTML = '';
+    createReservationTable(value,data);
   }
 
 })();
