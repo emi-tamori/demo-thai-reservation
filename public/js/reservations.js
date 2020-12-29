@@ -48,7 +48,8 @@
     const dateObject = createDateObject(today_ts);
 
     const div_menu = document.createElement('div');
-
+    div_menu.setAttribute('class','button-area');
+    
     //日にち表示エリア
     const span_date = document.createElement('span');
     span_date.setAttribute('class','date-display');
@@ -56,7 +57,6 @@
     div_menu.appendChild(span_date);
 
     //戻るボタン
-    div_switch.setAttribute('class','button-area');
     const left_arrow = document.createElement('span');
     left_arrow.setAttribute('class','switching');
     left_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-left"></i>戻る'
