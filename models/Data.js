@@ -74,8 +74,8 @@ module.exports = {
                     res.rows.forEach(obj=>{
                         //オブジェクトのディープコピー
                         const copiedObj = JSON.parse(JSON.stringify(obj))
-                        const nowTime = new Date().getTime() + 9*60*60*1000; //現在時刻タイムスタンプ
-                        const today_ts = new Date(new Date(nowTime).toDateString()).getTime(); //0:00のタイムスタンプ
+                        const nowTime = new Date().getTime(); //現在時刻タイムスタンプ
+                        const today_ts = new Date(new Date(nowTime).toDateString()).getTime() -9*60*60*1000; //0:00のタイムスタンプ
                         console.log('nowtime',nowTime);
                         console.log('today_ts',today_ts);
                         //現在のタイムスタンプとシフトが更新されたタイムスタンプの差を求める
