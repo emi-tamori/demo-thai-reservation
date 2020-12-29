@@ -71,8 +71,8 @@
     left_arrow.innerHTML = '<button type="button" class="btn btn-dark"><i class="far fa-arrow-alt-circle-left"></i>戻る</button>'
 
     left_arrow.addEventListener('click',()=>{
-      console.log('left clicked!',index.num);
-      if(index.num>0) index.num--;
+      console.log('left clicked!',props.index);
+      if(index.num>0) props.index--;
     });
     div_menu.appendChild(left_arrow);
 
@@ -81,8 +81,8 @@
     right_arrow.setAttribute('class','switching');
     right_arrow.innerHTML = '<button type="button" class="btn btn-dark"><i class="far fa-arrow-alt-circle-right"></i>進む</button>';
     right_arrow.addEventListener('click',()=>{
-      console.log('right clicked!',index.num);
-      index.num++;
+      console.log('right clicked!',props.index);
+      props.index++;
     });
     div_menu.appendChild(right_arrow);
     divElement.appendChild(div_menu);
