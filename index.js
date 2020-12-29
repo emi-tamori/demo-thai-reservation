@@ -1250,16 +1250,20 @@ const checkReservable = (ev,menu,date,staffInfo) => {
         });
 
         //シフトデータを配列化する
-        const shift = [];
-        for(let i=OPENTIME; i<CLOSETIME; i++){
-          shift.push(staffInfo[`d0h${i}`]);
+          //staffInfoのupdatedatと予約希望日の差を求める
+        const date_ts = new Date(date).getTime() - 9*60*60*1000; //予約希望日のタイムスタンプ(0:00)
+        if(date_ts-staffInfo.updatedat<24*60*60*1000*NUMBER_OF_SHIFTS){
+          //予約希望日とシフトデータ更新日の差を算出する
+          const differential = Math.floor((date_ts-staffInfo.updatedat)/24*60*60*1000);
+          console.log('differential:',differential);
+          const shift = [];
+          for(let i=OPENTIME; i<CLOSETIME; i++){
+            shift.push(staffInfo[`d${differential}h${i}`]);
+          }
+          console.log('shift:',shift);
         }
-        const date_ts = new Date(date).getTime();
-        console.log('shift:',shift);
-        console.log('updatedat date',staffInfo.updatedat,date_ts);
 
         //シフトによりマスキング
-        // const shift = SHIFT1[`${STAFFS[num]}`];
         const filteredArray = [];
         reservableArray.forEach((value,index) => {
           if(shift[index]){

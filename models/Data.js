@@ -70,25 +70,29 @@ module.exports = {
             };
             connection.query(pickup_staffs)
                 .then(res=>{
-                    const nowTime = new Date().getTime();
                     const arrangedData = [];
                     res.rows.forEach(obj=>{
+                        //オブジェクトのディープコピー
                         const copiedObj = JSON.parse(JSON.stringify(obj))
-                        const today = new Date(nowTime).getDate();
-                        console.log('updatedat',copiedObj.updatedat);
-                        const updatedAt = new Date(parseInt(copiedObj.updatedat)).getDate();
-                        console.log('today updatedAt nowtime',today,updatedAt,nowTime);
-                        if(nowTime-parseInt(copiedObj.updatedat)<24*60*60*1000 && today===updatedAt){
+                        const nowTime = new Date().getTime(); //現在のタイムスタンプ
+
+                        //現在のタイムスタンプとシフトが更新されたタイムスタンプの差を求める
+                        const differential = nowTime - parseInt(copiedObj.updatedat);
+                        //differntialの日数換算をする
+                        const DaysByDifferential = Math.floor(differential/24*60*60*1000);
+
+                        // 現在と更新日が一致するとき
+                        if(DaysByDifferential===0){
                             arrangedData.push(copiedObj);
-                        }else if(nowTime-parseInt(copiedObj.updatedat)<24*60*60*1000*NUMBER_OF_SHIFTS && today !== updatedAt){
-                            const gap = today - updatedAt;
-                            console.log('gap:',gap);
-                            for(let i=0; i<NUMBER_OF_SHIFTS-gap; i++){
+                        }
+                        // 現在と更新日の差がNUMBER_OF_SHIFTS以内かつ0より大きいとき
+                        else if(DaysByDifferential<NUMBER_OF_SHIFTS && DaysByDifferential>0){
+                            for(let i=0; i<NUMBER_OF_SHIFTS-DaysByDifferential; i++){
                                 for(let j=OPENTIME;j<CLOSETIME;j++){
-                                    copiedObj[`d${i}h${j}`] = copiedObj[`d${gap+i}h${j}`];
+                                    copiedObj[`d${i}h${j}`] = copiedObj[`d${DaysByDifferential+i}h${j}`];
                                 }
                             }
-                            for(let i=NUMBER_OF_SHIFTS-gap;i<NUMBER_OF_SHIFTS;i++){
+                            for(let i=NUMBER_OF_SHIFTS-DaysByDifferential;i<NUMBER_OF_SHIFTS;i++){
                                 for(let j=OPENTIME;j<CLOSETIME;j++){
                                     copiedObj[`d${i}h${j}`] = null;
                                 }
