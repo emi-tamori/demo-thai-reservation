@@ -68,20 +68,26 @@
     //戻るボタン
     const left_arrow = document.createElement('span');
     // left_arrow.setAttribute('class','switching');
-    left_arrow.innerHTML = '<button type="button" class="btn btn-dark　menu-button"><i class="far fa-arrow-alt-circle-left"></i>戻る</button>'
+    left_arrow.innerHTML = '<button type="button" class="btn btn-dark"><i class="far fa-arrow-alt-circle-left"></i>戻る</button>'
 
     left_arrow.addEventListener('click',()=>{
-      console.log('left clicked!',props.index);
       if(props.index>0) props.index--;
     });
     div_menu.appendChild(left_arrow);
+
+    //今週ボタン
+    const thisWeek = document.createElement('span');
+    thisWeek.innerHTML = '<button type="button" class="btn btn-dark">今週</button>'
+    thisWeek.addEventListener('click',()=>{
+      props.index = 0;
+    });
+    div_menu.appendChild(thisWeek);
 
     //進むボタン
     const right_arrow = document.createElement('span');
     // right_arrow.setAttribute('class','switching');
     right_arrow.innerHTML = '<button type="button" class="btn btn-dark">進む<i class="far fa-arrow-alt-circle-right"></i></button>';
     right_arrow.addEventListener('click',()=>{
-      console.log('right clicked!',props.index);
       props.index++;
     });
     div_menu.appendChild(right_arrow);
