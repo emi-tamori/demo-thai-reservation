@@ -169,7 +169,7 @@
       set: newValue => {
         const oldValue = value;
         value = newValue;
-        func(newValue,obj.reservationsData);
+        func(newValue,obj);
       },
       configurable: true
     });
