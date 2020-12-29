@@ -35,6 +35,8 @@
       num
     };
 
+    //index.numの変化検知用
+
     //表題
     const title = document.createElement('p');
     title.setAttribute('class','top-font');
@@ -49,7 +51,7 @@
 
     const div_menu = document.createElement('div');
     div_menu.setAttribute('class','button-area');
-    
+
     //日にち表示エリア
     const span_date = document.createElement('span');
     span_date.setAttribute('class','date-display');
@@ -59,7 +61,7 @@
     //戻るボタン
     const left_arrow = document.createElement('span');
     left_arrow.setAttribute('class','switching');
-    left_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-left"></i>戻る'
+    left_arrow.innerHTML = '<button type="button" class="btn btn-dark"><i class="far fa-arrow-alt-circle-left"></i>戻る</button>'
 
     left_arrow.addEventListener('click',()=>{
       console.log('left clicked!',index.num);
@@ -70,7 +72,7 @@
     //進むボタン
     const right_arrow = document.createElement('span');
     right_arrow.setAttribute('class','switching');
-    right_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-right"></i>進む'
+    right_arrow.innerHTML = '<button type="button" class="btn btn-dark"><i class="far fa-arrow-alt-circle-right"></i>進む</button>';
     right_arrow.addEventListener('click',()=>{
       console.log('right clicked!',index.num);
       index.num++;
