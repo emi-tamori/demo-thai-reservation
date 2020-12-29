@@ -16,7 +16,7 @@
       if(response.ok){
         const data = await response.json();
         console.log('data:',data);
-        createReservationTable(data);
+        createReservationTable(data,0);
       }else{
         alert('HTTPレスポンスエラーです');
       }
@@ -26,39 +26,59 @@
     }
   }
 
-  const createReservationTable = (data) => {
+  const createReservationTable = (data,num) => {
+    //大元のdiv要素取得
     const divElement = document.getElementById('reservationsPage');
 
-    let index = 0;
+    //週切り換え用index
+    let index = {
+      num
+    };
+
+    //表題
+    const title = document.createElement('p');
+    title.setAttribute('class','top-font');
+    title.innerHTML = '予約管理ページ';
+    divElement.appendChild(title);
+
+    //表示用　年月、日、曜日の取得
+    let today = new Date();
+    today.setHours(0,0,0,0); //0:00にセット
+    today_ts = new Date(today).getTime();
+    const dateObject = createDateObject(today_ts);
+
+    const div_menu = document.createElement('div');
+
+    //日にち表示エリア
+    const span_date = document.createElement('span');
+    span_date.setAttribute('class','date-display');
+    span_date.innerHTML = '| '+dateObject.yearAndMonth+' |';
+    div_menu.appendChild(span_date);
+
+    //戻るボタン
+    div_switch.setAttribute('class','button-area');
+    const left_arrow = document.createElement('span');
+    left_arrow.setAttribute('class','switching');
+    left_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-left"></i>戻る'
+
+    left_arrow.addEventListener('click',()=>{
+      console.log('left clicked!',index.num);
+      if(index.num>0) index.num--;
+    });
+    div_menu.appendChild(left_arrow);
+
+    //進むボタン
+    const right_arrow = document.createElement('span');
+    right_arrow.setAttribute('class','switching');
+    right_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-right"></i>進む'
+    right_arrow.addEventListener('click',()=>{
+      console.log('right clicked!',index.num);
+      index.num++;
+    });
+    div_menu.appendChild(right_arrow);
+    divElement.appendChild(div_menu);
 
     const reservationsData = data.reservations;
-
-    //日送りボタン
-    const backButton = document.createElement('button');
-    const forwardButton = document.createElement('button');
-    backButton.addEventListener('click',()=>{
-      index--;
-      console.log('index=',index);
-    });
-    forwardButton.addEventListener('click',()=>{
-      index++;
-      console.log('index=',index);
-    });
-    divElement.appendChild(backButton);
-    divElement.appendChild(forwardButton);
-        
-    //現在のタイムスタンプを取得
-    const nowTime = new Date().getTime();
-    console.log('nowtime:',nowTime);
-
-    //年月日生成
-    const year = new Date(nowTime).getFullYear();
-    const month = new Date(nowTime).getMonth()+1;
-
-    //日時ラベル
-    const p = document.createElement('p');
-    p.innerHTML = `${year}年${month}月`;
-    divElement.appendChild(p);
     
     //テーブルエレメント生成
     const table = document.createElement('table');
@@ -80,10 +100,8 @@
         trDate.appendChild(thDate);
         trWeek.appendChild(thWeek);
       }else{
-        const date = new Date(nowTime+(i-1)*ONEDAY).getDate();
-        const week = WEEKS[new Date(nowTime+(i-1)*ONEDAY).getDay()];
-        thDate.innerHTML = date;
-        thWeek.innerHTML = week;
+        thDate.innerHTML = dateObject.dateArray[i-1];
+        thWeek.innerHTML = dateObject.weekArray[i-1];
         trDate.appendChild(thDate);
         trWeek.appendChild(thWeek);
       }
@@ -113,6 +131,26 @@
     }
     table.appendChild(tableBody);
     divElement.appendChild(table);
+  }
+
+  const createDateObject = (nowTime) => {
+    const weeks = ["日", "月", "火", "水", "木", "金", "土"];
+    const oneDay = 24*60*60*1000;
+    const yearAndMonth = new Date(nowTime).getFullYear() + '年' + (new Date(nowTime).getMonth()+1) + '月';
+
+    const dateArray = [];
+    const weekArray = [];
+    for(let i=0;i<7;i++){
+      const date = new Date(today+i*oneDay).getDate();
+      const day = weeks[new Date(today+i*oneDay).getDay()];
+      dateArray.push(date);
+      weekArray.push(day)
+    }
+    return {
+      yearAndMonth,
+      dateArray,
+      weekArray
+    };
   }
 
 })();

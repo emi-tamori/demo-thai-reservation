@@ -38,6 +38,7 @@
 
     //STAFFS_DATAのディープコピー
     const data = Array.from(STAFFS_DATA);
+    
     //表示用dateの取得
     let today = new Date();
     today.setHours(0,0,0,0); //0:00にセット
