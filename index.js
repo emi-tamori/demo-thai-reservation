@@ -1254,7 +1254,7 @@ const checkReservable = (ev,menu,date,staffInfo) => {
         const date_ts = new Date(date).getTime() - 9*60*60*1000; //予約希望日のタイムスタンプ(0:00)
         if(date_ts-staffInfo.updatedat<24*60*60*1000*NUMBER_OF_SHIFTS){
           //予約希望日とシフトデータ更新日の差を算出する
-          const differential = Math.floor((date_ts-staffInfo.updatedat)/24*60*60*1000);
+          const differential = Math.floor((date_ts-staffInfo.updatedat)/(24*60*60*1000));
           console.log('date_ts,staffinfo',date_ts,staffInfo.updatedat);
           console.log('date_ts-staffInfo.updatedat',date_ts-staffInfo.updatedat);
           console.log('differential:',differential);
