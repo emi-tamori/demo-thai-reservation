@@ -72,14 +72,14 @@
 
     left_arrow.addEventListener('click',()=>{
       console.log('left clicked!',props.index);
-      if(index.num>0) props.index--;
+      if(props.index>0) props.index--;
     });
     div_menu.appendChild(left_arrow);
 
     //進むボタン
     const right_arrow = document.createElement('span');
     right_arrow.setAttribute('class','switching');
-    right_arrow.innerHTML = '<button type="button" class="btn btn-dark"><i class="far fa-arrow-alt-circle-right"></i>進む</button>';
+    right_arrow.innerHTML = '<button type="button" class="btn btn-dark">進む<i class="far fa-arrow-alt-circle-right"></i></button>';
     right_arrow.addEventListener('click',()=>{
       console.log('right clicked!',props.index);
       props.index++;
@@ -177,7 +177,7 @@
 
   const onChange = (value,data) => {
     divElement.innerHTML = '';
-    createReservationTable(value,data);
+    createReservationTable(data,value);
   }
 
 })();
