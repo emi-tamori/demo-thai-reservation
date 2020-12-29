@@ -74,7 +74,7 @@ module.exports = {
                     res.rows.forEach(obj=>{
                         //オブジェクトのディープコピー
                         const copiedObj = JSON.parse(JSON.stringify(obj))
-                        let today = new Date(); //本日
+                        let today = new Date().toLocaleString(); //本日
                         console.log('today',today);
                         today.setHours(0,0,0,0); //0:00に設定
                         const today_ts = new Date(today).getTime();
