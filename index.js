@@ -995,100 +995,109 @@ const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {
 }
 
 const confirmation = async (ev,menu,date,time,n) => {
-  //各スタッフの予約数
-  const numberOfReservations = await getNumberOfReservations(date);
-  console.log('numberOfReservations:',numberOfReservations);
-  const splitDate = date.split('-');
-  const selectedTime = 9 + parseInt(time);
 
-  //スタッフ人数分のreservableArrayを取得
-  const reservableArray = [];
-  for(let i=0; i<STAFFS.length; i++){
-    const staff_reservable = await checkReservable(ev,menu,date,i);
-    reservableArray.push(staff_reservable);
+  //シフトデータの取得
+  const select_query = {
+    text:'SELECT * FROM shifts;'
   }
+  connection.query(select_query)
+    .then(async(res)=>{
+      if(res.rows.length){
+        //各スタッフの予約数
+        const numberOfReservations = await getNumberOfReservations(date,res.rows);
+        console.log('numberOfReservations:',numberOfReservations);
+        const splitDate = date.split('-');
+        const selectedTime = 9 + parseInt(time);
 
-  console.log('reservableArray=',reservableArray);
+        //スタッフ人数分のreservableArrayを取得
+        const reservableArray = [];
+        for(let i=0; i<res.rows.length; i++){
+          const staff_reservable = await checkReservable(ev,menu,date,res.rows[i]);
+          reservableArray.push(staff_reservable);
+        }
+        console.log('reservableArray=',reservableArray);
 
-  //対象時間の候補抜き出し
-  const targets = reservableArray.map( array => {
-    return array[parseInt(time)];
-  });
-  console.log('targets:',targets);
+        //対象時間の候補抜き出し
+        const targets = reservableArray.map( array => {
+          return array[parseInt(time)];
+        });
+        console.log('targets:',targets);
 
-  //誰の予約とするかを決定する（その日の予約数が一番少ないスタッフ）
-  const maskingArray = [];
-  for(let i=0; i<targets.length; i++){
-    if(targets[i].length){
-      maskingArray.push(numberOfReservations[i]);
-    }else{
-      maskingArray.push(-1);
-    }
-  }
-  console.log('maskignArray=',maskingArray);
-
-  //予約可能かつ予約回数が一番少ないスタッフを選定する
-  let tempNumber = 1000;
-  let staffNumber;
-  maskingArray.forEach((value,index)=>{
-    if(value>=0 && value<tempNumber){
-      tempNumber = value;
-      staffNumber = index;
-    }
-  });
-
-  const candidates = targets[staffNumber];
-  console.log('candidates=',candidates);
-
-  // const reservableArray = await checkReservable(ev,menu,date);
-  // const candidates = reservableArray[parseInt(time)];
-  const n_dash = (n>=candidates.length-1) ? -1 : n+1;
-  console.log('n_dash:',n_dash);
-
-  const proposalTime = dateConversion(candidates[n]);
-
-  return client.replyMessage(ev.replyToken,{
-    "type":"flex",
-    "altText":"menuSelect",
-    "contents":
-    {
-      "type": "bubble",
-      "body": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "text",
-            "text":  `次回予約は${proposalTime}でよろしいですか？`,
-            "size": "lg",
-            "wrap": true
+        //誰の予約とするかを決定する（その日の予約数が一番少ないスタッフ）
+        const maskingArray = [];
+        for(let i=0; i<targets.length; i++){
+          if(targets[i].length){
+            maskingArray.push(numberOfReservations[i]);
+          }else{
+            maskingArray.push(-1);
           }
-        ]
-      },
-      "footer": {
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
+        }
+        console.log('maskignArray=',maskingArray);
+
+        //予約可能かつ予約回数が一番少ないスタッフを選定する
+        let tempNumber = 1000;
+        let staffNumber;
+        maskingArray.forEach((value,index)=>{
+          if(value>=0 && value<tempNumber){
+            tempNumber = value;
+            staffNumber = index;
+          }
+        });
+
+        const candidates = targets[staffNumber];
+        console.log('candidates=',candidates);
+
+        const n_dash = (n>=candidates.length-1) ? -1 : n+1;
+        console.log('n_dash:',n_dash);
+
+        const proposalTime = dateConversion(candidates[n]);
+
+        return client.replyMessage(ev.replyToken,{
+          "type":"flex",
+          "altText":"menuSelect",
+          "contents":
           {
-            "type": "button",
-            "action": {
-              "type": "postback",
-              "label": "はい",
-              "data": `yes&${menu}&${date}&${candidates[n]}&${staffNumber}`
-            }
-          },
-          {
-            "type": "button",
-            "action": {
-              "type": "postback",
-              "label": "いいえ",
-              "data": `no&${menu}&${date}&${time}&${n_dash}`
+            "type": "bubble",
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text":  `次回予約は${proposalTime}でよろしいですか？`,
+                  "size": "lg",
+                  "wrap": true
+                }
+              ]
+            },
+            "footer": {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "はい",
+                    "data": `yes&${menu}&${date}&${candidates[n]}&${staffNumber}`
+                  }
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "いいえ",
+                    "data": `no&${menu}&${date}&${time}&${n_dash}`
+                  }
+                }
+              ]
             }
           }
-        ]
+        });
+      }else{
+        console.log('スタッフデータが１件も入っていません');
       }
-    }
-  });
+    })  
 }
 
 const checkNextReservation = (ev) => {
@@ -1304,19 +1313,19 @@ const finalCheck = (date,startTime,endTime,staffNumber) => {
 }
 
 //予約選択日における各スタッフの予約数を取得する
-const getNumberOfReservations = (date) => { 
+const getNumberOfReservations = (date,shiftInfo) => { 
   return new Promise((resolve,reject) => {
     const numberOfReservations = [];
-    for(let i=0; i<STAFFS.length; i++){
+    for(let i=0; i<shiftInfo.length; i++){
       const select_query = {
-        text:`SELECT * FROM reservations.${STAFFS[i]} WHERE scheduledate = $1 ORDER BY starttime ASC;`,
+        text:`SELECT * FROM reservations.${shiftInfo.name} WHERE scheduledate = $1 ORDER BY starttime ASC;`,
         values:[`${date}`]
       }
       connection.query(select_query)
         .then(res=>{
           console.log('res.rows.length=',res.rows.length);
           numberOfReservations.push(res.rows.length);
-          if(i === STAFFS.length - 1) resolve(numberOfReservations);
+          if(i === shiftInfo.length - 1) resolve(numberOfReservations);
         })
         .catch(e=>console.log(e));
     }
