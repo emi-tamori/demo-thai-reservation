@@ -339,6 +339,14 @@ body {
     margin-right: 1.5vw;
 }
 
+.menu-button{
+    font-size:2vw;
+    cursor: pointer;
+    margin-right: 1.5vw;
+    height: 4vw;
+    width: 6vw;
+}
+
 .date-display{
     font-size: 2.5vw;
     margin-right:1.5vw;
