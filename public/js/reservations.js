@@ -3,8 +3,8 @@
   const WEEKS = ["日", "月", "火", "水", "木", "金", "土"];
   const ONEDAY = 24*60*60*1000;
   const ONEWEEK = ONEDAY*7;
-  const OPENTIME = 12;
-  const CLOSETIME = 23;
+  const OPENTIME = 9;
+  const CLOSETIME = 19;
 
   window.addEventListener('load',()=>{
     fetchData();

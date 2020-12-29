@@ -9,7 +9,7 @@ const connection = new Client({
   });
 connection.connect();
 
-const STAFFS = ['ken','emi','taro'];
+// const STAFFS = ['ken','emi','taro'];
 const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
 const OPENTIME = 9; //開店時間
 const CLOSETIME = 19; //閉店時間
@@ -24,24 +24,32 @@ module.exports = {
 
             connection.query(pickup_users)
                 .then(users=>{
-                    const reservations = [];
-                    STAFFS.forEach((name,index)=>{
-                        const pickup_reservations = {
-                            text: `SELECT * FROM reservations.${name};`
-                        }
-                        connection.query(pickup_reservations)
-                            .then(res=>{
-                                reservations.push(res.rows);
-                                if(index === STAFFS.length-1) {
-                                    const data = {
-                                        users: users.rows,
-                                        reservations
-                                    }
-                                    resolve(data);
+                    const pickup_staffs = {
+                        text: 'SELECT * FROM shifts;'
+                    }
+                    connection.query(pickup_staffs)
+                        .then(staffs=>{
+                            const reservations = [];
+                            staffs.rows.forEach((staff,index)=>{
+                                const pickup_reservations = {
+                                    text: `SELECT * FROM reservations.${staff.name};`
                                 }
+                                connection.query(pickup_reservations)
+                                    .then(res=>{
+                                        reservations.push(res.rows);
+                                        if(index === staffs.rows.length-1) {
+                                            const data = {
+                                                users: users.rows,
+                                                staffs: staffs.rows,
+                                                reservations
+                                            }
+                                            resolve(data);
+                                        }
+                                    })
+                                    .catch(e=>console.log(e));
                             })
-                            .catch(e=>console.log(e));
-                    })
+                        })
+                        .catch(e=>console.log(e));
                 })
                 .catch(e=>console.log(e))
         });
