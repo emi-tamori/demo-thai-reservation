@@ -39,8 +39,10 @@
     //STAFFS_DATAのディープコピー
     const data = Array.from(STAFFS_DATA);
     //表示用dateの取得
-    const nowTime = new Date().getTime();
-    const dateArray = createDateArray(nowTime);
+    let today = new Date();
+    today.setHours(0,0,0,0); //0:00にセット
+    today_ts = new Date(today).getTime();
+    const dateArray = createDateArray(today_ts);
 
     let index = {
       num
@@ -85,7 +87,7 @@
     postShiftButton.textContent = 'シフトデータ送信';
     postShiftButton.addEventListener('click',()=>{
       data.forEach(obj=>{
-        obj.updatedat = nowTime;
+        obj.updatedat = today_ts;
       });
       const jsonData = JSON.stringify(data);
       console.log('jsondata',jsonData);
