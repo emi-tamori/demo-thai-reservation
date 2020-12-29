@@ -334,16 +334,17 @@ body {
 }
 
 .switching{
-    font-size: 2vw;
+    font-size: 1.7vw;
     cursor: pointer;
     margin-right: 1.5vw;
+    height:3.5vw;
 }
 
-.btn-dark {
+/* .btn-dark {
     font-size:1.6vw;
     margin-right: 1.5vw;
     height: 3vw;
-}
+} */
 
 .date-display{
     font-size: 2.5vw;

@@ -67,7 +67,7 @@
 
     //戻るボタン
     const left_arrow = document.createElement('span');
-    // left_arrow.setAttribute('class','switching');
+    left_arrow.setAttribute('class','switching');
     left_arrow.innerHTML = '<button type="button" class="btn btn-dark"><i class="far fa-arrow-alt-circle-left"></i>戻る</button>'
 
     left_arrow.addEventListener('click',()=>{
@@ -85,7 +85,7 @@
 
     //進むボタン
     const right_arrow = document.createElement('span');
-    // right_arrow.setAttribute('class','switching');
+    right_arrow.setAttribute('class','switching');
     right_arrow.innerHTML = '<button type="button" class="btn btn-dark">進む<i class="far fa-arrow-alt-circle-right"></i></button>';
     right_arrow.addEventListener('click',()=>{
       props.index++;
