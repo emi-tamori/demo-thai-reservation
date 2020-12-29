@@ -360,7 +360,7 @@ const handlePostbackEvent = async (ev) => {
         const orderedMenu = splitData[1];
         const selectedDate = splitData[2];
         const fixedTime = parseInt(splitData[3]);
-        const staffName = parseInt(splitData[4]);
+        const staffName = splitData[4];
        
         //施術時間の取得
         const treatTime = await calcTreatTime(ev.source.userId,orderedMenu);
