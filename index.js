@@ -291,7 +291,7 @@ const handlePostbackEvent = async (ev) => {
               text: 'SELECT * FROM shifts;'
             }
             connection(select_shifts)
-              .then(res=>{
+              .then( async (res) => {
                 //スタッフ人数分のreservableArrayを取得
                 if(res.rows.length){
                   const reservableArray = [];
@@ -1257,7 +1257,7 @@ const checkReservable = (ev,menu,date,staffInfo) => {
         const date_ts = new Date(date).getTime();
         console.log('shift:',shift);
         console.log('updatedat date',staffInfo.updatedat,date_ts);
-        
+
         //シフトによりマスキング
         // const shift = SHIFT1[`${STAFFS[num]}`];
         const filteredArray = [];
