@@ -76,24 +76,23 @@
     div_menu.appendChild(left_arrow);
 
     //今週ボタン
-    const thisWeek = document.createElement('span');
-    thisWeek.innerHTML = '<button type="button" class="btn btn-dark">今週</button>'
+    const thisWeek = document.createElement('button');
+    thisWeek.setAttribute('class','btn btn-dark menu-button');
+    thisWeek.innerHTML = '今週';
     thisWeek.addEventListener('click',()=>{
       props.index = 0;
     });
     div_menu.appendChild(thisWeek);
 
     //進むボタン
-    const right_arrow = document.createElement('span');
-    right_arrow.setAttribute('class','switching');
-    right_arrow.innerHTML = '<button type="button" class="btn btn-dark">進む<i class="far fa-arrow-alt-circle-right"></i></button>';
+    const right_arrow = document.createElement('button');
+    right_arrow.setAttribute('class','btn btn-dark menu-button');
+    right_arrow.innerHTML = '進む<i class="far fa-arrow-alt-circle-right"></i>';
     right_arrow.addEventListener('click',()=>{
       props.index++;
     });
     div_menu.appendChild(right_arrow);
     divElement.appendChild(div_menu);
-
-    const reservationsData = data.reservations;
     
     //テーブルエレメント生成
     const table = document.createElement('table');
