@@ -293,14 +293,18 @@ const handlePostbackEvent = async (ev) => {
             connection(select_shifts)
               .then(res=>{
                 //スタッフ人数分のreservableArrayを取得
-                const reservableArray = [];
-                for(let i=0; i<STAFFS.length; i++){
-                  const staff_reservable = await checkReservable(ev,orderedMenu,selectedDate,i);
-                  reservableArray.push(staff_reservable);
+                if(res.rows.length){
+                  const reservableArray = [];
+                  for(let i=0; i<res.rows.length; i++){
+                    const staff_reservable = await checkReservable(ev,orderedMenu,selectedDate,res.rows[i]);
+                    reservableArray.push(staff_reservable);
+                  }
+                  console.log('reservableArray:',reservableArray);
+                  // const reservableArray = await checkReservable(ev,orderedMenu,selectedDate);
+                  askTime(ev,orderedMenu,selectedDate,reservableArray);
+                }else{
+                  console.log('登録されたスタッフがいません')
                 }
-                console.log('reservableArray:',reservableArray);
-                // const reservableArray = await checkReservable(ev,orderedMenu,selectedDate);
-                askTime(ev,orderedMenu,selectedDate,reservableArray);
               })
               .catch(e=>console.log(e));
           }else{
@@ -1116,7 +1120,7 @@ const checkNextReservation = (ev) => {
   });
 }
 
-const checkReservable = (ev,menu,date,num) => {
+const checkReservable = (ev,menu,date,staffInfo) => {
   return new Promise( async (resolve,reject)=>{
     const id = ev.source.userId;
     const treatTime = await calcTreatTime(id,menu);
@@ -1124,7 +1128,7 @@ const checkReservable = (ev,menu,date,num) => {
     const treatTimeToMs = treatTime*60*1000;
 
     const select_query = {
-      text:`SELECT * FROM reservations.${STAFFS[num]} WHERE scheduledate = $1 ORDER BY starttime ASC;`,
+      text:`SELECT * FROM reservations.${staffInfo.name} WHERE scheduledate = $1 ORDER BY starttime ASC;`,
       values:[`${date}`]
     };
 
@@ -1245,8 +1249,17 @@ const checkReservable = (ev,menu,date,num) => {
           reservableArray.push(tempArray);
         });
 
+        //シフトデータを配列化する
+        const shift = [];
+        for(let i=OPENTIME; i<CLOSETIME; i++){
+          shift.push(staffInfo[`d0h${i}`]);
+        }
+        const date_ts = new Date(date).getTime();
+        console.log('shift:',shift);
+        console.log('updatedat date',staffInfo.updatedat,date_ts);
+        
         //シフトによりマスキング
-        const shift = SHIFT1[`${STAFFS[num]}`];
+        // const shift = SHIFT1[`${STAFFS[num]}`];
         const filteredArray = [];
         reservableArray.forEach((value,index) => {
           if(shift[index]){
