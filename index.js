@@ -290,7 +290,7 @@ const handlePostbackEvent = async (ev) => {
             const select_shifts = {
               text: 'SELECT * FROM shifts;'
             }
-            connection(select_shifts)
+            connection.query(select_shifts)
               .then( async (res) => {
                 //スタッフ人数分のreservableArrayを取得
                 if(res.rows.length){
