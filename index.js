@@ -1330,7 +1330,7 @@ const getNumberOfReservations = (date,shiftInfo) => {
     const numberOfReservations = [];
     for(let i=0; i<shiftInfo.length; i++){
       const select_query = {
-        text:`SELECT * FROM reservations.${shiftInfo.name} WHERE scheduledate = $1 ORDER BY starttime ASC;`,
+        text:`SELECT * FROM reservations.${shiftInfo[i].name} WHERE scheduledate = $1 ORDER BY starttime ASC;`,
         values:[`${date}`]
       }
       connection.query(select_query)
