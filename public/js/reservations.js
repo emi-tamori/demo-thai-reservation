@@ -66,9 +66,9 @@
     div_menu.appendChild(span_date);
 
     //戻るボタン
-    const left_arrow = document.createElement('span');
-    left_arrow.setAttribute('class','switching');
-    left_arrow.innerHTML = '<button type="button" class="btn btn-dark"><i class="far fa-arrow-alt-circle-left"></i>戻る</button>'
+    const left_arrow = document.createElement('button');
+    left_arrow.setAttribute('class','btn btn-dark menu-button');
+    left_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-left"></i>戻る'
 
     left_arrow.addEventListener('click',()=>{
       if(props.index>0) props.index--;
