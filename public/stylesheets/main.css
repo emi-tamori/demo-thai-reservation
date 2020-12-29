@@ -246,9 +246,9 @@ body {
     text-align:center;
 }
 .table-header{
-    width:14vw;
+    width:12vw;
     height:4vw;
-    background:black;
+    background:rgb(69, 69, 173);
     color:white;
     text-align:center;
     border:solid 0.1vw white;
@@ -256,9 +256,9 @@ body {
 }
 
 .table-element{
-    width:14vw;
+    width:12vw;
     height:4vw;
-    border: solid 0.1vw black;
+    border: solid 0.1vw rgb(128, 125, 125);
     font-size:1vw;
 }
 
