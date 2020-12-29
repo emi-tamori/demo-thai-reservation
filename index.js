@@ -360,7 +360,7 @@ const handlePostbackEvent = async (ev) => {
         const orderedMenu = splitData[1];
         const selectedDate = splitData[2];
         const fixedTime = parseInt(splitData[3]);
-        const staffNumber = parseInt(splitData[4]);
+        const staffName = parseInt(splitData[4]);
        
         //施術時間の取得
         const treatTime = await calcTreatTime(ev.source.userId,orderedMenu);
@@ -383,55 +383,66 @@ const handlePostbackEvent = async (ev) => {
         //予約完了時間の計算
         const endTime = fixedTime + treatTime*60*1000;
 
-        //予約確定前の最終チェック→予約ブッキング無しfalse、予約ブッキングありtrue
-        const check = await finalCheck(selectedDate,fixedTime,endTime,staffNumber);
-
-        if(!check){
-          const insertQuery = {
-            text:`INSERT INTO reservations.${STAFFS[staffNumber]} (line_uid, name, scheduledate, starttime, endtime, menu) VALUES($1,$2,$3,$4,$5,$6);`,
-            values:[ev.source.userId,profile.displayName,selectedDate,fixedTime,endTime,orderedMenu]
-          };
-          connection.query(insertQuery)
-            .then(res=>{
-              console.log('データ格納成功！');
-              client.replyMessage(ev.replyToken,{
-                "type":"text",
-                "text":`${date}に${menu}で予約をお取りしたました（スタッフ：${STAFFS[staffNumber]}）`
-              });
-
-              //Gmail送信設定
-              // const message = {
-              //   from: 'kentaro523@gmail.com',
-              //   to: MAIL[`${STAFFS[staffNumber]}`],
-              //   subject: `${STAFFS[staffNumber]}さんに予約が入りました！！`,
-              //   text: `${date}に${menu}で予約が入りました！`
-              // };
-        
-              // const auth = {
-              //   type: 'OAuth2',
-              //   user: 'kentaro523@gmail.com',
-              //   clientId: process.env.GMAIL_CLIENT_ID,
-              //   clientSecret: process.env.GMAIL_CLIENT_SECRET,
-              //   refreshToken: process.env.GMAIL_REFRESH_TOKEN
-              // };
-        
-              // const transport = {
-              //   service: 'gmail',
-              //   auth: auth
-              // };
-        
-              // const transporter = nodemailer.createTransport(transport);
-              // transporter.sendMail(message,(err,response)=>{
-              //   console.log(err || response);
-              // });
-            })
-            .catch(e=>console.log(e));
-        }else{
-          return client.replyMessage(ev.replyToken,{
-            "type":"text",
-            "text":"先に予約を取られてしまいました><; 申し訳ありませんが、再度別の時間で予約を取ってください。"
-          });
+        //シフトデータの取得
+        const select_query = {
+          text: 'SELECT * FROM shifts;'
         }
+        connection.query(select_query)
+          .then(async(res)=>{
+            if(res.rows.length){
+              //予約確定前の最終チェック→予約ブッキング無しfalse、予約ブッキングありtrue
+              const check = await finalCheck(selectedDate,fixedTime,endTime,staffName);
+
+              if(!check){
+                const insertQuery = {
+                  text:`INSERT INTO reservations.${staffName} (line_uid, name, scheduledate, starttime, endtime, menu) VALUES($1,$2,$3,$4,$5,$6);`,
+                  values:[ev.source.userId,profile.displayName,selectedDate,fixedTime,endTime,orderedMenu]
+                };
+                connection.query(insertQuery)
+                  .then(res=>{
+                    console.log('データ格納成功！');
+                    client.replyMessage(ev.replyToken,{
+                      "type":"text",
+                      "text":`${date}に${menu}で予約をお取りしたました（スタッフ：${staffName}）`
+                    });
+
+                    //Gmail送信設定
+                    // const message = {
+                    //   from: 'kentaro523@gmail.com',
+                    //   to: MAIL[`${STAFFS[staffNumber]}`],
+                    //   subject: `${STAFFS[staffNumber]}さんに予約が入りました！！`,
+                    //   text: `${date}に${menu}で予約が入りました！`
+                    // };
+              
+                    // const auth = {
+                    //   type: 'OAuth2',
+                    //   user: 'kentaro523@gmail.com',
+                    //   clientId: process.env.GMAIL_CLIENT_ID,
+                    //   clientSecret: process.env.GMAIL_CLIENT_SECRET,
+                    //   refreshToken: process.env.GMAIL_REFRESH_TOKEN
+                    // };
+              
+                    // const transport = {
+                    //   service: 'gmail',
+                    //   auth: auth
+                    // };
+              
+                    // const transporter = nodemailer.createTransport(transport);
+                    // transporter.sendMail(message,(err,response)=>{
+                    //   console.log(err || response);
+                    // });
+                  })
+                  .catch(e=>console.log(e));
+              }else{
+                return client.replyMessage(ev.replyToken,{
+                  "type":"text",
+                  "text":"先に予約を取られてしまいました><; 申し訳ありませんが、再度別の時間で予約を取ってください。"
+                });
+              }
+            }else{
+              console.log('スタッフデータが１件もありません');
+            }
+          })
     }
     
     else if(splitData[0] === 'no'){
@@ -1043,6 +1054,7 @@ const confirmation = async (ev,menu,date,time,n) => {
             staffNumber = index;
           }
         });
+        const staffName = res.rows[staffNumber].name;
 
         const candidates = targets[staffNumber];
         console.log('candidates=',candidates);
@@ -1079,7 +1091,7 @@ const confirmation = async (ev,menu,date,time,n) => {
                   "action": {
                     "type": "postback",
                     "label": "はい",
-                    "data": `yes&${menu}&${date}&${candidates[n]}&${staffNumber}`
+                    "data": `yes&${menu}&${date}&${candidates[n]}&${staffName}`
                   }
                 },
                 {
@@ -1290,10 +1302,10 @@ const checkReservable = (ev,menu,date,staffInfo) => {
   });
 }
 
-const finalCheck = (date,startTime,endTime,staffNumber) => {
+const finalCheck = (date,startTime,endTime,staffName) => {
   return new Promise((resolve,reject) => {
     const select_query = {
-      text:`SELECT * FROM reservations.${STAFFS[staffNumber]} WHERE scheduledate = '${date}';`
+      text:`SELECT * FROM reservations.${staffName} WHERE scheduledate = '${date}';`
     }
     connection.query(select_query)
       .then(res=>{
