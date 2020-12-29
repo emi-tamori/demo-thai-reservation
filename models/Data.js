@@ -74,12 +74,15 @@ module.exports = {
                     res.rows.forEach(obj=>{
                         //オブジェクトのディープコピー
                         const copiedObj = JSON.parse(JSON.stringify(obj))
-                        const nowTime = new Date().getTime(); //現在のタイムスタンプ
-
+                        let today = new Date(); //本日
+                        console.log('today',today);
+                        today.setHours(0,0,0,0); //0:00に設定
+                        const today_ts = new Date(today).getTime();
+                        console.log('today_ts',today_ts);
                         //現在のタイムスタンプとシフトが更新されたタイムスタンプの差を求める
-                        const differential = nowTime - parseInt(copiedObj.updatedat);
+                        const differential = today_ts - parseInt(copiedObj.updatedat);
                         //differntialの日数換算をする
-                        const DaysByDifferential = Math.floor(differential/24*60*60*1000);
+                        const DaysByDifferential = Math.floor(differential/(24*60*60*1000));
 
                         // 現在と更新日が一致するとき
                         if(DaysByDifferential===0){
