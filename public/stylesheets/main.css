@@ -340,11 +340,9 @@ body {
 }
 
 .btn-dark {
-    font-size:2vw;
-    cursor: pointer;
+    font-size:1.6vw;
     margin-right: 1.5vw;
-    height: 4vw;
-    width: 6vw;
+    height: 3vw;
 }
 
 .date-display{
