@@ -390,6 +390,11 @@
     label_fromTo.innerHTML = '〜';
     div_form_time.appendChild(label_fromTo);
 
+    //終了時間ラベル
+    const label_end = document.createElement('label');
+    label_end.innerHTML = '終了時間';
+    div_form_time.appendChild(label_end);
+
     //end-hour Select
     const select_eHour = document.createElement('select');
     select_eHour.setAttribute('class','form-control select-eHour');
