@@ -197,6 +197,7 @@
       set: newValue => {
         const oldValue = value;
         value = newValue;
+        console.log('obj in watch',obj);
         func(newValue,obj);
       },
       configurable: true
@@ -205,6 +206,7 @@
 
   const onChange = (value,data) => {
     divElement.innerHTML = '';
+    console.log('data in onchange',data);
     createReservationTable(data,value);
   }
 
