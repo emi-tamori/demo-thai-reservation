@@ -261,7 +261,7 @@
 
     const label_name = document.createElement('label');
     label_name.setAttribute('class','label-customer');
-    label_name.innerHTML = '名前';
+    label_name.innerHTML = 'お客さま名';
     div_form_name.appendChild(label_name);
 
     const input_name = document.createElement('input');
@@ -289,8 +289,12 @@
 
     const label_year = document.createElement('label');
     label_year.setAttribute('class','label-year');
-    label_name.innerHTML = '年';
+    label_year.innerHTML = '年';
     div_form_start.appendChild(label_year);
+
+    const span = document.createElement('span');
+    span.innerHTML = '年'
+    div_form_start.appendChild(span);
 
     div_form_start.appendChild(select_year);
     formElement.appendChild(div_form_start);
