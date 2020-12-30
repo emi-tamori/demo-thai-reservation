@@ -260,6 +260,9 @@ body {
     border:solid 0.1vw white;
     font-size:2vw;
 }
+.label-customer{
+    width:50%;
+}
 
 .table-element{
     width:12vw;

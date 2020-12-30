@@ -251,6 +251,7 @@
     // form要素の生成
     const formElement = document.createElement('form');
     formElement.setAttribute('id','reservationForm');
+    formElement.setAttribute('class','form-inline');
     formElement.setAttribute('name','reservationInfo');
     // formElement.setAttribute('method','post');　多分不要
 
@@ -259,7 +260,7 @@
     div_form_name.setAttribute('class','form-group');
 
     const label_name = document.createElement('label');
-    label_name.setAttribute('class','label_customer');
+    label_name.setAttribute('class','label-customer');
     label_name.innerHTML = '名前';
     div_form_name.appendChild(label_name);
 
@@ -273,7 +274,7 @@
 
     formElement.appendChild(div_form_name);
     divCard.appendChild(formElement);
-    
+
     divRow.appendChild(divCard);
     divElement.appendChild(divRow);
 
