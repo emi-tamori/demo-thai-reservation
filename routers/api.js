@@ -30,4 +30,8 @@ router
     .route('/reservation')
     .put(controller.updateReservation);
 
+router 
+    .route('/reservation/:name')
+    .delete(controller.deleteReservation);
+
 module.exports = router;

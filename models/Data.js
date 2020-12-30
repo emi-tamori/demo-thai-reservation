@@ -213,5 +213,19 @@ module.exports = {
                 })
                 .catch(e=>console.log(e));
         });
+    },
+
+    deleteReservationData: (staffName,id) => {
+        return new Promise((resolve,reject)=>{
+            const delete_query = {
+                text:`DELETE FROM reservations.${staffName} WHERE id=${id};`
+            }
+            connection.query(delete_query)
+                .then(()=>{
+                    console.log('データ削除成功');
+                    resolve('予約データ削除しました');
+                })
+                .catch(e=>console.log(e));
+        });
     }
 }

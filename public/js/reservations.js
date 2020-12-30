@@ -547,7 +547,8 @@
       })
       .then(response=>{
         if(response.ok){
-          console.log('response戻ってきたお')
+          console.log('response戻ってきたお');
+          alert('予約データ更新成功');
         }else{
           alert('HTTPレスポンスエラー');
         }
@@ -566,8 +567,20 @@
     deleteButton.value = '削除';
     deleteButton.setAttribute('class','btn btn-danger button-rsv');
     deleteButton.addEventListener('click',()=>{
-
-    })
+      fetch(`/api/reservation/${info.staff}?id=${info.id}`,{
+        method: 'DELETE',
+        credentials: 'same-origin'
+      })
+      .then(response=>{
+        if(response.ok){
+          console.log('削除しました');
+          alert('予約データを削除しました');
+        }else{
+          alert('HTTPレスポンスエラーです');
+        }
+      })
+      .catch(e=>console.log(e));
+    });
     divFooter.appendChild(deleteButton);
 
     // formElement.appendChild(divFooter);
