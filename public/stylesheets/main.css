@@ -267,7 +267,9 @@ body {
 }
 
 .card-header-rsv{
-    height: 4vw;
+    height: 3rem;
+    padding: 1rem;
+    background: rgb(4, 123, 192);
 }
 
 .customer-input{
@@ -309,7 +311,9 @@ body {
     width:15%;
 }
 .card-footer-rsv{
-    height: 5vw;
+    height: 4rem;
+    padding: 1.5rem;
+    background: rgb(4, 123, 192);
 }
 
 .table-element{
