@@ -385,6 +385,41 @@
     select_sMin.selectedIndex = start_minutes/5;
     div_form_time.appendChild(select_sMin);
 
+    //〜ラベル
+    const label_fromTo = document.createElement('label');
+    label_fromTo.innerHTML = '〜';
+    div_form_time.appendChild(label_fromTo);
+
+    //end-hour Select
+    const select_eHour = document.createElement('select');
+    select_eHour.setAttribute('class','form-control select-eHour');
+    const end_hour = new Date(parseInt(info.endtime)).getHours();
+    for(let i=OPENTIME; i<CLOSETIME; i++){
+      const option = document.createElement('option');
+      option.innerHTML = i;
+      option.value = i;
+      select_eHour.appendChild(option);
+    }
+    select_eHour.selectedIndex = end_hour-OPENTIME;
+    div_form_time.appendChild(select_eHour);
+
+    //end-hourラベル
+    const label_eHour = document.createElement('label');
+    label_eHour.innerHTML = '：';
+    div_form_time.appendChild(label_eHour);
+
+    //start-min Select
+    const select_eMin = document.createElement('select');
+    select_eMin.setAttribute('class','form-control select-eMin');
+    const end_minutes = new Date(parseInt(info.endtime)).getMinutes();
+    for(let i=0; i<12; i++){
+      const option = document.createElement('option');
+      option.innerHTML = ('0'+i*5).slice(-2);
+      option.value = 5*i;
+      select_eMin.appendChild(option);
+    }
+    select_eMin.selectedIndex = end_minutes/5;
+    div_form_time.appendChild(select_eMin);
 
 
     formElement.appendChild(div_form_time);
