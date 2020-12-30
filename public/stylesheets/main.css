@@ -276,18 +276,29 @@ body {
     text-align: right;
 }
 .select-year{
-    width:30%;
+    width:25%;
 }
 .select-month{
-    width:20%;
+    width:15%;
 }
 .select-day{
-    width:20%;
+    width:15%;
 }
 .menu-checkbox{
     text-align:left;
 }
-
+.select-sHour{
+    width:15%;
+}
+.select-sMin{
+    width:15%;
+}
+.select-eHours{
+    width:15%;
+}
+.select-eMin{
+    width:15%;
+}
 .table-element{
     width:12vw;
     height:4vw;

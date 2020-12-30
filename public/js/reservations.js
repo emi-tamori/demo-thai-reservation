@@ -382,7 +382,8 @@
 
     //開始時間ラベル
     const label_start = document.createElement('label');
-    label_start.innerHTML = '開始時間';
+    label_start.setAttribute('class','label-start');
+    label_start.innerHTML = '開始';
     div_form_time.appendChild(label_start);
 
     //start-hour Select
@@ -423,7 +424,8 @@
 
     //終了時間ラベル
     const label_end = document.createElement('label');
-    label_end.innerHTML = '終了時間';
+    label_end.setAttribute('class','label-end');
+    label_end.innerHTML = '終了';
     div_form_time.appendChild(label_end);
 
     //end-hour Select
