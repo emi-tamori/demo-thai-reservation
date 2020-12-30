@@ -147,7 +147,7 @@
           td.setAttribute('class','table-element');
 
           //この時間帯に予約データがあるか確認し、あれば、td内に表示
-          reservationsData.forEach
+          console.log('startPoint3=',startPoint3,i,j);
           trElement.appendChild(td);
         }
       }
