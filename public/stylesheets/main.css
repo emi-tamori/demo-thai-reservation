@@ -245,9 +245,11 @@ body {
 #reservationsPage{
     text-align:center;
     position:relative;
+    z-index: 0;
 }
 #reservationTable{
     position:absolute;
+    z-index: 1;
 }
 .table-header{
     width:12vw;
@@ -274,6 +276,7 @@ body {
 
 .reservation-card{
     position: absolute;
+    z-index: 2;
 }
 
 /* スタッフ管理ページ */

@@ -237,49 +237,46 @@
     // カード本体の定義
     const divCard = document.createElement('div');
     divCard.setAttribute('class','card text-white bg-primary');
-    
-    //カード内文字列（テスト）
-    const p = document.createElement('p');
-    p.textContent = 'testだよ';
-    divCard.appendChild(p);
-    divRow.appendChild(divCard);
-
-    divElement.appendChild(divRow);
 
     // カードヘッダーの定義
-    // const divHeader = document.createElement('div');
-    // divHeader.setAttribute('class','card-header');
-    // divHeader.innerHTML = `お客さまID:${userDataArray[0]}`;
-    // divCard.appendChild(divHeader);
+    const divHeader = document.createElement('div');
+    divHeader.setAttribute('class','c-header');
+    divHeader.innerHTML = `予約ID:${info.id}`;
+    divCard.appendChild(divHeader);
 
     // カードボディの定義
     const divBody = document.createElement('div');
     divBody.setAttribute('class','card-body');
 
-    // // form要素の生成
-    // const formElement = document.createElement('form');
-    // formElement.setAttribute('id','userForm');
-    // formElement.setAttribute('name','userInfo');
-    // formElement.setAttribute('method','post');
+    // form要素の生成
+    const formElement = document.createElement('form');
+    formElement.setAttribute('id','reservationForm');
+    formElement.setAttribute('name','reservationInfo');
+    // formElement.setAttribute('method','post');　多分不要
 
-    // // 名前入力フォームの生成
-    // const div_form_name = document.createElement('div');
-    // div_form_name.setAttribute('class','form-group');
+    // 名前入力フォームの生成
+    const div_form_name = document.createElement('div');
+    div_form_name.setAttribute('class','form-group');
 
-    // const label_name = document.createElement('label');
-    // label_name.setAttribute('class','label_user');
-    // label_name.innerHTML = '名前';
-    // div_form_name.appendChild(label_name);
+    const label_name = document.createElement('label');
+    label_name.setAttribute('class','label_customer');
+    label_name.innerHTML = '名前';
+    div_form_name.appendChild(label_name);
 
-    // const input_name = document.createElement('input');
-    // input_name.setAttribute('type','text');
-    // input_name.setAttribute('class','form-control name-input');
-    // input_name.setAttribute('name','name');
-    // input_name.value = userDataArray[1];
-    // input_name.disabled = true;
-    // div_form_name.appendChild(input_name);
+    const input_name = document.createElement('input');
+    input_name.setAttribute('type','text');
+    input_name.setAttribute('class','form-control customer-input');
+    input_name.setAttribute('name','name');
+    input_name.value = info.name;
+    input_name.disabled = true;
+    div_form_name.appendChild(input_name);
 
-    // formElement.appendChild(div_form_name);
+    formElement.appendChild(div_form_name);
+    divCard.appendChild(formElement);
+    
+    divRow.appendChild(divCard);
+    divElement.appendChild(divRow);
+
 
     // // カット時間入力フォームの生成
     // const div_form_cut = document.createElement('div');
