@@ -287,7 +287,7 @@
     const input_name = document.createElement('input');
     input_name.setAttribute('type','text');
     input_name.setAttribute('class','form-control customer-input');
-    input_name.setAttribute('name','name');
+    input_name.name = 'customerName';
     input_name.value = info.name;
     input_name.disabled = true;
     div_form_name.appendChild(input_name);
@@ -307,6 +307,7 @@
     //スタッフselect
     const select_staff = document.createElement('select');
     select_staff.setAttribute('class','form-control select-staff');
+    select_staff.name = 'staffName';
     staffs.forEach(name=>{
       const option = document.createElement('option');
       option.innerHTML = name;
@@ -329,6 +330,7 @@
     //年Select
     const select_year = document.createElement('select');
     select_year.setAttribute('class','form-control select-year');
+    select_year.name = 'selectedYear';
     const start_year = new Date(parseInt(info.starttime)).getFullYear();
     for(let i=0; i<3; i++){
       const option = document.createElement('option');
@@ -348,6 +350,7 @@
     //月Select
     const select_month = document.createElement('select');
     select_month.setAttribute('class','form-control select-month');
+    select_month.name = 'selectedMonth';
     const start_month = new Date(parseInt(info.starttime)).getMonth()+1;
     for(let i=0; i<12; i++){
       const option = document.createElement('option');
@@ -367,6 +370,7 @@
     //日Select
     const select_day = document.createElement('select');
     select_day.setAttribute('class','form-control select-day');
+    select_day.name = 'selectedDay';
     //その月の最終日を求める
     const lastDay = new Date(start_year,start_month,0).getDate();
     console.log(lastDay);
