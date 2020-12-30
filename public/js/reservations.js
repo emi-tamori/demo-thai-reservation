@@ -478,6 +478,18 @@
       formElement.appendChild(div_form_menu);
     });
 
+    //フッターの作成
+    const divFooter = document.createElement('div');
+    divFooter.setAttribute('class','card-footer text-center');
+    // const closeButton = document.createElement('a');
+    // closeButton.setAttribute('class','closeButton');
+    divFooter.textContent = '閉じる';
+    divFooter.addEventListener('click',()=>{
+        divCard.style.display = 'none';
+    });
+
+    divCard.appendChild(divFooter);
+
     divCard.appendChild(formElement);
 
     divRow.appendChild(divCard);
@@ -648,19 +660,7 @@
     // divButton.appendChild(deleteButton);
     // divCard.appendChild(divButton);
 
-    // //フッターの作成
-    // const divFooter = document.createElement('div');
-    // divFooter.setAttribute('class','card-footer text-center');
-    // divFooter.setAttribute('id','close-form');
-    // const closeButton = document.createElement('a');
-    // closeButton.setAttribute('class','closeButton');
-    // closeButton.textContent = '閉じる';
-    // divFooter.addEventListener('click',()=>{
-    //     divCard.style.display = 'none';
-    // });
-    // divFooter.appendChild(closeButton);
 
-    // divCard.appendChild(divFooter);
 
     // マウスイベント
     // divHeader.onmousedown = (e) =>{
