@@ -288,7 +288,7 @@
 
     //スタッフラベル
     const label_staff = document.createElement('label');
-    label_staff.setAttribute('class','label-staff');
+    label_staff.setAttribute('class','label-staff-rsv');
     label_staff.innerHTML = '担当スタッフ';
     div_form_staff.appendChild(label_staff);
     
