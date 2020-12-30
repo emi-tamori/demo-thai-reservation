@@ -488,9 +488,8 @@
         divCard.style.display = 'none';
     });
 
-    divCard.appendChild(divFooter);
-
     divCard.appendChild(formElement);
+    divCard.appendChild(divFooter);
 
     divRow.appendChild(divCard);
     divElement.appendChild(divRow);
