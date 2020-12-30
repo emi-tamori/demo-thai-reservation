@@ -293,7 +293,6 @@
     //スタッフselect
     const select_staff = document.createElement('select');
     select_staff.setAttribute('class','form-control select-staff');
-    const selectedStaff = info.staff;
     staffs.forEach(name=>{
       const option = document.createElement('option');
       option.innerHTML = name;
@@ -301,6 +300,7 @@
       select_staff.appendChild(option);
     });
     select_staff.selectedIndex = staffs.indexOf(info.staff);
+    div_form_staff.appendChild(select_staff);
     formElement.appendChild(div_form_staff);
 
     //予約年月日の選択
