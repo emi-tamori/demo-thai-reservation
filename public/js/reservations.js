@@ -31,6 +31,13 @@
 
   const createReservationTable = (data,num) => {
     console.log('data:',data);
+
+    //スタッフ名のみ配列化する
+    const STAFFS = [];
+    data.staffs.forEach(obj=>{
+      STAFFS.push(obj.name);
+    });
+
     //変化監視対象プロパティ
     let props = {
       index: num,
@@ -152,7 +159,7 @@
               if(array.length){
                 array.forEach(reservationInfo=>{
                   if(reservationInfo.starttime>=startPoint3 && reservationInfo.starttime<(startPoint3+ONEHOUR)){
-                    const display = createDataDisplay(reservationInfo);
+                    const display = createDataDisplay(reservationInfo,STAFFS);
                     td.appendChild(display);
                   }
                 });
@@ -213,7 +220,7 @@
     createReservationTable(data,value);
   }
 
-  const createDataDisplay = (info) => {
+  const createDataDisplay = (info,staffs) => {
     console.log('info:',info);
     const hour = new Date(parseInt(info.starttime)).getHours();
     const minutes = ('0'+new Date(parseInt(info.starttime)).getMinutes()).slice(-2);
@@ -221,13 +228,13 @@
     dataDisplay.setAttribute('class','reservation-data');
     dataDisplay.innerHTML = `${hour}:${minutes} ${info.staff}<br>`
     dataDisplay.addEventListener('click',(e)=>{
-      createReservationCard(info);
+      createReservationCard(info,staffs);
     });
 
     return dataDisplay;
   }
 
-  const createReservationCard = (info) =>{
+  const createReservationCard = (info,staffs) =>{
 
     //グリッドシステム
     const divRow = document.createElement('div');
@@ -273,6 +280,28 @@
     div_form_name.appendChild(input_name);
 
     formElement.appendChild(div_form_name);
+
+    //スタッフの選択
+    const div_form_staff = document.createElement('div');
+    div_form_staff.setAttribute('class','form-group form-inline');
+
+    //スタッフラベル
+    const label_staff = document.createElement('label');
+    label_staff.innerHTML = '担当スタッフ';
+    div_form_staff.appendChild(label_staff);
+    
+    //スタッフselect
+    const select_staff = document.createElement('select');
+    select_staff.setAttribute('class','form-control select-staff');
+    const selectedStaff = info.staff;
+    staff.forEach(name=>{
+      const option = document.createElement('option');
+      option.innerHTML = name;
+      option.value = name;
+      select_staff.appendChild(option);
+    });
+    select_staff.selectedIndex = staff.indexOf(info.staff);
+    formElement.appendChild(div_form_staff);
 
     //予約年月日の選択
     const div_form_ymd = document.createElement('div');
