@@ -535,7 +535,7 @@
 
       fetch('/api/reservation',{
         method:'PUT',
-        body:data,
+        body:formData,
         credentials:'same-origin'
       })
       .then(response=>{
