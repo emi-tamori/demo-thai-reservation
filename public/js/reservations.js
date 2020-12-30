@@ -232,12 +232,12 @@
 
     //グリッドシステム
     const divRow = document.createElement('div');
-    divRow.setAttribute('class','col-sm-6');
+    divRow.setAttribute('class','col-sm-6 card-reservation');
     divRow.style.top = `${y}px`;
     
     // カード本体の定義
     const divCard = document.createElement('div');
-    divCard.setAttribute('class','card text-white bg-primary card-reservation');
+    divCard.setAttribute('class','card text-white bg-primary');
     
     //カード内文字列（テスト）
     const p = document.createElement('p');
