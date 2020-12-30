@@ -77,7 +77,7 @@
 
     //戻るボタン
     const left_arrow = document.createElement('button');
-    left_arrow.setAttribute('class','btn btn-dark menu-button');
+    left_arrow.setAttribute('class','btn btn-outline-primary menu-button');
     left_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-left"></i>戻る'
 
     left_arrow.addEventListener('click',()=>{
@@ -87,7 +87,7 @@
 
     //今週ボタン
     const thisWeek = document.createElement('button');
-    thisWeek.setAttribute('class','btn btn-dark menu-button');
+    thisWeek.setAttribute('class','btn btn-outline-primary menu-button');
     thisWeek.innerHTML = '今週';
     thisWeek.addEventListener('click',()=>{
       props.index = 0;
@@ -96,7 +96,7 @@
 
     //進むボタン
     const right_arrow = document.createElement('button');
-    right_arrow.setAttribute('class','btn btn-dark menu-button');
+    right_arrow.setAttribute('class','btn btn-outline-primary menu-button');
     right_arrow.innerHTML = '進む<i class="far fa-arrow-alt-circle-right"></i>';
     right_arrow.addEventListener('click',()=>{
       props.index++;

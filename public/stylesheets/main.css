@@ -269,7 +269,7 @@ body {
 .card-header-rsv{
     height: 3rem;
     padding: 1rem;
-    background: rgb(4, 123, 192);
+    background: rgb(97, 178, 224);
 }
 
 .div-rsv{
@@ -318,7 +318,12 @@ body {
 .card-footer-rsv{
     height: 4rem;
     padding: 1.5rem;
-    background: rgb(4, 123, 192);
+    background: rgb(97, 178, 224);
+}
+
+.card-footer-rsv:hover{
+    cursor: pointer;
+    background: rgb(31, 108, 153)
 }
 
 .table-element{
