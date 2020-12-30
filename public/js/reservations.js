@@ -251,13 +251,13 @@
     // form要素の生成
     const formElement = document.createElement('form');
     formElement.setAttribute('id','reservationForm');
-    formElement.setAttribute('class','form-inline');
+    // formElement.setAttribute('class','form-inline');
     formElement.setAttribute('name','reservationInfo');
     // formElement.setAttribute('method','post');　多分不要
 
     // 名前入力フォームの生成
     const div_form_name = document.createElement('div');
-    div_form_name.setAttribute('class','form-group');
+    div_form_name.setAttribute('class','form-group inline-block');
 
     const label_name = document.createElement('label');
     label_name.setAttribute('class','label-customer');
@@ -276,9 +276,9 @@
 
     //予約開始日時の選択
     const div_form_start = document.createElement('div');
-    div_form_start.setAttribute('class','form-group select-year');
+    div_form_start.setAttribute('class','form-group inline-block');
     const select_year = document.createElement('select');
-    select_year.setAttribute('class','form-control');
+    select_year.setAttribute('class','form-control select-year');
 
     const year = new Date().getFullYear();
     for(let i=0; i<3; i++){
@@ -286,6 +286,11 @@
       option.innerHTML = year-1+i;
       select_year.appendChild(option);
     }
+
+    const label_year = document.createElement('label');
+    label_year.setAttribute('class','label-year');
+    label_name.innerHTML = '年';
+    div_form_start.appendChild(label_year);
 
     div_form_start.appendChild(select_year);
     formElement.appendChild(div_form_start);
