@@ -239,7 +239,7 @@
 
     //グリッドシステム
     const divRow = document.createElement('div');
-    divRow.setAttribute('class','col-sm-5 card-reservation');
+    divRow.setAttribute('class','col-sm-4 card-reservation');
     divRow.style.top = '20vw';
     
     // カード本体の定義
