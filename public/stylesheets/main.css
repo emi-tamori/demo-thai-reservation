@@ -261,6 +261,15 @@ body {
     font-size:2vw;
 }
 
+.button-area{
+    position: relative;
+}
+
+.create-reservation{
+    position: absolute;
+    left: 0;
+}
+
 .card-reservation{
     position: absolute;
     z-index: 2;

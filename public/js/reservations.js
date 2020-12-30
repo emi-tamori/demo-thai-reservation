@@ -70,6 +70,11 @@
     const div_menu = document.createElement('div');
     div_menu.setAttribute('class','button-area');
 
+    //新規予約登録ボタン
+    const createReservationButton = document.createElement('button');
+    createReservationButton.setAttribute('class','btn btn-primary create-reservation');
+    createReservationButton.innerHTML = '新規予約';
+
     //日にち表示エリア
     const span_date = document.createElement('span');
     span_date.setAttribute('class','date-display');
@@ -559,6 +564,9 @@
     deleteButton.type = 'button';
     deleteButton.value = '削除';
     deleteButton.setAttribute('class','btn btn-danger button-rsv');
+    deleteButton.addEventListener('click',()=>{
+
+    })
     divFooter.appendChild(deleteButton);
 
     // formElement.appendChild(divFooter);
