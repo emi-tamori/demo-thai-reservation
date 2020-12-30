@@ -287,9 +287,9 @@
     const input_name = document.createElement('input');
     input_name.setAttribute('type','text');
     input_name.setAttribute('class','form-control customer-input');
-    input_name.name = 'customerName';
     input_name.value = info.name;
-    input_name.disabled = true;
+    input_name.name = 'customerName';
+    input_name.readOnly = true;
     div_form_name.appendChild(input_name);
 
     formElement.appendChild(div_form_name);
