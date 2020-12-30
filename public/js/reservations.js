@@ -7,6 +7,7 @@
   const OPENTIME = 9;
   const CLOSETIME = 19;
   const MENU = ['カット','シャンプー','カラーリング','ヘッドスパ','マッサージ＆スパ','眉整え','顔そり'];
+  const MENU_E = ['cut','shampoo','color','headspa','m&s','eyeblow','shaving'];
   
   //大元のdiv要素取得
   const divElement = document.getElementById('reservationsPage');
@@ -488,8 +489,8 @@
       div_form_menu.setAttribute('class','menu-checkbox');
       const check = document.createElement('input');
       check.type = 'checkbox';
-      check.name = `selectedMenu`;
-      check.value= index;
+      check.name = MENU_E[index];
+      check.value= MENU_E[index];
       menus.forEach(menuNumber=>{
         if(parseInt(menuNumber) === index) check.checked = true;
       });
@@ -517,6 +518,8 @@
       const formData = new FormData(formElement);
       console.log('formData:',...formData.entries());
       console.log('selectedmenu',formData.get('selectedMenu'));
+      //メニューの処理
+
     })
     divFooter.appendChild(updateButton);
 
