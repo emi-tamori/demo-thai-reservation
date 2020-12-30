@@ -147,7 +147,7 @@
           td.setAttribute('class','table-element');
 
           //この時間帯に予約データがあるか確認し、あれば、td内に表示
-          reservationsData.forEach(array=>{
+          props.reservationsData.forEach(array=>{
             array.forEach(reservationInfo=>{
               if(reservationInfo.starttime>=startPoint3 && reservationInfo.starttime<(startPoint3+ONEHOUR)){
                 td.innerHTML = reservationInfo.staff;
