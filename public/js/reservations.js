@@ -488,7 +488,7 @@
       div_form_menu.setAttribute('class','menu-checkbox');
       const check = document.createElement('input');
       check.type = 'checkbox';
-      check.name = `selectedMenu${index}`;
+      check.name = `selectedMenu`;
       check.value= index;
       menus.forEach(menuNumber=>{
         if(parseInt(menuNumber) === index) check.checked = true;
@@ -516,6 +516,7 @@
     updateButton.addEventListener('click',()=>{
       const formData = new FormData(formElement);
       console.log('formData:',...formData.entries());
+      console.log('selectedmenu',formData.get('selectedMenu'));
     })
     divFooter.appendChild(updateButton);
 
