@@ -464,7 +464,6 @@
     MENU.forEach((menu,index)=>{
       const div_form_menu = document.createElement('div');
       div_form_menu.setAttribute('class','menu-checkbox');
-      div_form_menu.setAttribute('class','form-check');
       const check = document.createElement('input');
       check.type = 'checkbox';
       check.name = 'menu-select';
