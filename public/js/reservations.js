@@ -215,11 +215,11 @@
 
   const createDataDisplay = (info) => {
     console.log('info:',info);
-    const hour = new Date(info.starttime).getHours();
-    const minutes = ('0'+new Date(info.starttime).getMinutes()).slice(-2);
+    const hour = new Date(parseInt(info.starttime)).getHours();
+    const minutes = ('0'+new Date(parseInt(info.starttime)).getMinutes()).slice(-2);
     const dataDisplay = document.createElement('span');
     dataDisplay.setAttribute('class','reservation-data');
-    dataDisplay.innerHTML = `${hour}:${minutes} ${info.staffName}<br>`
+    dataDisplay.innerHTML = `${hour}:${minutes} ${info.staff}<br>`
     dataDisplay.addEventListener('click',(e)=>{
       createReservationCard(info);
     });
