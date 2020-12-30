@@ -265,7 +265,7 @@
 
     // 名前入力フォームの生成
     const div_form_name = document.createElement('div');
-    div_form_name.setAttribute('class','form-group form-inline');
+    div_form_name.setAttribute('class','form-group form-inline div-rsv');
 
     const label_name = document.createElement('label');
     label_name.setAttribute('class','label-customer');
@@ -284,7 +284,7 @@
 
     //スタッフの選択
     const div_form_staff = document.createElement('div');
-    div_form_staff.setAttribute('class','form-group form-inline');
+    div_form_staff.setAttribute('class','form-group form-inline div-rsv');
 
     //スタッフラベル
     const label_staff = document.createElement('label');
@@ -307,7 +307,7 @@
 
     //予約年月日の選択
     const div_form_ymd = document.createElement('div');
-    div_form_ymd.setAttribute('class','form-group form-inline');
+    div_form_ymd.setAttribute('class','form-group form-inline div-rsv');
 
     //予約年月日ラベル
     const label_ymd = document.createElement('label');
@@ -378,7 +378,7 @@
 
     //予約時間の選択
     const div_form_time = document.createElement('div');
-    div_form_time.setAttribute('class','form-group form-inline');
+    div_form_time.setAttribute('class','form-group form-inline div-rsv');
 
     //開始時間ラベル
     const label_start = document.createElement('label');

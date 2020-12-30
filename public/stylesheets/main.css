@@ -272,6 +272,10 @@ body {
     background: rgb(4, 123, 192);
 }
 
+.div-rsv{
+    margin-top:1rem;
+}
+
 .customer-input{
     width:70%;
 }
@@ -297,6 +301,7 @@ body {
 }
 .menu-checkbox{
     text-align:left;
+    margin-left: 1rem
 }
 .select-sHour{
     width:15%;
