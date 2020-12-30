@@ -489,33 +489,29 @@
       formElement.appendChild(div_form_menu);
     });
 
+    //フッターの作成
+    const divFooter = document.createElement('div');
+    divFooter.setAttribute('class','card-footer-rsv text-center');
+
     //ボタンエリア
-    const div_form_button = document.createElement('div');
-    div_form_button.setAttribute('class','form-group form-inline div-rsv');
+    // const div_form_button = document.createElement('div');
+    // div_form_button.setAttribute('class','form-group form-inline div-rsv');
 
     //更新ボタン
     const updateButton = document.createElement('input');
     updateButton.type = 'button';
     updateButton.value = '更新';
-    updateButton.setAttribute('class','btn btn-outline-warning button-rsv');
-    div_form_button.appendChild(updateButton);
+    updateButton.setAttribute('class','btn btn-warning button-rsv');
+    divFooter.appendChild(updateButton);
 
     //削除ボタン
     const deleteButton = document.createElement('input');
     deleteButton.type = 'button';
     deleteButton.value = '削除';
-    deleteButton.setAttribute('class','btn btn-outline-danger button-rsv');
-    div_form_button.appendChild(deleteButton);
+    deleteButton.setAttribute('class','btn btn-danger button-rsv');
+    divFooter.appendChild(deleteButton);
 
-    formElement.appendChild(div_form_button);
-
-    //フッターの作成
-    const divFooter = document.createElement('div');
-    divFooter.setAttribute('class','card-footer-rsv text-center');
-    divFooter.textContent = '閉じる';
-    divFooter.addEventListener('click',()=>{
-        divCard.style.display = 'none';
-    });
+    // formElement.appendChild(divFooter);
 
     divCard.appendChild(formElement);
     divCard.appendChild(divFooter);
