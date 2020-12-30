@@ -264,8 +264,16 @@ body {
 .customer-input{
     width:70%;
 }
+.label-customer{
+    width:30%;
+    text-align:right;
+}
 .select-staff{
     width:70%;
+}
+.label-staff{
+    width:30%;
+    text-align: right;
 }
 
 .table-element{
@@ -287,8 +295,10 @@ body {
 }
 
 .select-year{
-    width:50%;
+    width:30%;
 }
+
+
 
 .menu-checkbox{
     text-align:left;
