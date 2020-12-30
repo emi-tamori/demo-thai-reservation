@@ -465,7 +465,7 @@
       const div_form_menu = document.createElement('div');
       div_form_menu.setAttribute('class','form-check');
       const check = document.createElement('input');
-      check.type = 'check';
+      check.type = 'checkbox';
       const label = document.createElement('label');
       label.innerHTML = menu;
       div_form_menu.appendChild(check);
