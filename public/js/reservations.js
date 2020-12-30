@@ -273,6 +273,23 @@
     div_form_name.appendChild(input_name);
 
     formElement.appendChild(div_form_name);
+
+    //予約開始日時の選択
+    const div_form_start = document.createElement('div');
+    div_form_start.setAttribute('class','form-group select-year');
+    const select_year = document.createElement('select');
+    select_year.setAttribute('class','form-control');
+
+    const year = new Date().getFullYear();
+    for(let i=0; i<3; i++){
+      const option = document.createElement('option');
+      option.innerHTML = year-1+i;
+      select_year.appendChild(option);
+    }
+
+    div_form_start.appendChild(select_year);
+    formElement.appendChild(div_form_start);
+
     divCard.appendChild(formElement);
 
     divRow.appendChild(divCard);

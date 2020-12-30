@@ -264,7 +264,7 @@ body {
     display:inline-block;
 }
 .customer-input{
-    width:50%;
+    width:60%;
 }
 
 .table-element{
@@ -283,6 +283,10 @@ body {
 .card-reservation{
     position: absolute;
     z-index: 2;
+}
+
+.select-year{
+    width:50%;
 }
 
 /* スタッフ管理ページ */
