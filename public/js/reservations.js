@@ -250,6 +250,14 @@
     const divHeader = document.createElement('div');
     divHeader.setAttribute('class','card-header-rsv');
     divHeader.innerHTML = `予約ID:${info.id}`;
+    //閉じるアイコン
+    const span_close = document.createElement('span');
+    span_close.innerHTML = '<i class="far fa-times-circle"></i>';
+    span_close.setAttribute('class','close-icon');
+    span_close.addEventListener('click',()=>{
+      divCard.style.display = 'none';
+    });
+    divHeader.appendChild(span_close);
     divCard.appendChild(divHeader);
 
     // カードボディの定義
@@ -504,8 +512,6 @@
     //フッターの作成
     const divFooter = document.createElement('div');
     divFooter.setAttribute('class','card-footer-rsv text-center');
-    // const closeButton = document.createElement('a');
-    // closeButton.setAttribute('class','closeButton');
     divFooter.textContent = '閉じる';
     divFooter.addEventListener('click',()=>{
         divCard.style.display = 'none';
