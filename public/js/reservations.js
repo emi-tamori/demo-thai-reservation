@@ -480,7 +480,7 @@
 
     //フッターの作成
     const divFooter = document.createElement('div');
-    divFooter.setAttribute('class','card-footer text-center');
+    divFooter.setAttribute('class','r-card-footer text-center');
     // const closeButton = document.createElement('a');
     // closeButton.setAttribute('class','closeButton');
     divFooter.textContent = '閉じる';

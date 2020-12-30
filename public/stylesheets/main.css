@@ -262,7 +262,10 @@ body {
 }
 
 .customer-input{
-    width:100%;
+    width:70%;
+}
+.select-staff{
+    width:70%;
 }
 
 .table-element{
