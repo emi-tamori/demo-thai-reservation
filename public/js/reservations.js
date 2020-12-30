@@ -401,6 +401,7 @@
     //start-hour Select
     const select_sHour = document.createElement('select');
     select_sHour.setAttribute('class','form-control select-sHour');
+    select_sHour.name = 'sHour';
     const start_hour = new Date(parseInt(info.starttime)).getHours();
     for(let i=OPENTIME; i<CLOSETIME; i++){
       const option = document.createElement('option');
@@ -419,6 +420,7 @@
     //start-min Select
     const select_sMin = document.createElement('select');
     select_sMin.setAttribute('class','form-control select-sMin');
+    select_sMin.name = 'sMin';
     const start_minutes = new Date(parseInt(info.starttime)).getMinutes();
     for(let i=0; i<12; i++){
       const option = document.createElement('option');
@@ -443,6 +445,7 @@
     //end-hour Select
     const select_eHour = document.createElement('select');
     select_eHour.setAttribute('class','form-control select-eHour');
+    select_eHour.name = 'eHour';
     const end_hour = new Date(parseInt(info.endtime)).getHours();
     for(let i=OPENTIME; i<CLOSETIME; i++){
       const option = document.createElement('option');
@@ -458,10 +461,11 @@
     label_eHour.innerHTML = '：';
     div_form_time.appendChild(label_eHour);
 
-    //start-min Select
+    //end-min Select
     const select_eMin = document.createElement('select');
     select_eMin.setAttribute('class','form-control select-eMin');
     const end_minutes = new Date(parseInt(info.endtime)).getMinutes();
+    select_eMin.name = 'eMin';
     for(let i=0; i<12; i++){
       const option = document.createElement('option');
       option.innerHTML = ('0'+i*5).slice(-2);
@@ -475,7 +479,6 @@
 
     //メニュー選択
     const menus = info.menu.split('%');
-    console.log('menus',menus);
     MENU.forEach((menu,index)=>{
       const div_form_menu = document.createElement('div');
       div_form_menu.setAttribute('class','menu-checkbox');
