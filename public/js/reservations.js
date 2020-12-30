@@ -244,11 +244,11 @@
     
     // カード本体の定義
     const divCard = document.createElement('div');
-    divCard.setAttribute('class','card text-white bg-primary');
+    divCard.setAttribute('class','card text-white bg-info');
 
     // カードヘッダーの定義
     const divHeader = document.createElement('div');
-    divHeader.setAttribute('class','c-header');
+    divHeader.setAttribute('class','card-header');
     divHeader.innerHTML = `予約ID:${info.id}`;
     divCard.appendChild(divHeader);
 
