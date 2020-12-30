@@ -26,4 +26,8 @@ router
     .route('/shifts')
     .post(controller.shiftsRegistration);
 
+router
+    .route('/reservation')
+    .put(controller.updateReservation);
+
 module.exports = router;

@@ -516,8 +516,6 @@
     updateButton.setAttribute('class','btn btn-warning button-rsv');
     updateButton.addEventListener('click',()=>{
       const formData = new FormData(formElement);
-      console.log('formData:',...formData.entries());
-      console.log('selectedmenu',formData.get('selectedMenu'));
       //メニューの処理
       let menus = '';
       MENU_E.forEach((value,index)=>{
@@ -530,10 +528,29 @@
           formData.delete(value);
         }
       });
-      console.log('menus:',menus);
       formData.append('menu',menus);
       console.log('formData',...formData.entries());
-    })
+
+      //ここにformDataが適正か（starttime<endtimeとなっているかなど）のチェック関数を入れる
+
+      fetch('/api/reservation',{
+        method:'PUT',
+        body:data,
+        credentials:'same-origin'
+      })
+      .then(response=>{
+        if(response.ok){
+          console.log('response戻ってきたお')
+        }else{
+          alert('HTTPレスポンスエラー');
+        }
+      })
+      .catch(error=>{
+        alert(error);
+        throw error;
+      });
+    });
+
     divFooter.appendChild(updateButton);
 
     //削除ボタン

@@ -73,5 +73,9 @@ module.exports = {
                 res.status(200).send(message);
             })
             .catch(e=>console.log(e));
+    },
+
+    updateReservation: (req,res) => {
+        console.log('req.body',req.body);
     }
 }
