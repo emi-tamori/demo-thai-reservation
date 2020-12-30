@@ -277,22 +277,40 @@
     //予約開始日時の選択
     const div_form_start = document.createElement('div');
     div_form_start.setAttribute('class','form-group form-inline');
+
+    //年Select
     const select_year = document.createElement('select');
     select_year.setAttribute('class','form-control select-year');
-
-    const year = new Date().getFullYear();
+    const year = new Date(parseInt(info.starttime)).getFullYear();
     for(let i=0; i<3; i++){
       const option = document.createElement('option');
       option.innerHTML = year-1+i;
       select_year.appendChild(option);
     }
+    div_form_start.appendChild(select_year);
 
+    //年ラベル
     const label_year = document.createElement('label');
     label_year.setAttribute('class','label-year');
     label_year.innerHTML = '年';
     div_form_start.appendChild(label_year);
 
-    div_form_start.appendChild(select_year);
+    //月Select
+    const select_month = document.createElement('select');
+    select_month.setAttribute('class','form-control select-month');
+    for(let i=0; i<12; i++){
+      const option = document.createElement('option');
+      option.innerHTML = i+1;
+      select_month.appendChild(option);
+    }
+    div_form_start.appendChild(select_month);
+
+    //月ラベル
+    const label_month = document.createElement('label');
+    label_month.setAttribute('class','label-month');
+    label_month.innerHTML = '月';
+    div_form_start.appendChild(label_month);
+
     formElement.appendChild(div_form_start);
 
     divCard.appendChild(formElement);
