@@ -257,7 +257,7 @@
 
     // 名前入力フォームの生成
     const div_form_name = document.createElement('div');
-    div_form_name.setAttribute('class','form-group');
+    div_form_name.setAttribute('class','form-group form-inline');
 
     const label_name = document.createElement('label');
     label_name.setAttribute('class','label-customer');
@@ -276,7 +276,7 @@
 
     //予約開始日時の選択
     const div_form_start = document.createElement('div');
-    div_form_start.setAttribute('class','form-group');
+    div_form_start.setAttribute('class','form-group form-inline');
     const select_year = document.createElement('select');
     select_year.setAttribute('class','form-control select-year');
 
@@ -291,10 +291,6 @@
     label_year.setAttribute('class','label-year');
     label_year.innerHTML = '年';
     div_form_start.appendChild(label_year);
-
-    const span = document.createElement('span');
-    span.innerHTML = '年'
-    div_form_start.appendChild(span);
 
     div_form_start.appendChild(select_year);
     formElement.appendChild(div_form_start);
