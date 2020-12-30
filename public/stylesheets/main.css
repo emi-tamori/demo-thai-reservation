@@ -328,6 +328,9 @@ body {
 .select-eMin{
     width:15%;
 }
+.button-rsv{
+    width:40%;
+}
 .card-footer-rsv{
     height: 3rem;
     padding: 0.7rem;
