@@ -246,6 +246,9 @@ body {
     text-align:center;
     position:relative;
 }
+#reservationTable{
+    position:absolute;
+}
 .table-header{
     width:12vw;
     height:4vw;
