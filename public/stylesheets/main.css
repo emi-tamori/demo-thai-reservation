@@ -333,16 +333,12 @@ body {
 }
 .button-rsv{
     width:40%;
-}
-.card-footer-rsv{
-    height: 3rem;
-    padding: 0.7rem;
-    background: rgb(97, 178, 224);
+    margin:0.5rem 1.5rem;
 }
 
-.card-footer-rsv:hover{
-    cursor: pointer;
-    background: rgb(31, 108, 153)
+.card-footer-rsv{
+    height: 3rem;
+    background: rgb(97, 178, 224);
 }
 
 .table-element{
