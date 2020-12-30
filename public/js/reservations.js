@@ -245,7 +245,7 @@
     divCard.appendChild(p);
     divRow.appendChild(divCard);
 
-    document.body.appendChild(divRow);
+    divElement.appendChild(divRow);
 
     // カードヘッダーの定義
     // const divHeader = document.createElement('div');
