@@ -131,7 +131,7 @@ module.exports = {
             connection.query(insert_query)
                 .then(()=>{
                     const create_query = {
-                        text:`CREATE TABLE IF NOT EXISTS reservations.${name} (id SERIAL NOT NULL, line_uid VARCHAR(100), name VARCHAR(100), scheduledate DATE, starttime BIGINT, endtime BIGINT, menu VARCHAR(20));`
+                        text:`CREATE TABLE IF NOT EXISTS reservations.${name} (id SERIAL NOT NULL, line_uid VARCHAR(50), name VARCHAR(30), scheduledate DATE, starttime BIGINT, endtime BIGINT, menu VARCHAR(20), staff VARCHAR(30));`
                     };
                     connection.query(create_query)
                         .then(()=>{

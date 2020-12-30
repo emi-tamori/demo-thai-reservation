@@ -377,7 +377,6 @@ const handlePostbackEvent = async (ev) => {
           }else{
             menu += MENU[parseInt(value)];
           }
-          
         })
 
         //予約完了時間の計算
@@ -395,8 +394,8 @@ const handlePostbackEvent = async (ev) => {
 
               if(!check){
                 const insertQuery = {
-                  text:`INSERT INTO reservations.${staffName} (line_uid, name, scheduledate, starttime, endtime, menu) VALUES($1,$2,$3,$4,$5,$6);`,
-                  values:[ev.source.userId,profile.displayName,selectedDate,fixedTime,endTime,orderedMenu]
+                  text:`INSERT INTO reservations.${staffName} (line_uid, name, scheduledate, starttime, endtime, menu, staff) VALUES($1,$2,$3,$4,$5,$6,$7);`,
+                  values:[ev.source.userId,profile.displayName,selectedDate,fixedTime,endTime,orderedMenu,staffName]
                 };
                 connection.query(insertQuery)
                   .then(res=>{

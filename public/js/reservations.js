@@ -1,7 +1,8 @@
 (()=>{
   const API_URL = 'https://linebot-reservation2.herokuapp.com/api/';
   const WEEKS = ["日", "月", "火", "水", "木", "金", "土"];
-  const ONEDAY = 24*60*60*1000;
+  const ONEHOUR = 60*60*1000;
+  const ONEDAY = 24*ONEHOUR;
   const ONEWEEK = ONEDAY*7;
   const OPENTIME = 9;
   const CLOSETIME = 19;
@@ -71,7 +72,7 @@
     left_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-left"></i>戻る'
 
     left_arrow.addEventListener('click',()=>{
-      if(props.index>0) props.index--;
+      props.index--;
     });
     div_menu.appendChild(left_arrow);
 
@@ -126,18 +127,27 @@
     
     //テーブル要素生成
     const tableBody = document.createElement('tbody');
+
+    //起点
+    const startPoint = new Date().setHours(OPENTIME,0,0,0);
+    console.log('startPoint',startPoint);
+
     for(let i=0;i<CLOSETIME-OPENTIME;i++){
       const trElement = document.createElement('tr');
+      const startPoint2 = startPoint + i*ONEHOUR;
+
       for(let j=0;j<8;j++){
+        const td = document.createElement('td');
         if(j === 0){
-          const td = document.createElement('td');
           td.setAttribute('class','table-header');
           td.innerHTML = `${OPENTIME+i}:00`;
           trElement.appendChild(td);
         }else{
-          const td = document.createElement('td');
+          const startPoint3 = startPoint2 + ONEDAY*(j-1);
           td.setAttribute('class','table-element');
-          td.innerHTML = 'test';
+
+          //この時間帯に予約データがあるか確認し、あれば、td内に表示
+          reservationsData.forEach
           trElement.appendChild(td);
         }
       }
@@ -149,7 +159,7 @@
 
   const createDateObject = (nowTime) => {
     const weeks = ["日", "月", "火", "水", "木", "金", "土"];
-    const oneDay = 24*60*60*1000;
+    const oneDay = ONEDAY;
     const yearAndMonth = new Date(nowTime).getFullYear() + '年' + (new Date(nowTime).getMonth()+1) + '月';
 
     const dateArray = [];
