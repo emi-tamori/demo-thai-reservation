@@ -285,6 +285,7 @@
     for(let i=0; i<3; i++){
       const option = document.createElement('option');
       option.innerHTML = year-1+i;
+      option.value = year-1+i;
       select_year.appendChild(option);
     }
     div_form_start.appendChild(select_year);
@@ -298,9 +299,11 @@
     //月Select
     const select_month = document.createElement('select');
     select_month.setAttribute('class','form-control select-month');
+    const month = new Date(parseInt(info.starttime)).getMonth()+1;
     for(let i=0; i<12; i++){
       const option = document.createElement('option');
       option.innerHTML = i+1;
+      option.value = i+1;
       select_month.appendChild(option);
     }
     div_form_start.appendChild(select_month);
@@ -311,8 +314,27 @@
     label_month.innerHTML = '月';
     div_form_start.appendChild(label_month);
 
-    formElement.appendChild(div_form_start);
+    //日Select
+    const select_day = document.createElement('select');
+    select_day.setAttribute('class','form-control select-day');
+    //その月の最終日を求める
+    const lastDay = new Date(year,month,0).getDate();
+    console.log(lastDay);
+    for(let i=0; i<lastDay; i++){
+      const option = document.createElement('option');
+      option.innerHTML = i+1;
+      option.value = i+1;
+      select_day.appendChild(option);
+    }
+    div_form_start.appendChild(select_day);
 
+    //日ラベル
+    const label_day = document.createElement('label');
+    label_day.setAttribute('class','label-day');
+    label_day.innerHTML = '日';
+    div_form_start.appendChild(label_day);
+
+    formElement.appendChild(div_form_start);
     divCard.appendChild(formElement);
 
     divRow.appendChild(divCard);
