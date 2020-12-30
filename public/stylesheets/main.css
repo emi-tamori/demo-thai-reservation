@@ -275,6 +275,18 @@ body {
     width:30%;
     text-align: right;
 }
+.select-year{
+    width:30%;
+}
+.select-month{
+    width:20%;
+}
+.select-day{
+    width:20%;
+}
+.menu-checkbox{
+    text-align:left;
+}
 
 .table-element{
     width:12vw;
@@ -294,15 +306,6 @@ body {
     z-index: 2;
 }
 
-.select-year{
-    width:30%;
-}
-
-
-
-.menu-checkbox{
-    text-align:left;
-}
 
 /* スタッフ管理ページ */
 #staffsPage{
