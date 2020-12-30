@@ -260,6 +260,12 @@ body {
     height:4vw;
     border: solid 0.1vw rgb(128, 125, 125);
     font-size:1vw;
+    text-align: left;
+}
+
+.data-display:hover{
+    color:rgb(199, 42, 173);
+    cursor: pointer;
 }
 
 /* スタッフ管理ページ */
