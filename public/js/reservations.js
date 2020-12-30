@@ -40,6 +40,8 @@
       staffsData: data.staffs
     };
 
+    console.log('props:',props);
+
     //index.numの変化検知用
     Object
     .getOwnPropertyNames(props)
@@ -130,7 +132,6 @@
 
     //起点
     const startPoint = new Date().setHours(OPENTIME,0,0,0);
-    console.log('startPoint',startPoint);
 
     for(let i=0;i<CLOSETIME-OPENTIME;i++){
       const trElement = document.createElement('tr');
@@ -147,16 +148,16 @@
           td.setAttribute('class','table-element');
           let text = ''
           //この時間帯に予約データがあるか確認し、あれば、td内に表示
-          if(props.reservationsData.length){
-            props.reservationsData.forEach(array=>{
-              if(array.length){
-                array.forEach(reservationInfo=>{
-                  if(reservationInfo.starttime>=startPoint3 && reservationInfo.starttime<(startPoint3+ONEHOUR)){
-                    text += reservationInfo.staff+',';
-                  }
-                });
-              }
-            });
+          // if(props.reservationsData.length){
+          //   props.reservationsData.forEach(array=>{
+          //     if(array.length){
+          //       array.forEach(reservationInfo=>{
+          //         if(reservationInfo.starttime>=startPoint3 && reservationInfo.starttime<(startPoint3+ONEHOUR)){
+          //           text += reservationInfo.staff+',';
+          //         }
+          //       });
+          //     }
+          //   });
             td.innerHTML = text;
           }
           trElement.appendChild(td);
