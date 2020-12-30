@@ -261,6 +261,11 @@ body {
     font-size:2vw;
 }
 
+.card-reservation{
+    position: absolute;
+    z-index: 2;
+}
+
 .customer-input{
     width:70%;
 }
@@ -307,14 +312,9 @@ body {
     text-align: left;
 }
 
-.data-display:hover{
+.reservation-data:hover{
     color:rgb(199, 42, 173);
     cursor: pointer;
-}
-
-.card-reservation{
-    position: absolute;
-    z-index: 2;
 }
 
 
