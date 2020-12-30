@@ -204,7 +204,7 @@ module.exports = {
             console.log('s&e',startTime,endTime);
 
             const update_query = {
-                text:`UPDATE reservations.${staffName} SET (name,scheduledate,starttime,endtime,menu,staff) = ('${customerName}','${scheduleDate}',${starttime},${endtime},'${menu}','${staffName}') WHERE id=${id};`
+                text:`UPDATE reservations.${staffName} SET (name,scheduledate,starttime,endtime,menu,staff) = ('${customerName}','${scheduleDate}',${startTime},${endTime},'${menu}','${staffName}') WHERE id=${id};`
             };
             connection.query(update_query)
                 .then(()=>{
