@@ -19,7 +19,6 @@
       const response = await fetch(API_URL);
       if(response.ok){
         const data = await response.json();
-        console.log('data:',data);
         createReservationTable(data,0);
       }else{
         alert('HTTPレスポンスエラーです');
@@ -31,7 +30,7 @@
   }
 
   const createReservationTable = (data,num) => {
-
+    console.log('data:',data);
     //変化監視対象プロパティ
     let props = {
       index: num,
