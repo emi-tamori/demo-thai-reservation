@@ -288,6 +288,7 @@
       option.value = year-1+i;
       select_year.appendChild(option);
     }
+    select_year.selectedIndex = 1;
     div_form_start.appendChild(select_year);
 
     //年ラベル
@@ -306,6 +307,7 @@
       option.value = i+1;
       select_month.appendChild(option);
     }
+    select_month.selectedIndex = month -1;
     div_form_start.appendChild(select_month);
 
     //月ラベル
@@ -326,6 +328,7 @@
       option.value = i+1;
       select_day.appendChild(option);
     }
+    select_day.selectedIndex = new Date(parseInt(starttime)).getDate()-1;
     div_form_start.appendChild(select_day);
 
     //日ラベル
