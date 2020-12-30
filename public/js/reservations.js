@@ -461,11 +461,17 @@
     //メニュー選択
     const menus = info.menu.split('%');
     console.log('menus',menus);
-    MENU.forEach(menu=>{
+    MENU.forEach((menu,index)=>{
       const div_form_menu = document.createElement('div');
+      div_form_menu.setAttribute('class','menu-checkbox');
       div_form_menu.setAttribute('class','form-check');
       const check = document.createElement('input');
       check.type = 'checkbox';
+      check.name = 'menu-select';
+      check.value= index;
+      menus.forEach(menuNumber=>{
+        if(parseInt(menuNumber) === index) check.checked = true;
+      });
       const label = document.createElement('label');
       label.innerHTML = menu;
       div_form_menu.appendChild(check);
