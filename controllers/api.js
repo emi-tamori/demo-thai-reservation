@@ -76,6 +76,16 @@ module.exports = {
     },
 
     updateReservation: (req,res) => {
-        console.log('req.body',req.body);
+        const {staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu,id} = req.body;
+        try{
+            Data.updateReservationData({staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu,id})
+                .then(message=>{
+                    console.log('message=',message);
+                    res.status(200).send(message);
+                })
+                .catch(e=>console.log(e));
+        }catch(error){
+            res.status(400).json({message:error.message});
+        }
     }
 }

@@ -194,5 +194,13 @@ module.exports = {
                     .catch(e=>console.log(e));
             })
         })
+    },
+
+    updateReservationData: ({staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu,id}) => {
+        return new Promise((resolve,reject) => {
+            const startTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${sHour}:$${sMin}`).getTime();
+            const endTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${eHour}:$${eMin}`).getTime();
+            console.log('s&e',startTime,endTime);
+        })
     }
 }

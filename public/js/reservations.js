@@ -516,7 +516,7 @@
     updateButton.setAttribute('class','btn btn-warning button-rsv');
     updateButton.addEventListener('click',()=>{
       const formData = new FormData(formElement);
-      //メニューの処理
+      //メニューの処理(%で連結)
       let menus = '';
       MENU_E.forEach((value,index)=>{
         if(formData.has(value)){
@@ -529,6 +529,7 @@
         }
       });
       formData.append('menu',menus);
+      formData.append('id',info.id);
       console.log('formData',...formData.entries());
 
       //ここにformDataが適正か（starttime<endtimeとなっているかなど）のチェック関数を入れる
