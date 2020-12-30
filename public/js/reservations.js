@@ -74,6 +74,7 @@
     const createReservationButton = document.createElement('button');
     createReservationButton.setAttribute('class','btn btn-primary create-reservation');
     createReservationButton.innerHTML = '新規予約';
+    div_menu.appendChild(createReservationButton);
 
     //日にち表示エリア
     const span_date = document.createElement('span');
