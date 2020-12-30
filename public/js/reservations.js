@@ -221,19 +221,18 @@
     dataDisplay.setAttribute('class','reservation-data');
     dataDisplay.innerHTML = `${hour}:${minutes} ${info.staff}<br>`
     dataDisplay.addEventListener('click',(e)=>{
-      const y = e.pageY;
-      createReservationCard(info,y);
+      createReservationCard(info);
     });
 
     return dataDisplay;
   }
 
-  const createReservationCard = (info,y) =>{
+  const createReservationCard = (info) =>{
 
     //グリッドシステム
     const divRow = document.createElement('div');
     divRow.setAttribute('class','col-sm-6 card-reservation');
-    divRow.style.top = `${y}px`;
+    divRow.style.top = '0';
     
     // カード本体の定義
     const divCard = document.createElement('div');
