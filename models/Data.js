@@ -196,11 +196,22 @@ module.exports = {
         })
     },
 
-    updateReservationData: ({staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu,id}) => {
+    updateReservationData: ({customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu,id}) => {
         return new Promise((resolve,reject) => {
-            const startTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${sHour}:$${sMin}`).getTime();
-            const endTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${eHour}:$${eMin}`).getTime();
+            const startTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${sHour}:$${sMin}`).getTime() -9*60*60*1000;
+            const endTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${eHour}:$${eMin}`).getTime() -9*60*60*1000;
+            const scheduleDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
             console.log('s&e',startTime,endTime);
-        })
+
+            const update_query = {
+                text:`UPDATE reservations.${staffName} SET (name,scheduledate,starttime,endtime,menu,staff) = ('${customerName}','${scheduleDate}',${starttime},${endtime},'${menu}','${staffName}') WHERE id=${id};`
+            };
+            connection.query(update_query)
+                .then(()=>{
+                    console.log('予約データ更新成功');
+                    resolve('予約データ更新成功')
+                })
+                .catch(e=>console.log(e));
+        });
     }
 }
