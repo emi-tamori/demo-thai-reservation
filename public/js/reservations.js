@@ -240,7 +240,7 @@
     //グリッドシステム
     const divRow = document.createElement('div');
     divRow.setAttribute('class','col-sm-5 card-reservation');
-    divRow.style.top = `5vw`;
+    divRow.style.top = `10vw`;
     
     // カード本体の定義
     const divCard = document.createElement('div');
@@ -248,7 +248,7 @@
 
     // カードヘッダーの定義
     const divHeader = document.createElement('div');
-    divHeader.setAttribute('class','c-header');
+    divHeader.setAttribute('class','card-header-rsv');
     divHeader.innerHTML = `予約ID:${info.id}`;
     divCard.appendChild(divHeader);
 
@@ -483,7 +483,7 @@
 
     //フッターの作成
     const divFooter = document.createElement('div');
-    divFooter.setAttribute('class','r-card-footer text-center');
+    divFooter.setAttribute('class','card-footer-rsv text-center');
     // const closeButton = document.createElement('a');
     // closeButton.setAttribute('class','closeButton');
     divFooter.textContent = '閉じる';

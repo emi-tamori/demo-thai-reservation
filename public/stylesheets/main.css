@@ -266,6 +266,10 @@ body {
     z-index: 2;
 }
 
+.card-header-rsv{
+    height: 4vw;
+}
+
 .customer-input{
     width:70%;
 }
@@ -304,6 +308,10 @@ body {
 .select-eMin{
     width:15%;
 }
+.card-footer-rsv{
+    height: 5vw;
+}
+
 .table-element{
     width:12vw;
     height:4vw;
