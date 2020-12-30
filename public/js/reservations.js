@@ -130,7 +130,7 @@
     const tableBody = document.createElement('tbody');
 
     //起点
-    const startPoint = new Date().setHours(OPENTIME,0,0,0);
+    const startPoint = new Date().setHours(OPENTIME,0,0,0)+props.index*ONEWEEK;
 
     for(let i=0;i<CLOSETIME-OPENTIME;i++){
       const trElement = document.createElement('tr');
