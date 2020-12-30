@@ -285,7 +285,9 @@ body {
     padding: 0.7rem;
     background: rgb(97, 178, 224);
 }
-
+.close-icon{
+    font-size:2rem;
+}
 .div-rsv{
     margin-top:1rem;
 }
