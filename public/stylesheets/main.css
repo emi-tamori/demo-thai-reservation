@@ -264,7 +264,7 @@ body {
 .card-reservation{
     position: absolute;
     z-index: 2;
-    animation: SlideIn 1.6s;
+    animation: SlideIn 1.2s;
 }
   
 /* CSSアニメーションの設定 */
@@ -281,7 +281,7 @@ body {
 
 .card-header-rsv{
     height: 3rem;
-    padding: 1rem;
+    padding: 0.7rem;
     background: rgb(97, 178, 224);
 }
 
@@ -329,8 +329,8 @@ body {
     width:15%;
 }
 .card-footer-rsv{
-    height: 4rem;
-    padding: 1.5rem;
+    height: 3rem;
+    padding: 0.7rem;
     background: rgb(97, 178, 224);
 }
 
