@@ -145,19 +145,19 @@
         }else{
           const startPoint3 = startPoint2 + ONEDAY*(j-1);
           td.setAttribute('class','table-element');
-          let text = '';
+
           // この時間帯に予約データがあるか確認し、あれば、td内に表示
           if(props.reservationsData.length){
             props.reservationsData.forEach(array=>{
               if(array.length){
                 array.forEach(reservationInfo=>{
                   if(reservationInfo.starttime>=startPoint3 && reservationInfo.starttime<(startPoint3+ONEHOUR)){
-                    text += reservationInfo.staff+',';
+                    const display = createDataDisplay(reservationInfo);
+                    td.appendChild(display);
                   }
                 });
               }
             });
-            td.innerHTML = text;
           }
           trElement.appendChild(td);
         }
@@ -211,6 +211,19 @@
     divElement.innerHTML = '';
     console.log('data in onchange',data);
     createReservationTable(data,value);
+  }
+
+  const createDataDisplay = (info) => {
+    const hour = new Date(info.starttime).getHours();
+    const minutes = ('0'+new Date(info.starttime).getMinutes()).slice(-2);
+    const dataDisplay = document.createElement('span');
+    dataDisplay.setAttribute('class','reservation-data');
+    dataDisplay.innerHTML = `${hour}:${minutes} ${info.staffName}<br>`
+    dataDisplay.addEventListener('click',(e)=>{
+      console.log('data clicked');
+    });
+
+    return dataDisplay;
   }
 
 })();
