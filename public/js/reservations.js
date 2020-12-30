@@ -214,16 +214,21 @@
   }
 
   const createDataDisplay = (info) => {
+    console.log('info:',info);
     const hour = new Date(info.starttime).getHours();
     const minutes = ('0'+new Date(info.starttime).getMinutes()).slice(-2);
     const dataDisplay = document.createElement('span');
     dataDisplay.setAttribute('class','reservation-data');
     dataDisplay.innerHTML = `${hour}:${minutes} ${info.staffName}<br>`
     dataDisplay.addEventListener('click',(e)=>{
-      console.log('data clicked');
+      createReservationCard(info);
     });
 
     return dataDisplay;
+  }
+
+  const createReservationCard = (info) =>{
+    console.log('data clicked!!');
   }
 
 })();
