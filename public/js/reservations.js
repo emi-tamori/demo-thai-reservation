@@ -274,53 +274,58 @@
 
     formElement.appendChild(div_form_name);
 
-    //予約開始日時の選択
-    const div_form_start = document.createElement('div');
-    div_form_start.setAttribute('class','form-group form-inline');
+    //予約年月日の選択
+    const div_form_ymd = document.createElement('div');
+    div_form_ymd.setAttribute('class','form-group form-inline');
+
+    //予約年月日ラベル
+    const label_ymd = document.createElement('label');
+    label_ymd.innerHTML = '予約年月';
+    div_form_ymd.appendChild(label_ymd);
 
     //年Select
     const select_year = document.createElement('select');
     select_year.setAttribute('class','form-control select-year');
-    const year = new Date(parseInt(info.starttime)).getFullYear();
+    const start_year = new Date(parseInt(info.starttime)).getFullYear();
     for(let i=0; i<3; i++){
       const option = document.createElement('option');
-      option.innerHTML = year-1+i;
-      option.value = year-1+i;
+      option.innerHTML = start_year-1+i;
+      option.value = start_year-1+i;
       select_year.appendChild(option);
     }
     select_year.selectedIndex = 1;
-    div_form_start.appendChild(select_year);
+    div_form_ymd.appendChild(select_year);
 
     //年ラベル
     const label_year = document.createElement('label');
     label_year.setAttribute('class','label-year');
     label_year.innerHTML = '年';
-    div_form_start.appendChild(label_year);
+    div_form_ymd.appendChild(label_year);
 
     //月Select
     const select_month = document.createElement('select');
     select_month.setAttribute('class','form-control select-month');
-    const month = new Date(parseInt(info.starttime)).getMonth()+1;
+    const start_month = new Date(parseInt(info.starttime)).getMonth()+1;
     for(let i=0; i<12; i++){
       const option = document.createElement('option');
       option.innerHTML = i+1;
       option.value = i+1;
       select_month.appendChild(option);
     }
-    select_month.selectedIndex = month -1;
-    div_form_start.appendChild(select_month);
+    select_month.selectedIndex = start_month -1;
+    div_form_ymd.appendChild(select_month);
 
     //月ラベル
     const label_month = document.createElement('label');
     label_month.setAttribute('class','label-month');
     label_month.innerHTML = '月';
-    div_form_start.appendChild(label_month);
+    div_form_ymd.appendChild(label_month);
 
     //日Select
     const select_day = document.createElement('select');
     select_day.setAttribute('class','form-control select-day');
     //その月の最終日を求める
-    const lastDay = new Date(year,month,0).getDate();
+    const lastDay = new Date(start_year,start_month,0).getDate();
     console.log(lastDay);
     for(let i=0; i<lastDay; i++){
       const option = document.createElement('option');
@@ -329,80 +334,48 @@
       select_day.appendChild(option);
     }
     select_day.selectedIndex = new Date(parseInt(info.starttime)).getDate()-1;
-    div_form_start.appendChild(select_day);
+    div_form_ymd.appendChild(select_day);
 
     //日ラベル
     const label_day = document.createElement('label');
     label_day.setAttribute('class','label-day');
     label_day.innerHTML = '日';
-    div_form_start.appendChild(label_day);
+    div_form_ymd.appendChild(label_day);
 
-    formElement.appendChild(div_form_start);
+    formElement.appendChild(div_form_ymd);
 
-    //予約終了日時の選択
-    // const div_form_start = document.createElement('div');
-    // div_form_start.setAttribute('class','form-group form-inline');
 
-    // //年Select
-    // const select_year = document.createElement('select');
-    // select_year.setAttribute('class','form-control select-year');
-    // const year = new Date(parseInt(info.starttime)).getFullYear();
-    // for(let i=0; i<3; i++){
-    //   const option = document.createElement('option');
-    //   option.innerHTML = year-1+i;
-    //   option.value = year-1+i;
-    //   select_year.appendChild(option);
-    // }
-    // select_year.selectedIndex = 1;
-    // div_form_start.appendChild(select_year);
+    //予約時間の選択
+    const div_form_time = document.createElement('div');
+    div_form_time.setAttribute('class','form-group form-inline');
 
-    // //年ラベル
-    // const label_year = document.createElement('label');
-    // label_year.setAttribute('class','label-year');
-    // label_year.innerHTML = '年';
-    // div_form_start.appendChild(label_year);
+    //開始時間ラベル
+    const label_start = document.createElement('label');
+    label_start.innerHTML = '開始時間';
+    div_form_time.appendChild(label_start);
 
-    // //月Select
-    // const select_month = document.createElement('select');
-    // select_month.setAttribute('class','form-control select-month');
-    // const month = new Date(parseInt(info.starttime)).getMonth()+1;
-    // for(let i=0; i<12; i++){
-    //   const option = document.createElement('option');
-    //   option.innerHTML = i+1;
-    //   option.value = i+1;
-    //   select_month.appendChild(option);
-    // }
-    // select_month.selectedIndex = month -1;
-    // div_form_start.appendChild(select_month);
+    //start-hour Select
+    const select_sHour = document.createElement('select');
+    select_sHour.setAttribute('class','form-control select-sHour');
+    const start_hour = new Date(parseInt(info.starttime)).getHours();
+    for(let i=OPENTIME; i<CLOSETIME; i++){
+      const option = document.createElement('option');
+      option.innerHTML = i;
+      option.value = i;
+      select_sHour.appendChild(option);
+    }
+    select_sHour.selectedIndex = start_hour-OPENTIME;
+    div_form_time.appendChild(select_sHour);
 
-    // //月ラベル
-    // const label_month = document.createElement('label');
-    // label_month.setAttribute('class','label-month');
-    // label_month.innerHTML = '月';
-    // div_form_start.appendChild(label_month);
+    //start-hourラベル
+    const label_sHour = document.createElement('label');
+    label_sHour.innerHTML = '：';
+    div_form_time.appendChild(label_year);
 
-    // //日Select
-    // const select_day = document.createElement('select');
-    // select_day.setAttribute('class','form-control select-day');
-    // //その月の最終日を求める
-    // const lastDay = new Date(year,month,0).getDate();
-    // console.log(lastDay);
-    // for(let i=0; i<lastDay; i++){
-    //   const option = document.createElement('option');
-    //   option.innerHTML = i+1;
-    //   option.value = i+1;
-    //   select_day.appendChild(option);
-    // }
-    // select_day.selectedIndex = new Date(parseInt(info.starttime)).getDate()-1;
-    // div_form_start.appendChild(select_day);
 
-    // //日ラベル
-    // const label_day = document.createElement('label');
-    // label_day.setAttribute('class','label-day');
-    // label_day.innerHTML = '日';
-    // div_form_start.appendChild(label_day);
+    formElement.appendChild(div_form_time);
 
-    // formElement.appendChild(div_form_start);
+
     divCard.appendChild(formElement);
 
     divRow.appendChild(divCard);
