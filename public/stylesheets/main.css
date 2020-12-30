@@ -274,7 +274,7 @@ body {
     cursor: pointer;
 }
 
-.reservation-card{
+.card-reservation{
     position: absolute;
     z-index: 2;
 }
