@@ -282,11 +282,10 @@ body {
 .card-header-rsv{
     position:relative;
     height: 3rem;
-    padding: 0.7rem;
     background: rgb(97, 178, 224);
 }
 .header-id{
-    font-size:2rem;
+    font-size:1rem;
     position:absolute;
     left: 45%
 }
