@@ -146,7 +146,7 @@
         }else{
           const startPoint3 = startPoint2 + ONEDAY*(j-1);
           td.setAttribute('class','table-element');
-          let text = ''
+          let text = 'a';
           //この時間帯に予約データがあるか確認し、あれば、td内に表示
           // if(props.reservationsData.length){
           //   props.reservationsData.forEach(array=>{
@@ -158,8 +158,9 @@
           //       });
           //     }
           //   });
-            td.innerHTML = text;
-          }
+          //   td.innerHTML = text;
+          // }
+          td.innerHTML=text;
           trElement.appendChild(td);
         }
       }
