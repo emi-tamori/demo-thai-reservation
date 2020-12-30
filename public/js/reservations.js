@@ -6,6 +6,7 @@
   const ONEWEEK = ONEDAY*7;
   const OPENTIME = 9;
   const CLOSETIME = 19;
+  const MENU = ['カット','シャンプー','カラーリング','ヘッドスパ','マッサージ＆スパ','眉整え','顔そり'];
   
   //大元のdiv要素取得
   const divElement = document.getElementById('reservationsPage');
@@ -455,9 +456,22 @@
     select_eMin.selectedIndex = end_minutes/5;
     div_form_time.appendChild(select_eMin);
 
-
     formElement.appendChild(div_form_time);
 
+    //メニュー選択
+    const menus = info.menu.split('%');
+    console.log('menus',menus);
+    MENU.forEach(menu=>{
+      const div_form_menu = document.createElement('div');
+      div_form_menu.setAttribute('class','form-check');
+      const check = document.createElement('input');
+      check.type = 'check';
+      const label = document.createElement('label');
+      label.innerHTML = menu;
+      div_form_menu.appendChild(check);
+      div_form_menu.appendChild(label);
+      formElement.appendChild(div_form_menu);
+    });
 
     divCard.appendChild(formElement);
 
