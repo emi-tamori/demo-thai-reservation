@@ -260,9 +260,9 @@ body {
     border:solid 0.1vw white;
     font-size:2vw;
 }
-.label-customer{
+/* .label-customer{
     display:inline-block;
-}
+} */
 .customer-input{
     width:100%;
 }
