@@ -488,7 +488,7 @@
       div_form_menu.setAttribute('class','menu-checkbox');
       const check = document.createElement('input');
       check.type = 'checkbox';
-      check.name = 'menu-select';
+      check.name = `selectedMenu${index}`;
       check.value= index;
       menus.forEach(menuNumber=>{
         if(parseInt(menuNumber) === index) check.checked = true;
