@@ -506,6 +506,10 @@
     updateButton.type = 'button';
     updateButton.value = '更新';
     updateButton.setAttribute('class','btn btn-warning button-rsv');
+    updateButton.addEventListener('click',()=>{
+      const formData = new FormData(formElement);
+      console.log('formData:',...formData.entries());
+    })
     divFooter.appendChild(updateButton);
 
     //削除ボタン
