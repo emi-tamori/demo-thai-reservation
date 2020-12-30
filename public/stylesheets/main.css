@@ -295,6 +295,10 @@ body {
     position:absolute;
     left: 90%
 }
+.close-icon:hover{
+    cursor:pointer;
+    background:rgb(107, 106, 106);
+}
 .div-rsv{
     margin-top:1rem;
 }
