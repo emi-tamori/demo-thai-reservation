@@ -519,7 +519,20 @@
       console.log('formData:',...formData.entries());
       console.log('selectedmenu',formData.get('selectedMenu'));
       //メニューの処理
-
+      let menus = '';
+      MENU_E.forEach((value,index)=>{
+        if(formData.has(value)){
+          if(!menus){
+            menus += index;
+          }else{
+            menus += '%'+index;
+          }
+          formData.delete(value);
+        }
+      });
+      console.log('menus:',menus);
+      formData.append('menu',menus);
+      console.log('formData',...formData.entries());
     })
     divFooter.appendChild(updateButton);
 
