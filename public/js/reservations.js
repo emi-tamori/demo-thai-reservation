@@ -248,7 +248,7 @@
 
     // カードヘッダーの定義
     const divHeader = document.createElement('div');
-    divHeader.setAttribute('class','card-header');
+    divHeader.setAttribute('class','c-header');
     divHeader.innerHTML = `予約ID:${info.id}`;
     divCard.appendChild(divHeader);
 
