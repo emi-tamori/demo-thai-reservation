@@ -261,6 +261,9 @@ body {
     font-size:2vw;
 }
 .label-customer{
+    display:inline-block;
+}
+.customer-input{
     width:50%;
 }
 

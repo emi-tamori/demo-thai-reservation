@@ -251,7 +251,7 @@
     // form要素の生成
     const formElement = document.createElement('form');
     formElement.setAttribute('id','reservationForm');
-    formElement.setAttribute('class','form-inline');
+    // formElement.setAttribute('class','form-inline');
     formElement.setAttribute('name','reservationInfo');
     // formElement.setAttribute('method','post');　多分不要
 
