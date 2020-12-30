@@ -370,7 +370,21 @@
     //start-hourラベル
     const label_sHour = document.createElement('label');
     label_sHour.innerHTML = '：';
-    div_form_time.appendChild(label_year);
+    div_form_time.appendChild(label_sHour);
+
+    //start-min Select
+    const select_sMin = document.createElement('select');
+    select_sMin.setAttribute('class','form-control select-sMin');
+    const start_minutes = new Date(parseInt(info.starttime)).getMinutes();
+    for(let i=0; i<12; i++){
+      const option = document.createElement('option');
+      option.innerHTML = ('0'+i*5).slice(-2);
+      option.value = 5*i;
+      select_sMin.appendChild(option);
+    }
+    select_sMin.selectedIndex = start_minutes/5;
+    div_form_time.appendChild(select_sMin);
+
 
 
     formElement.appendChild(div_form_time);
