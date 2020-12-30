@@ -249,7 +249,10 @@
     // カードヘッダーの定義
     const divHeader = document.createElement('div');
     divHeader.setAttribute('class','card-header-rsv');
-    divHeader.innerHTML = `予約ID:${info.id}`;
+    //予約ID文字列
+    const span_id = document.createElement('span');
+    span_id.innerHTML = `予約ID${info.id}`;
+    span_id.setAttribute('class','header-id');
     //閉じるアイコン
     const span_close = document.createElement('span');
     span_close.innerHTML = '<i class="far fa-times-circle"></i>';
@@ -257,6 +260,7 @@
     span_close.addEventListener('click',()=>{
       divCard.style.display = 'none';
     });
+    divHeader.appendChild(span_id);
     divHeader.appendChild(span_close);
     divCard.appendChild(divHeader);
 

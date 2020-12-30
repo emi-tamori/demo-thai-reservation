@@ -285,8 +285,15 @@ body {
     padding: 0.7rem;
     background: rgb(97, 178, 224);
 }
+.header-id{
+    font-size:2rem;
+    position:absolute;
+    left: 45%
+}
 .close-icon{
     font-size:2rem;
+    position:absolute;
+    left: 90%
 }
 .div-rsv{
     margin-top:1rem;
