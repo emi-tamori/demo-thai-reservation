@@ -264,6 +264,19 @@ body {
 .card-reservation{
     position: absolute;
     z-index: 2;
+    animation: SlideIn 1.6s;
+}
+  
+/* CSSアニメーションの設定 */
+@keyframes SlideIn {
+0% {
+    opacity: 0;/*初期状態では透明に*/
+    transform: translateX(-50%);
+}
+100% {
+    opacity: 1;
+    transform: translateX(0);
+}
 }
 
 .card-header-rsv{
