@@ -85,7 +85,7 @@
     //データ送信用ボタン
     const postShiftButton = document.createElement('button');
     postShiftButton.setAttribute('class','btn btn-primary post-button');
-    postShiftButton.textContent = 'シフトデータ送信';
+    postShiftButton.textContent = 'シフト登録';
     postShiftButton.addEventListener('click',()=>{
       data.forEach(obj=>{
         obj.updatedat = today_ts;
