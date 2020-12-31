@@ -568,9 +568,11 @@
           throw error;
         });
       })
-    }
+      divFooter.appendChild(createButton);
 
-    //新規予約でない場合、更新ボタンと削除ボタンを配置
+    }
+    else{
+      //新規予約でない場合、更新ボタンと削除ボタンを配置
     //更新ボタン
     const updateButton = document.createElement('input');
     updateButton.type = 'button';
@@ -618,7 +620,6 @@
         throw error;
       });
     });
-
     divFooter.appendChild(updateButton);
 
     //削除ボタン
@@ -646,8 +647,7 @@
       .catch(e=>console.log(e));
     });
     divFooter.appendChild(deleteButton);
-
-    // formElement.appendChild(divFooter);
+    }
 
     divCard.appendChild(formElement);
     divCard.appendChild(divFooter);
