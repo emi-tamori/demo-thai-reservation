@@ -545,7 +545,8 @@
         console.log('formData',...formData.entries());
 
         //formDataが適正かチェックする機能を実装する
-        const check = postCheck(formData);
+        let check = postCheck(formData);
+        console.log('check',check);
         if(check === 'ok'){
           fetch('/api/reservation',{
             method: 'POST',
@@ -601,7 +602,8 @@
       console.log('formData',...formData.entries());
 
       //formDataが適正かのチェックを入れる
-      const check = postCheck(formData);
+      let check = postCheck(formData);
+      console.log('check',check);
       if(check === 'ok'){
         fetch('/api/reservation',{
           method:'PUT',
@@ -681,7 +683,6 @@
     const startTime = new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).getTime();
     const endTime = new Date(`${year}/${month}/${day} ${eHour}:${eMin}`).getTime();
     const week = new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).getDay();
-    console.log('week',week);
 
     //未入力チェック
     for (let value of data.entries()) {
@@ -693,7 +694,6 @@
 
     //定休日チェック
     REGULAR_CLOSE.forEach(value=>{
-      console.log('value:',value,value===week,value==week);
       if(value === week) return 'お店の定休日は選択できません';
     });
 
