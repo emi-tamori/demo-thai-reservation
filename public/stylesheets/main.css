@@ -310,9 +310,7 @@ body {
     cursor:pointer;
     background:rgb(27, 64, 145);
 }
-.form-control{
-    padding: 0.375rem 0.85rem;
-}
+
 .div-rsv{
     margin-top:1rem;
 }
