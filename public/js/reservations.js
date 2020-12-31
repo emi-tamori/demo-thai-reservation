@@ -76,7 +76,7 @@
     createReservationButton.innerHTML = '新規予約';
     createReservationButton.addEventListener('click',()=>{
       const zeroInfo = {
-        id: '-',
+        id: 'new',
         line_uid: '',
         name: '',
         scheduledate: '',
@@ -271,7 +271,7 @@
     divHeader.setAttribute('class','card-header-rsv');
     //予約ID文字列
     const span_id = document.createElement('span');
-    span_id.innerHTML = `予約ID${info.id}`;
+    span_id.innerHTML = `予約ID： ${info.id}`;
     span_id.setAttribute('class','header-id');
     //閉じるアイコン
     const span_close = document.createElement('span');
@@ -307,7 +307,7 @@
     input_name.setAttribute('class','form-control customer-input');
     input_name.value = info.name;
     input_name.name = 'customerName';
-    input_name.readOnly = true;
+    input_name.readOnly = info.id === 'new'? false : true; //新規予約登録の場合、readOnlyをfalseにする。
     div_form_name.appendChild(input_name);
 
     formElement.appendChild(div_form_name);
@@ -332,7 +332,7 @@
       option.value = name;
       select_staff.appendChild(option);
     });
-    select_staff.selectedIndex = staffs.indexOf(info.staff);
+    select_staff.selectedIndex = info.id === 'new' ? -1 : staffs.indexOf(info.staff);
     div_form_staff.appendChild(select_staff);
     formElement.appendChild(div_form_staff);
 
