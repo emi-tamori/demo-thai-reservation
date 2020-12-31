@@ -693,6 +693,7 @@
 
     //定休日チェック
     REGULAR_CLOSE.forEach(value=>{
+      console.log('value:',value,value===week,value==week);
       if(value === week) return 'お店の定休日は選択できません';
     });
 
