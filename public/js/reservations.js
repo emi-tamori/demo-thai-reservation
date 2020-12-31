@@ -540,9 +540,12 @@
           }
         });
         formData.append('menu',menus);
+        formData.append('id',info.id);
         console.log('formData',...formData.entries());
 
         //ここにformDataが適正かチェックする機能を実装する
+        const check = postCheck(formData);
+
         fetch('/api/reservation',{
           method: 'POST',
           body: formData,
@@ -652,6 +655,23 @@
 
     divRow.appendChild(divCard);
     divElement.appendChild(divRow);
+  }
+
+  const postCheck = (data) => {
+    const name = data.get('customerName');
+    const staff = data.get('staffName');
+    const year = data.get('selectedYear');
+    const month = data.get('selectedMonth');
+    const day = data.get('selectedDay');
+    const sHour = data.get('sHour');
+    const sMin = data.get('sMin');
+    const eHour = data.get('eHour');
+    const eMin = data.get('eMin');
+    const menu = data.get('menu');
+    const id = data.get('id');
+    for (let value of data.entries()) {
+      console.log(value[1]);
+    }
   }
 
 })();
