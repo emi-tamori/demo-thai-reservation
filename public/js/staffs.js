@@ -116,7 +116,7 @@
 
     //テーブル要素宣言
     const table = document.createElement('table');
-    table.style.marginLeft = `${(100-(26+4*(CLOSETIME-OPENTIME)))/2}vw`;
+    // table.style.marginLeft = `${(100-(26+4*(CLOSETIME-OPENTIME)))/2}vw`;
 
     //テーブルヘッダー生成
     const tableHeader = document.createElement('thead');
