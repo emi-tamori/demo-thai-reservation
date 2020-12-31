@@ -693,9 +693,11 @@
     if(startTime>endTime) return '終了時間よりも開始時間が早くなってます';
 
     //定休日チェック
+    let regularCheck = 0;
     REGULAR_CLOSE.forEach(value=>{
-      if(value === week) return 'お店の定休日は選択できません';
+      if(value === week) regularCheck++;
     });
+    if(!regularCheck) return '定休日には予約を入れることができません';
 
     //何も引っ掛からなかったら
     return 'ok';
