@@ -336,14 +336,16 @@
     div_form_staff.appendChild(select_staff);
     formElement.appendChild(div_form_staff);
 
+    //予約年月日ラベル
+    const div_label_ymd = document.createElement('div');
+    const label_ymd = document.createElement('label');
+    label_ymd.innerHTML = '予約日時';
+    div_label_ymd.appendChild(label_ymd);
+    formElement.appendChild(div_label_ymd);
+
     //予約年月日の選択
     const div_form_ymd = document.createElement('div');
     div_form_ymd.setAttribute('class','form-group form-inline div-rsv');
-
-    //予約年月日ラベル
-    // const label_ymd = document.createElement('label');
-    // label_ymd.innerHTML = '予約年月';
-    // div_form_ymd.appendChild(label_ymd);
 
     //年Select
     const select_year = document.createElement('select');
