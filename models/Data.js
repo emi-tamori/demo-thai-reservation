@@ -16,7 +16,7 @@ const CLOSETIME = 19; //閉店時間
 
 //予約の重複チェックを行う関数
 
-const doubleBookingCheck = (startTime,endTime,staffName) => {
+const doubleBookingCheck = (startTime,endTime,staffName,id) => {
     return new Promise((resolve,reject) => {
         let answer = null;
         const select_query = {
@@ -26,7 +26,7 @@ const doubleBookingCheck = (startTime,endTime,staffName) => {
             .then(res=>{
                 if(res.rows.length){
                     const filteredArray = res.rows.filter(object=>{
-                        return ((object.starttime>=startTime && object.starttime<endTime) || (object.endtime>startTime && object.endtime<=endTime) || (object.starttime>=startTime && object.endtime<=endTime) || (object.starttime<=startTime && object.endtime>=endTime));
+                        return ((object.id !== id)&&((object.starttime>=startTime && object.starttime<endTime) || (object.endtime>startTime && object.endtime<=endTime) || (object.starttime>=startTime && object.endtime<=endTime) || (object.starttime<=startTime && object.endtime>=endTime)));
                     });
                     answer = filteredArray.length ? false : true;
                 }else{
@@ -227,7 +227,7 @@ module.exports = {
             const scheduleDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
 
             //予約重複チェック
-            doubleBookingCheck(startTime,endTime,staffName)
+            doubleBookingCheck(startTime,endTime,staffName,id)
                 .then(answer=>{
                     console.log('answer:',answer);
                     if(answer){
@@ -263,14 +263,14 @@ module.exports = {
         });
     },
 
-    createReservation: ({customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu}) => {
+    createReservation: ({customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu,}) => {
         return new Promise((resolve,reject)=>{
             const startTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${sHour}:$${sMin}`).getTime() -9*60*60*1000;
             const endTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${eHour}:$${eMin}`).getTime() -9*60*60*1000;
             const scheduleDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
 
             //予約重複チェック
-            doubleBookingCheck(startTime,endTime,staffName)
+            doubleBookingCheck(startTime,endTime,staffName,-1)
                 .then(answer=>{
                     if(answer){
                         const insert_query = {

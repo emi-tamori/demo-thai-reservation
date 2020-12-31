@@ -697,7 +697,7 @@
     REGULAR_CLOSE.forEach(value=>{
       if(value === week) regularCheck++;
     });
-    if(!regularCheck) return '定休日には予約を入れることができません';
+    if(regularCheck) return '定休日には予約を入れることができません';
 
     //何も引っ掛からなかったら
     return 'ok';
