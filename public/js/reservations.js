@@ -247,7 +247,7 @@
     const minutes = ('0'+new Date(parseInt(info.starttime)).getMinutes()).slice(-2);
     const dataDisplay = document.createElement('span');
     dataDisplay.setAttribute('class','reservation-data');
-    dataDisplay.innerHTML = `${hour}:${minutes} ${info.staff}<br>`
+    dataDisplay.innerHTML = `・${hour}:${minutes}<br>`
     dataDisplay.addEventListener('click',(e)=>{
       createReservationCard(info,staffs);
     });
