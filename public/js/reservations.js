@@ -367,7 +367,7 @@
 
     //月Select
     const select_month = document.createElement('select');
-    select_month.setAttribute('class','form-control select-month');
+    select_month.setAttribute('class','form-control two-digits-selector');
     select_month.name = 'selectedMonth';
     const start_month = info.id === 'new' ? new Date().getMonth()+1 : new Date(parseInt(info.starttime)).getMonth()+1; //新規予約の場合は、現在の月
     for(let i=0; i<12; i++){
@@ -387,7 +387,7 @@
 
     //日Select
     const select_day = document.createElement('select');
-    select_day.setAttribute('class','form-control select-day');
+    select_day.setAttribute('class','form-control two-digits-selector');
     select_day.name = 'selectedDay';
     //その月の最終日を求める
     const lastDay = new Date(start_year,start_month,0).getDate();
@@ -422,7 +422,7 @@
 
     //start-hour Select
     const select_sHour = document.createElement('select');
-    select_sHour.setAttribute('class','form-control select-sHour');
+    select_sHour.setAttribute('class','form-control two-digits-selector');
     select_sHour.name = 'sHour';
     // const start_hour = new Date(parseInt(info.starttime)).getHours();
     for(let i=OPENTIME; i<CLOSETIME; i++){
@@ -441,7 +441,7 @@
 
     //start-min Select
     const select_sMin = document.createElement('select');
-    select_sMin.setAttribute('class','form-control select-sMin');
+    select_sMin.setAttribute('class','form-control two-digits-selector');
     select_sMin.name = 'sMin';
     // const start_minutes = new Date(parseInt(info.starttime)).getMinutes();
     for(let i=0; i<12; i++){
@@ -466,7 +466,7 @@
 
     //end-hour Select
     const select_eHour = document.createElement('select');
-    select_eHour.setAttribute('class','form-control select-eHour');
+    select_eHour.setAttribute('class','form-control two-digits-selector');
     select_eHour.name = 'eHour';
     // const end_hour = new Date(parseInt(info.endtime)).getHours();
     for(let i=OPENTIME; i<CLOSETIME; i++){
@@ -485,7 +485,7 @@
 
     //end-min Select
     const select_eMin = document.createElement('select');
-    select_eMin.setAttribute('class','form-control select-eMin');
+    select_eMin.setAttribute('class','form-control two-digits-selector');
     // const end_minutes = new Date(parseInt(info.endtime)).getMinutes();
     select_eMin.name = 'eMin';
     for(let i=0; i<12; i++){
@@ -505,6 +505,7 @@
       const div_form_menu = document.createElement('div');
       div_form_menu.setAttribute('class','menu-checkbox');
       const check = document.createElement('input');
+      check.setAttribute('id',`check-${MENU_E[index]}`);
       check.type = 'checkbox';
       check.name = MENU_E[index];
       check.value= MENU_E[index];
@@ -512,6 +513,7 @@
         if(parseInt(menuNumber) === index) check.checked = true;
       });
       const label = document.createElement('label');
+      label.htmlFor = `check-${MENU_E[index]}`;
       label.innerHTML = menu;
       div_form_menu.appendChild(check);
       div_form_menu.appendChild(label);

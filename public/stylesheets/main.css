@@ -332,12 +332,10 @@ body {
 .select-year{
     width:25%;
 }
-.select-month{
-    width:15%;
+.two-digits-selector{
+    width: 20%;
 }
-.select-day{
-    width:15%;
-}
+
 .menu-checkbox{
     text-align:left;
     margin-left: 1rem
@@ -345,18 +343,7 @@ body {
 .label-start-end{
     font-size: 0.8rem;
 }
-.select-sHour{
-    width:15%;
-}
-.select-sMin{
-    width:15%;
-}
-.select-eHour{
-    width:15%;
-}
-.select-eMin{
-    width:15%;
-}
+
 .button-rsv{
     width:40%;
     margin:0.3rem 1rem;
