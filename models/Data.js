@@ -230,18 +230,20 @@ module.exports = {
     },
 
     createReservation: ({customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu}) => {
-        const startTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${sHour}:$${sMin}`).getTime() -9*60*60*1000;
-        const endTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${eHour}:$${eMin}`).getTime() -9*60*60*1000;
-        const scheduleDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
+        return new Promise((resolve,reject)=>{
+            const startTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${sHour}:$${sMin}`).getTime() -9*60*60*1000;
+            const endTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${eHour}:$${eMin}`).getTime() -9*60*60*1000;
+            const scheduleDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
 
-        const insert_query = {
-            text:`INSERT INTO reservations.${staffName} (name,scheduledate,starttime,endtime,menu,staff) VALUES ('${customerName}','${scheduleDate}',${startTime},${endTime},'${menu}','${staffName}');`
-        };
-        connection.query(insert_query)
-            .then(()=>{
-                console.log('予約データ作成成功');
-                resolve('新規予約データ作成成功');
-            })
-            .catch(e=>console.log(e));
+            const insert_query = {
+                text:`INSERT INTO reservations.${staffName} (name,scheduledate,starttime,endtime,menu,staff) VALUES ('${customerName}','${scheduleDate}',${startTime},${endTime},'${menu}','${staffName}');`
+            };
+            connection.query(insert_query)
+                .then(()=>{
+                    console.log('予約データ作成成功');
+                    resolve('新規予約データ作成成功');
+                })
+                .catch(e=>console.log(e));
+        });
     }
 }
