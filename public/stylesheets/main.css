@@ -258,12 +258,12 @@ body {
     color:white;
     text-align:center;
     border:solid 0.1vw white;
-    font-size:1rem;
+    font-size:0.9rem;
     left: 10%;
 }
 
 .menu-button{
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     margin-right:1.5vw;
     padding: 0.2rem 0.5rem;
 }
