@@ -14,6 +14,30 @@ const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることがで�
 const OPENTIME = 9; //開店時間
 const CLOSETIME = 19; //閉店時間
 
+//予約の重複チェックを行う関数
+
+const doubleBookingCheck = (startTime,endTime,staffName) => {
+    return new Promise((resolve,reject) => {
+        let answer = null;
+        const select_query = {
+            text:`SELECT * FROM reservations.${staffName} WHERE endtime>=${startTime};`
+        }
+        connection.query(select_query)
+            .then(res=>{
+                if(res.rows.length){
+                    const filteredArray = res.rows.filter(object=>{
+                        return ((object.starttime<=startTime && object.starttime<endTime) || (object.endtime>startTime && object.endtime<=endTime) || (object.starttime>=startTime && object.endtime<=endTime) || (object.starttime<=startTime && object.endtime>=endTime));
+                    });
+                    answer = filteredArray.length ? false : true;
+                }else{
+                    answer = true;
+                }
+                resolve(answer);
+            })
+            .catch(e=>console.log(e));
+    });
+}
+
 module.exports = {
     
     findData: () => {
@@ -201,15 +225,25 @@ module.exports = {
             const startTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${sHour}:$${sMin}`).getTime() -9*60*60*1000;
             const endTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${eHour}:$${eMin}`).getTime() -9*60*60*1000;
             const scheduleDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
-            console.log('s&e',startTime,endTime);
 
-            const update_query = {
-                text:`UPDATE reservations.${staffName} SET (name,scheduledate,starttime,endtime,menu,staff) = ('${customerName}','${scheduleDate}',${startTime},${endTime},'${menu}','${staffName}') WHERE id=${id};`
-            };
-            connection.query(update_query)
-                .then(()=>{
-                    console.log('予約データ更新成功');
-                    resolve('予約データ更新成功');
+            //予約重複チェック
+            doubleBookingCheck(startTime,endTime,staffName)
+                .then(answer=>{
+                    console.log('answer:',answer);
+                    if(answer){
+                        const update_query = {
+                            text:`UPDATE reservations.${staffName} SET (name,scheduledate,starttime,endtime,menu,staff) = ('${customerName}','${scheduleDate}',${startTime},${endTime},'${menu}','${staffName}') WHERE id=${id};`
+                        };
+                        connection.query(update_query)
+                            .then(()=>{
+                                console.log('予約データ更新成功');
+                                resolve('予約データ更新成功');
+                            })
+                            .catch(e=>console.log(e));
+                    }else{
+                        console.log('重複あり');
+                        resolve('予約に重複があるため、予約データを更新できません');
+                    }
                 })
                 .catch(e=>console.log(e));
         });
@@ -235,13 +269,23 @@ module.exports = {
             const endTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${eHour}:$${eMin}`).getTime() -9*60*60*1000;
             const scheduleDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
 
-            const insert_query = {
-                text:`INSERT INTO reservations.${staffName} (name,scheduledate,starttime,endtime,menu,staff) VALUES ('${customerName}','${scheduleDate}',${startTime},${endTime},'${menu}','${staffName}');`
-            };
-            connection.query(insert_query)
-                .then(()=>{
-                    console.log('予約データ作成成功');
-                    resolve('新規予約データ作成成功');
+            //予約重複チェック
+            doubleBookingCheck(startTime,endTime,staffName)
+                .then(answer=>{
+                    if(answer){
+                        const insert_query = {
+                            text:`INSERT INTO reservations.${staffName} (name,scheduledate,starttime,endtime,menu,staff) VALUES ('${customerName}','${scheduleDate}',${startTime},${endTime},'${menu}','${staffName}');`
+                        };
+                        connection.query(insert_query)
+                            .then(()=>{
+                                console.log('予約データ作成成功');
+                                resolve('新規予約データ作成成功');
+                            })
+                            .catch(e=>console.log(e));
+                    }else{
+                        console.log('重複あり');
+                        resolve('予約に重複があるため、新規予約登録できません');
+                    }
                 })
                 .catch(e=>console.log(e));
         });
