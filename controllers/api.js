@@ -102,5 +102,18 @@ module.exports = {
         }catch(error){
             res.status(400).json({message:error.message});
         }
+    },
+
+    createReservation: (req,res) => {
+        const {customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu} = req.body;
+        try{
+            Data.createReservation({customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu})
+                .then(message=>{
+                    console.log('message=',message);
+                    res.status(200).send(message);
+                })
+        }catch(error){
+            res.status(400).json({message:error.message});
+        }
     }
 }

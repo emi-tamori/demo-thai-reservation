@@ -523,6 +523,52 @@
     divFooter.setAttribute('class','card-footer-rsv text-center');
 
     //新規予約の場合、新規予約ボタンを配置
+    if(info.id === 'new'){
+      const createButton = document.createElement('input');
+      createButton.type = 'button';
+      createButton.value = '新規予約作成';
+      createButton.setAttribute('class','btn btn-success button-rsv');
+      createButton.addEventListener('click',()=>{
+        const formData = new FormData(formElement);
+        //メニューの処理(%で連結)
+        let menus = '';
+        MENU_E.forEach((value,index)=>{
+          if(formData.has(value)){
+            if(!menus){
+              menus += index;
+            }else{
+              menus += '%'+index;
+            }
+            formData.delete(value);
+          }
+        });
+        formData.append('menu',menus);
+        console.log('formData',...formData.entries());
+
+        //ここにformDataが適正かチェックする機能を実装する
+        fetch('/api/reservation',{
+          method: 'POST',
+          body: formData,
+          credentials: 'same-origin'
+        })
+        .then(response=>{
+          if(response.ok){
+            response.text()
+              .then(text=>{
+                console.log(text);
+                alert(text);
+              })
+              .catch(e=>console.log(e));
+          }else{
+            alert('HTTPレスポンスエラーです');
+          }
+        })
+        .catch(error=>{
+          alert(error);
+          throw error;
+        });
+      })
+    }
 
     //新規予約でない場合、更新ボタンと削除ボタンを配置
     //更新ボタン

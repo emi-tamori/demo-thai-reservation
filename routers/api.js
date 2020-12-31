@@ -34,4 +34,8 @@ router
     .route('/reservation/:name')
     .delete(controller.deleteReservation);
 
+router
+    .route('/reservation')
+    .post(controller.createReservation);
+
 module.exports = router;
