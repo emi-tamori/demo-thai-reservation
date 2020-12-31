@@ -337,11 +337,11 @@
     formElement.appendChild(div_form_staff);
 
     //予約年月日ラベル
-    const div_label_ymd = document.createElement('div');
-    const label_ymd = document.createElement('label');
-    label_ymd.innerHTML = '予約日時';
-    div_label_ymd.appendChild(label_ymd);
-    formElement.appendChild(div_label_ymd);
+    // const div_label_ymd = document.createElement('div');
+    // const label_ymd = document.createElement('label');
+    // label_ymd.innerHTML = '予約日時';
+    // div_label_ymd.appendChild(label_ymd);
+    // formElement.appendChild(div_label_ymd);
 
     //予約年月日の選択
     const div_form_ymd = document.createElement('div');
