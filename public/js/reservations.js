@@ -681,6 +681,7 @@
     const startTime = new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).getTime();
     const endTime = new Date(`${year}/${month}/${day} ${eHour}:${eMin}`).getTime();
     const week = new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).getDay();
+    console.log('week',week);
 
     //未入力チェック
     for (let value of data.entries()) {

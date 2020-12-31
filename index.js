@@ -19,12 +19,6 @@ const REGULAR_COLOSE = [4]; //定休日の曜日
 const FUTURE_LIMIT = 3; //何日先まで予約可能かの上限
 const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
 
-// const STAFFS = ['ken','emi','taro'];
-// const SHIFT1 = {
-//   ken:[0,0,0,0,0,1,1,1,1,1],
-//   emi:[0,1,0,1,1,1,1,1,1,1],
-//   taro:[0,0,0,0,0,0,0,0,0,0]
-// };
 const MAIL = {
   ken: 'kentaro523@gmail.com',
   emi: 'kenkenkentaro523@gmail.com',
@@ -85,16 +79,6 @@ const create_schema ={
 connection.query(create_schema)
   .then(()=>console.log('schema created successfully'))
   .catch(e=>console.log(e));
-
-//スタッフごとの予約テーブルの作成
-// STAFFS.forEach(name=>{
-//   const create_table = {
-//     text:`CREATE TABLE IF NOT EXISTS reservations.${name} (id SERIAL NOT NULL, line_uid VARCHAR(100), name VARCHAR(100), scheduledate DATE, starttime BIGINT, endtime BIGINT, menu VARCHAR(20));`
-//   };
-//   connection.query(create_table)
-//     .then(()=>console.log(`${name}'s table created successfully`))
-//     .catch(e=>console.log(e));
-// })
 
 app
     .use(express.static(path.join(__dirname,'public')))
