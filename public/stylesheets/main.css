@@ -258,7 +258,7 @@ body {
     color:white;
     text-align:center;
     border:solid 0.1vw white;
-    font-size:2vw;
+    font-size:1.2rem;
 }
 
 .button-area{
@@ -365,7 +365,7 @@ body {
     width:12vw;
     height:4vw;
     border: solid 0.1vw rgb(128, 125, 125);
-    font-size:1vw;
+    font-size:0.8rem;
     text-align: left;
 }
 
