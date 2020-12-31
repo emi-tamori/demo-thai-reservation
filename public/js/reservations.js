@@ -332,7 +332,7 @@
       option.value = name;
       select_staff.appendChild(option);
     });
-    select_staff.selectedIndex = info.id === 'new' ? -1 : staffs.indexOf(info.staff);
+    select_staff.selectedIndex = info.id === 'new' ? -1 : staffs.indexOf(info.staff);　//新規の場合は未選択状態にする
     div_form_staff.appendChild(select_staff);
     formElement.appendChild(div_form_staff);
 
@@ -349,7 +349,7 @@
     const select_year = document.createElement('select');
     select_year.setAttribute('class','form-control select-year');
     select_year.name = 'selectedYear';
-    const start_year = new Date(parseInt(info.starttime)).getFullYear();
+    const start_year = info.id === 'new' ? new Date().getFullYear() : new Date(parseInt(info.starttime)).getFullYear(); //新規の場合は現在の年
     for(let i=0; i<3; i++){
       const option = document.createElement('option');
       option.innerHTML = start_year-1+i;
