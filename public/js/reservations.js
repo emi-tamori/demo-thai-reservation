@@ -1,6 +1,7 @@
 (()=>{
   const API_URL = 'https://linebot-reservation2.herokuapp.com/api/';
   const WEEKS = ["日", "月", "火", "水", "木", "金", "土"];
+  const REGULAR_CLOSE = [4];
   const ONEHOUR = 60*60*1000;
   const ONEDAY = 24*ONEHOUR;
   const ONEWEEK = ONEDAY*7;
@@ -543,34 +544,36 @@
         formData.append('id',info.id);
         console.log('formData',...formData.entries());
 
-        //ここにformDataが適正かチェックする機能を実装する
+        //formDataが適正かチェックする機能を実装する
         const check = postCheck(formData);
-
-        fetch('/api/reservation',{
-          method: 'POST',
-          body: formData,
-          credentials: 'same-origin'
-        })
-        .then(response=>{
-          if(response.ok){
-            response.text()
-              .then(text=>{
-                console.log(text);
-                document.location.reload();
-                alert(text);
-              })
-              .catch(e=>console.log(e));
-          }else{
-            alert('HTTPレスポンスエラーです');
-          }
-        })
-        .catch(error=>{
-          alert(error);
-          throw error;
-        });
+        if(check === 'ok'){
+          fetch('/api/reservation',{
+            method: 'POST',
+            body: formData,
+            credentials: 'same-origin'
+          })
+          .then(response=>{
+            if(response.ok){
+              response.text()
+                .then(text=>{
+                  console.log(text);
+                  document.location.reload();
+                  alert(text);
+                })
+                .catch(e=>console.log(e));
+            }else{
+              alert('HTTPレスポンスエラーです');
+            }
+          })
+          .catch(error=>{
+            alert(error);
+            throw error;
+          });
+        }else{
+          alert(check);
+        }
       })
       divFooter.appendChild(createButton);
-
     }
     else{
       //新規予約でない場合、更新ボタンと削除ボタンを配置
@@ -597,29 +600,33 @@
       formData.append('id',info.id);
       console.log('formData',...formData.entries());
 
-      //ここにformDataが適正か（starttime<endtimeとなっているかなど）のチェック関数を入れる
-
-      fetch('/api/reservation',{
-        method:'PUT',
-        body:formData,
-        credentials:'same-origin'
-      })
-      .then(response=>{
-        if(response.ok){
-          response.text()
-            .then(text=>{
-              alert(text);
-              document.location.reload();
-            })
-            .catch(e=>console.log(e));
-        }else{
-          alert('HTTPレスポンスエラー');
-        }
-      })
-      .catch(error=>{
-        alert(error);
-        throw error;
-      });
+      //formDataが適正かのチェックを入れる
+      const check = postCheck(formData);
+      if(check === 'ok'){
+        fetch('/api/reservation',{
+          method:'PUT',
+          body:formData,
+          credentials:'same-origin'
+        })
+        .then(response=>{
+          if(response.ok){
+            response.text()
+              .then(text=>{
+                alert(text);
+                document.location.reload();
+              })
+              .catch(e=>console.log(e));
+          }else{
+            alert('HTTPレスポンスエラー');
+          }
+        })
+        .catch(error=>{
+          alert(error);
+          throw error;
+        });
+      }else{
+        alert(check);
+      }
     });
     divFooter.appendChild(updateButton);
 
@@ -669,9 +676,27 @@
     const eMin = data.get('eMin');
     const menu = data.get('menu');
     const id = data.get('id');
+
+    //starttimeとendtimeの生成
+    const startTime = new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).getTime();
+    const endTime = new Date(`${year}/${month}/${day} ${eHour}:${eMin}`).getTime();
+    const week = new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).getDay();
+
+    //未入力チェック
     for (let value of data.entries()) {
-      console.log(value[1]);
+      if(value[1] === '') return '未入力箇所があります';
     }
+
+    //開始時間<終了時間のチェック
+    if(startTime>endTime) return '終了時間よりも開始時間が早くなってます';
+
+    //定休日チェック
+    REGULAR_CLOSE.forEach(value=>{
+      if(value === week) return 'お店の定休日は選択できません';
+    });
+
+    //何も引っ掛からなかったら
+    return 'ok';
   }
 
 })();
