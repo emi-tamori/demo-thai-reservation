@@ -415,10 +415,10 @@
     div_form_time.setAttribute('class','form-group form-inline div-rsv');
 
     //開始時間ラベル
-    const label_start = document.createElement('label');
-    label_start.setAttribute('class','label-start-end');
-    label_start.innerHTML = '開始';
-    div_form_time.appendChild(label_start);
+    // const label_start = document.createElement('label');
+    // label_start.setAttribute('class','label-start-end');
+    // label_start.innerHTML = '開始';
+    // div_form_time.appendChild(label_start);
 
     //start-hour Select
     const select_sHour = document.createElement('select');
@@ -459,10 +459,10 @@
     div_form_time.appendChild(label_fromTo);
 
     //終了時間ラベル
-    const label_end = document.createElement('label');
-    label_end.setAttribute('class','label-start-end');
-    label_end.innerHTML = '終了';
-    div_form_time.appendChild(label_end);
+    // const label_end = document.createElement('label');
+    // label_end.setAttribute('class','label-start-end');
+    // label_end.innerHTML = '終了';
+    // div_form_time.appendChild(label_end);
 
     //end-hour Select
     const select_eHour = document.createElement('select');
