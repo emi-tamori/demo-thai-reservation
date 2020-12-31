@@ -1106,8 +1106,7 @@ const checkNextReservation = (ev) => {
     }
     connection.query(selectStaffs)
       .then(staff=>{
-        console.log('staff.',staff);
-        staff.forEach(obj=>{
+        staff.rows.forEach(obj=>{
           const selectReservations = {
             text: `SELECT * FROM reservations.${obj.name};`
           };
