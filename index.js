@@ -1101,24 +1101,30 @@ const checkNextReservation = (ev) => {
     const nowTime = new Date().getTime();
     console.log('nowTime:',nowTime);
 
-    const selectQuery = {
-      text:'SELECT * FROM reservations;'
-    };
-    connection.query(selectQuery)
-      .then(res=>{
-        console.log('res.rows:',res.rows);
-        if(res.rows.length){
-          const nextReservation = res.rows.filter(object1=>{
-            return object1.line_uid === id;
-          })
-          .filter(object2=>{
-            return parseInt(object2.starttime) >= nowTime;
-          });
-          console.log('nextReservation:',nextReservation);
-          resolve(nextReservation);
-        }else{
-          resolve([]);
-        }
+    const selectStaffs = {
+      text: 'SELECT * FROM shifts;'
+    }
+    connection.query(selectStaffs)
+      .then(staff=>{
+
+        staff.forEach(obj=>{
+          const selectReservations = {
+            text: `SELECT * FROM reservations.${obj.name};`
+          };
+          connection.query(selectReservations)
+            .then(res=>{
+              if(res.rows.length){
+                const filtered = res.rows.filter(obj=>{
+                  return ((obj.line_uid===id)&&(obj.startime>=nowTime));
+                });
+                console.log('filtered',filtered);
+                resolve(filtered);
+              }else{
+                resolve([]);
+              }
+            })
+            .catch(e=>console.log(e));
+        });
       })
       .catch(e=>console.log(e));
   });
