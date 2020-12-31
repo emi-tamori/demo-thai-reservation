@@ -259,6 +259,7 @@ body {
     text-align:center;
     border:solid 0.1vw white;
     font-size:1rem;
+    left: 10%;
 }
 
 .button-area{
@@ -300,13 +301,17 @@ body {
     padding-top:0.7rem;
 }
 .close-icon{
-    font-size:2rem;
+    font-size:1.8rem;
     position:absolute;
-    left: 90%
+    left: 85%;
+    margin-top:0.2rem;
 }
 .close-icon:hover{
     cursor:pointer;
     background:rgb(27, 64, 145);
+}
+.form-control{
+    padding: 0.2rem 0.3rem;
 }
 .div-rsv{
     margin-top:1rem;
@@ -338,6 +343,9 @@ body {
 .menu-checkbox{
     text-align:left;
     margin-left: 1rem
+}
+.label-start-end{
+    font-size: 0.8rem;
 }
 .select-sHour{
     width:15%;

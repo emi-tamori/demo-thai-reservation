@@ -247,7 +247,7 @@
     const minutes = ('0'+new Date(parseInt(info.starttime)).getMinutes()).slice(-2);
     const dataDisplay = document.createElement('span');
     dataDisplay.setAttribute('class','reservation-data');
-    dataDisplay.innerHTML = `・${hour}:${minutes}<br>`
+    dataDisplay.innerHTML = `･${hour}:${minutes}<br>`
     dataDisplay.addEventListener('click',(e)=>{
       createReservationCard(info,staffs);
     });
@@ -341,9 +341,9 @@
     div_form_ymd.setAttribute('class','form-group form-inline div-rsv');
 
     //予約年月日ラベル
-    const label_ymd = document.createElement('label');
-    label_ymd.innerHTML = '予約年月';
-    div_form_ymd.appendChild(label_ymd);
+    // const label_ymd = document.createElement('label');
+    // label_ymd.innerHTML = '予約年月';
+    // div_form_ymd.appendChild(label_ymd);
 
     //年Select
     const select_year = document.createElement('select');
@@ -416,7 +416,7 @@
 
     //開始時間ラベル
     const label_start = document.createElement('label');
-    label_start.setAttribute('class','label-start');
+    label_start.setAttribute('class','label-start-end');
     label_start.innerHTML = '開始';
     div_form_time.appendChild(label_start);
 
@@ -460,7 +460,7 @@
 
     //終了時間ラベル
     const label_end = document.createElement('label');
-    label_end.setAttribute('class','label-end');
+    label_end.setAttribute('class','label-start-end');
     label_end.innerHTML = '終了';
     div_form_time.appendChild(label_end);
 
