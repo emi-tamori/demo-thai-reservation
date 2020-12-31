@@ -369,7 +369,7 @@
     const select_month = document.createElement('select');
     select_month.setAttribute('class','form-control select-month');
     select_month.name = 'selectedMonth';
-    const start_month = new Date(parseInt(info.starttime)).getMonth()+1;
+    const start_month = info.id === 'new' ? new Date().getMonth()+1 : new Date(parseInt(info.starttime)).getMonth()+1; //新規予約の場合は、現在の月
     for(let i=0; i<12; i++){
       const option = document.createElement('option');
       option.innerHTML = i+1;
@@ -398,7 +398,7 @@
       option.value = i+1;
       select_day.appendChild(option);
     }
-    select_day.selectedIndex = new Date(parseInt(info.starttime)).getDate()-1;
+    select_day.selectedIndex = info.id === 'new' ? new Date().getDate()-1 : new Date(parseInt(info.starttime)).getDate()-1; //新規予約の場合は、現在日
     div_form_ymd.appendChild(select_day);
 
     //日ラベル
@@ -424,14 +424,14 @@
     const select_sHour = document.createElement('select');
     select_sHour.setAttribute('class','form-control select-sHour');
     select_sHour.name = 'sHour';
-    const start_hour = new Date(parseInt(info.starttime)).getHours();
+    // const start_hour = new Date(parseInt(info.starttime)).getHours();
     for(let i=OPENTIME; i<CLOSETIME; i++){
       const option = document.createElement('option');
       option.innerHTML = i;
       option.value = i;
       select_sHour.appendChild(option);
     }
-    select_sHour.selectedIndex = start_hour-OPENTIME;
+    select_sHour.selectedIndex = info.id === 'new' ? -1 : new Date(parseInt(info.starttime)).getHours()-OPENTIME;
     div_form_time.appendChild(select_sHour);
 
     //start-hourラベル
@@ -443,14 +443,14 @@
     const select_sMin = document.createElement('select');
     select_sMin.setAttribute('class','form-control select-sMin');
     select_sMin.name = 'sMin';
-    const start_minutes = new Date(parseInt(info.starttime)).getMinutes();
+    // const start_minutes = new Date(parseInt(info.starttime)).getMinutes();
     for(let i=0; i<12; i++){
       const option = document.createElement('option');
       option.innerHTML = ('0'+i*5).slice(-2);
       option.value = 5*i;
       select_sMin.appendChild(option);
     }
-    select_sMin.selectedIndex = start_minutes/5;
+    select_sMin.selectedIndex = info.id === 'new' ? -1 : new Date(parseInt(info.starttime)).getMinutes()/5;
     div_form_time.appendChild(select_sMin);
 
     //〜ラベル
@@ -468,14 +468,14 @@
     const select_eHour = document.createElement('select');
     select_eHour.setAttribute('class','form-control select-eHour');
     select_eHour.name = 'eHour';
-    const end_hour = new Date(parseInt(info.endtime)).getHours();
+    // const end_hour = new Date(parseInt(info.endtime)).getHours();
     for(let i=OPENTIME; i<CLOSETIME; i++){
       const option = document.createElement('option');
       option.innerHTML = i;
       option.value = i;
       select_eHour.appendChild(option);
     }
-    select_eHour.selectedIndex = end_hour-OPENTIME;
+    select_eHour.selectedIndex = info.id === 'new' ? -1 : new Date(parseInt(info.endtime)).getHours()-OPENTIME;
     div_form_time.appendChild(select_eHour);
 
     //end-hourラベル
@@ -486,7 +486,7 @@
     //end-min Select
     const select_eMin = document.createElement('select');
     select_eMin.setAttribute('class','form-control select-eMin');
-    const end_minutes = new Date(parseInt(info.endtime)).getMinutes();
+    // const end_minutes = new Date(parseInt(info.endtime)).getMinutes();
     select_eMin.name = 'eMin';
     for(let i=0; i<12; i++){
       const option = document.createElement('option');
@@ -494,7 +494,7 @@
       option.value = 5*i;
       select_eMin.appendChild(option);
     }
-    select_eMin.selectedIndex = end_minutes/5;
+    select_eMin.selectedIndex = info.id === 'new' ? -1 : new Date(parseInt(info.endtime)).getMinutes()/5;
     div_form_time.appendChild(select_eMin);
 
     formElement.appendChild(div_form_time);
@@ -522,10 +522,9 @@
     const divFooter = document.createElement('div');
     divFooter.setAttribute('class','card-footer-rsv text-center');
 
-    //ボタンエリア
-    // const div_form_button = document.createElement('div');
-    // div_form_button.setAttribute('class','form-group form-inline div-rsv');
+    //新規予約の場合、新規予約ボタンを配置
 
+    //新規予約でない場合、更新ボタンと削除ボタンを配置
     //更新ボタン
     const updateButton = document.createElement('input');
     updateButton.type = 'button';
