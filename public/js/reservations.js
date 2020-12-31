@@ -556,6 +556,7 @@
             response.text()
               .then(text=>{
                 console.log(text);
+                document.location.reload();
                 alert(text);
               })
               .catch(e=>console.log(e));
