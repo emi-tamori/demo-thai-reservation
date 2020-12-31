@@ -16,7 +16,7 @@ body {
 
 .top-font{
     font-family: 'ヒラギノ丸ゴ ProN','Hiragino Maru Gothic ProN',sans-serif;
-    font-size:4.5vw;
+    font-size:2rem;
 }
 
 .top-string{
@@ -263,8 +263,9 @@ body {
 }
 
 .menu-button{
-    font-size: 1.7vw;
+    font-size: 0.8rem;
     margin-right:1.5vw;
+    padding: 0.2rem 0.5rem;
 }
 
 .button-area{
@@ -420,7 +421,7 @@ body {
 .tbody-name{
     width: 20vw;
     border: 0.1vw solid rgb(107, 106, 106);
-    font-size: 0.9rem;
+    font-size: 0.75rem;
 }
 
 .tbody-shift{
