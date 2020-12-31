@@ -547,8 +547,12 @@
       })
       .then(response=>{
         if(response.ok){
-          console.log('response戻ってきたお');
-          alert('予約データ更新成功');
+          response.text()
+            .then(text=>{
+              alert(text);
+              document.location.reload();
+            })
+            .catch(e=>console.log(e));
         }else{
           alert('HTTPレスポンスエラー');
         }
@@ -573,8 +577,12 @@
       })
       .then(response=>{
         if(response.ok){
-          console.log('削除しました');
-          alert('予約データを削除しました');
+          response.text()
+            .then(text=>{
+              alert(text);
+              document.location.reload();
+            })
+            .catch(e=>console.log(e));
         }else{
           alert('HTTPレスポンスエラーです');
         }
