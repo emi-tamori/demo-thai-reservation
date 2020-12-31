@@ -72,7 +72,7 @@
 
     //新規予約登録ボタン
     const createReservationButton = document.createElement('button');
-    createReservationButton.setAttribute('class','btn btn-primary create-reservation');
+    createReservationButton.setAttribute('class','btn btn-primary menu-button');
     createReservationButton.innerHTML = '新規予約';
     div_menu.appendChild(createReservationButton);
 
@@ -278,9 +278,7 @@
     // form要素の生成
     const formElement = document.createElement('form');
     formElement.setAttribute('id','reservationForm');
-    // formElement.setAttribute('class','form-inline');
     formElement.setAttribute('name','reservationInfo');
-    // formElement.setAttribute('method','post');　多分不要
 
     // 名前入力フォームの生成
     const div_form_name = document.createElement('div');
