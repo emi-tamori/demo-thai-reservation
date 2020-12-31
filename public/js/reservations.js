@@ -85,7 +85,7 @@
         menu: '',
         staff: ''
       }
-      createReservationCard(zeroInfo,'')
+      createReservationCard(zeroInfo,STAFFS);
     })
     div_menu.appendChild(createReservationButton);
 
