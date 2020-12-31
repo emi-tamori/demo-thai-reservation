@@ -26,7 +26,7 @@ const doubleBookingCheck = (startTime,endTime,staffName,id) => {
             .then(res=>{
                 if(res.rows.length){
                     const filteredArray = res.rows.filter(object=>{
-                        return ((object.id !== id)&&((object.starttime>=startTime && object.starttime<endTime) || (object.endtime>startTime && object.endtime<=endTime) || (object.starttime>=startTime && object.endtime<=endTime) || (object.starttime<=startTime && object.endtime>=endTime)));
+                        return ((object.id != id)&&((object.starttime>=startTime && object.starttime<endTime) || (object.endtime>startTime && object.endtime<=endTime) || (object.starttime>=startTime && object.endtime<=endTime) || (object.starttime<=startTime && object.endtime>=endTime)));
                     });
                     answer = filteredArray.length ? false : true;
                 }else{
