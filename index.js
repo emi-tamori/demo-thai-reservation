@@ -208,7 +208,7 @@ const handleMessageEvent = async (ev) => {
         const date = dateConversion(startTimestamp);
 
         //メニュー表記の取得
-        const menuArray = nextReservation[0].split('%');
+        const menuArray = nextReservation[0].menu.split('%');
         let menu = '';
         menuArray.forEach((value,index) => {
           if(index !== 0){
