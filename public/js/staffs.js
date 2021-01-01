@@ -272,7 +272,8 @@
         throw e;
       });
     });
-    div_input_staff.appendChild(postButton);
+    div_input_mail.appendChild(postButton);
+    formElement.appendChild(div_input_staff);
     formElement.appendChild(div_input_mail);
     td_foot.appendChild(formElement);
 
