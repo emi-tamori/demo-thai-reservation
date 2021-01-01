@@ -348,12 +348,13 @@
     }
 
     //名前に半角スペース入れちゃダメチェック
-    if(name.test(/\S/g)){
-      return '名前には半角スペースや改行等は含めることができません';
+    const spaceCheck = /\S/g;
+    if(spaceCheck.test(name)){
+      return '名前にはスペースや改行等は含めることができません';
     }
 
     //メルアドは適正かチェック
-    const addressCheck = reg = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/;
+    const addressCheck = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/;
     if(!addressCheck.test(email)){
       return 'メールアドレスを正しく入力してください'
     }
