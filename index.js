@@ -1375,7 +1375,7 @@ const gmailSend = (staffName,date,menu) => {
     };
     connection.query(select_query)
       .then(address=>{
-        console.log('address.rows',address.rows);
+        console.log('address',address);
         //Gmail送信設定
         const message = {
           from: 'kentaro523@gmail.com',
