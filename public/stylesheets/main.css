@@ -465,19 +465,7 @@ body {
 
 .staff-input{
     font-size: 0.8rem;
-    width: 20vw;
-    height: 2rem;
-    margin: 0.3vw 0.3vw 0.1vw 0.3vw;
-}
-
-.label-mail{
-    font-size: 0.75rem;
-    margin-right:0.2vw;
-}
-
-.mail-input{
-    font-size: 0.8rem;
-    width: 30vw;
+    width: 40vw;
     height: 2rem;
     margin: 0.3vw 0.3vw 0.1vw 0.3vw;
 }

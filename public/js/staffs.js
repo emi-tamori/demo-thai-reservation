@@ -230,16 +230,16 @@
 
     //メール入力フォーム
     const div_input_mail = document.createElement('div');
-    div_input_mail.setAttribute('class','form-group mail-input-area');
+    div_input_mail.setAttribute('class','form-group staff-input-area');
     //メールラベル
     const label_mail = document.createElement('label');
-    label_mail.setAttribute('class','label-mail');
+    label_mail.setAttribute('class','label-staff');
     label_mail.innerHTML = 'メール';
     div_input_mail.appendChild(label_mail);
       //メールアドレス入力欄
     const input_mail = document.createElement('input');
     input_mail.setAttribute('type','text');
-    input_mail.setAttribute('class','form-group mail-input');
+    input_mail.setAttribute('class','form-group staff-input');
     input_mail.setAttribute('name','mail');
     div_input_mail.appendChild(input_mail);
       //スタッフ名登録ボタン（post）
