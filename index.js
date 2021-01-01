@@ -1375,12 +1375,11 @@ const gmailSend = (staffName,date,menu) => {
     };
     connection.query(select_query)
       .then(address=>{
-        console.log('address',address);
-        console.log('address.rows',address.rows);
+
         //Gmail送信設定
         const message = {
           from: 'kentaro523@gmail.com',
-          to: 'kentaro523@gmail.com',
+          to: address.rows[0].email,
           subject: `${staffName}さんに予約が入りました！！`,
           text: `${date}に${menu}で予約が入りました！`
         };

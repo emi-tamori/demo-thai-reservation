@@ -42,14 +42,14 @@ const doubleBookingCheck = (startTime,endTime,staffName,id) => {
 const gmailSend = (staffName,date,menu) => {
     return new Promise((resolve,reject)=> {
       const select_query = {
-        text: `SELECT email FROM shifts WHERE name='${staffName};'`
+        text: `SELECT email FROM shifts WHERE name='${staffName}';`
       };
       connection.query(select_query)
         .then(address=>{
           //Gmail送信設定
           const message = {
             from: 'kentaro523@gmail.com',
-            to: address,
+            to: address.rows[0].email,
             subject: `${staffName}さんに予約が入りました！！`,
             text: `${date}に${menu}で予約が入りました！`
           };
