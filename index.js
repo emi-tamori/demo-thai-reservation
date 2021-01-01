@@ -1132,14 +1132,12 @@ const checkNextReservation = (ev) => {
   return new Promise((resolve,reject)=>{
     const id = ev.source.userId;
     const nowTime = new Date().getTime();
-    console.log('nowTime:',nowTime);
 
     const selectStaffs = {
       text: 'SELECT * FROM shifts;'
     }
     connection.query(selectStaffs)
       .then(staff=>{
-        console.log('staff',staff.rows);
         const nextReservation = []
         staff.rows.forEach((obj,index)=>{
           const selectReservations = {
@@ -1272,9 +1270,6 @@ const checkReservable = (ev,menu,date,staffInfo) => {
             intervalArray.push([[60*60*1000+treatTime*60*1000,timeStamps[i]]]);
           }      
         }
-        
-        // console.log('intervalArray:',intervalArray);
-        // console.log('treatTime:',treatTime);
 
         //reservableArrayを生成
         const reservableArray = [];

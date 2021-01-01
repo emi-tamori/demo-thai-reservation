@@ -15,7 +15,6 @@ const OPENTIME = 9; //開店時間
 const CLOSETIME = 19; //閉店時間
 
 //予約の重複チェックを行う関数
-
 const doubleBookingCheck = (startTime,endTime,staffName,id) => {
     return new Promise((resolve,reject) => {
         let answer = null;
@@ -36,6 +35,45 @@ const doubleBookingCheck = (startTime,endTime,staffName,id) => {
             })
             .catch(e=>console.log(e));
     });
+}
+
+//gmailを送る関数
+const gmailSend = (staffName,date,menu) => {
+    return new Promise((resolve,reject)=> {
+      const select_query = {
+        text: `SELECT email FROM shifts WHERE name='${staffName};'`
+      };
+      connection.query(select_query)
+        .then(address=>{
+          //Gmail送信設定
+          const message = {
+            from: 'kentaro523@gmail.com',
+            to: address,
+            subject: `${staffName}さんに予約が入りました！！`,
+            text: `${date}に${menu}で予約が入りました！`
+          };
+  
+          const auth = {
+            type: 'OAuth2',
+            user: 'kentaro523@gmail.com',
+            clientId: process.env.GMAIL_CLIENT_ID,
+            clientSecret: process.env.GMAIL_CLIENT_SECRET,
+            refreshToken: process.env.GMAIL_REFRESH_TOKEN
+          };
+  
+          const transport = {
+            service: 'gmail',
+            auth: auth
+          };
+  
+          const transporter = nodemailer.createTransport(transport);
+          transporter.sendMail(message,(err,response)=>{
+            console.log(err || response);
+            resolve('gmail送信成功');
+          });
+        })
+        .catch(e=>console.log(e));
+    })
 }
 
 module.exports = {
@@ -279,7 +317,12 @@ module.exports = {
                         connection.query(insert_query)
                             .then(()=>{
                                 console.log('予約データ作成成功');
-                                resolve('新規予約データ作成成功');
+                                gmailSend(staffName,scheduleDate,menu)
+                                    .then(text=>{
+                                        console.log(text);
+                                        resolve('新規予約データ作成成功');
+                                    })
+                                    .catch(e=>console.log(e));
                             })
                             .catch(e=>console.log(e));
                     }else{
