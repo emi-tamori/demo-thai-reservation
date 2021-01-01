@@ -149,7 +149,8 @@ const handleMessageEvent = async (ev) => {
 
     if(text === '予約する'){
       orderChoice(ev,'');
-    }else if(text === '予約確認'){
+    }
+    else if(text === '予約確認'){
       const nextReservation = await checkNextReservation(ev);
       if(nextReservation.length){
         const startTimestamp = nextReservation[0].starttime;
@@ -185,10 +186,29 @@ const handleMessageEvent = async (ev) => {
     }else if(text === '予約キャンセル'){
       const nextReservation = await checkNextReservation(ev);
       if(nextReservation.length){
-        const startTimestamp = parseInt(nextReservation[0].starttime);
-        const menu = MENU[parseInt(nextReservation[0].menu)];
+        const startTimestamp = nextReservation[0].starttime;
+
+        //施術時間の取得
+        const treatTime = await calcTreatTime(ev.source.userId,nextReservation[0].menu);
+
+        //予約日時の表記取得
         const date = dateConversion(startTimestamp);
-        const id = parseInt(nextReservation[0].id);
+
+        //メニュー表記の取得
+        const menuArray = orderedMenu.split('%');
+        let menu = '';
+        menuArray.forEach((value,index) => {
+          if(index !== 0){
+            menu += ',' + MENU[parseInt(value)];
+          }else{
+            menu += MENU[parseInt(value)];
+          }
+        });
+
+        //削除対象予約特定用パラメータ
+        const id = nextReservation[0].id;
+        const staff = nextReservation[0].staff;
+
         return client.replyMessage(ev.replyToken,{
           "type":"flex",
           "altText": "cancel message",
@@ -201,7 +221,7 @@ const handleMessageEvent = async (ev) => {
               "contents": [
                 {
                   "type": "text",
-                  "text": `次回の予約は${date}から、${menu}でおとりしてます。この予約をキャンセルしますか？`,
+                  "text": `次回の予約は${date}から${treatTime}分間、${menu}でおとりしてます。この予約をキャンセルしますか？`,
                   "size": "lg",
                   "wrap": true
                 }
@@ -216,7 +236,7 @@ const handleMessageEvent = async (ev) => {
                   "action": {
                     "type": "postback",
                     "label": "予約をキャンセルする",
-                    "data": `delete&${id}`
+                    "data": `delete&${staff}&${id}`
                   }
                 }
               ]
@@ -461,8 +481,10 @@ const handlePostbackEvent = async (ev) => {
     
     else if(splitData[0] === 'delete'){
       const id = parseInt(splitData[1]);
+      const staff = splitData[2];
+
       const deleteQuery = {
-        text:'DELETE FROM reservations WHERE id = $1;',
+        text:`DELETE FROM reservations.${staff} WHERE id = $1;`,
         values:[`${id}`]
       };
       connection.query(deleteQuery)
@@ -470,7 +492,7 @@ const handlePostbackEvent = async (ev) => {
           console.log('予約キャンセル成功');
           client.replyMessage(ev.replyToken,{
             "type":"text",
-            "text":"予約をキャンセルしました。"
+            "text":"予約をキャンセルしました。またのご予約をお願いします。"
           });
         })
         .catch(e=>console.log(e));
