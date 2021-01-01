@@ -227,17 +227,21 @@
     input_staff.setAttribute('class','form-group staff-input');
     input_staff.setAttribute('name','name');
     div_input_staff.appendChild(input_staff);
+
+    //メール入力フォーム
+    const div_input_mail = document.createElement('div');
+    div_input_mail.setAttribute('class','form-group mail-input-area');
     //メールラベル
     const label_mail = document.createElement('label');
     label_mail.setAttribute('class','label-mail');
     label_mail.innerHTML = 'メール';
-    div_input_staff.appendChild(label_mail);
-      //スタッフ名入力欄
+    div_input_mail.appendChild(label_mail);
+      //メールアドレス入力欄
     const input_mail = document.createElement('input');
     input_mail.setAttribute('type','text');
     input_mail.setAttribute('class','form-group mail-input');
     input_mail.setAttribute('name','mail');
-    div_input_staff.appendChild(input_mail);
+    div_input_mail.appendChild(input_mail);
       //スタッフ名登録ボタン（post）
     const postButton = document.createElement('input');
     postButton.setAttribute('class','btn btn-primary post-button');
@@ -269,7 +273,7 @@
       });
     });
     div_input_staff.appendChild(postButton);
-    formElement.appendChild(div_input_staff);
+    formElement.appendChild(div_input_mail);
     td_foot.appendChild(formElement);
 
     tr_foot.appendChild(td_foot);
