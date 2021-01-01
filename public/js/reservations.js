@@ -14,6 +14,7 @@
   const divElement = document.getElementById('reservationsPage');
 
   window.addEventListener('load',()=>{
+    displaySpinner();
     fetchData();
   });
 
@@ -22,6 +23,7 @@
       const response = await fetch(API_URL);
       if(response.ok){
         const data = await response.json();
+        divElement.innerHTML = '';
         createReservationTable(data,0);
       }else{
         alert('HTTPレスポンスエラーです');
@@ -30,6 +32,13 @@
       console.log('error:',error);
       alert('データ読み込み失敗です');
     }
+  }
+
+  const displaySpinner = () => {
+    const divSpinner = document.createElement('div');
+    divSpinner.setAttribute('clsss','loader');
+    divSpinner.innerHTML = 'Now Loading...';
+    divElement.appendChild(divSpinner);
   }
 
   const createReservationTable = (data,num) => {
