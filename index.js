@@ -475,8 +475,8 @@ const handlePostbackEvent = async (ev) => {
     }
     
     else if(splitData[0] === 'delete'){
-      const id = parseInt(splitData[1]);
-      const staff = splitData[2];
+      const staff = splitData[1];
+      const id = parseInt(splitData[2]);
 
       const deleteQuery = {
         text:`DELETE FROM reservations.${staff} WHERE id = $1;`,
