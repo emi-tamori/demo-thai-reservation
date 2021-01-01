@@ -155,9 +155,10 @@ const handleMessageEvent = async (ev) => {
       console.log('nextRev in confirm',nextReservation);
       if(nextReservation.length){
         const startTimestamp = nextReservation[0].starttime;
+        const endTimestamp = nextReservation[0].endtime;
 
-        //施術時間の取得
-        const treatTime = await calcTreatTime(ev.source.userId,nextReservation[0].menu);
+        //施術時間の取得(分単位)
+        const treatTime = (endTimestamp - startTimestamp)/(60*1000);
 
         //予約日時の表記取得
         const date = dateConversion(startTimestamp);
@@ -188,9 +189,10 @@ const handleMessageEvent = async (ev) => {
       const nextReservation = await checkNextReservation(ev);
       if(nextReservation.length){
         const startTimestamp = nextReservation[0].starttime;
-
+        const endTimestamp = nextReservation[0].endtime;
+        
         //施術時間の取得
-        const treatTime = await calcTreatTime(ev.source.userId,nextReservation[0].menu);
+        const treatTime = (endTimestamp - startTimestamp)/(60*1000);
 
         //予約日時の表記取得
         const date = dateConversion(startTimestamp);
@@ -1156,9 +1158,7 @@ const checkNextReservation = (ev) => {
                 const filtered = res.rows.filter(obj=>{
                   return ((obj.line_uid===id)&&(obj.starttime>=nowTime));
                 });
-                console.log('filtered',filtered);
                 if(filtered.length) nextReservation.push(...filtered);
-                console.log('nextreservation',nextReservation);
                 if(index === staff.rows.length-1) resolve(nextReservation);
               }
             })
