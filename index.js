@@ -1401,7 +1401,7 @@ const gmailSend = (staffName,date,menu) => {
         const transporter = nodemailer.createTransport(transport);
         transporter.sendMail(message,(err,response)=>{
           console.log(err || response);
-          resolve('gmail送信成功')；
+          resolve('gmail送信成功');
         });
       })
       .catch(e=>console.log(e));
