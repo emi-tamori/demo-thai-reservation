@@ -36,7 +36,8 @@
 
   const displaySpinner = () => {
     const divSpinner = document.createElement('div');
-    divSpinner.setAttribute('clsss','loader');
+    divSpinner.setAttribute('class','spinner-grow text-primary');
+    divSpinner.setAttribute('role','status');
     divSpinner.innerHTML = 'Now Loading...';
     divElement.appendChild(divSpinner);
   }
