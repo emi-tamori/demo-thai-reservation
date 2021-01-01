@@ -348,7 +348,7 @@
     }
 
     //名前に半角スペース入れちゃダメチェック
-    const spaceCheck = /\S/g;
+    const spaceCheck = /\s+/g;
     if(spaceCheck.test(name)){
       return '名前にはスペースや改行等は含めることができません';
     }
