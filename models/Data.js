@@ -1,4 +1,5 @@
 const { Client } = require('pg');
+const nodemailer = require('nodemailer');
 
 const connection = new Client({
     user:process.env.PG_USER,
