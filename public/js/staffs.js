@@ -230,7 +230,7 @@
     //メールラベル
     const label_mail = document.createElement('label');
     label_mail.setAttribute('class','label-mail');
-    label_staff.innerHTML = 'メール';
+    label_mail.innerHTML = 'メール';
     div_input_staff.appendChild(label_mail);
       //スタッフ名入力欄
     const input_mail = document.createElement('input');
