@@ -153,11 +153,27 @@ const handleMessageEvent = async (ev) => {
       const nextReservation = await checkNextReservation(ev);
       if(nextReservation.length){
         const startTimestamp = nextReservation[0].starttime;
+
+        //施術時間の取得
+        const treatTime = await calcTreatTime(ev.source.userId,nextReservation[0].menu);
+
+        //予約日時の表記取得
         const date = dateConversion(startTimestamp);
-        const menu = MENU[parseInt(nextReservation[0].menu)];
+
+        //メニュー表記の取得
+        const menuArray = orderedMenu.split('%');
+        let menu = '';
+        menuArray.forEach((value,index) => {
+          if(index !== 0){
+            menu += ',' + MENU[parseInt(value)];
+          }else{
+            menu += MENU[parseInt(value)];
+          }
+        });
+
         return client.replyMessage(ev.replyToken,{
           "type":"text",
-          "text":`次回予約は${date}、${menu}でお取りしてます\uDBC0\uDC22`
+          "text":`次回予約は${date}から${treatTime}分間、${menu}でお取りしてます\uDBC0\uDC22`
         });
       }else{
         return client.replyMessage(ev.replyToken,{
