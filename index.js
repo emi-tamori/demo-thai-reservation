@@ -152,6 +152,7 @@ const handleMessageEvent = async (ev) => {
     }
     else if(text === '予約確認'){
       const nextReservation = await checkNextReservation(ev);
+      console.log('nextRev in confirm',nextReservation);
       if(nextReservation.length){
         const startTimestamp = nextReservation[0].starttime;
 
@@ -162,7 +163,7 @@ const handleMessageEvent = async (ev) => {
         const date = dateConversion(startTimestamp);
 
         //メニュー表記の取得
-        const menuArray = orderedMenu.split('%');
+        const menuArray = nextReservation[0].menu.split('%');
         let menu = '';
         menuArray.forEach((value,index) => {
           if(index !== 0){
@@ -195,7 +196,7 @@ const handleMessageEvent = async (ev) => {
         const date = dateConversion(startTimestamp);
 
         //メニュー表記の取得
-        const menuArray = orderedMenu.split('%');
+        const menuArray = nextReservation[0].split('%');
         let menu = '';
         menuArray.forEach((value,index) => {
           if(index !== 0){
