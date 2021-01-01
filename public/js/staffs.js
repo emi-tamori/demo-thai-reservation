@@ -21,7 +21,7 @@
       if(response.ok){
         const data = await response.json();
         STAFFS_DATA = data;
-        // divElement.innerHTML='';
+        divElement.innerHTML='';
         createStaffTable(0);
       }
     }catch(error){

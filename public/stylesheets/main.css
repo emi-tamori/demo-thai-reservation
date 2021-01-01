@@ -26,7 +26,7 @@ body {
 #toUsers{
     margin:2vw 2vw;
     width:26vw;
-    font-size:2.5vw;
+    font-size:2vw;
 }
 
 #toReservations{
@@ -489,5 +489,6 @@ body {
 }
 
 .spinner{
-    
+    position: relative;
+    top: 45vh;
 }
