@@ -1156,13 +1156,13 @@ const checkNextReservation = (ev) => {
                   return ((obj.line_uid===id)&&(obj.starttime>=nowTime));
                 });
                 console.log('filtered',filtered);
-                if(filtered.length) nextReservation.push(filtered[0]);
+                if(filtered.length) nextReservation.push(...filtered);
+                console.log('nextreservation',nextReservation);
+                resolve(nextReservation);
               }
             })
             .catch(e=>console.log(e));
         });
-        console.log('nextreservation',nextReservation);
-        resolve(nextReservation);
       })
       .catch(e=>console.log(e));
   });
