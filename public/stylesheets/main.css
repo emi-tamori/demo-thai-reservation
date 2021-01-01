@@ -459,15 +459,27 @@ body {
 }
 
 .label-staff{
-    font-size: 0.9rem;
-    margin-right:1vw;
+    font-size: 0.75rem;
+    margin-right:0.5vw;
 }
 
 .staff-input{
-    font-size: 1rem;
-    width: 35vw;
+    font-size: 0.8rem;
+    width: 25vw;
     height: 2rem;
-    margin: 0.3vw 1vw;
+    margin: 0.3vw 0.5vw;
+}
+
+.label-mail{
+    font-size: 0.75rem;
+    margin-right:0.5vw;
+}
+
+.mail-input{
+    font-size: 0.8rem;
+    width: 25vw;
+    height: 2rem;
+    margin: 0.3vw 0.5vw;
 }
 
 .staff-input-area{

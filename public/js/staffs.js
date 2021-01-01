@@ -227,6 +227,17 @@
     input_staff.setAttribute('class','form-group staff-input');
     input_staff.setAttribute('name','name');
     div_input_staff.appendChild(input_staff);
+    //メールラベル
+    const label_mail = document.createElement('label');
+    label_mail.setAttribute('class','label-mail');
+    label_staff.innerHTML = 'メール';
+    div_input_staff.appendChild(label_mail);
+      //スタッフ名入力欄
+    const input_mail = document.createElement('input');
+    input_mail.setAttribute('type','text');
+    input_mail.setAttribute('class','form-group mail-input');
+    input_mail.setAttribute('name','mail');
+    div_input_staff.appendChild(input_mail);
       //スタッフ名登録ボタン（post）
     const postButton = document.createElement('input');
     postButton.setAttribute('class','btn btn-primary post-button');

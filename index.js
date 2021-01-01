@@ -148,7 +148,15 @@ const handleMessageEvent = async (ev) => {
     const text = (ev.message.type === 'text') ? ev.message.text : '';
 
     if(text === '予約する'){
-      orderChoice(ev,'');
+      const nextReservation = await checkNextReservation(ev);
+      if(!nextReservation.length){
+        orderChoice(ev,'');
+      }else{
+        return client.replyMessage(ev.replyToken,{
+          "type":"text",
+          "text":"すでに次回予約が入っています><;"
+        });
+      }
     }
     else if(text === '予約確認'){
       const nextReservation = await checkNextReservation(ev);
