@@ -146,11 +146,11 @@ module.exports = {
         })
     },
 
-    staffRegister: ({name}) =>{
+    staffRegister: ({name,email}) =>{
         return new Promise((resolve,reject) => {
-            console.log('name in staffregister',name);
+            console.log('name in staffregister',name,email);
             const insert_query = {
-                text: `INSERT INTO shifts (name) VALUES('${name}');`
+                text: `INSERT INTO shifts (name,email) VALUES('${name}','${email}');`
             };
             connection.query(insert_query)
                 .then(()=>{

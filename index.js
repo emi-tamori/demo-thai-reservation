@@ -54,7 +54,7 @@ connection.query(create_userTable)
   .catch(e=>console.log(e));
 
 //シフト文字列の生成
-let shiftText = 'CREATE TABLE IF NOT EXISTS shifts (id SERIAL NOT NULL, name VARCHAR(50), updatedat BIGINT, ';
+let shiftText = 'CREATE TABLE IF NOT EXISTS shifts (id SERIAL NOT NULL, name VARCHAR(50), email VARCHAR(100) , updatedat BIGINT, ';
 for(let i=0; i<NUMBER_OF_SHIFTS; i++){
   for(j=OPENTIME; j<CLOSETIME; j++){
     if(i === NUMBER_OF_SHIFTS-1 && j === CLOSETIME-1){
