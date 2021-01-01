@@ -7,6 +7,7 @@ const router = require('./routers/index');
 const apiRouter = require('./routers/api');
 const multipart = require('connect-multiparty');
 const nodemailer = require('nodemailer');
+const { getMaxListeners } = require('process');
 
 const PORT = process.env.PORT || 5000
 
@@ -440,32 +441,7 @@ const handlePostbackEvent = async (ev) => {
                       "type":"text",
                       "text":`${date}に${menu}で予約をお取りしたました（スタッフ：${staffName}）`
                     });
-
-                    //Gmail送信設定
-                    // const message = {
-                    //   from: 'kentaro523@gmail.com',
-                    //   to: MAIL[`${STAFFS[staffNumber]}`],
-                    //   subject: `${STAFFS[staffNumber]}さんに予約が入りました！！`,
-                    //   text: `${date}に${menu}で予約が入りました！`
-                    // };
-              
-                    // const auth = {
-                    //   type: 'OAuth2',
-                    //   user: 'kentaro523@gmail.com',
-                    //   clientId: process.env.GMAIL_CLIENT_ID,
-                    //   clientSecret: process.env.GMAIL_CLIENT_SECRET,
-                    //   refreshToken: process.env.GMAIL_REFRESH_TOKEN
-                    // };
-              
-                    // const transport = {
-                    //   service: 'gmail',
-                    //   auth: auth
-                    // };
-              
-                    // const transporter = nodemailer.createTransport(transport);
-                    // transporter.sendMail(message,(err,response)=>{
-                    //   console.log(err || response);
-                    // });
+                    gmailSend(staffName,date,menu);
                   })
                   .catch(e=>console.log(e));
               }else{
@@ -1388,5 +1364,43 @@ const getNumberOfReservations = (date,shiftInfo) => {
         })
         .catch(e=>console.log(e));
     }
+  })
+}
+
+//Gmail送信設定
+const gmailSend = (staffName,date,menu) => {
+  return new Promise((resolve,reject)=> {
+    const select_query = {
+      text: `SELECT email FROM shifts WHERE name='${staffName};'`
+    };
+    connection.query(select_query)
+      .then(address=>{
+        //Gmail送信設定
+        const message = {
+          from: 'kentaro523@gmail.com',
+          to: address,
+          subject: `${staffName}さんに予約が入りました！！`,
+          text: `${date}に${menu}で予約が入りました！`
+        };
+
+        const auth = {
+          type: 'OAuth2',
+          user: 'kentaro523@gmail.com',
+          clientId: process.env.GMAIL_CLIENT_ID,
+          clientSecret: process.env.GMAIL_CLIENT_SECRET,
+          refreshToken: process.env.GMAIL_REFRESH_TOKEN
+        };
+
+        const transport = {
+          service: 'gmail',
+          auth: auth
+        };
+
+        const transporter = nodemailer.createTransport(transport);
+        transporter.sendMail(message,(err,response)=>{
+          console.log(err || response);
+        });
+      })
+      .catch(e=>console.log(e));
   })
 }
