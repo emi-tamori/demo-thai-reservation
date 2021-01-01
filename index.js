@@ -1155,6 +1155,7 @@ const checkNextReservation = (ev) => {
                 const filtered = res.rows.filter(obj=>{
                   return ((obj.line_uid===id)&&(obj.starttime>=nowTime));
                 });
+                console.log('filtered',filtered);
                 if(filtered.length) nextReservation.push(...filtered);
               }
             })
