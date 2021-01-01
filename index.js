@@ -441,7 +441,9 @@ const handlePostbackEvent = async (ev) => {
                       "type":"text",
                       "text":`${date}に${menu}で予約をお取りしたました（スタッフ：${staffName}）`
                     });
-                    gmailSend(staffName,date,menu);
+                    gmailSend(staffName,date,menu)
+                      .then(message=>{console.log(message)})
+                      .catch(e=>console.log(e));
                   })
                   .catch(e=>console.log(e));
               }else{
@@ -1399,6 +1401,7 @@ const gmailSend = (staffName,date,menu) => {
         const transporter = nodemailer.createTransport(transport);
         transporter.sendMail(message,(err,response)=>{
           console.log(err || response);
+          resolve('gmail送信成功')；
         });
       })
       .catch(e=>console.log(e));
