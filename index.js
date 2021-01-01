@@ -1371,11 +1371,12 @@ const getNumberOfReservations = (date,shiftInfo) => {
 const gmailSend = (staffName,date,menu) => {
   return new Promise((resolve,reject)=> {
     const select_query = {
-      text: `SELECT email FROM shifts WHERE name='${staffName};'`
+      text: `SELECT email FROM shifts WHERE name='${staffName}';`
     };
     connection.query(select_query)
       .then(address=>{
         console.log('address',address);
+        console.log('address.rows',address.rows);
         //Gmail送信設定
         const message = {
           from: 'kentaro523@gmail.com',
