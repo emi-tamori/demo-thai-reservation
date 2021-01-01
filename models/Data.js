@@ -148,7 +148,7 @@ module.exports = {
 
     staffRegister: ({name,email}) =>{
         return new Promise((resolve,reject) => {
-            console.log('name in staffregister',name,email);
+            console.log('name email in staffregister',name,email);
             const insert_query = {
                 text: `INSERT INTO shifts (name,email) VALUES('${name}','${email}');`
             };
