@@ -1138,6 +1138,7 @@ const checkNextReservation = (ev) => {
     }
     connection.query(selectStaffs)
       .then(staff=>{
+        console.log('staff',staff.rows);
         const nextReservation = []
         staff.rows.forEach((obj,index)=>{
           const selectReservations = {
@@ -1150,6 +1151,7 @@ const checkNextReservation = (ev) => {
                   return ((obj.line_uid===id)&&(obj.starttime>=nowTime));
                 });
                 if(filtered.length) nextReservation.push(...filtered);
+                console.log('filtered',filtered);
                 if(index === staff.rows.length-1) resolve(nextReservation);
               }
             })
