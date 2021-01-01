@@ -1330,7 +1330,7 @@ const checkReservable = (ev,menu,date,staffInfo) => {
   });
 }
 
-const finalCheck = (date,startTime,endTime,staffName) => {
+const finalCheck = (ev,date,startTime,endTime,staffName) => {
   return new Promise(async (resolve,reject) => {
     const select_query = {
       text:`SELECT * FROM reservations.${staffName} WHERE scheduledate = '${date}';`
