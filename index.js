@@ -414,7 +414,12 @@ const handlePostbackEvent = async (ev) => {
             if(res.rows.length){
               //予約確定前の最終チェック→予約ブッキング無しfalse、予約ブッキングありtrue
               const check = await finalCheck(ev,selectedDate,fixedTime,endTime,staffName);
-
+              if(check === 'nextIs'){
+                return client.replyMessage(ev.replyToken,{
+                  "type":"text",
+                  "text":"すでに次回予約が入っています><;"
+                });
+              }
               if(!check){
                 const insertQuery = {
                   text:`INSERT INTO reservations.${staffName} (line_uid, name, scheduledate, starttime, endtime, menu, staff) VALUES($1,$2,$3,$4,$5,$6,$7);`,
@@ -1338,7 +1343,7 @@ const finalCheck = (ev,date,startTime,endTime,staffName) => {
     //次回予約が入っているか確認
     const nexrReservation = await checkNextReservation(ev);
     if(nexrReservation.length){
-      resolve(true);
+      resolve('nextIs');
     }else{
       connection.query(select_query)
       .then(res=>{
