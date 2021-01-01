@@ -34,11 +34,15 @@
     }
   }
 
+  //ローディング中スピナー生成
   const displaySpinner = () => {
     const divSpinner = document.createElement('div');
-    divSpinner.setAttribute('class','spinner-grow text-primary');
+    divSpinner.setAttribute('class','spinner-grow text-primary spinner');
     divSpinner.setAttribute('role','status');
-    divSpinner.innerHTML = 'Now Loading...';
+    const spanText = document.createElement('span');
+    spanText.setAttribute('class','sr-only');
+    spanText.innerHTML = 'Now Loading...';
+    divSpinner.appendChild(spanText);
     divElement.appendChild(divSpinner);
   }
 
