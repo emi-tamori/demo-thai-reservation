@@ -190,7 +190,7 @@ const handleMessageEvent = async (ev) => {
       if(nextReservation.length){
         const startTimestamp = nextReservation[0].starttime;
         const endTimestamp = nextReservation[0].endtime;
-        
+
         //施術時間の取得
         const treatTime = (endTimestamp - startTimestamp)/(60*1000);
 
@@ -413,7 +413,7 @@ const handlePostbackEvent = async (ev) => {
           .then(async(res)=>{
             if(res.rows.length){
               //予約確定前の最終チェック→予約ブッキング無しfalse、予約ブッキングありtrue
-              const check = await finalCheck(selectedDate,fixedTime,endTime,staffName);
+              const check = await finalCheck(ev,selectedDate,fixedTime,endTime,staffName);
 
               if(!check){
                 const insertQuery = {
@@ -1331,11 +1331,16 @@ const checkReservable = (ev,menu,date,staffInfo) => {
 }
 
 const finalCheck = (date,startTime,endTime,staffName) => {
-  return new Promise((resolve,reject) => {
+  return new Promise(async (resolve,reject) => {
     const select_query = {
       text:`SELECT * FROM reservations.${staffName} WHERE scheduledate = '${date}';`
     }
-    connection.query(select_query)
+    //次回予約が入っているか確認
+    const nexrReservation = await checkNextReservation(ev);
+    if(nexrReservation.length){
+      resolve(true);
+    }else{
+      connection.query(select_query)
       .then(res=>{
         if(res.rows.length){
           const check = res.rows.some(object=>{
@@ -1349,6 +1354,7 @@ const finalCheck = (date,startTime,endTime,staffName) => {
         }
       })
       .catch(e=>console.log(e));
+    }
   });
 }
 
