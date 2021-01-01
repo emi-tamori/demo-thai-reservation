@@ -149,17 +149,16 @@ const handleMessageEvent = async (ev) => {
     const text = (ev.message.type === 'text') ? ev.message.text : '';
 
     if(text === '予約する'){
-      orderChoice(ev,'');
-      // const nextReservation = await checkNextReservation(ev);
-      // if(!nextReservation.length){
-      //   orderChoice(ev,'');
-      // }
-      // else{
-      //   return client.replyMessage(ev.replyToken,{
-      //     "type":"text",
-      //     "text":"すでに次回予約が入っています><;"
-      //   });
-      // }
+      const nextReservation = await checkNextReservation(ev);
+      if(!nextReservation.length){
+        orderChoice(ev,'');
+      }
+      else{
+        return client.replyMessage(ev.replyToken,{
+          "type":"text",
+          "text":"すでに次回予約が入っています><;"
+        });
+      }
     }
     else if(text === '予約確認'){
       const nextReservation = await checkNextReservation(ev);
@@ -1154,8 +1153,8 @@ const checkNextReservation = (ev) => {
                 });
                 if(filtered.length) nextReservation.push(...filtered);
                 console.log('filtered',filtered);
-                if(index === staff.rows.length-1) resolve(nextReservation);
               }
+              if(index === staff.rows.length-1) resolve(nextReservation);
             })
             .catch(e=>console.log(e));
         });
