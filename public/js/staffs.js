@@ -253,24 +253,30 @@
       const data = new FormData(formElement);
       console.log('Formdata:',...data.entries());
 
-      fetch('/api/staffs',{
-        method: 'POST',
-        body: data,
-        credentials: 'same-origin'
-      })
-      .then(response=>{
-        if(response.ok){
-          response.text()
-            .then(text=>{
-              alert(`${text}`);
-              document.location.reload();
-            })
-            .catch(e=>console.log(e));
-        }
-      })
-      .catch(e=>{
-        throw e;
-      });
+      const check = postCheck(data);
+
+      if(check === 'ok'){
+        fetch('/api/staffs',{
+          method: 'POST',
+          body: data,
+          credentials: 'same-origin'
+        })
+        .then(response=>{
+          if(response.ok){
+            response.text()
+              .then(text=>{
+                alert(`${text}`);
+                document.location.reload();
+              })
+              .catch(e=>console.log(e));
+          }
+        })
+        .catch(e=>{
+          throw e;
+        });
+      }else{
+        alert(check);
+      }
     });
     div_input_mail.appendChild(postButton);
     formElement.appendChild(div_input_staff);
@@ -330,6 +336,30 @@
     console.log
     divElement.innerHTML = '';
     createStaffTable(dateNum);
+  }
+
+  const postCheck = (data) => {
+    const name = data.get('name');
+    const email = data.get('email');
+
+    //未入力チェック
+    for (let value of data.entries()) {
+      if(value[1] === '') return '未入力箇所があります';
+    }
+
+    //名前に半角スペース入れちゃダメチェック
+    if(name.match(/\S/g)){
+      return '名前には半角スペースや改行等は含めることができません';
+    }
+
+    //メルアドは適正かチェック
+    const addressCheck = reg = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/;
+    if(!addressCheck.test(email)){
+      return 'メールアドレスを正しく入力してください'
+    }
+
+    //何も引っ掛からなかったら
+    return 'ok';
   }
 
 })();
