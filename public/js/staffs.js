@@ -240,7 +240,7 @@
     const input_mail = document.createElement('input');
     input_mail.setAttribute('type','text');
     input_mail.setAttribute('class','form-group staff-input');
-    input_mail.setAttribute('name','mail');
+    input_mail.setAttribute('name','email');
     div_input_mail.appendChild(input_mail);
       //スタッフ名登録ボタン（post）
     const postButton = document.createElement('input');
