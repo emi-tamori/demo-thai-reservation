@@ -2,8 +2,12 @@
     const API_URL = 'https://linebot-reservation2.herokuapp.com/api/';
     const HEADERS = ['ID','名前','登録日','Cut','Shampoo','Color','Spa','次回予約'];
     const CLASSES = ['row-id','row-name','row-resist','row-cut','row-shampoo','row-color','row-spa','row-nextrev'];
+    
+    // div要素の取得
+    const divElement = document.getElementById('usersPage');
 
     window.addEventListener('load',()=>{
+        displaySpinner();
         fetchData();
     });
 
@@ -14,6 +18,7 @@
             if(response.ok){
                 const data = await response.json();
                 console.log('data:',data);
+                divElement.innerHTML = '';
                 createTable(data);
             }else{
                 alert('HTTPレスポンスエラーです')
@@ -24,9 +29,25 @@
         }
     }
 
+    //ローディング中スピナー生成
+    const displaySpinner = () => {
+        const divSpinner = document.createElement('div');
+        divSpinner.setAttribute('class','spinner-grow text-primary spinner');
+        divSpinner.setAttribute('role','status');
+        const spanText = document.createElement('span');
+        spanText.setAttribute('class','sr-only');
+        spanText.innerHTML = 'Now Loading...';
+        divSpinner.appendChild(spanText);
+        divElement.appendChild(divSpinner);
+    }
+
     const createTable = (data) => {
-        // div要素の取得
-        const divElement = document.getElementById('usersPage');
+
+        //表題
+        const title = document.createElement('p');
+        title.setAttribute('class','top-font');
+        title.innerHTML = 'お客さま管理ページ';
+        divElement.appendChild(title);
 
         // data.usersを２次元配列の形にする
         const usersData = [];

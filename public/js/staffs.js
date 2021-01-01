@@ -10,6 +10,7 @@
 
   //ページ読み込み時fetch実行
   window.addEventListener('load',()=>{
+    displaySpinner();
     fetchData();
   });
 
@@ -20,12 +21,25 @@
       if(response.ok){
         const data = await response.json();
         STAFFS_DATA = data;
+        // divElement.innerHTML='';
         createStaffTable(0);
       }
     }catch(error){
       console.log('error:',error);
       alert('データ読み込み失敗です');
     }
+  }
+
+  //ローディング中スピナー生成
+  const displaySpinner = () => {
+    const divSpinner = document.createElement('div');
+    divSpinner.setAttribute('class','spinner-grow text-primary spinner');
+    divSpinner.setAttribute('role','status');
+    const spanText = document.createElement('span');
+    spanText.setAttribute('class','sr-only');
+    spanText.innerHTML = 'Now Loading...';
+    divSpinner.appendChild(spanText);
+    divElement.appendChild(divSpinner);
   }
 
   const createStaffTable = (num) => {
