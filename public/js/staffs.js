@@ -240,29 +240,23 @@
     input_staff.setAttribute('type','text');
     input_staff.setAttribute('class','form-control staff-input is-invalid');
     input_staff.setAttribute('name','name');
-
     div_input_staff.appendChild(input_staff);
 
     //メール入力フォーム
     const div_input_mail = document.createElement('div');
-    div_input_mail.setAttribute('class','form-control staff-input-area is-invalid');
+    div_input_mail.setAttribute('class','form-group staff-input-area');
     //メールラベル
     const label_mail = document.createElement('label');
     label_mail.setAttribute('class','label-staff');
     label_mail.innerHTML = 'メール';
     div_input_mail.appendChild(label_mail);
-    //メールアドレス入力欄
-    const div_input_group = document.createElement('div');
-    div_input_group.setAttribute('class','input-group mb3 staff-input');
-
+      //メールアドレス入力欄
     const input_mail = document.createElement('input');
     input_mail.setAttribute('type','text');
-    input_mail.setAttribute('class','form-control');
-    input_mail.setAttribute('aria-label','staff-address');
-    input_mail.setAttribute('aria-describedby',)
+    input_mail.setAttribute('class','form-control staff-input is-invalid');
     input_mail.setAttribute('name','email');
+    div_input_mail.appendChild(input_mail);
     
-    // div_input_mail.appendChild(input_mail);
       //スタッフ名登録ボタン（post）
     const postButton = document.createElement('input');
     postButton.setAttribute('class','btn btn-primary post-button');
