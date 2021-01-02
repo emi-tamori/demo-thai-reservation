@@ -238,7 +238,7 @@
       //スタッフ名入力欄
     const input_staff = document.createElement('input');
     input_staff.setAttribute('type','text');
-    input_staff.setAttribute('class','form-control staff-input is-invalid');
+    input_staff.setAttribute('class','form-group staff-input is-invalid');
     input_staff.setAttribute('name','name');
     div_input_staff.appendChild(input_staff);
 
@@ -253,7 +253,7 @@
       //メールアドレス入力欄
     const input_mail = document.createElement('input');
     input_mail.setAttribute('type','text');
-    input_mail.setAttribute('class','form-control staff-input is-invalid');
+    input_mail.setAttribute('class','form-group staff-input is-invalid');
     input_mail.setAttribute('name','email');
     div_input_mail.appendChild(input_mail);
     
