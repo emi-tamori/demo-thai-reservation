@@ -7,7 +7,6 @@ const router = require('./routers/index');
 const apiRouter = require('./routers/api');
 const multipart = require('connect-multiparty');
 const nodemailer = require('nodemailer');
-const { getMaxListeners } = require('process');
 
 const PORT = process.env.PORT || 5000
 
