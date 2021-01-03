@@ -1,5 +1,5 @@
 (()=>{
-  const API_URL = 'https://linebot-reservation2.herokuapp.com/api/';
+  const API_URL = 'https://linebot-schedule.herokuapp.com/api/';
   const WEEKS = ["日", "月", "火", "水", "木", "金", "土"];
   const REGULAR_CLOSE = [4];
   const ONEHOUR = 60*60*1000;

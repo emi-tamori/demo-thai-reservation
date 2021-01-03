@@ -19,12 +19,6 @@ const REGULAR_COLOSE = [4]; //定休日の曜日
 const FUTURE_LIMIT = 3; //何日先まで予約可能かの上限
 const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
 
-const MAIL = {
-  ken: 'kentaro523@gmail.com',
-  emi: 'kenkenkentaro523@gmail.com',
-  taro: 'kentaro1q81@gmail.com'
-}
-
 const config = {
     channelAccessToken:process.env.ACCESS_TOKEN,
     channelSecret:process.env.CHANNEL_SECRET

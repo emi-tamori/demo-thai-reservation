@@ -1,5 +1,5 @@
 (()=>{
-  const API_URL = 'https://linebot-reservation2.herokuapp.com/api/staffs';
+  const API_URL = 'https://linebot-schedule.herokuapp.com/api/staffs';
   const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
   const OPENTIME = 9; //開店時間
   const CLOSETIME = 19; //閉店時間
