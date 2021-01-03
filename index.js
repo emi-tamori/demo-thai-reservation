@@ -10,12 +10,27 @@ const nodemailer = require('nodemailer');
 
 const PORT = process.env.PORT || 5000
 
-const INITIAL_TREAT = [20,10,40,15,30,15,10];  //施術時間初期値
-const MENU = ['カット','シャンプー','カラーリング','ヘッドスパ','マッサージ＆スパ','眉整え','顔そり'];
+// const INITIAL_TREAT = [20,10,40,15,30,15,10];
+
+const MENU = [
+  {
+    menu: 'タイ式（ストレッチ）',
+    timeAndPrice: [[30,3000],[45,4000],[60,5000],[90,7000],[120,9000]]
+  },
+  {
+    menu: 'タイ式（アロマ）',
+    timeAndPrice: [[45,5000],[60,7000],[90,9000],[120,12000]]
+  },
+  {
+    menu: '足つぼマッサージ',
+    timeAndPrice: [[30,5000],[60,7000],[90,9000],[120,12000]]
+  }
+]
 const WEEK = [ "日", "月", "火", "水", "木", "金", "土" ];
-const OPENTIME = 9; //開店時間
-const CLOSETIME = 19; //閉店時間
-const REGULAR_COLOSE = [4]; //定休日の曜日
+const OPENTIME = 12; //開店時間
+const CLOSETIME = 24; //閉店時間
+const LAST_ORDER = 1; //閉店の何時間前まで予約可能か
+const REGULAR_CLOSE = []; //定休日の曜日
 const FUTURE_LIMIT = 3; //何日先まで予約可能かの上限
 const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
 
@@ -38,7 +53,7 @@ connection.connect();
 
 //ユーザーテーブルの作成
 const create_userTable = {
-  text:'CREATE TABLE IF NOT EXISTS users (id SERIAL NOT NULL, line_uid VARCHAR(255), display_name VARCHAR(255), timestamp VARCHAR(255), cuttime SMALLINT, shampootime SMALLINT, colortime SMALLINT, spatime SMALLINT);'
+  text:'CREATE TABLE IF NOT EXISTS users (id SERIAL NOT NULL, line_uid VARCHAR(100), display_name VARCHAR(50), timestamp BIGINT);'
 };
   
 connection.query(create_userTable)
@@ -59,10 +74,7 @@ for(let i=0; i<NUMBER_OF_SHIFTS; i++){
   }
 }
 //シフトテーブルの生成
-const create_shiftTable = {
-  text: shiftText
-}
-connection.query(create_shiftTable)
+connection.query(shiftText)
   .then(()=>console.log('shifts created successfully!'))
   .catch(e=>console.log(e));
 
@@ -75,45 +87,45 @@ connection.query(create_schema)
   .catch(e=>console.log(e));
 
 app
-    .use(express.static(path.join(__dirname,'public')))
-    .use(multipart())
-    .post('/hook',line.middleware(config),(req,res)=> lineBot(req,res))
-    .use(express.json()) //これが/apiルーティングの前にこないと、ダメ
-    .use(express.urlencoded({extended:true}))　//これが/apiルーティングの前にこないと、ダメ
-    .use('/',router)
-    .use('/api',apiRouter)
-    .set('views', path.join(__dirname, 'views'))
-    .set('view engine', 'ejs')
-    .listen(PORT,()=>console.log(`Listening on ${PORT}`));
+  .use(express.static(path.join(__dirname,'public')))
+  .use(multipart())
+  .post('/hook',line.middleware(config),(req,res)=> lineBot(req,res))
+  .use(express.json()) //これが/apiルーティングの前にこないと、ダメ
+  .use(express.urlencoded({extended:true}))　//これが/apiルーティングの前にこないと、ダメ
+  .use('/',router)
+  .use('/api',apiRouter)
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs')
+  .listen(PORT,()=>console.log(`Listening on ${PORT}`));
 
 const lineBot = (req,res) => {
-    res.status(200).end();
-    const events = req.body.events;
-    const promises = [];
+  res.status(200).end();
+  const events = req.body.events;
+  const promises = [];
 
-    for(let i=0;i<events.length;i++){
-        const ev = events[i];
-        console.log("ev:",ev);
+  for(let i=0;i<events.length;i++){
+    const ev = events[i];
+    console.log("ev:",ev);
 
-        switch(ev.type){
-            case 'follow':
-                promises.push(greeting_follow(ev));
-                break;
-            
-            case 'message':
-                promises.push(handleMessageEvent(ev));
-                break;
-            
-            case 'postback':
-                promises.push(handlePostbackEvent(ev));
-                break;
-        }
+    switch(ev.type){
+      case 'follow':
+        promises.push(greeting_follow(ev));
+        break;
+      
+      case 'message':
+        promises.push(handleMessageEvent(ev));
+        break;
+      
+      case 'postback':
+        promises.push(handlePostbackEvent(ev));
+        break;
     }
+  }
 
-    Promise
-        .all(promises)
-        .then(console.log('all promises passed'))
-        .catch(e=>console.error(e.stack));
+  Promise
+    .all(promises)
+    .then(console.log('all promises passed'))
+    .catch(e=>console.error(e.stack));
 }
 
 const greeting_follow = async (ev) => {
@@ -141,8 +153,9 @@ const handleMessageEvent = async (ev) => {
     const profile = await client.getProfile(ev.source.userId);
     const text = (ev.message.type === 'text') ? ev.message.text : '';
 
-    if(text === '予約する'){
+    if(text === '予約'){
       const nextReservation = await checkNextReservation(ev);
+      console.log('次の予約',nextReservation);
       if(!nextReservation.length){
         orderChoice(ev,'');
       }
@@ -305,7 +318,7 @@ const handlePostbackEvent = async (ev) => {
       //選択日が過去でないことの判定
       if(targetDate>=today){
         const targetDay = new Date(`${selectedDate}`).getDay();
-        const dayCheck = REGULAR_COLOSE.some(day => day === targetDay);
+        const dayCheck = REGULAR_CLOSE.some(day => day === targetDay);
         //定休日でないことの判定
         if(!dayCheck){
           const futureLimit = today + FUTURE_LIMIT*24*60*60*1000;
