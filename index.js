@@ -551,7 +551,8 @@ const orderChoice = (ev) => {
         "contents": [
           {
             "type": "text",
-            "text": "メニューをお選びください。"
+            "text": "メニューをお選びください",
+            "size": "lg"
           },
           {
             "type": "separator"
@@ -572,6 +573,26 @@ const orderChoice = (ev) => {
             "style": "primary",
             "margin": "md",
             "adjustMode": "shrink-to-fit"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": "action",
+              "data": "hello"
+            },
+            "style": "primary",
+            "margin": "md"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": "action",
+              "data": "hello"
+            },
+            "margin": "md",
+            "style": "primary"
           }
         ]
       }
