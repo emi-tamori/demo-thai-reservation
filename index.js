@@ -570,7 +570,7 @@ const confirmation = (ev,menu,time,date,timeZone) => {
         //スタッフ人数分のreservableArrayを取得
         const reservableArray = [];
         for(let i=0; i<res.rows.length; i++){
-          const staff_reservable = await checkReservable(ev,menu,date,res.rows[i]);
+          const staff_reservable = await checkReservable(ev,menu,time,date,res.rows[i]);
           reservableArray.push(staff_reservable);
         }
         // console.log('reservableArray=',reservableArray);
