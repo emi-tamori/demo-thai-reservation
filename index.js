@@ -410,27 +410,17 @@ const handlePostbackEvent = async (ev) => {
     }
     
     else if(splitData[0] === 'yes'){
-        const orderedMenu = splitData[1];
-        const selectedDate = splitData[2];
-        const fixedTime = parseInt(splitData[3]);
-        const staffName = splitData[4];
+        const orderedMenu = parseInt(splitData[1]);
+        const selectedTime = parseInt(splitData[2]);
+        const selectedDate = splitData[3];
+        const fixedTime = parseInt(splitData[4]);
+        const staffName = splitData[5];
        
         //施術時間の取得
-        const treatTime = await calcTreatTime(ev.source.userId,orderedMenu);
+        const treatTime = MENU[orderedMenu].timeAndPrice[selectedTime][0];
 
         //予約日時の表記取得
         const date = dateConversion(fixedTime);
-
-        //メニュー表記の取得
-        const menuArray = orderedMenu.split('%');
-        let menu = '';
-        menuArray.forEach((value,index) => {
-          if(index !== 0){
-            menu += ',' + MENU[parseInt(value)];
-          }else{
-            menu += MENU[parseInt(value)];
-          }
-        })
 
         //予約完了時間の計算
         const endTime = fixedTime + treatTime*60*1000;
@@ -452,17 +442,17 @@ const handlePostbackEvent = async (ev) => {
               }
               if(!check){
                 const insertQuery = {
-                  text:`INSERT INTO reservations.${staffName} (line_uid, name, scheduledate, starttime, endtime, menu, staff) VALUES($1,$2,$3,$4,$5,$6,$7);`,
-                  values:[ev.source.userId,profile.displayName,selectedDate,fixedTime,endTime,orderedMenu,staffName]
+                  text:`INSERT INTO reservations.${staffName} (line_uid, name, scheduledate, starttime, endtime, menu, treattime, staff) VALUES($1,$2,$3,$4,$5,$6,$7,$8);`,
+                  values:[ev.source.userId,profile.displayName,selectedDate,fixedTime,endTime,orderedMenu,selectedTime,staffName]
                 };
                 connection.query(insertQuery)
                   .then(res=>{
                     console.log('データ格納成功！');
                     client.replyMessage(ev.replyToken,{
                       "type":"text",
-                      "text":`${date}に${menu}で予約をお取りしたました（スタッフ：${staffName}）`
+                      "text":`${date}に${MENU[orderedMenu].menu}で予約をお取りしたました（スタッフ：${staffName}）`
                     });
-                    gmailSend(staffName,date,menu)
+                    gmailSend(staffName,date,MENU[orderedMenu].menu)
                       .then(message=>{console.log(message)})
                       .catch(e=>console.log(e));
                   })
@@ -477,21 +467,6 @@ const handlePostbackEvent = async (ev) => {
               console.log('スタッフデータが１件もありません');
             }
           })
-    }
-    
-    else if(splitData[0] === 'no'){
-      const orderedMenu = splitData[1];
-      const selectedDate = splitData[2];
-      const selectedTime = splitData[3];
-      const num = parseInt(splitData[4]);
-      if(num === -1){
-        return client.replyMessage(ev.replyToken,{
-          "type":"text",
-          "text":"申し訳ありません。この時間帯には予約可能な時間がありません><;"
-        });
-      }else{
-        confirmation(ev,orderedMenu,selectedDate,selectedTime,num);
-      }
     }
     
     else if(splitData[0] === 'delete'){
