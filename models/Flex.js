@@ -13,6 +13,23 @@ const MENU = [
   }
 ]
 
+const WEEK = [ "日", "月", "火", "水", "木", "金", "土" ];
+
+const createDateOptions = (stampArray) => {
+  const options = [];
+  stampArray.forEach(stamp=>{
+    const year = new Date(stamp).getFullYear();
+    const month = new Date(stamp).getMonth()+1;
+    const date = new Date(stamp).getDate();
+    const week = WEEK[new Date(stamp).getDay()];
+    const hour = new Date(stamp).getHours();
+    const minutes = ('0'+new Date(stamp).getMinutes()).slice(-2);
+    const text = `${year}/${month}/${date}(${week}) ${hour}:${minutes}〜`;
+    options.push(text);
+  });
+  return options;
+}
+
 module.exports = {
 
   //メニュー選択メッセージ
@@ -591,5 +608,136 @@ module.exports = {
       }
     }
     return askTimeMessage;
+  },
+
+  makeProposal: (menu,time,date,candidates,staffName) => {
+    const numberOfProposal = candidates.length;
+    const options = createDateOptions(candidates);
+    //numberOfProposalの最大値は２であることを想定している
+    if(numberOfProposal === 2){
+      const proposalMessage = {
+        "type":"flex",
+        "altText":"来店希望日時選択",
+        "contents":
+        {
+          "type": "bubble",
+          "header": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "希望時間をお選びください",
+                "size": "lg"
+              }
+            ]
+          },
+          "hero": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": `${MENU[menu].menu} ${MENU[menu].timeAndPrice[time][0]}分`,
+                "align": "center",
+                "adjustMode": "shrink-to-fit",
+                "size": "md",
+                // "wrap": true
+              },
+              {
+                "type": "separator",
+                "margin": "sm"
+              }
+            ]
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "button",
+                "action": {
+                  "type": "postback",
+                  "label": `${options[0]}`,
+                  "data": `yes&${menu}&${time}&${date}&${candidates[0]}&${staffName}`
+                },
+                "style": "primary",
+                "margin": "md"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "postback",
+                  "label": `${options[1]}`,
+                  "data": `yes&${menu}&${time}&${date}&${candidates[1]}&${staffName}`
+                },
+                "style": "primary",
+                "margin": "md"
+              }
+            ]
+          }
+        }
+      }
+      return proposalMessage;
+    }
+    
+    //candidates.length=1の時
+    else
+    {
+      const proposalMessage = {
+        "type":"flex",
+        "altText":"来店希望日時選択",
+        "contents":
+        {
+          "type": "bubble",
+          "header": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "希望時間をお選びください",
+                "size": "lg"
+              }
+            ]
+          },
+          "hero": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": `${MENU[menu].menu} ${MENU[menu].timeAndPrice[time][0]}分`,
+                "align": "center",
+                "adjustMode": "shrink-to-fit",
+                "size": "md",
+                // "wrap": true
+              },
+              {
+                "type": "separator",
+                "margin": "sm"
+              }
+            ]
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "button",
+                "action": {
+                  "type": "postback",
+                  "label": `${options[0]}`,
+                  "data": `yes&${menu}&${time}&${date}&${candidates[0]}&${staffName}`
+                },
+                "style": "primary",
+                "margin": "md"
+              }
+            ]
+          }
+        }
+      }
+      return proposalMessage;
+    }
   }
 }

@@ -394,7 +394,7 @@ const handlePostbackEvent = async (ev) => {
           const nowTime = new Date().getTime();
           console.log('nowTime:',nowTime);
           if(targetDateTime>nowTime){
-            confirmation(ev,orderedMenu,selectedTime,selectedDate,selectedTimeZone);
+            timeProposal(ev,orderedMenu,selectedTime,selectedDate,selectedTimeZone);
           }else{
             return client.replyMessage(ev.replyToken,{
               "type":"text",
@@ -552,7 +552,7 @@ const calcTreatTime = (id,menu) => {
   });
 }
 
-const confirmation = (ev,menu,time,date,timeZone) => {
+const timeProposal = (ev,menu,time,date,timeZone) => {
 
   //シフトデータの取得
   const select_query = {
@@ -605,6 +605,9 @@ const confirmation = (ev,menu,time,date,timeZone) => {
 
         const candidates = targets[staffNumber];
         console.log('candidates=',candidates);
+
+        const flexMessage = Flex.makeProposal(menu,time,date,candidates,staffName);
+        return client.replyMessage(ev.replyToken,flexMessage);
 
         // const n_dash = (n>=candidates.length-1) ? -1 : n+1;
         // console.log('n_dash:',n_dash);
