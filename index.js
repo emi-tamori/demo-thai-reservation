@@ -287,9 +287,9 @@ const handlePostbackEvent = async (ev) => {
 
     if(splitData[0] === 'menu'){
         const selected = splitData[1];
-        timeChoice(ev,selected);
-        const type = Flex.makeTimeChoice();
-        console.log('type',type);
+        const flex = Flex.makeTimeChoice();
+        console.log('flex',flex);
+        timeChoice(ev,flex);
     }
 
     else if(splitData[0] === 'end'){
@@ -605,11 +605,8 @@ const menuChoice = (ev) => {
   );
 }
 
-const timeChoice = (ev,menu) => {
-  return client.replyMessage(ev.replyToken,{
-    "type":"text",
-    "text":`選んだメニューは${menu}です。`
-  });
+const timeChoice = (ev,flex) => {
+  return client.replyMessage(ev.replyToken,flex);
 }
 
 const askDate = (ev,orderedMenu) => {

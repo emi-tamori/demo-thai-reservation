@@ -1,6 +1,6 @@
 module.exports = {
   makeTimeChoice: ()=> {
-    const jsonText = [{
+    const jsonText = {
       "type":"flex",
       "altText":"メニュー選択",
       "contents":
@@ -60,9 +60,7 @@ module.exports = {
           ]
         }
       }
-    }];
-    const to_object = JSON.parse(jsonText);
-    console.log('obj',to_object[0].type,to_object[0].altText);
-    return to_object[0].type;
+    };
+    return jsonText;
   }
 }
