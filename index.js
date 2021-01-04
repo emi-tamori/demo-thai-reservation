@@ -157,7 +157,7 @@ const handleMessageEvent = async (ev) => {
       const nextReservation = await checkNextReservation(ev);
       console.log('次の予約',nextReservation);
       if(!nextReservation.length){
-        orderChoice(ev);
+        menuChoice(ev);
       }
       else{
         return client.replyMessage(ev.replyToken,{
@@ -285,10 +285,8 @@ const handlePostbackEvent = async (ev) => {
     const splitData = data.split('&');
 
     if(splitData[0] === 'menu'){
-        const ordered = splitData[1];
-        const newOrdered = splitData[2];
-        const orderedMenu = ordered ? ordered + '%' + newOrdered : newOrdered;
-        orderChoice(ev,orderedMenu);
+        const selected = splitData[1];
+        timeChoice(ev,selected);
     }
 
     else if(splitData[0] === 'end'){
@@ -538,7 +536,7 @@ const calcTreatTime = (id,menu) => {
   });
 }
 
-const orderChoice = (ev) => {
+const menuChoice = (ev) => {
   return client.replyMessage(ev.replyToken,{
     "type":"flex",
     "altText":"メニュー選択",
@@ -599,6 +597,13 @@ const orderChoice = (ev) => {
         ]
       }
     }
+  });
+}
+
+const timeChoice = (ev,menu) => {
+  return client.replyMessage(ev.replyToken,{
+    "type":"text",
+    "text":`選んだメニューは${menu}です。`
   });
 }
 
