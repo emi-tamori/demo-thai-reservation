@@ -62,7 +62,7 @@ module.exports = {
       }
     }];
     const to_object = JSON.parse(jsonText);
-    console.log('obj',to_object.type,to_object.altText);
-    return to_object.type;
+    console.log('obj',to_object[0].type,to_object[0].altText);
+    return to_object[0].type;
   }
 }
