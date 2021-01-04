@@ -176,6 +176,7 @@ module.exports = {
           }
         }
       }
+      return menuChoice;
     }
   }
 }
