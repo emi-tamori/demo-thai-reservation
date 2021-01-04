@@ -387,5 +387,209 @@ module.exports = {
       }
     }
     return dateChoice;
+  },
+
+  //希望時間帯メッセージ
+  askTime: (menu,time,date,color,timeArray) => {
+    const askTimeMessage = {
+      "type":"flex",
+      "altText":"予約日選択",
+      "contents":
+      {
+        "type": "bubble",
+        "header": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+            "type": "text",
+            "text": `${date}`,
+            "weight": "bold",
+            "size": "lg",
+            "align": "center"
+            }
+          ]
+        },
+        "hero": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "text": "ご希望の時間帯を選択してください(緑＝予約可能)",
+              "align": "center",
+              "wrap":true,
+              "size":"lg"
+            }
+          ]
+        },
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "12時-",
+                    "data": `time&${menu}&${time}&${date}&${timeArray[0]}`
+                  },
+                  "style": "primary",
+                  "color": `${color[0]}`,
+                  "margin": "md"
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "13時-",
+                    "data": `time&${menu}&${time}&${date}&${timeArray[1]}`
+                  },
+                  "style": "primary",
+                  "color": `${color[1]}`,
+                  "margin": "md"
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "14時-",
+                    "data": `time&${menu}&${time}&${date}&${timeArray[2]}`
+                  },
+                  "style": "primary",
+                  "color": `${color[2]}`,
+                  "margin": "md"
+                }
+              ]
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "15時-",
+                    "data": `time&${menu}&${time}&${date}&${timeArray[3]}`
+                  },
+                  "style": "primary",
+                  "color": `${color[3]}`,
+                  "margin": "md"
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "16時-",
+                    "data": `time&${menu}&${time}&${date}&${timeArray[4]}`
+                  },
+                  "style": "primary",
+                  "color": `${color[4]}`,
+                  "margin": "md"
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "17時-",
+                    "data": `time&${menu}&${time}&${date}&${timeArray[5]}`
+                  },
+                  "style": "primary",
+                  "color": `${color[5]}`,
+                  "margin": "md"
+                }
+              ],
+              "margin": "md"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "18時-",
+                    "data": `time&${menu}&${time}&${date}&${timeArray[6]}`
+                  },
+                  "style": "primary",
+                  "color": `${color[6]}`,
+                  "margin": "md"
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "19時-",
+                    "data": `time&${menu}&${time}&${date}&${timeArray[7]}`
+                  },
+                  "style": "primary",
+                  "color": `${color[7]}`,
+                  "margin": "md"
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "20時-",
+                    "data": `time&${menu}&${time}&${date}&${timeArray[8]}`
+                  },
+                  "style": "primary",
+                  "color": `${color[8]}`,
+                  "margin": "md"
+                }
+              ],
+              "margin": "md"
+            },
+            {
+              "type": "box",
+              "layout": "horizontal",
+              "contents": [
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "21時-",
+                    "data": `time&${menu}&${time}&${date}&${timeArray[9]}`
+                  },
+                  "style": "primary",
+                  "color": `${color[9]}`,
+                  "margin": "md"
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "22時-",
+                    "data": `time&${menu}&${time}&${date}&${timeArray[10]}`
+                  },
+                  "style": "primary",
+                  "color": `${color[10]}`,
+                  "margin": "md"
+                },
+                {
+                  "type": "button",
+                  "action": {
+                    "type": "postback",
+                    "label": "23時-",
+                    "data": `time&${menu}&${time}&${date}&${timeArray[11]}`
+                  },
+                  "style": "primary",
+                  "color": `${color[11]}`,
+                  "margin": "md"
+                }
+              ],
+              "margin": "md"
+            }
+          ]
+        }
+      }
+    }
+    return askTimeMessage;
   }
 }

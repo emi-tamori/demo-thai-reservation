@@ -335,8 +335,26 @@ const handlePostbackEvent = async (ev) => {
                     reservableArray.push(staff_reservable);
                   }
                   console.log('reservableArray:',reservableArray);
+                  const time = [];
+                  const color = [];
 
-                  // askTime(ev,orderedMenu,selectedTime,selectedDate,reservableArray);
+                  //予約可能時間帯とボタン色配列を生成
+                  for(let i=0; i<CLOSETIME-OPENTIME; i++){
+                    let count = 0;
+                    for(let j=0; j<reservableArray.length; j++){
+                      if(reservableArray[j][i].length) count++;
+                    }
+                    if(count>0){
+                      time.push(i);
+                      color.push('#00AA00');
+                    }else{
+                      time.push(-1);
+                      color.push('#FF0000');
+                    }
+                  }
+
+                  const flexMessage = Flex.askTime(orderedMenu,selectedTime,selectedDate,time,color);
+                  return client.replyMessage(ev.replyToken,flexMessage);
                 }else{
                   console.log('登録されたスタッフがいません');
                 }
@@ -553,7 +571,8 @@ const askTime = (ev,orderedMenu,selectedTime,selectedDate,reservableArray) => {
     }
   }
 
-  return client.replyMessage(ev.replyToken,{
+  return client.replyMessage(ev.replyToken,
+    {
       "type":"flex",
       "altText":"予約日選択",
       "contents":
@@ -751,7 +770,8 @@ const askTime = (ev,orderedMenu,selectedTime,selectedDate,reservableArray) => {
             ]
           }
         }       
-  });
+  }
+  );
 }
 
 const confirmation = async (ev,menu,date,time,n) => {
