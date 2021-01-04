@@ -567,8 +567,8 @@ const orderChoice = (ev) => {
             "type": "button",
             "action": {
               "type": "postback",
-              "label": "タイ式（ストレッチ）",
-              "data": "hello"
+              "label": `${MENU[0].menu}`,
+              "data": "menu&0"
             },
             "style": "primary",
             "margin": "md",
@@ -578,21 +578,23 @@ const orderChoice = (ev) => {
             "type": "button",
             "action": {
               "type": "postback",
-              "label": "action",
-              "data": "hello"
+              "label": `${MENU[1].menu}`,
+              "data": "menu&1"
             },
             "style": "primary",
-            "margin": "md"
+            "margin": "md",
+            "adjustMode": "shrink-to-fit"
           },
           {
             "type": "button",
             "action": {
               "type": "postback",
-              "label": "action",
-              "data": "hello"
+              "label": `${MENU[2].menu}`,
+              "data": "menu&2"
             },
             "margin": "md",
-            "style": "primary"
+            "style": "primary",
+            "adjustMode": "shrink-to-fit"
           }
         ]
       }
