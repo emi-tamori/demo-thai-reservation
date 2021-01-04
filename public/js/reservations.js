@@ -539,7 +539,7 @@
 
       const label = document.createElement('label');
       label.htmlFor = `check-${MENU_E[index]}`;
-      label.innerHTML = menu;
+      label.innerHTML = menu.menu;
       div_form_menu.appendChild(check);
       div_form_menu.appendChild(label);
       formElement.appendChild(div_form_menu);
