@@ -7,8 +7,22 @@
   const ONEWEEK = ONEDAY*7;
   const OPENTIME = 12;
   const CLOSETIME = 24;
-  const MENU = ['カット','シャンプー','カラーリング','ヘッドスパ','マッサージ＆スパ','眉整え','顔そり'];
-  const MENU_E = ['cut','shampoo','color','headspa','m&s','eyeblow','shaving'];
+  const MENU = [
+    {
+      menu: 'タイ式（ストレッチ）',
+      timeAndPrice: [[30,3000],[45,4000],[60,5000],[90,7000],[120,9000]]
+    },
+    {
+      menu: 'タイ式（アロマ）',
+      timeAndPrice: [[45,5000],[60,7000],[90,9000],[120,12000]]
+    },
+    {
+      menu: '足つぼマッサージ',
+      timeAndPrice: [[30,3000],[60,5000]]
+    }
+  ]
+  // const MENU = ['カット','シャンプー','カラーリング','ヘッドスパ','マッサージ＆スパ','眉整え','顔そり'];
+  const MENU_E = ['stretch','aroma','foot'];
   
   //大元のdiv要素取得
   const divElement = document.getElementById('reservationsPage');
@@ -270,6 +284,7 @@
     return dataDisplay;
   }
 
+  //予約データカードの表示
   const createReservationCard = (info,staffs) =>{
 
     //グリッドシステム
@@ -509,8 +524,9 @@
 
     formElement.appendChild(div_form_time);
 
-    //メニュー選択
-    const menus = info.menu.split('%');
+    //選択メニュー選択
+    const menuNumber = info.menu;
+
     MENU.forEach((menu,index)=>{
       const div_form_menu = document.createElement('div');
       div_form_menu.setAttribute('class','menu-checkbox');
@@ -519,9 +535,8 @@
       check.type = 'checkbox';
       check.name = MENU_E[index];
       check.value= MENU_E[index];
-      menus.forEach(menuNumber=>{
-        if(parseInt(menuNumber) === index) check.checked = true;
-      });
+      if(menuNumber === index) check.checked = true;
+
       const label = document.createElement('label');
       label.htmlFor = `check-${MENU_E[index]}`;
       label.innerHTML = menu;

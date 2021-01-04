@@ -253,7 +253,7 @@ body {
 }
 .table-header{
     width:12vw;
-    height:4vw;
+    height:2.5vw;
     background:rgb(69, 69, 173);
     color:white;
     text-align:center;
@@ -362,7 +362,7 @@ body {
 
 .table-element{
     width:12vw;
-    height:4vw;
+    height:2.5vw;
     border: solid 0.1vw rgb(128, 125, 125);
     font-size:0.7rem;
     text-align: left;
@@ -490,5 +490,5 @@ body {
 
 .spinner{
     position: relative;
-    top: 45vh;
+    top: 30vh;
 }
