@@ -11,8 +11,6 @@ const Flex = require('./models/Flex');
 
 const PORT = process.env.PORT || 5000
 
-// const INITIAL_TREAT = [20,10,40,15,30,15,10];
-
 const MENU = [
   {
     menu: 'タイ式（ストレッチ）',
@@ -52,9 +50,9 @@ const connection = new Client({
 
 connection.connect();
 
-//ユーザーテーブルの作成
+//お客さまテーブルの作成
 const create_userTable = {
-  text:'CREATE TABLE IF NOT EXISTS users (id SERIAL NOT NULL, line_uid VARCHAR(100), display_name VARCHAR(50), timestamp BIGINT);'
+  text:'CREATE TABLE IF NOT EXISTS users (id SERIAL NOT NULL, line_uid VARCHAR(100), display_name VARCHAR(50), timestamp BIGINT, visits SMALLINT);'
 };
   
 connection.query(create_userTable)
@@ -133,8 +131,8 @@ const greeting_follow = async (ev) => {
     const profile = await client.getProfile(ev.source.userId);
 
     const table_insert = {
-        text:'INSERT INTO users (line_uid,display_name,timestamp,cuttime,shampootime,colortime,spatime) VALUES($1,$2,$3,$4,$5,$6,$7);',
-        values:[ev.source.userId,profile.displayName,ev.timestamp,INITIAL_TREAT[0],INITIAL_TREAT[1],INITIAL_TREAT[2],INITIAL_TREAT[3]]
+        text:'INSERT INTO users (line_uid,display_name,timestamp,visits) VALUES($1,$2,$3,$4);',
+        values:[ev.source.userId,profile.displayName,ev.timestamp,0]
       };
 
     connection.query(table_insert)
