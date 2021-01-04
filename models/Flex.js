@@ -390,10 +390,10 @@ module.exports = {
   },
 
   //希望時間帯メッセージ
-  askTime: (menu,time,date,color,timeArray) => {
+  askTime: (menu,time,date,timeArray,color) => {
     const askTimeMessage = {
       "type":"flex",
-      "altText":"予約日選択",
+      "altText":"予約時間帯選択",
       "contents":
       {
         "type": "bubble",
