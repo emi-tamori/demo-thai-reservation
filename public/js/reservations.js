@@ -308,7 +308,9 @@
     span_close.innerHTML = '<i class="far fa-times-circle"></i>';
     span_close.setAttribute('class','close-icon');
     span_close.addEventListener('click',()=>{
-      divCard.style.display = 'none';
+      // divCard.style.display = 'none';
+      divRow.innerHTML = '';
+      divCard.innerHTML = '';
     });
     divHeader.appendChild(span_id);
     divHeader.appendChild(span_close);
