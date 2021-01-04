@@ -60,7 +60,7 @@ module.exports = {
           ]
         }
       }
-    };
+    }
     const toObj = JSON.parse(jsonText);
     console.log(toObj);
     console.log('obj',toObj.type);
