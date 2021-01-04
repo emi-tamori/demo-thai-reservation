@@ -534,7 +534,7 @@
       //ラジオボタン
       const radio = document.createElement('input');
       radio.setAttribute('class','form-check-input');
-      radio.setAttribute('id',`check-${MENU_E[index]}`);
+      radio.setAttribute('id',`check-${MENU_E[index]}-${info.staff}&${info.id}`);
       radio.type = 'radio';
       radio.name = 'menu';
       radio.value = MENU_E[index];
@@ -543,7 +543,7 @@
       //ラベル
       const label = document.createElement('label');
       label.setAttribute('class','form-check-label');
-      label.htmlFor = `check-${MENU_E[index]}`;
+      label.htmlFor = `check-${MENU_E[index]}-${info.staff}&${info.id}`;
       label.innerHTML = menu.menu;
       div_form_menu.appendChild(radio);
       div_form_menu.appendChild(label);
