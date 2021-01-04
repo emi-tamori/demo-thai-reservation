@@ -28,7 +28,7 @@ module.exports = {
               "type": "button",
               "action": {
                 "type": "postback",
-                "label": `${MENU[0].menu}`,
+                "label": "メニュー１",
                 "data": "menu&0"
               },
               "style": "primary",
@@ -39,7 +39,7 @@ module.exports = {
               "type": "button",
               "action": {
                 "type": "postback",
-                "label": `${MENU[1].menu}`,
+                "label": "メニュー２",
                 "data": "menu&1"
               },
               "style": "primary",
@@ -50,7 +50,7 @@ module.exports = {
               "type": "button",
               "action": {
                 "type": "postback",
-                "label": `${MENU[2].menu}`,
+                "label": "メニュー3",
                 "data": "menu&2"
               },
               "margin": "md",
