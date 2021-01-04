@@ -5,8 +5,8 @@
   const ONEHOUR = 60*60*1000;
   const ONEDAY = 24*ONEHOUR;
   const ONEWEEK = ONEDAY*7;
-  const OPENTIME = 9;
-  const CLOSETIME = 19;
+  const OPENTIME = 12;
+  const CLOSETIME = 24;
   const MENU = ['カット','シャンプー','カラーリング','ヘッドスパ','マッサージ＆スパ','眉整え','顔そり'];
   const MENU_E = ['cut','shampoo','color','headspa','m&s','eyeblow','shaving'];
   

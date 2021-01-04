@@ -1,8 +1,8 @@
 (()=>{
   const API_URL = 'https://linebot-schedule.herokuapp.com/api/staffs';
   const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
-  const OPENTIME = 9; //開店時間
-  const CLOSETIME = 19; //閉店時間
+  const OPENTIME = 12; //開店時間
+  const CLOSETIME = 24; //閉店時間
   let STAFFS_DATA; //スタッフシフトデータ格納用
 
   //HTML要素の読み込み
