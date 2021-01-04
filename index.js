@@ -541,84 +541,79 @@ const calcTreatTime = (id,menu) => {
 const orderChoice = (ev) => {
 
   return client.replyMessage(ev.replyToken,{
-    "type":"text",
-    "text":"テスト送信"
+    "type":"flex",
+    "altText":"Menu-Select",
+    "contens":
+    {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "メニューをお選びください。",
+            // "size": "md"
+          },
+          {
+            "type": "separator"
+          }
+        ]
+      },
+      "hero": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "基本施術メニュー",
+            "size": "md",
+            "align": "center",
+            "wrap": true
+          }
+        ]
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": "タイ式（ストレッチ）",
+              "data": "hello"
+            },
+            "style": "primary",
+            "margin": "md",
+            "adjustMode": "shrink-to-fit"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": "action",
+              "data": "hello"
+            },
+            "style": "primary",
+            "margin": "md",
+            "adjustMode": "shrink-to-fit"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": "action",
+              "data": "hello"
+            },
+            "style": "primary",
+            "margin": "md",
+            "adjustMode": "shrink-to-fit"
+          }
+        ]
+      }
+    }
   });
-
-  // return client.replyMessage(ev.replyToken,{
-  //   "type":"flex",
-  //   "altText":"Menu-Select",
-  //   "contens":
-  //   {
-  //     "type": "bubble",
-  //     "header": {
-  //       "type": "box",
-  //       "layout": "vertical",
-  //       "contents": [
-  //         {
-  //           "type": "text",
-  //           "text": "メニューをお選びください。",
-  //           "size": "md"
-  //         },
-  //         {
-  //           "type": "separator"
-  //         }
-  //       ]
-  //     },
-  //     "hero": {
-  //       "type": "box",
-  //       "layout": "vertical",
-  //       "contents": [
-  //         {
-  //           "type": "text",
-  //           "text": "基本施術メニュー",
-  //           "size": "md",
-  //           "align": "center",
-  //           "wrap": true
-  //         }
-  //       ]
-  //     },
-  //     "body": {
-  //       "type": "box",
-  //       "layout": "vertical",
-  //       "contents": [
-  //         {
-  //           "type": "button",
-  //           "action": {
-  //             "type": "postback",
-  //             "label": "タイ式（ストレッチ）",
-  //             "data": "hello"
-  //           },
-  //           "style": "primary",
-  //           "margin": "md",
-  //           "adjustMode": "shrink-to-fit"
-  //         },
-  //         {
-  //           "type": "button",
-  //           "action": {
-  //             "type": "postback",
-  //             "label": "action",
-  //             "data": "hello"
-  //           },
-  //           "style": "primary",
-  //           "margin": "md",
-  //           "adjustMode": "shrink-to-fit"
-  //         },
-  //         {
-  //           "type": "button",
-  //           "action": {
-  //             "type": "postback",
-  //             "label": "action",
-  //             "data": "hello"
-  //           },
-  //           "style": "primary",
-  //           "margin": "md",
-  //           "adjustMode": "shrink-to-fit"
-  //         }
-  //       ]
-  //     }
-  //   }
-  // });
 }
 
 const askDate = (ev,orderedMenu) => {
