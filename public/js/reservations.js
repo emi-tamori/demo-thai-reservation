@@ -21,7 +21,6 @@
       timeAndPrice: [[30,3000],[60,5000]]
     }
   ]
-  // const MENU = ['カット','シャンプー','カラーリング','ヘッドスパ','マッサージ＆スパ','眉整え','顔そり'];
   const MENU_E = ['stretch','aroma','foot'];
   
   //大元のdiv要素取得
@@ -552,23 +551,30 @@
       formElement.appendChild(div_form_menu);
     });
 
-    // MENU.forEach((menu,index)=>{
-    //   const div_form_menu = document.createElement('div');
-    //   div_form_menu.setAttribute('class','menu-checkbox');
-    //   const check = document.createElement('input');
-    //   check.setAttribute('id',`check-${MENU_E[index]}`);
-    //   check.type = 'checkbox';
-    //   check.name = MENU_E[index];
-    //   check.value= MENU_E[index];
-    //   if(menuNumber === index) check.checked = true;
+    //施術時間の選択
+    const div_form_treat = document.createElement('div');
+    div_form_treat.setAttribute('class','form-group form-inline div-treat');
 
-    //   const label = document.createElement('label');
-    //   label.htmlFor = `check-${MENU_E[index]}`;
-    //   label.innerHTML = menu.menu;
-    //   div_form_menu.appendChild(check);
-    //   div_form_menu.appendChild(label);
-    //   formElement.appendChild(div_form_menu);
-    // });
+    //施術時間ラベル
+    const label_treat = document.createElement('label');
+    label_treat.innerHTML = '施術時間';
+    div_form_treat.appendChild(label_treat);
+
+    //施術時間 Select
+    const select_treat = document.createElement('select');
+    select_treat.setAttribute('class','form-control treattime-selector');
+    select_treat.name = 'treattime';
+    const treatArray = MENU[menuNumber].timeAndPrice;
+
+    treatArray.forEach((array,index)=>{
+      const option = document.createElement('option');
+      option.innerHTML = array[0]+'分';
+      option.value = index;
+      select_treat.appendChild(option);
+    });
+    select_treat.selectedIndex = info.id === 'new' ? -1 : info.treattime;
+    div_form_treat.appendChild(select_treat);
+    formElement.appendChild(div_form_treat);
 
     //フッターの作成
     const divFooter = document.createElement('div');
