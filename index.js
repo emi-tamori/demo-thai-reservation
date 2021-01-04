@@ -168,6 +168,7 @@ const handleMessageEvent = async (ev) => {
         });
       }
     }
+
     else if(text === '予約確認'){
       const nextReservation = await checkNextReservation(ev);
       console.log('nextRev in confirm',nextReservation);
@@ -182,15 +183,8 @@ const handleMessageEvent = async (ev) => {
         const date = dateConversion(startTimestamp);
 
         //メニュー表記の取得
-        const menuArray = nextReservation[0].menu.split('%');
-        let menu = '';
-        menuArray.forEach((value,index) => {
-          if(index !== 0){
-            menu += ',' + MENU[parseInt(value)];
-          }else{
-            menu += MENU[parseInt(value)];
-          }
-        });
+        const menuNumber = nextReservation[0].menu;
+        const menu = MENU[menuNumber].menu;
 
         return client.replyMessage(ev.replyToken,{
           "type":"text",
@@ -216,54 +210,16 @@ const handleMessageEvent = async (ev) => {
         const date = dateConversion(startTimestamp);
 
         //メニュー表記の取得
-        const menuArray = nextReservation[0].menu.split('%');
-        let menu = '';
-        menuArray.forEach((value,index) => {
-          if(index !== 0){
-            menu += ',' + MENU[parseInt(value)];
-          }else{
-            menu += MENU[parseInt(value)];
-          }
-        });
+        const menuNumber = nextReservation[0].menu;
+        const menu = MENU[menuNumber].menu;
 
         //削除対象予約特定用パラメータ
         const id = nextReservation[0].id;
         const staff = nextReservation[0].staff;
 
-        return client.replyMessage(ev.replyToken,{
-          "type":"flex",
-          "altText": "cancel message",
-          "contents":
-          {
-            "type": "bubble",
-            "body": {
-              "type": "box",
-              "layout": "vertical",
-              "contents": [
-                {
-                  "type": "text",
-                  "text": `次回の予約は${date}から${treatTime}分間、${menu}でおとりしてます。この予約をキャンセルしますか？`,
-                  "size": "lg",
-                  "wrap": true
-                }
-              ]
-            },
-            "footer": {
-              "type": "box",
-              "layout": "horizontal",
-              "contents": [
-                {
-                  "type": "button",
-                  "action": {
-                    "type": "postback",
-                    "label": "予約をキャンセルする",
-                    "data": `delete&${staff}&${id}`
-                  }
-                }
-              ]
-            }
-          }
-        });
+        //削除用フレックスメッセージ生成
+        const flexMessage = Flex.makaDeleteMessage(date,treatTime,menu,staff,id);
+        return client.replyMessage(ev.replyToken,flexMessage);
       }   
       else{
         return client.replyMessage(ev.replyToken,{

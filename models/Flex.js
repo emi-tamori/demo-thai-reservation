@@ -740,5 +740,43 @@ module.exports = {
       }
       return proposalMessage;
     }
+  },
+
+  makaDeleteMessage: (date,treatTime,menu,staff,id) => {
+    const deleteMessage = {
+      "type":"flex",
+      "altText": "cancel message",
+      "contents":
+      {
+        "type": "bubble",
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "text": `次回の予約は${date}から${treatTime}分間、${menu}でおとりしてます。この予約をキャンセルしますか？`,
+              "size": "lg",
+              "wrap": true
+            }
+          ]
+        },
+        "footer": {
+          "type": "box",
+          "layout": "horizontal",
+          "contents": [
+            {
+              "type": "button",
+              "action": {
+                "type": "postback",
+                "label": "予約をキャンセルする",
+                "data": `delete&${staff}&${id}`
+              }
+            }
+          ]
+        }
+      }
+    }
+    return deleteMessage;
   }
 }
