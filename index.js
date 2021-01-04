@@ -539,8 +539,10 @@ const calcTreatTime = (id,menu) => {
 }
 
 const orderChoice = (ev) => {
-
-  return client.replyMessage(ev.replyToken,
+  return client.replyMessage(ev.replyToken,{
+    "type":"flex",
+    "altText":"メニュー選択",
+    "contents":
     {
       "type": "bubble",
       "header": {
@@ -573,7 +575,7 @@ const orderChoice = (ev) => {
           }
         ]
       }
-    
+    }
   });
 }
 
