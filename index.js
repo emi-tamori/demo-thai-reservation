@@ -419,16 +419,18 @@ const handlePostbackEvent = async (ev) => {
                         connection.query(updateQuery)
                           .then(()=>{
                             console.log('visits updated successfully');
+                            //予約確認メッセージ
+                            client.replyMessage(ev.replyToken,{
+                              "type":"text",
+                              "text":`${date}に${MENU[orderedMenu].menu}で予約をお取りしたました（スタッフ：${staffName}）`
+                            });
+                            //Gmail送信
+                            gmailSend(staffName,date,MENU[orderedMenu].menu)
+                              .then(message=>{console.log(message)})
+                              .catch(e=>console.log(e));
                           })
                           .catch(e=>console.log(e));
                       })
-                      .catch(e=>console.log(e));
-                    client.replyMessage(ev.replyToken,{
-                      "type":"text",
-                      "text":`${date}に${MENU[orderedMenu].menu}で予約をお取りしたました（スタッフ：${staffName}）`
-                    });
-                    gmailSend(staffName,date,MENU[orderedMenu].menu)
-                      .then(message=>{console.log(message)})
                       .catch(e=>console.log(e));
                   })
                   .catch(e=>console.log(e));
@@ -455,10 +457,30 @@ const handlePostbackEvent = async (ev) => {
       connection.query(deleteQuery)
         .then(res=>{
           console.log('予約キャンセル成功');
-          client.replyMessage(ev.replyToken,{
-            "type":"text",
-            "text":"予約をキャンセルしました。またのご予約をお願いします。"
-          });
+
+          //visitsを-1減らす処理
+          const selectQuery = {
+            text:`SELECT visits FROM users WHERE line_uid='${ev.source.userId}';`
+          };
+          connection.query(selectQuery)
+            .then(visit=>{
+              let numberOfVisits = visit.rows[0].visits;
+              numberOfVisits++;
+              const updateQuery = {
+                text:`UPDATE users SET visits=${numberOfVisits} WHERE line_uid='${ev.source.userId}';`
+              }
+              connection.query(updateQuery)
+                .then(()=>{
+                  console.log('visits updated successfully');
+                  //削除確認メッセージ
+                  client.replyMessage(ev.replyToken,{
+                    "type":"text",
+                    "text":"予約をキャンセルしました。またのご予約をお願いします。"
+                  });
+                })
+                .catch(e=>console.log(e));
+            })
+            .catch(e=>console.log(e));
         })
         .catch(e=>console.log(e));
     }
