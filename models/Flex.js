@@ -339,26 +339,6 @@ module.exports = {
                 },
                 "style": "primary",
                 "margin": "md"
-              },
-              {
-                "type": "button",
-                "action": {
-                  "type": "postback",
-                  "label": `${MENU[2].timeAndPrice[2][0]}分　${MENU[2].timeAndPrice[2][1].toLocaleString()}円`,
-                  "data": "end&2&2"
-                },
-                "style": "primary",
-                "margin": "md"
-              },
-              {
-                "type": "button",
-                "action": {
-                  "type": "postback",
-                  "label": `${MENU[2].timeAndPrice[3][0]}分　${MENU[2].timeAndPrice[3][1].toLocaleString()}円`,
-                  "data": "end&2&3"
-                },
-                "style": "primary",
-                "margin": "md"
               }
             ]
           }
