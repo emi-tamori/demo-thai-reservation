@@ -536,7 +536,7 @@
       radio.setAttribute('class','form-check-input');
       radio.setAttribute('id',`check-${MENU_E[index]}`);
       radio.type = 'radio';
-      radio.name = MENU_E[index];
+      radio.name = 'menu';
       radio.value = MENU_E[index];
       if(menuNumber === index) radio.checked = true;
 
