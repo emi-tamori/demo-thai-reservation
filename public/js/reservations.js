@@ -533,6 +533,7 @@
 
       //ラジオボタン
       const radio = document.createElement('input');
+      radio.setAttribute('class','form-check-input');
       radio.setAttribute('id',`check-${MENU_E[index]}`);
       radio.type = 'radio';
       radio.name = MENU_E[index];
@@ -541,6 +542,7 @@
 
       //ラベル
       const label = document.createElement('lable');
+      label.setAttribute('class','form-check-label');
       label.htmlFor = `check-${MENU_E[index]}`;
       label.innerHTML = menu.menu;
       div_form_menu.appendChild(radio);
