@@ -541,14 +541,14 @@
       if(menuNumber === index) radio.checked = true;
 
       //ラベル
-      const label = document.createElement('lable');
+      const label = document.createElement('label');
       label.setAttribute('class','form-check-label');
       label.htmlFor = `check-${MENU_E[index]}`;
       label.innerHTML = menu.menu;
       div_form_menu.appendChild(radio);
       div_form_menu.appendChild(label);
       formElement.appendChild(div_form_menu);
-    })
+    });
 
     // MENU.forEach((menu,index)=>{
     //   const div_form_menu = document.createElement('div');
