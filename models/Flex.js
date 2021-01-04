@@ -1,6 +1,21 @@
+const MENU = [
+  {
+    menu: 'タイ式（ストレッチ）',
+    timeAndPrice: [[30,3000],[45,4000],[60,5000],[90,7000],[120,9000]]
+  },
+  {
+    menu: 'タイ式（アロマ）',
+    timeAndPrice: [[45,5000],[60,7000],[90,9000],[120,12000]]
+  },
+  {
+    menu: '足つぼマッサージ',
+    timeAndPrice: [[30,5000],[60,7000],[90,9000],[120,12000]]
+  }
+]
+
 module.exports = {
-  makeTimeChoice: ()=> {
-    const jsonText = {
+  makeMenuChoice: ()=> {
+    const menuChoice = {
       "type":"flex",
       "altText":"メニュー選択",
       "contents":
@@ -28,7 +43,7 @@ module.exports = {
               "type": "button",
               "action": {
                 "type": "postback",
-                "label": "メニュー１",
+                "label": `${MENU[0].menu}`,
                 "data": "menu&0"
               },
               "style": "primary",
@@ -39,7 +54,7 @@ module.exports = {
               "type": "button",
               "action": {
                 "type": "postback",
-                "label": "メニュー２",
+                "label": `${MENU[1].menu}`,
                 "data": "menu&1"
               },
               "style": "primary",
@@ -50,7 +65,7 @@ module.exports = {
               "type": "button",
               "action": {
                 "type": "postback",
-                "label": "メニュー3",
+                "label": `${MENU[2].menu}`,
                 "data": "menu&2"
               },
               "margin": "md",
@@ -61,9 +76,7 @@ module.exports = {
         }
       }
     }
-    const toObj = JSON.parse(`${jsonText}`);
-    console.log(toObj);
-    console.log('obj',toObj.type);
-    return jsonText;
+
+    return menuChoice;
   }
 }

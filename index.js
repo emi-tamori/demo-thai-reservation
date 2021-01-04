@@ -158,7 +158,8 @@ const handleMessageEvent = async (ev) => {
       const nextReservation = await checkNextReservation(ev);
       console.log('次の予約',nextReservation);
       if(!nextReservation.length){
-        menuChoice(ev);
+        const flexMessage = Flex.makeMenuChoice();
+        return client.replyMessage(ev.replyToken,flexMessage);
       }
       else{
         return client.replyMessage(ev.replyToken,{
@@ -287,8 +288,7 @@ const handlePostbackEvent = async (ev) => {
 
     if(splitData[0] === 'menu'){
         const selected = splitData[1];
-        const flex = Flex.makeTimeChoice();
-        timeChoice(ev,flex);
+        console.log('menu',typeof selected);
     }
 
     else if(splitData[0] === 'end'){
@@ -536,76 +536,6 @@ const calcTreatTime = (id,menu) => {
       })
       .catch(e=>console.log(e));
   });
-}
-
-const menuChoice = (ev) => {
-  return client.replyMessage(ev.replyToken,
-    {
-    "type":"flex",
-    "altText":"メニュー選択",
-    "contents":
-    {
-      "type": "bubble",
-      "header": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "text",
-            "text": "メニューをお選びください",
-            "size": "lg"
-          },
-          {
-            "type": "separator"
-          }
-        ]
-      },
-      "body": {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "button",
-            "action": {
-              "type": "postback",
-              "label": `${MENU[0].menu}`,
-              "data": "menu&0"
-            },
-            "style": "primary",
-            "margin": "md",
-            "adjustMode": "shrink-to-fit"
-          },
-          {
-            "type": "button",
-            "action": {
-              "type": "postback",
-              "label": `${MENU[1].menu}`,
-              "data": "menu&1"
-            },
-            "style": "primary",
-            "margin": "md",
-            "adjustMode": "shrink-to-fit"
-          },
-          {
-            "type": "button",
-            "action": {
-              "type": "postback",
-              "label": `${MENU[2].menu}`,
-              "data": "menu&2"
-            },
-            "margin": "md",
-            "style": "primary",
-            "adjustMode": "shrink-to-fit"
-          }
-        ]
-      }
-    }
-  }
-  );
-}
-
-const timeChoice = (ev,flex) => {
-  return client.replyMessage(ev.replyToken,flex);
 }
 
 const askDate = (ev,orderedMenu) => {
