@@ -61,7 +61,7 @@ module.exports = {
         }
       }
     }
-    const toObj = JSON.parse(jsonText);
+    const toObj = JSON.parse(`${jsonText}`);
     console.log(toObj);
     console.log('obj',toObj.type);
     return jsonText;
