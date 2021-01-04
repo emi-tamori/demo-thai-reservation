@@ -107,7 +107,7 @@ module.exports = {
             "contents": [
               {
                 "type": "text",
-                "text": "選択したメニュー",
+                "text": `${MENU[0].menu}`,
                 "align": "center",
                 "adjustMode": "shrink-to-fit",
                 "size": "md"
@@ -127,7 +127,7 @@ module.exports = {
                 "action": {
                   "type": "postback",
                   "label": `${MENU[0].timeAndPrice[0][0]}分　${MENU[0].timeAndPrice[0][1].toLocaleString()}円`,
-                  "data": `menu&0&0`
+                  "data": `end&0&0`
                 },
                 "style": "primary",
                 "margin": "md"
@@ -137,7 +137,7 @@ module.exports = {
                 "action": {
                   "type": "postback",
                   "label": `${MENU[0].timeAndPrice[1][0]}分　${MENU[0].timeAndPrice[1][1].toLocaleString()}円`,
-                  "data": "menu&0&1"
+                  "data": "end&0&1"
                 },
                 "style": "primary",
                 "margin": "md"
@@ -147,7 +147,7 @@ module.exports = {
                 "action": {
                   "type": "postback",
                   "label": `${MENU[0].timeAndPrice[2][0]}分　${MENU[0].timeAndPrice[2][1].toLocaleString()}円`,
-                  "data": "menu&0&2"
+                  "data": "end&0&2"
                 },
                 "style": "primary",
                 "margin": "md"
@@ -157,7 +157,7 @@ module.exports = {
                 "action": {
                   "type": "postback",
                   "label": `${MENU[0].timeAndPrice[3][0]}分　${MENU[0].timeAndPrice[3][1].toLocaleString()}円`,
-                  "data": "menu&0&3"
+                  "data": "end&0&3"
                 },
                 "style": "primary",
                 "margin": "md"
@@ -167,7 +167,91 @@ module.exports = {
                 "action": {
                   "type": "postback",
                   "label": `${MENU[0].timeAndPrice[4][0]}分　${MENU[0].timeAndPrice[4][1].toLocaleString()}円`,
-                  "data": "menu&0&4"
+                  "data": "end&0&4"
+                },
+                "style": "primary",
+                "margin": "md"
+              }
+            ]
+          }
+        }
+      }
+      return menuChoice;
+    }else if(menuNumber === 1){
+      const menuChoice = {
+        "type":"flex",
+        "altText":"メニュー選択",
+        "contents":
+        {
+          "type": "bubble",
+          "header": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "施術時間をお選びください",
+                "size": "lg"
+              }
+            ]
+          },
+          "hero": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": `${MENU[1].menu}`,
+                "align": "center",
+                "adjustMode": "shrink-to-fit",
+                "size": "md"
+              },
+              {
+                "type": "separator",
+                "margin": "sm"
+              }
+            ]
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "button",
+                "action": {
+                  "type": "postback",
+                  "label": `${MENU[1].timeAndPrice[0][0]}分　${MENU[1].timeAndPrice[0][1].toLocaleString()}円`,
+                  "data": `end&1&0`
+                },
+                "style": "primary",
+                "margin": "md"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "postback",
+                  "label": `${MENU[1].timeAndPrice[1][0]}分　${MENU[1].timeAndPrice[1][1].toLocaleString()}円`,
+                  "data": "end&1&1"
+                },
+                "style": "primary",
+                "margin": "md"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "postback",
+                  "label": `${MENU[1].timeAndPrice[2][0]}分　${MENU[1].timeAndPrice[2][1].toLocaleString()}円`,
+                  "data": "end&1&2"
+                },
+                "style": "primary",
+                "margin": "md"
+              },
+              {
+                "type": "button",
+                "action": {
+                  "type": "postback",
+                  "label": `${MENU[1].timeAndPrice[3][0]}分　${MENU[1].timeAndPrice[3][1].toLocaleString()}円`,
+                  "data": "end&1&3"
                 },
                 "style": "primary",
                 "margin": "md"
