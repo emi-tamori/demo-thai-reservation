@@ -540,10 +540,7 @@ const calcTreatTime = (id,menu) => {
 
 const orderChoice = (ev) => {
 
-  return client.replyMessage(ev.replyToken,{
-    "type":"flex",
-    "altText":"Menu",
-    "contens":
+  return client.replyMessage(ev.replyToken,
     {
       "type": "bubble",
       "header": {
@@ -576,7 +573,7 @@ const orderChoice = (ev) => {
           }
         ]
       }
-    }
+    
   });
 }
 
