@@ -585,8 +585,7 @@ const orderChoice = (ev) => {
               "data": "menu&0"
             },
             "style": "primary",
-            "margin": "md",
-            "adjustMode": "shrink-to-fit"
+            "margin": "md"
           },
           {
             "type": "button",
@@ -596,8 +595,7 @@ const orderChoice = (ev) => {
               "data": "menu&1"
             },
             "style": "primary",
-            "margin": "md",
-            "adjustMode": "shrink-to-fit"
+            "margin": "md"
           },
           {
             "type": "button",
@@ -607,8 +605,7 @@ const orderChoice = (ev) => {
               "data": "menu&2"
             },
             "style": "primary",
-            "margin": "md",
-            "adjustMode": "shrink-to-fit"
+            "margin": "md"
           }
         ]
       }
