@@ -12,8 +12,8 @@ connection.connect();
 
 // const STAFFS = ['ken','emi','taro'];
 const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
-const OPENTIME = 9; //開店時間
-const CLOSETIME = 19; //閉店時間
+const OPENTIME = 12; //開店時間
+const CLOSETIME = 24; //閉店時間
 
 //予約の重複チェックを行う関数
 const doubleBookingCheck = (startTime,endTime,staffName,id) => {
