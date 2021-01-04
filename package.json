@@ -14,7 +14,7 @@
   "author": "ken",
   "license": "ISC",
   "dependencies": {
-    "@line/bot-sdk": "^7.1.0",
+    "@line/bot-sdk": "^7.2.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.5.3",
     "connect-multiparty": "^2.2.0",
