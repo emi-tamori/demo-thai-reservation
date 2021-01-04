@@ -539,7 +539,7 @@ const calcTreatTime = (id,menu) => {
 }
 
 const orderChoice = (ev) => {
-
+  console.log('orderするよ');
   return client.replyMessage(ev.replyToken,{
     "type":"flex",
     "altText":"Menu-Select",
