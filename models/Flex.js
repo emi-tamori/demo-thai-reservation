@@ -416,8 +416,8 @@ module.exports = {
           "contents": [
             {
               "type": "text",
-              "text": "ご希望の時間帯を選択してください(緑＝予約可能)",
-              "align": "center",
+              "text": "ご希望の時間帯を選択してください(緑＝予約可能、赤＝予約不可)",
+              "align": "start",
               "wrap":true,
               "size":"lg"
             }

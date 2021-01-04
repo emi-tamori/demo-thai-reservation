@@ -335,10 +335,10 @@ const handlePostbackEvent = async (ev) => {
                     reservableArray.push(staff_reservable);
                   }
                   console.log('reservableArray:',reservableArray);
-                  const time = [];
-                  const color = [];
 
                   //予約可能時間帯とボタン色配列を生成
+                  const time = [];
+                  const color = [];
                   for(let i=0; i<CLOSETIME-OPENTIME; i++){
                     let count = 0;
                     for(let j=0; j<reservableArray.length; j++){
@@ -352,9 +352,9 @@ const handlePostbackEvent = async (ev) => {
                       color.push('#FF0000');
                     }
                   }
-
                   const flexMessage = Flex.askTime(orderedMenu,selectedTime,selectedDate,time,color);
                   return client.replyMessage(ev.replyToken,flexMessage);
+
                 }else{
                   console.log('登録されたスタッフがいません');
                 }
@@ -381,30 +381,30 @@ const handlePostbackEvent = async (ev) => {
     }
     
     else if(splitData[0] === 'time'){
-        const orderedMenu = splitData[1];
-        const selectedDate = splitData[2];
-        const selectedTime = splitData[3];
+        const orderedMenu = parseInt(splitData[1]);
+        const selectedTime = parseInt(splitData[2]);
+        const selectedDate = splitData[3];
+        const selectedTimeZone = parseInt(splitData[4]);
 
-        //選んだ時間が過去の時間かを判定する
-        const targetDateTime = new Date(`${selectedDate} ${9+parseInt(selectedTime)}:00`).getTime() - 9*60*60*1000;
-        console.log('targetDateTime:',targetDateTime);
-        const nowTime = new Date().getTime();
-        console.log('nowTime:',nowTime);
-
-        if(targetDateTime>nowTime){
-          //予約不可の時間帯は-1が返ってくるためそれを条件分岐
-          if(selectedTime >= 0){
-            confirmation(ev,orderedMenu,selectedDate,selectedTime,0);
+        //予約不可の時間帯は-1が返ってくるためそれを条件分岐
+        if(selectedTimeZone !== -1){
+          //選んだ時間が過去の時間かを判定する
+          const targetDateTime = new Date(`${selectedDate} ${9+selectedTimeZone}:00`).getTime() - 9*60*60*1000;
+          console.log('targetDateTime:',targetDateTime);
+          const nowTime = new Date().getTime();
+          console.log('nowTime:',nowTime);
+          if(targetDateTime>nowTime){
+            confirmation(ev,orderedMenu,selectedTime,selectedDate,selectedTimeZone);
           }else{
             return client.replyMessage(ev.replyToken,{
               "type":"text",
-              "text":"申し訳ありません。この時間帯には予約可能な時間がありません><;"
+              "text":"申し訳ありません。過去の時間は選べません><;"
             });
           }
         }else{
           return client.replyMessage(ev.replyToken,{
             "type":"text",
-            "text":"申し訳ありません。過去の時間は選べません><;"
+            "text":"申し訳ありません。この時間帯には予約可能な時間がありません><;"
           });
         }
     }
@@ -552,229 +552,7 @@ const calcTreatTime = (id,menu) => {
   });
 }
 
-const askTime = (ev,orderedMenu,selectedTime,selectedDate,reservableArray) => {
-  const time = [];
-  const color = [];
-
-  //予約可能時間帯とボタン色配列を生成
-  for(let i=0; i<CLOSETIME-OPENTIME; i++){
-    let count = 0;
-    for(let j=0; j<reservableArray.length; j++){
-      if(reservableArray[j][i].length) count++;
-    }
-    if(count>0){
-      time.push(i);
-      color.push('#00AA00');
-    }else{
-      time.push(-1);
-      color.push('#FF0000');
-    }
-  }
-
-  return client.replyMessage(ev.replyToken,
-    {
-      "type":"flex",
-      "altText":"予約日選択",
-      "contents":
-      {
-          "type": "bubble",
-          "header": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-              "type": "text",
-              "text": `${selectedDate}`,
-              "weight": "bold",
-              "size": "lg",
-              "align": "center"
-            }
-          ]
-        },
-        "hero": {
-          "type": "box",
-          "layout": "vertical",
-          "contents": [
-            {
-              "type": "text",
-              "text": "ご希望の時間帯を選択してください(緑＝予約可能)",
-              "align": "center",
-              "wrap":true,
-              "size":"lg"
-            }
-          ]
-        },
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "9時-",
-                      "data":`time&${orderedMenu}&${selectedDate}&${time[0]}`
-                    },
-                    "style": "primary",
-                    "color": `${color[0]}`,
-                    "margin": "md"
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "10時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&${time[1]}`
-                    },
-                    "style": "primary",
-                    "color": `${color[1]}`,
-                    "margin": "md"
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "11時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&${time[2]}`
-                    },
-                    "style": "primary",
-                    "color": `${color[2]}`,
-                    "margin": "md"
-                  }
-                ]
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "12時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&${time[3]}`
-                    },
-                    "style": "primary",
-                    "color": `${color[3]}`,
-                    "margin": "md"
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "13時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&${time[4]}`
-                    },
-                    "style": "primary",
-                    "color": `${color[4]}`,
-                    "margin": "md"
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "14時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&${time[5]}`
-                    },
-                    "style": "primary",
-                    "color": `${color[5]}`,
-                    "margin": "md"
-                  }
-                ],
-                "margin": "md"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "15時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&${time[6]}`
-                    },
-                    "style": "primary",
-                    "color": `${color[6]}`,
-                    "margin": "md"
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "16時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&${time[7]}`
-                    },
-                    "style": "primary",
-                    "color": `${color[7]}`,
-                    "margin": "md"
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "17時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&${time[8]}`
-                    },
-                    "style": "primary",
-                    "color": `${color[8]}`,
-                    "margin": "md"
-                  }
-                ],
-                "margin": "md"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "18時-",
-                      "data": `time&${orderedMenu}&${selectedDate}&${time[9]}`
-                    },
-                    "style": "primary",
-                    "color": `${color[9]}`,
-                    "margin": "md"
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": " ",
-                      "data": "null"
-                    },
-                    "style": "primary",
-                    "color": "#999999",
-                    "margin": "md"
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": " ",
-                      "data": "null"
-                    },
-                    "style": "primary",
-                    "color": "#999999",
-                    "margin": "md"
-                  }
-                ],
-                "margin": "md"
-              }
-            ]
-          }
-        }       
-  }
-  );
-}
-
-const confirmation = async (ev,menu,date,time,n) => {
+const confirmation = (ev,menu,time,date,timeZone) => {
 
   //シフトデータの取得
   const select_query = {
@@ -795,11 +573,11 @@ const confirmation = async (ev,menu,date,time,n) => {
           const staff_reservable = await checkReservable(ev,menu,date,res.rows[i]);
           reservableArray.push(staff_reservable);
         }
-        console.log('reservableArray=',reservableArray);
+        // console.log('reservableArray=',reservableArray);
 
         //対象時間の候補抜き出し
         const targets = reservableArray.map( array => {
-          return array[parseInt(time)];
+          return array[timeZone];
         });
         console.log('targets:',targets);
 
@@ -828,53 +606,53 @@ const confirmation = async (ev,menu,date,time,n) => {
         const candidates = targets[staffNumber];
         console.log('candidates=',candidates);
 
-        const n_dash = (n>=candidates.length-1) ? -1 : n+1;
-        console.log('n_dash:',n_dash);
+        // const n_dash = (n>=candidates.length-1) ? -1 : n+1;
+        // console.log('n_dash:',n_dash);
 
-        const proposalTime = dateConversion(candidates[n]);
+        // const proposalTime = dateConversion(candidates[n]);
 
-        return client.replyMessage(ev.replyToken,{
-          "type":"flex",
-          "altText":"menuSelect",
-          "contents":
-          {
-            "type": "bubble",
-            "body": {
-              "type": "box",
-              "layout": "vertical",
-              "contents": [
-                {
-                  "type": "text",
-                  "text":  `次回予約は${proposalTime}でよろしいですか？`,
-                  "size": "lg",
-                  "wrap": true
-                }
-              ]
-            },
-            "footer": {
-              "type": "box",
-              "layout": "horizontal",
-              "contents": [
-                {
-                  "type": "button",
-                  "action": {
-                    "type": "postback",
-                    "label": "はい",
-                    "data": `yes&${menu}&${date}&${candidates[n]}&${staffName}`
-                  }
-                },
-                {
-                  "type": "button",
-                  "action": {
-                    "type": "postback",
-                    "label": "いいえ",
-                    "data": `no&${menu}&${date}&${time}&${n_dash}`
-                  }
-                }
-              ]
-            }
-          }
-        });
+        // return client.replyMessage(ev.replyToken,{
+        //   "type":"flex",
+        //   "altText":"menuSelect",
+        //   "contents":
+        //   {
+        //     "type": "bubble",
+        //     "body": {
+        //       "type": "box",
+        //       "layout": "vertical",
+        //       "contents": [
+        //         {
+        //           "type": "text",
+        //           "text":  `次回予約は${proposalTime}でよろしいですか？`,
+        //           "size": "lg",
+        //           "wrap": true
+        //         }
+        //       ]
+        //     },
+        //     "footer": {
+        //       "type": "box",
+        //       "layout": "horizontal",
+        //       "contents": [
+        //         {
+        //           "type": "button",
+        //           "action": {
+        //             "type": "postback",
+        //             "label": "はい",
+        //             "data": `yes&${menu}&${date}&${candidates[n]}&${staffName}`
+        //           }
+        //         },
+        //         {
+        //           "type": "button",
+        //           "action": {
+        //             "type": "postback",
+        //             "label": "いいえ",
+        //             "data": `no&${menu}&${date}&${time}&${n_dash}`
+        //           }
+        //         }
+        //       ]
+        //     }
+        //   }
+        // });
       }else{
         console.log('スタッフデータが１件も入っていません');
       }
@@ -1100,13 +878,17 @@ const getNumberOfReservations = (date,shiftInfo) => {
     const numberOfReservations = [];
     for(let i=0; i<shiftInfo.length; i++){
       const select_query = {
-        text:`SELECT * FROM reservations.${shiftInfo[i].name} WHERE scheduledate = $1 ORDER BY starttime ASC;`,
+        text:`SELECT * FROM reservations.${shiftInfo[i].name} WHERE scheduledate = $1;`,
         values:[`${date}`]
       }
       connection.query(select_query)
         .then(res=>{
-          console.log('res.rows.length=',res.rows.length);
-          numberOfReservations.push(res.rows.length);
+          if(res.rows.length){
+            console.log('res.rows.length=',res.rows.length);
+            numberOfReservations.push(res.rows.length);
+          }else{
+            numberOfReservations.push(0);
+          }
           if(i === shiftInfo.length - 1) resolve(numberOfReservations);
         })
         .catch(e=>console.log(e));
