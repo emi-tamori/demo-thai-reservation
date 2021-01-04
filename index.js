@@ -539,238 +539,77 @@ const calcTreatTime = (id,menu) => {
 }
 
 const orderChoice = (ev) => {
-  console.log('orderするよ',MENU[0].menu);
-  // return client.replyMessage(ev.replyToken,{
-  //   "type":"flex",
-  //   "altText":"Menu-Select",
-  //   "contens":
-  //   {
-  //     "type": "bubble",
-  //     "header": {
-  //       "type": "box",
-  //       "layout": "vertical",
-  //       "contents": [
-  //         {
-  //           "type": "text",
-  //           "text": "メニューをお選びください。",
-  //           "size": "lg"
-  //         },
-  //         {
-  //           "type": "separator"
-  //         }
-  //       ]
-  //     },
-  //     "hero": {
-  //       "type": "box",
-  //       "layout": "vertical",
-  //       "contents": [
-  //         {
-  //           "type": "text",
-  //           "text": "基本施術メニュー",
-  //           "size": "md",
-  //           "align": "center",
-  //           "wrap": true
-  //         }
-  //       ]
-  //     },
-  //     "body": {
-  //       "type": "box",
-  //       "layout": "vertical",
-  //       "contents": [
-  //         {
-  //           "type": "button",
-  //           "action": {
-  //             "type": "postback",
-  //             "label": `${MENU[0].menu}`,
-  //             "data": "menu&0"
-  //           },
-  //           "style": "primary",
-  //           "margin": "md"
-  //         },
-  //         {
-  //           "type": "button",
-  //           "action": {
-  //             "type": "postback",
-  //             "label": `${MENU[1].menu}`,
-  //             "data": "menu&1"
-  //           },
-  //           "style": "primary",
-  //           "margin": "md"
-  //         },
-  //         {
-  //           "type": "button",
-  //           "action": {
-  //             "type": "postback",
-  //             "label": `${MENU[2].menu}`,
-  //             "data": "menu&2"
-  //           },
-  //           "style": "primary",
-  //           "margin": "md"
-  //         }
-  //       ]
-  //     }
-  //   }
-  // });
+
   return client.replyMessage(ev.replyToken,{
-      "type":"flex",
-      "altText":"menuSelect",
-      "contents":
-      {
-          "type": "bubble",
-          "header": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "",
-                "align": "center",
-                "size": "lg",
-                "wrap":true
-              }
-            ]
+    "type":"flex",
+    "altText":"Menu-Select",
+    "contens":
+    {
+      "type": "bubble",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "メニューをお選びください。",
+            "size": "lg"
           },
-          "hero": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "基本施術メニュー",
-                "size": "md",
-                "align": "center",
-                "wrap":true
-              },
-              {
-                "type": "separator"
-              }
-            ]
-          },
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": `${MENU[0].menu}`,
-                      "data": "menu&0"
-                    },
-                    "style": "primary",
-                    // "color": `${colors[0]}`,
-                    "margin": "md"
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "シャンプー",
-                      "data": `menu&&1`
-                    },
-                    "style": "primary",
-                    // "color": `${colors[1]}`,
-                    "margin": "md"
-                  }
-                ]
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "ｶﾗｰﾘﾝｸﾞ",
-                      "data": `menu&2`
-                    },
-                    "margin": "md",
-                    "style": "primary",
-                    // "color": `${colors[2]}`
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "ヘッドスパ",
-                      "data": `menu&3`
-                    },
-                    "margin": "md",
-                    "style": "primary",
-                    // "color": `${colors[3]}`
-                  }
-                ],
-                "margin": "md"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "ﾏｯｻｰｼﾞ&ﾊﾟｯｸ",
-                      "data": `menu&4`
-                    },
-                    "margin": "md",
-                    "style": "primary",
-                    // "color": `${colors[4]}`
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "顔そり",
-                      "data": `menu&5`
-                    },
-                    "style": "primary",
-                    // "color": `${colors[5]}`,
-                    "margin": "md"
-                  }
-                ],
-                "margin": "md"
-              },
-              {
-                "type": "box",
-                "layout": "horizontal",
-                "contents": [
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "眉整え",
-                      "data": `menu&6`
-                    },
-                    "margin": "md",
-                    "style": "primary",
-                    // "color": `${colors[6]}`
-                  },
-                  {
-                    "type": "button",
-                    "action": {
-                      "type": "postback",
-                      "label": "選択終了",
-                      "data": `end`
-                    },
-                    "margin": "md",
-                    "style": "primary",
-                    "color": "#0000ff"
-                  }
-                ],
-                "margin": "md"
-              },
-              {
-                "type": "separator"
-              }
-            ]
+          {
+            "type": "separator"
           }
-        }
+        ]
+      },
+      "hero": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "基本施術メニュー",
+            "size": "md",
+            "align": "center",
+            "wrap": true
+          }
+        ]
+      },
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": `${MENU[0].menu}`,
+              "data": "menu&0"
+            },
+            "style": "primary",
+            "margin": "md"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": `${MENU[1].menu}`,
+              "data": "menu&1"
+            },
+            "style": "primary",
+            "margin": "md"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": `${MENU[2].menu}`,
+              "data": "menu&2"
+            },
+            "style": "primary",
+            "margin": "md"
+          }
+        ]
+      }
+    }
   });
 }
 
