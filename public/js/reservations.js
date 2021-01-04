@@ -529,7 +529,7 @@
 
     MENU.forEach((menu,index)=>{
       const div_form_menu = document.createElement('div');
-      div_form_menu.setAttribute('class','form-check');
+      div_form_menu.setAttribute('class','form-check menu-check');
 
       //ラジオボタン
       const radio = document.createElement('input');
