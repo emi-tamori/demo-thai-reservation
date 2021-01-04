@@ -553,7 +553,7 @@ const orderChoice = (ev) => {
           {
             "type": "text",
             "text": "メニューをお選びください。",
-            "size": "lg"
+            "size": "md"
           },
           {
             "type": "separator"
@@ -581,31 +581,34 @@ const orderChoice = (ev) => {
             "type": "button",
             "action": {
               "type": "postback",
-              "label": "mニュー",
-              "data": "menu&0"
+              "label": "タイ式（ストレッチ）",
+              "data": "hello"
             },
             "style": "primary",
-            "margin": "md"
+            "margin": "md",
+            "adjustMode": "shrink-to-fit"
           },
           {
             "type": "button",
             "action": {
               "type": "postback",
-              "label": "mニュー",
-              "data": "menu&1"
+              "label": "action",
+              "data": "hello"
             },
             "style": "primary",
-            "margin": "md"
+            "margin": "md",
+            "adjustMode": "shrink-to-fit"
           },
           {
             "type": "button",
             "action": {
               "type": "postback",
-              "label": "mニュー",
-              "data": "menu&2"
+              "label": "action",
+              "data": "hello"
             },
             "style": "primary",
-            "margin": "md"
+            "margin": "md",
+            "adjustMode": "shrink-to-fit"
           }
         ]
       }
