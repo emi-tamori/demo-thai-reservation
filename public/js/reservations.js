@@ -287,9 +287,6 @@
   //予約データカードの表示
   const createReservationCard = (info,staffs) =>{
 
-    //初期化
-    divRow.innerHTML = '';
-
     //グリッドシステム
     const divRow = document.createElement('div');
     divRow.setAttribute('class','col-md-4 card-reservation');
