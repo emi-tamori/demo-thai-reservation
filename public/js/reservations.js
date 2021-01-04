@@ -528,9 +528,9 @@
     //選択メニュー選択
     const menuNumber = info.menu;
 
+    const div_form_menu = document.createElement('div');
+    div_form_menu.setAttribute('class','form-check menu-check');
     MENU.forEach((menu,index)=>{
-      const div_form_menu = document.createElement('div');
-      div_form_menu.setAttribute('class','form-check menu-check');
 
       //ラジオボタン
       const radio = document.createElement('input');
@@ -548,8 +548,8 @@
       label.innerHTML = menu.menu;
       div_form_menu.appendChild(radio);
       div_form_menu.appendChild(label);
-      formElement.appendChild(div_form_menu);
     });
+    formElement.appendChild(div_form_menu);
 
     //施術時間の選択
     const div_form_treat = document.createElement('div');
@@ -575,6 +575,9 @@
     select_treat.selectedIndex = info.id === 'new' ? -1 : info.treattime;
     div_form_treat.appendChild(select_treat);
     formElement.appendChild(div_form_treat);
+
+    //ラジオボタンと施術時間の連動処理
+    
 
     //フッターの作成
     const divFooter = document.createElement('div');
