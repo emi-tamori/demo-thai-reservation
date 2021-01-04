@@ -414,7 +414,7 @@ const handlePostbackEvent = async (ev) => {
                         console.log('numberOfVisits',numberOfVisits);
                         numberOfVisits++;
                         const updateQuery = {
-                          text:`UPDATE users SET (visits) = (${numberOfVisits}) WHERE line_uid='${ev.source.userId}';`
+                          text:`UPDATE users SET visits=${numberOfVisits} WHERE line_uid='${ev.source.userId}';`
                         }
                         connection.query(updateQuery)
                           .then(()=>{
