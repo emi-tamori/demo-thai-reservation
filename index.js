@@ -402,6 +402,27 @@ const handlePostbackEvent = async (ev) => {
                 connection.query(insertQuery)
                   .then(res=>{
                     console.log('データ格納成功！');
+
+                    //usersテーブルの来店回数(visits)を+1する処理
+                    const selectQuery = {
+                      text:`SELECT FROM visits users WHERE line_uid=${ev.source.userId};`
+                    };
+                    connection.query(selectQuery)
+                      .then(visit=>{
+                        console.log('visit',visit.rows);
+                        let numberOfVisits = visit.rows[0].visits;
+                        console.log('numberOfVisits',numberOfVisits);
+                        numberOfVisits++;
+                        const updateQuery = {
+                          text:`UPDATE users SET (visits) = (${numberOfVisits}) WHERE line_uid=${ev.source.userId};`
+                        }
+                        connection.query(updateQuery)
+                          .then(()=>{
+                            console.log('visits updated successfully');
+                          })
+                          .catch(e=>console.log(e));
+                      })
+                      .catch(e=>console.log(e));
                     client.replyMessage(ev.replyToken,{
                       "type":"text",
                       "text":`${date}に${MENU[orderedMenu].menu}で予約をお取りしたました（スタッフ：${staffName}）`
