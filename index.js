@@ -288,7 +288,6 @@ const handlePostbackEvent = async (ev) => {
     if(splitData[0] === 'menu'){
         const selected = splitData[1];
         const flex = Flex.makeTimeChoice();
-        console.log('flex',flex);
         timeChoice(ev,flex);
     }
 
