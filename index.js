@@ -564,8 +564,6 @@ const timeProposal = (ev,menu,time,date,timeZone) => {
         //各スタッフの予約数
         const numberOfReservations = await getNumberOfReservations(date,res.rows);
         console.log('numberOfReservations:',numberOfReservations);
-        const splitDate = date.split('-');
-        const selectedTime = 9 + parseInt(time);
 
         //スタッフ人数分のreservableArrayを取得
         const reservableArray = [];
@@ -609,53 +607,6 @@ const timeProposal = (ev,menu,time,date,timeZone) => {
         const flexMessage = Flex.makeProposal(menu,time,date,candidates,staffName);
         return client.replyMessage(ev.replyToken,flexMessage);
 
-        // const n_dash = (n>=candidates.length-1) ? -1 : n+1;
-        // console.log('n_dash:',n_dash);
-
-        // const proposalTime = dateConversion(candidates[n]);
-
-        // return client.replyMessage(ev.replyToken,{
-        //   "type":"flex",
-        //   "altText":"menuSelect",
-        //   "contents":
-        //   {
-        //     "type": "bubble",
-        //     "body": {
-        //       "type": "box",
-        //       "layout": "vertical",
-        //       "contents": [
-        //         {
-        //           "type": "text",
-        //           "text":  `次回予約は${proposalTime}でよろしいですか？`,
-        //           "size": "lg",
-        //           "wrap": true
-        //         }
-        //       ]
-        //     },
-        //     "footer": {
-        //       "type": "box",
-        //       "layout": "horizontal",
-        //       "contents": [
-        //         {
-        //           "type": "button",
-        //           "action": {
-        //             "type": "postback",
-        //             "label": "はい",
-        //             "data": `yes&${menu}&${date}&${candidates[n]}&${staffName}`
-        //           }
-        //         },
-        //         {
-        //           "type": "button",
-        //           "action": {
-        //             "type": "postback",
-        //             "label": "いいえ",
-        //             "data": `no&${menu}&${date}&${time}&${n_dash}`
-        //           }
-        //         }
-        //       ]
-        //     }
-        //   }
-        // });
       }else{
         console.log('スタッフデータが１件も入っていません');
       }
