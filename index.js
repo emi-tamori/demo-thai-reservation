@@ -465,7 +465,7 @@ const handlePostbackEvent = async (ev) => {
           connection.query(selectQuery)
             .then(visit=>{
               let numberOfVisits = visit.rows[0].visits;
-              numberOfVisits++;
+              numberOfVisits--;
               const updateQuery = {
                 text:`UPDATE users SET visits=${numberOfVisits} WHERE line_uid='${ev.source.userId}';`
               }
