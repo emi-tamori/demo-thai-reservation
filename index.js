@@ -581,7 +581,7 @@ const orderChoice = (ev) => {
             "type": "button",
             "action": {
               "type": "postback",
-              "label": `${MENU[0].menu}`,
+              "label": "mニュー",
               "data": "menu&0"
             },
             "style": "primary",
@@ -591,7 +591,7 @@ const orderChoice = (ev) => {
             "type": "button",
             "action": {
               "type": "postback",
-              "label": `${MENU[1].menu}`,
+              "label": "mニュー",
               "data": "menu&1"
             },
             "style": "primary",
@@ -601,7 +601,7 @@ const orderChoice = (ev) => {
             "type": "button",
             "action": {
               "type": "postback",
-              "label": `${MENU[2].menu}`,
+              "label": "mニュー",
               "data": "menu&2"
             },
             "style": "primary",
