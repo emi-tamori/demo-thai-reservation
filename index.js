@@ -7,6 +7,7 @@ const router = require('./routers/index');
 const apiRouter = require('./routers/api');
 const multipart = require('connect-multiparty');
 const nodemailer = require('nodemailer');
+const Flex = require('./models/Flex');
 
 const PORT = process.env.PORT || 5000
 
@@ -287,6 +288,8 @@ const handlePostbackEvent = async (ev) => {
     if(splitData[0] === 'menu'){
         const selected = splitData[1];
         timeChoice(ev,selected);
+        const type = Flex.makeTimeChoice();
+        console.log('type',type);
     }
 
     else if(splitData[0] === 'end'){
@@ -537,7 +540,8 @@ const calcTreatTime = (id,menu) => {
 }
 
 const menuChoice = (ev) => {
-  return client.replyMessage(ev.replyToken,{
+  return client.replyMessage(ev.replyToken,
+    {
     "type":"flex",
     "altText":"メニュー選択",
     "contents":
@@ -597,7 +601,8 @@ const menuChoice = (ev) => {
         ]
       }
     }
-  });
+  }
+  );
 }
 
 const timeChoice = (ev,menu) => {
