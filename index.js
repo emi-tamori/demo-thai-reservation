@@ -405,7 +405,7 @@ const handlePostbackEvent = async (ev) => {
 
                     //usersテーブルの来店回数(visits)を+1する処理
                     const selectQuery = {
-                      text:`SELECT visits FROM users WHERE line_uid=${ev.source.userId};`
+                      text:`SELECT visits FROM users WHERE line_uid='${ev.source.userId}';`
                     };
                     connection.query(selectQuery)
                       .then(visit=>{
@@ -414,7 +414,7 @@ const handlePostbackEvent = async (ev) => {
                         console.log('numberOfVisits',numberOfVisits);
                         numberOfVisits++;
                         const updateQuery = {
-                          text:`UPDATE users SET (visits) = (${numberOfVisits}) WHERE line_uid=${ev.source.userId};`
+                          text:`UPDATE users SET (visits) = (${numberOfVisits}) WHERE line_uid='${ev.source.userId}';`
                         }
                         connection.query(updateQuery)
                           .then(()=>{
