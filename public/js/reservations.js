@@ -290,7 +290,7 @@
     //グリッドシステム
     const divRow = document.createElement('div');
     divRow.setAttribute('class','col-md-4 card-reservation');
-    divRow.style.top = '20vw';
+    divRow.style.top = '14vw';
     
     // カード本体の定義
     const divCard = document.createElement('div');
@@ -529,21 +529,42 @@
 
     MENU.forEach((menu,index)=>{
       const div_form_menu = document.createElement('div');
-      div_form_menu.setAttribute('class','menu-checkbox');
-      const check = document.createElement('input');
-      check.setAttribute('id',`check-${MENU_E[index]}`);
-      check.type = 'checkbox';
-      check.name = MENU_E[index];
-      check.value= MENU_E[index];
-      if(menuNumber === index) check.checked = true;
+      div_form_menu.setAttribute('class','form-check');
 
-      const label = document.createElement('label');
+      //ラジオボタン
+      const radio = document.createElement('input');
+      radio.setAttribute('id',`check-${MENU_E[index]}`);
+      radio.type = 'radio';
+      radio.name = MENU_E[index];
+      radio.value = MENU_E[index];
+      if(menuNumber === index) radio.checked = true;
+
+      //ラベル
+      const label = document.createElement('lable');
       label.htmlFor = `check-${MENU_E[index]}`;
       label.innerHTML = menu.menu;
-      div_form_menu.appendChild(check);
+      div_form_menu.appendChild(radio);
       div_form_menu.appendChild(label);
       formElement.appendChild(div_form_menu);
-    });
+    })
+
+    // MENU.forEach((menu,index)=>{
+    //   const div_form_menu = document.createElement('div');
+    //   div_form_menu.setAttribute('class','menu-checkbox');
+    //   const check = document.createElement('input');
+    //   check.setAttribute('id',`check-${MENU_E[index]}`);
+    //   check.type = 'checkbox';
+    //   check.name = MENU_E[index];
+    //   check.value= MENU_E[index];
+    //   if(menuNumber === index) check.checked = true;
+
+    //   const label = document.createElement('label');
+    //   label.htmlFor = `check-${MENU_E[index]}`;
+    //   label.innerHTML = menu.menu;
+    //   div_form_menu.appendChild(check);
+    //   div_form_menu.appendChild(label);
+    //   formElement.appendChild(div_form_menu);
+    // });
 
     //フッターの作成
     const divFooter = document.createElement('div');
