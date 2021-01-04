@@ -287,22 +287,17 @@ const handlePostbackEvent = async (ev) => {
     const splitData = data.split('&');
 
     if(splitData[0] === 'menu'){
-        const selected = splitData[1];
-        const flexMessage = Flex.makeTimeChoice(parseInt(selected));
-        return client.replyMessage(ev.replyToken,flexMessage);
+      const selectedMenu = parseInt(splitData[1]);
+      const flexMessage = Flex.makeTimeChoice(selectedMenu);
+      return client.replyMessage(ev.replyToken,flexMessage);
     }
 
     else if(splitData[0] === 'end'){
-      // メニューが何も選ばれていない時の処理
-      const orderedMenu = splitData[1];
-      if(!orderedMenu){
-        return client.replyMessage(ev.replyToken,{
-          "type":"text",
-          "text":"何かメニューを選んでください。"
-        });
-      }
-
-      askDate(ev,orderedMenu);
+      const selectedMenu = parseInt(splitData[1]);
+      const selectedTime = parseInt(splitData[2]);
+      const flexMessage = Flex.makeDateChoice(selectedMenu,selectedTime);
+      return client.replyMessage(ev.replyToken,flexMessage);
+      // askDate(ev,orderedMenu);
     }
     
     else if(splitData[0] === 'date'){
@@ -540,7 +535,8 @@ const calcTreatTime = (id,menu) => {
 }
 
 const askDate = (ev,orderedMenu) => {
-    return client.replyMessage(ev.replyToken,{
+    return client.replyMessage(ev.replyToken,
+      {
         "type":"flex",
         "altText":"予約日選択",
         "contents":
@@ -574,7 +570,8 @@ const askDate = (ev,orderedMenu) => {
               ]
             }
           }
-    });
+    }
+    );
 }
 
 const askTime = (ev,orderedMenu,selectedDate,reservableArray) => {

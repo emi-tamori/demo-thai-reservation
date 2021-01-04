@@ -177,6 +177,7 @@ module.exports = {
         }
       }
       return menuChoice;
+
     }else if(menuNumber === 1){
       const menuChoice = {
         "type":"flex",
@@ -261,6 +262,7 @@ module.exports = {
         }
       }
       return menuChoice;
+
     }else if(menuNumber === 2){
       const menuChoice = {
         "type":"flex",
@@ -346,5 +348,44 @@ module.exports = {
       }
       return menuChoice;
     }
+  },
+
+  makeDateChoice: (menu,time) => {
+    const dateChoice = {
+      "type":"flex",
+      "altText":"予約日選択",
+      "contents":
+      {
+        "type": "bubble",
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "text": "来店希望日を選んでください。",
+              "size": "md",
+              "align": "center"
+            }
+          ]
+        },
+        "footer": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "button",
+              "action": {
+                "type": "datetimepicker",
+                "label": "希望日を選択する",
+                "data": `date&${menu}&${time}`,
+                "mode": "date"
+              }
+            }
+          ]
+        }
+      }
+    }
+    return dateChoice;
   }
 }
