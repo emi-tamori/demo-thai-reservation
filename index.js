@@ -636,7 +636,7 @@ const orderChoice = (ev) => {
             "contents": [
               {
                 "type": "text",
-                "text": `${menu}`,
+                "text": "基本施術メニュー",
                 "size": "md",
                 "align": "center",
                 "wrap":true
@@ -658,11 +658,11 @@ const orderChoice = (ev) => {
                     "type": "button",
                     "action": {
                       "type": "postback",
-                      "label": "カット",
-                      "data": `menu&${selectedNew}&0`
+                      "label": `${MENU[0].menu}`,
+                      "data": "menu&0"
                     },
                     "style": "primary",
-                    "color": `${colors[0]}`,
+                    // "color": `${colors[0]}`,
                     "margin": "md"
                   },
                   {
@@ -670,10 +670,10 @@ const orderChoice = (ev) => {
                     "action": {
                       "type": "postback",
                       "label": "シャンプー",
-                      "data": `menu&${selectedNew}&1`
+                      "data": `menu&&1`
                     },
                     "style": "primary",
-                    "color": `${colors[1]}`,
+                    // "color": `${colors[1]}`,
                     "margin": "md"
                   }
                 ]
@@ -687,22 +687,22 @@ const orderChoice = (ev) => {
                     "action": {
                       "type": "postback",
                       "label": "ｶﾗｰﾘﾝｸﾞ",
-                      "data": `menu&${selectedNew}&2`
+                      "data": `menu&2`
                     },
                     "margin": "md",
                     "style": "primary",
-                    "color": `${colors[2]}`
+                    // "color": `${colors[2]}`
                   },
                   {
                     "type": "button",
                     "action": {
                       "type": "postback",
                       "label": "ヘッドスパ",
-                      "data": `menu&${selectedNew}&3`
+                      "data": `menu&3`
                     },
                     "margin": "md",
                     "style": "primary",
-                    "color": `${colors[3]}`
+                    // "color": `${colors[3]}`
                   }
                 ],
                 "margin": "md"
@@ -716,21 +716,21 @@ const orderChoice = (ev) => {
                     "action": {
                       "type": "postback",
                       "label": "ﾏｯｻｰｼﾞ&ﾊﾟｯｸ",
-                      "data": `menu&${selectedNew}&4`
+                      "data": `menu&4`
                     },
                     "margin": "md",
                     "style": "primary",
-                    "color": `${colors[4]}`
+                    // "color": `${colors[4]}`
                   },
                   {
                     "type": "button",
                     "action": {
                       "type": "postback",
                       "label": "顔そり",
-                      "data": `menu&${selectedNew}&5`
+                      "data": `menu&5`
                     },
                     "style": "primary",
-                    "color": `${colors[5]}`,
+                    // "color": `${colors[5]}`,
                     "margin": "md"
                   }
                 ],
@@ -745,18 +745,18 @@ const orderChoice = (ev) => {
                     "action": {
                       "type": "postback",
                       "label": "眉整え",
-                      "data": `menu&${selectedNew}&6`
+                      "data": `menu&6`
                     },
                     "margin": "md",
                     "style": "primary",
-                    "color": `${colors[6]}`
+                    // "color": `${colors[6]}`
                   },
                   {
                     "type": "button",
                     "action": {
                       "type": "postback",
                       "label": "選択終了",
-                      "data": `end&${selectedNew}`
+                      "data": `end`
                     },
                     "margin": "md",
                     "style": "primary",
