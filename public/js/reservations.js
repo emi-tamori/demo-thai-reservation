@@ -657,7 +657,6 @@
       const formData = new FormData(formElement);
       formData.append('id',info.id);
       console.log('formData',...formData.entries());
-      console.log('treattime',formData.get('treattime'));
 
       //formDataが適正かのチェックを入れる
       let check = postCheck(formData);

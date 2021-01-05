@@ -10,10 +10,24 @@ const connection = new Client({
   });
 connection.connect();
 
-// const STAFFS = ['ken','emi','taro'];
 const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
 const OPENTIME = 12; //開店時間
 const CLOSETIME = 24; //閉店時間
+
+const MENU = [
+    {
+        menu: 'タイ式（ストレッチ）',
+        timeAndPrice: [[30,3000],[45,4000],[60,5000],[90,7000],[120,9000]]
+    },
+    {
+        menu: 'タイ式（アロマ）',
+        timeAndPrice: [[45,5000],[60,7000],[90,9000],[120,12000]]
+    },
+    {
+        menu: '足つぼマッサージ',
+        timeAndPrice: [[30,3000],[60,5000]]
+    }
+]
 
 //予約の重複チェックを行う関数
 const doubleBookingCheck = (startTime,endTime,staffName,id) => {
@@ -259,10 +273,10 @@ module.exports = {
         })
     },
 
-    updateReservationData: ({customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu,id}) => {
+    updateReservationData: ({customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,menu,treattime,id}) => {
         return new Promise((resolve,reject) => {
             const startTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${sHour}:$${sMin}`).getTime() -9*60*60*1000;
-            const endTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${eHour}:$${eMin}`).getTime() -9*60*60*1000;
+            const endTime = startTime + MENU[menu].timeAndPrice[treattime][0]*60*1000;
             const scheduleDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
 
             //予約重複チェック
@@ -271,7 +285,7 @@ module.exports = {
                     console.log('answer:',answer);
                     if(answer){
                         const update_query = {
-                            text:`UPDATE reservations.${staffName} SET (name,scheduledate,starttime,endtime,menu,staff) = ('${customerName}','${scheduleDate}',${startTime},${endTime},'${menu}','${staffName}') WHERE id=${id};`
+                            text:`UPDATE reservations.${staffName} SET (name,scheduledate,starttime,endtime,menu,treattime,staff) = ('${customerName}','${scheduleDate}',${startTime},${endTime},${menu},${treattime},'${staffName}') WHERE id=${id};`
                         };
                         connection.query(update_query)
                             .then(()=>{
@@ -302,10 +316,10 @@ module.exports = {
         });
     },
 
-    createReservation: ({customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu,}) => {
+    createReservation: ({customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,menu,treattime}) => {
         return new Promise((resolve,reject)=>{
             const startTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${sHour}:$${sMin}`).getTime() -9*60*60*1000;
-            const endTime = new Date(`${selectedYear}/${selectedMonth}/${selectedDay} ${eHour}:$${eMin}`).getTime() -9*60*60*1000;
+            const endTime = startTime + MENU[menu].timeAndPrice[treattime][0]*60*1000;
             const scheduleDate = `${selectedYear}-${selectedMonth}-${selectedDay}`;
 
             //予約重複チェック
@@ -313,7 +327,7 @@ module.exports = {
                 .then(answer=>{
                     if(answer){
                         const insert_query = {
-                            text:`INSERT INTO reservations.${staffName} (name,scheduledate,starttime,endtime,menu,staff) VALUES ('${customerName}','${scheduleDate}',${startTime},${endTime},'${menu}','${staffName}');`
+                            text:`INSERT INTO reservations.${staffName} (name,scheduledate,starttime,endtime,menu,treattime,staff) VALUES ('${customerName}','${scheduleDate}',${startTime},${endTime},${menu},${treattime},'${staffName}');`
                         };
                         connection.query(insert_query)
                             .then(()=>{

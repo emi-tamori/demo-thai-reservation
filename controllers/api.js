@@ -76,9 +76,9 @@ module.exports = {
     },
 
     updateReservation: (req,res) => {
-        const {customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu,id} = req.body;
+        const {customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,menu,treattime,id} = req.body;
         try{
-            Data.updateReservationData({customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu,id})
+            Data.updateReservationData({customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,menu,treattime,id})
                 .then(message=>{
                     console.log('message=',message);
                     res.status(200).send(message);
@@ -105,9 +105,9 @@ module.exports = {
     },
 
     createReservation: (req,res) => {
-        const {customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu} = req.body;
+        const {customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,menu,treattime} = req.body;
         try{
-            Data.createReservation({customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,eHour,eMin,menu})
+            Data.createReservation({customerName,staffName,selectedYear,selectedMonth,selectedDay,sHour,sMin,menu,treattime})
                 .then(message=>{
                     console.log('message=',message);
                     res.status(200).send(message);
