@@ -568,8 +568,6 @@
       //ラジオボタンの選択時変化処理
       radio.addEventListener('change',()=>{
         select_treat.innerHTML = ''
-        select_treat.setAttribute('class','form-control treattime-selector');
-        select_treat.name = 'treattime';
         const array = MENU[index].timeAndPrice;
         array.forEach((arr,ind)=>{
           const opt = document.createElement('option');
@@ -592,7 +590,6 @@
     });
 
     formElement.appendChild(div_form_treat);
-    
 
     //フッターの作成
     const divFooter = document.createElement('div');
@@ -606,19 +603,6 @@
       createButton.setAttribute('class','btn btn-success button-rsv');
       createButton.addEventListener('click',()=>{
         const formData = new FormData(formElement);
-        //メニューの処理(%で連結)
-        let menus = '';
-        MENU_E.forEach((value,index)=>{
-          if(formData.has(value)){
-            if(!menus){
-              menus += index;
-            }else{
-              menus += '%'+index;
-            }
-            formData.delete(value);
-          }
-        });
-        formData.append('menu',menus);
         formData.append('id',info.id);
         console.log('formData',...formData.entries());
 
@@ -663,50 +647,38 @@
     updateButton.setAttribute('class','btn btn-warning button-rsv');
     updateButton.addEventListener('click',()=>{
       const formData = new FormData(formElement);
-      //メニューの処理(%で連結)
-      let menus = '';
-      MENU_E.forEach((value,index)=>{
-        if(formData.has(value)){
-          if(!menus){
-            menus += index;
-          }else{
-            menus += '%'+index;
-          }
-          formData.delete(value);
-        }
-      });
-      formData.append('menu',menus);
       formData.append('id',info.id);
       console.log('formData',...formData.entries());
+      console.log('treattime',formData.get('treattime'));
 
       //formDataが適正かのチェックを入れる
       let check = postCheck(formData);
       console.log('check',check);
-      if(check === 'ok'){
-        fetch('/api/reservation',{
-          method:'PUT',
-          body:formData,
-          credentials:'same-origin'
-        })
-        .then(response=>{
-          if(response.ok){
-            response.text()
-              .then(text=>{
-                alert(text);
-                document.location.reload();
-              })
-              .catch(e=>console.log(e));
-          }else{
-            alert('HTTPレスポンスエラー');
-          }
-        })
-        .catch(error=>{
-          alert(error);
-          throw error;
-        });
-      }else{
-        alert(check);
-      }
+      // if(check === 'ok'){
+      //   fetch('/api/reservation',{
+      //     method:'PUT',
+      //     body:formData,
+      //     credentials:'same-origin'
+      //   })
+      //   .then(response=>{
+      //     if(response.ok){
+      //       response.text()
+      //         .then(text=>{
+      //           alert(text);
+      //           document.location.reload();
+      //         })
+      //         .catch(e=>console.log(e));
+      //     }else{
+      //       alert('HTTPレスポンスエラー');
+      //     }
+      //   })
+      //   .catch(error=>{
+      //     alert(error);
+      //     throw error;
+      //   });
+      // }else{
+      //   alert(check);
+      // }
     });
     divFooter.appendChild(updateButton);
 
