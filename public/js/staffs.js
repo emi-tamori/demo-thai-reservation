@@ -212,6 +212,11 @@
             });
           }else{
             td.innerHTML = object[`p${(-1)*index.num}h${i}`];
+
+            //テスト用　後で削除
+            td.addEventListener('click',()=>{
+              toggle(staffNumber,index.num,i,data);
+            });
           }
           td.setAttribute('class','tbody-shift');
         }
