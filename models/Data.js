@@ -382,7 +382,7 @@ module.exports = {
     deleteReservationData: (staffName,id) => {
         return new Promise((resolve,reject)=>{
             const select_query = {
-                text: `SELECT * FROM reservation.${staffName} WHERE id=${id};`
+                text: `SELECT * FROM reservations.${staffName} WHERE id=${id};`
             }
             connection.query(select_query)
                 .then(res=>{
