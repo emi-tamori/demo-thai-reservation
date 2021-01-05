@@ -111,6 +111,7 @@
         starttime: '',
         endtime: '',
         menu: '',
+        treattime: '',
         staff: ''
       }
       createReservationCard(zeroInfo,STAFFS);
@@ -529,8 +530,8 @@
     const div_form_treat = document.createElement('div');
     div_form_treat.setAttribute('class','form-group form-inline div-treat');
 
-    //選択メニュー選択
-    const menuNumber = info.menu;
+    //選択メニュー選択(新規作成の時は0に設定)
+    const menuNumber = info.id === 'new' ? 0 : info.menu;
 
     //施術時間ラベル
     const label_treat = document.createElement('label');
