@@ -212,9 +212,6 @@
             });
           }else{
             td.innerHTML = object[`p${(-1)*index.num}h${i}`];
-            td.addEventListener('click',()=>{
-              toggle(staffNumber,index.num,i,data);
-            });
           }
           td.setAttribute('class','tbody-shift');
         }
