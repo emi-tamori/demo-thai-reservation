@@ -256,9 +256,23 @@ module.exports = {
 
     staffRegister: ({name}) =>{
         return new Promise((resolve,reject) => {
-            const insert_query = {
-                text: `INSERT INTO shifts (name) VALUES('${name}');`
-            };
+
+            //スタッフデータ生成時にシフトデータの初期値を1に設定する
+            let insert_query = 'INSERT INTO shifts (name,';
+            let insert_query2 = ` VALUES('${name}',`;
+            for(let i=0;i<NUMBER_OF_SHIFTS;i++){
+                for(let j=OPENTIME;j<CLOSETIME;j++){
+                    if(i=== NUMBER_OF_SHIFTS-1 && j===CLOSETIME-1){
+                        insert_query += `d${i}h${j}`+')';
+                        insert_query2 += 1+');';
+                    }else{
+                        insert_query += `d${i}h${j}`+',';
+                        insert_query2 += 1+',';
+                    }
+                }
+            }
+            insert_query += insert_query2;
+            console.log('insert_query:',insert_query);
             connection.query(insert_query)
                 .then(()=>{
                     const create_query = {
