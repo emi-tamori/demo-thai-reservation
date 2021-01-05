@@ -78,7 +78,7 @@
             const now = new Date().getTime();
 
             // data.reservationsからdata.usersのline_uidが一致するもの、かつ現在時刻より先の予約データのみを抽出
-            let nextReservationData = '';
+            let nextReservationData = '予約なし';
             STAFFS.forEach((name,index)=>{
                 const revData = data.reservations[index].filter(revObj1=>{
                     return usersObj.line_uid === revObj1.line_uid;
@@ -87,7 +87,7 @@
                 });
                 console.log('revData:',revData);
                 // revData.starttimeを日時文字列へ変換する
-                nextReservationData = (revData.length) ? nextDisplay(revData[0]) : '予約なし';
+                if(revData.length) nextReservationData = nextDisplay(revData[0]);
                 console.log('nextReservationData in',nextReservationData);
             });
             console.log('nextReservationData out',nextReservationData);
