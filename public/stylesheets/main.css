@@ -78,80 +78,45 @@ body {
 }
 
 .uTitles{
-    border:solid 1px #aaa;
+    border:solid 1px #fff;
     text-align:center;
-    background:#333;
+    background:rgb(69, 69, 173);
     color:#fff;
-    font-size:2vw;
-    margin-top:1vw;
+    font-size:1rem;
+    height:2rem;
+    /* margin-top:1vw; */
 }
 
 .uElements{
     border:solid 1px #aaa;
     text-align:center;
-    font-size:2vw;
-    height:3vh;
+    font-size:0.9rem;
+    height:2rem;
   }
 
 .row-id{
-    width:6vw;
-    font-size:2vw;
-    margin-left:1vw;
+    width:8vw;
+    /* font-size:2vw;
+    margin-left:1vw; */
 }
 
 .row-name{
-    width:23w;
-    font-size:2.5vw;
+    width:30vw;
+    /* font-size:2.5vw; */
 }
 
 .row-resist{
-    width:18vw;
-    font-size:2.5vw;
-}
-
-.row-cut{
-    width:8vw;
-    font-size:2.5vw;
-}
-
-.row-cut:hover{
-    background-color:rgb(222, 231, 97);
-    cursor:pointer;
-}
-
-.row-shampoo{
-    width:10vw;
-    font-size:2.5vw;
-}
-
-.row-shampoo:hover{
-    background-color:rgb(222, 231, 97);
-    cursor:pointer;
-}
-
-.row-color{
-    width:8vw;
-    font-size:2.5vw;
-}
-
-.row-color:hover{
-    background-color:rgb(222, 231, 97);
-    cursor:pointer;
-}
-
-.row-spa{
-    width:8vw;
-    font-size:2.5vw;
-}
-
-.row-spa:hover{
-    background-color:rgb(222, 231, 97);
-    cursor:pointer;
+    width:20vw;
+    /* font-size:2.5vw; */
 }
 
 .row-nextrev{
-    width:18vw;
-    font-size:2.5vw;
+    width:30vw;
+    /* font-size:2.5vw; */
+}
+
+.row-visit{
+    width:10vw;
 }
 
 /* 顧客情報カード */
