@@ -258,8 +258,12 @@ module.exports = {
         return new Promise((resolve,reject) => {
 
             //スタッフデータ生成時にシフトデータの初期値を1に設定する
-            let insert_query = 'INSERT INTO shifts (name,';
-            let insert_query2 = ` VALUES('${name}',`;
+            let today = new Date();
+            console.log('today:',new Date(today).getTime());
+            today.setHours(0,0,0,0); //0:00にセット
+            const today_ts = new Date(today).getTime();
+            let insert_query = 'INSERT INTO shifts (name, updatedat, ';
+            let insert_query2 = ` VALUES('${name}',${today_ts},`;
             for(let i=0;i<NUMBER_OF_SHIFTS;i++){
                 for(let j=OPENTIME;j<CLOSETIME;j++){
                     if(i=== NUMBER_OF_SHIFTS-1 && j===CLOSETIME-1){

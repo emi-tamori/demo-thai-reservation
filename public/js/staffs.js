@@ -57,7 +57,7 @@
     //表示用dateの取得
     let today = new Date();
     today.setHours(0,0,0,0); //0:00にセット
-    today_ts = new Date(today).getTime();
+    const today_ts = new Date(today).getTime();
     const dateArray = createDateArray(today_ts);
 
     //シフトテスト用
