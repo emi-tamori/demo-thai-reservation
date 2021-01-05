@@ -49,12 +49,21 @@
         title.innerHTML = 'お客さま管理ページ';
         divElement.appendChild(title);
 
+        //スタッフ名のみ配列化する
+        const STAFFS = [];
+        data.staffs.forEach(obj=>{
+        STAFFS.push(obj.name);
+        });
+        
+        console.log('reservationdata',data.reservations);
+
         // data.usersを２次元配列の形にする
         const usersData = [];
         data.users.forEach(usersObj=>{
 
             // 現在時刻のタイムスタンプ取得
             const now = new Date().getTime();
+            console.log('now:',now);
 
             // data.reservationsからdata.usersのline_uidが一致するもの、かつ現在時刻より先の予約データのみを抽出
             const revData = data.reservations.filter(revObj1=>{
@@ -74,11 +83,8 @@
                 usersObj.id,
                 usersObj.display_name,
                 resistrationDate,
-                usersObj.cuttime,
-                usersObj.shampootime,
-                usersObj.colortime,
-                usersObj.spatime,
-                nextReservationDate
+                nextReservationDate,
+                usresObj.visits
             ]);
 
             //idの昇順に並び替え
