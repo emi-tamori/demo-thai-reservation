@@ -74,11 +74,28 @@ const shiftDifferential = (data) => {
         }
         // 現在と更新日の差がNUMBER_OF_SHIFTS以内かつ0より大きいとき
         else if(DaysByDifferential<NUMBER_OF_SHIFTS && DaysByDifferential>0){
-            for(let i=0; i<DaysByDifferential; i++){
-                for(let j=OPENTIME; j<CLOSETIME; j++){
-                    if(i<SHIFTS_LEFT) copiedObj[`p${i+1}h${j}`] = copiedObj[`d${i}h${j}`]
+            //pの処理
+            if(DaysByDifferential<SHIFTS_LEFT){
+                for(let i=0; i<SHIFTS_LEFT-DaysByDifferential; i++){
+                    for(let j=OPENTIME;j<CLOSETIME;j++){
+                        copiedObj[`p${DaysByDifferential+1+i}h${j}`] = copiedObj[`p${1+i}h${j}`];
+                    }
+                }
+                for(let i=0; i<DaysByDifferential; i++){
+                    for(let j=OPENTIME;j<CLOSETIME;j++){
+                        copiedObj[`p${DaysByDifferential-i}h${j}`] = copiedObj[`d${i}h${j}`];
+                    }
+                }
+            }else{
+                //SHIFTS_LEFTよりもディファレンシャルが大きい時
+                for(let i=0; i<SHIFTS_LEFT; i++){
+                    for(let j=OPENTIME;j<CLOSETIME;j++){
+                        copiedObj[`p${i+1}h${j}`] = copiedObj[`d${DaysByDifferential-1-i}h${j}`];
+                    }
                 }
             }
+
+            //dの処理
             for(let i=0; i<NUMBER_OF_SHIFTS-DaysByDifferential; i++){
                 for(let j=OPENTIME;j<CLOSETIME;j++){
                     copiedObj[`d${i}h${j}`] = copiedObj[`d${DaysByDifferential+i}h${j}`];
@@ -90,10 +107,37 @@ const shiftDifferential = (data) => {
                 }
             }
             arrangedData.push(copiedObj);
-        }else{
+        }
+        else if(DaysByDifferential>=NUMBER_OF_SHIFTS && DaysByDifferential<NUMBER_OF_SHIFTS+SHIFTS_LEFT){
+            const diff = NUMBER_OF_SHIFTS+SHIFTS_LEFT - DaysByDifferential
+            //pの処理
+            for(let i=0; i<diff; i++){
+                for(let j=OPENTIME;j<CLOSETIME;j++){
+                    copiedObj[`p${(SHIFTS_LEFT-diff)+1+i}h${j}`] = copiedObj[`d${NUMBER_OF_SHIFTS-1-i}h${j}`];
+                }
+            }
+            for(let i=0; i<SHIFTS_LEFT-diff; i++){
+                for(let j=OPENTIME;j<CLOSETIME;j++){
+                    copiedObj[`p${i+1}h${j}`] = null;
+                }
+            }
+            //dの処理
             for(let i=0;i<NUMBER_OF_SHIFTS;i++){
                 for(let j=OPENTIME;j<CLOSETIME;j++){
                     copiedObj[`d${i}h${j}`] = null;
+                }
+            }
+            arrangedData.push(copiedObj);
+        }
+        else{
+            for(let i=0;i<NUMBER_OF_SHIFTS;i++){
+                for(let j=OPENTIME;j<CLOSETIME;j++){
+                    copiedObj[`d${i}h${j}`] = null;
+                }
+            }
+            for(let i=0;i<SHIFTS_LEFT;i++){
+                for(let j=OPENTIME;j<CLOSETIME;j++){
+                    copiedObj[`d${i+1}h${j}`] = null;
                 }
             }
             arrangedData.push(copiedObj);
