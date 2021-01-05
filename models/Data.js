@@ -381,15 +381,32 @@ module.exports = {
 
     deleteReservationData: (staffName,id) => {
         return new Promise((resolve,reject)=>{
-            const delete_query = {
-                text:`DELETE FROM reservations.${staffName} WHERE id=${id};`
+            const select_query = {
+                text: `SELECT * FROM reservation.${staffName} WHERE id=${id};`
             }
-            connection.query(delete_query)
-                .then(()=>{
-                    console.log('データ削除成功');
-                    resolve('予約データ削除しました');
+            connection.query(select_query)
+                .then(res=>{
+                    const lineId = res.rows[0].line_uid;
+                    if(lineId){
+                        const update_query = {
+                            text: `UPDATE users SET visits=visits-1 WHERE line_uid='${lineId}';`
+                        }
+                        connection.query(update_query)
+                            .then(()=>console.log('visits1減'))
+                            .catch(e=>console.log(e));
+                    }
+                    const delete_query = {
+                        text:`DELETE FROM reservations.${staffName} WHERE id=${id};`
+                    }
+                    connection.query(delete_query)
+                        .then(()=>{
+                            console.log('データ削除成功');
+                            resolve('予約データ削除しました');
+                        })
+                        .catch(e=>console.log(e));
                 })
                 .catch(e=>console.log(e));
+            
         });
     },
 
