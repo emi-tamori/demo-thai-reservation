@@ -74,7 +74,7 @@
     span_date.setAttribute('class','date-display');
     
     if(index.num>=0) span_date.innerHTML = '| '+dateArray[index.num]+' |';
-    if(index.num<0) span_date.innerHTML = '| '+dateArray[NUMBER_OF_SHIFTS-index.num]+' |';
+    if(index.num<0) span_date.innerHTML = '| '+dateArray[(NUMBER_OF_SHIFTS-1)-index.num]+' |';
     div_switch.appendChild(span_date);
 
     //戻るボタン
