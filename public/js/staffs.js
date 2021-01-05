@@ -242,20 +242,20 @@
     input_staff.setAttribute('name','name');
     div_input_staff.appendChild(input_staff);
 
-    //メール入力フォーム
-    const div_input_mail = document.createElement('div');
-    div_input_mail.setAttribute('class','form-group staff-input-area');
-    //メールラベル
-    const label_mail = document.createElement('label');
-    label_mail.setAttribute('class','label-staff');
-    label_mail.innerHTML = 'メール';
-    div_input_mail.appendChild(label_mail);
-      //メールアドレス入力欄
-    const input_mail = document.createElement('input');
-    input_mail.setAttribute('type','text');
-    input_mail.setAttribute('class','form-group staff-input');
-    input_mail.setAttribute('name','email');
-    div_input_mail.appendChild(input_mail);
+    // //メール入力フォーム
+    // const div_input_mail = document.createElement('div');
+    // div_input_mail.setAttribute('class','form-group staff-input-area');
+    // //メールラベル
+    // const label_mail = document.createElement('label');
+    // label_mail.setAttribute('class','label-staff');
+    // label_mail.innerHTML = 'メール';
+    // div_input_mail.appendChild(label_mail);
+    //   //メールアドレス入力欄
+    // const input_mail = document.createElement('input');
+    // input_mail.setAttribute('type','text');
+    // input_mail.setAttribute('class','form-group staff-input');
+    // input_mail.setAttribute('name','email');
+    // div_input_mail.appendChild(input_mail);
     
       //スタッフ名登録ボタン（post）
     const postButton = document.createElement('input');
@@ -293,9 +293,9 @@
         alert(check);
       }
     });
-    div_input_mail.appendChild(postButton);
+    div_input_staff.appendChild(postButton);
     formElement.appendChild(div_input_staff);
-    formElement.appendChild(div_input_mail);
+    // formElement.appendChild(div_input_mail);
     td_foot.appendChild(formElement);
 
     tr_foot.appendChild(td_foot);
@@ -355,12 +355,10 @@
 
   const postCheck = (data) => {
     const name = data.get('name');
-    const email = data.get('email');
+    // const email = data.get('email');
 
     //未入力チェック
-    for (let value of data.entries()) {
-      if(value[1] === '') return '未入力箇所があります';
-    }
+    if(!name) return 'スタッフ名を入力してください'
 
     //名前に半角スペース入れちゃダメチェック
     const spaceCheck = /\s+/g;
@@ -369,10 +367,10 @@
     }
 
     //メルアドは適正かチェック
-    const addressCheck = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/;
-    if(!addressCheck.test(email)){
-      return 'メールアドレスを正しく入力してください'
-    }
+    // const addressCheck = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/;
+    // if(!addressCheck.test(email)){
+    //   return 'メールアドレスを正しく入力してください'
+    // }
 
     //何も引っ掛からなかったら
     return 'ok';
