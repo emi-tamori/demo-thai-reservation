@@ -67,7 +67,6 @@
         data.staffs.forEach(obj=>{
             STAFFS.push(obj.name);
         });
-        console.log('STAFFS',STAFFS);
         console.log('reservationdata',data.reservations);
 
         // data.usersを２次元配列の形にする
@@ -85,12 +84,9 @@
                 }).filter(revObj2=>{
                     return parseInt(revObj2.starttime) > now;
                 });
-                console.log('revData:',revData);
                 // revData.starttimeを日時文字列へ変換する
                 if(revData.length) nextReservationData = nextDisplay(revData[0]);
-                console.log('nextReservationData in',nextReservationData);
             });
-            console.log('nextReservationData out',nextReservationData);
             // usersObj.timestampを日時文字列へ変換する
             const resistrationDate = timeConversion(parseInt(usersObj.timestamp),0);
 
@@ -110,7 +106,7 @@
                 return 0;
             });
         });
-        console.log('usersDAta',usersData);
+
         // 次回予約日を計算し、usersDataへpushする
         const l = usersData.length+1;  //表題の分＋１している
 
@@ -174,7 +170,7 @@
             staff: data.staff
         }
         console.log('nextData',nextData);
-        const nextHtml = `<span>${nextData.nextDate}</span><br><span>${nextData.nextTime}</span><br><span>${nextData.menu}</span><br><span>${nextData.treattime}分</span><br><span>${nextData.staff}</span>`;
+        const nextHtml = `<span>･${nextData.nextDate}</span><br><span>･${nextData.nextTime}</span><br><span>･${nextData.menu}</span><br><span>･${nextData.treattime}分</span><br><span>･${nextData.staff}</span>`;
         return nextHtml;
     }
 
