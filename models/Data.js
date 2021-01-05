@@ -200,26 +200,30 @@ module.exports = {
                     }
                     connection.query(pickup_staffs)
                         .then(staffs=>{
-                            const arrangedStaffs = shiftDifferential(staffs.rows);
-                            const reservations = [];
-                            arrangedStaffs.forEach((staff,index)=>{
-                                const pickup_reservations = {
-                                    text: `SELECT * FROM reservations.${staff.name};`
-                                }
-                                connection.query(pickup_reservations)
-                                    .then(res=>{
-                                        reservations.push(res.rows);
-                                        if(index === staffs.rows.length-1) {
-                                            const data = {
-                                                users: users.rows,
-                                                staffs: arrangedStaffs,
-                                                reservations
+                            if(staffs.rows.length){
+                                const arrangedStaffs = shiftDifferential(staffs.rows);
+                                const reservations = [];
+                                arrangedStaffs.forEach((staff,index)=>{
+                                    const pickup_reservations = {
+                                        text: `SELECT * FROM reservations.${staff.name};`
+                                    }
+                                    connection.query(pickup_reservations)
+                                        .then(res=>{
+                                            reservations.push(res.rows);
+                                            if(index === staffs.rows.length-1) {
+                                                const data = {
+                                                    users: users.rows,
+                                                    staffs: arrangedStaffs,
+                                                    reservations
+                                                }
+                                                resolve(data);
                                             }
-                                            resolve(data);
-                                        }
-                                    })
-                                    .catch(e=>console.log(e));
-                            })
+                                        })
+                                        .catch(e=>console.log(e));
+                                })
+                            }else{
+                                resolve([]);
+                            }
                         })
                         .catch(e=>console.log(e));
                 })
