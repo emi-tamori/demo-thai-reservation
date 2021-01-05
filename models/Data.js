@@ -250,12 +250,18 @@ module.exports = {
                 let update_query2 = `(${obj.updatedat},`;
                 for(let i=0;i<NUMBER_OF_SHIFTS;i++){
                     for(let j=OPENTIME;j<CLOSETIME;j++){
-                        if(i=== NUMBER_OF_SHIFTS-1 && j===CLOSETIME-1){
-                            update_query += `d${i}h${j}`+') = ';
-                            update_query2 += obj[`d${i}h${j}`]+') ';
+                        update_query += `d${i}h${j}`+',';
+                        update_query2 += obj[`d${i}h${j}`]+',';
+                    }
+                }
+                for(let k=1;k<SHIFTS_LEFT+1;k++){
+                    for(let l=OPENTIME;l<CLOSETIME;l++){
+                        if(k=== SHIFTS_LEFT && l===CLOSETIME-1){
+                            update_query += `p${k}h${l}`+') = ';
+                            update_query2 += obj[`p${k}h${l}`]+') ';
                         }else{
-                            update_query += `d${i}h${j}`+',';
-                            update_query2 += obj[`d${i}h${j}`]+',';
+                            update_query += `p${k}h${l}`+',';
+                            update_query2 += obj[`p${k}h${l}`]+',';
                         }
                     }
                 }
