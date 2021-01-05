@@ -88,8 +88,9 @@
                 console.log('revData:',revData);
                 // revData.starttimeを日時文字列へ変換する
                 nextReservationData = (revData.length) ? nextDisplay(revData[0]) : '予約なし';
+                console.log('nextReservationData in',nextReservationData);
             });
-            console.log('usersDAta',usersData);
+            console.log('nextReservationData out',nextReservationData);
             // usersObj.timestampを日時文字列へ変換する
             const resistrationDate = timeConversion(parseInt(usersObj.timestamp),0);
 
@@ -109,7 +110,7 @@
                 return 0;
             });
         });
-
+        console.log('usersDAta',usersData);
         // 次回予約日を計算し、usersDataへpushする
         const l = usersData.length+1;  //表題の分＋１している
 
