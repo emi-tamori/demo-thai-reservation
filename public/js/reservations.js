@@ -525,34 +525,6 @@
 
     formElement.appendChild(div_form_time);
 
-    //選択メニュー選択
-    const menuNumber = info.menu;
-
-    MENU.forEach((menu,index)=>{
-      const div_form_menu = document.createElement('div');
-      div_form_menu.setAttribute('class','form-check menu-check');
-      //ラジオボタン
-      const radio = document.createElement('input');
-      radio.setAttribute('class','form-check-input');
-      radio.setAttribute('id',`check-${MENU_E[index]}-${info.staff}&${info.id}`);
-      radio.type = 'radio';
-      radio.name = 'menu';
-      radio.value = MENU_E[index];
-      if(menuNumber === index) radio.checked = true;
-      radio.addEventListener('change',()=>console.log('change'));
-
-      //ラベル
-      const label = document.createElement('label');
-      label.setAttribute('class','form-check-label');
-      label.htmlFor = `check-${MENU_E[index]}-${info.staff}&${info.id}`;
-      label.innerHTML = menu.menu;
-      //親要素への追加
-      div_form_menu.appendChild(radio);
-      div_form_menu.appendChild(label);
-      formElement.appendChild(div_form_menu);
-    });
-    
-
     //施術時間の選択
     const div_form_treat = document.createElement('div');
     div_form_treat.setAttribute('class','form-group form-inline div-treat');
@@ -576,9 +548,82 @@
     });
     select_treat.selectedIndex = info.id === 'new' ? -1 : info.treattime;
     div_form_treat.appendChild(select_treat);
-    formElement.appendChild(div_form_treat);
 
-    //ラジオボタンと施術時間の連動処理
+    //選択メニュー選択
+    const menuNumber = info.menu;
+
+    MENU.forEach((menu,index)=>{
+      const div_form_menu = document.createElement('div');
+      div_form_menu.setAttribute('class','form-check menu-check');
+      //ラジオボタン
+      const radio = document.createElement('input');
+      radio.setAttribute('class','form-check-input');
+      radio.setAttribute('id',`check-${MENU_E[index]}-${info.staff}&${info.id}`);
+      radio.type = 'radio';
+      radio.name = 'menu';
+      radio.value = MENU_E[index];
+      if(menuNumber === index) radio.checked = true;
+      //ラジオボタン変化処理
+      radio.addEventListener('change',()=>{
+        select_treat.innerHTML = ''
+        const array = MENU[index].timeAndPrice;
+        array.forEach((arr,ind)=>{
+          const opt = document.createElement('option');
+          opt.innerHTML = arr[0]+'分';
+          opt.value = ind;
+          select_treat.appendChild(opt);
+        });
+        // const select_treat = document.createElement('select');
+        // select_treat.setAttribute('class','form-control treattime-selector');
+        // select_treat.name = 'treattime';
+        // const treatArray = MENU[menuNumber].timeAndPrice;
+
+        // treatArray.forEach((array,index)=>{
+        //   const option = document.createElement('option');
+        //   option.innerHTML = array[0]+'分';
+        //   option.value = index;
+        //   select_treat.appendChild(option);
+        // });
+        // select_treat.selectedIndex = info.id === 'new' ? -1 : info.treattime;
+        // div_form_treat.appendChild(select_treat);
+      });
+
+      //ラベル
+      const label = document.createElement('label');
+      label.setAttribute('class','form-check-label');
+      label.htmlFor = `check-${MENU_E[index]}-${info.staff}&${info.id}`;
+      label.innerHTML = menu.menu;
+      //親要素への追加
+      div_form_menu.appendChild(radio);
+      div_form_menu.appendChild(label);
+      formElement.appendChild(div_form_menu);
+    });
+    
+
+    // //施術時間の選択
+    // const div_form_treat = document.createElement('div');
+    // div_form_treat.setAttribute('class','form-group form-inline div-treat');
+
+    // //施術時間ラベル
+    // const label_treat = document.createElement('label');
+    // label_treat.innerHTML = '施術時間';
+    // div_form_treat.appendChild(label_treat);
+
+    // //施術時間 Select
+    // const select_treat = document.createElement('select');
+    // select_treat.setAttribute('class','form-control treattime-selector');
+    // select_treat.name = 'treattime';
+    // const treatArray = MENU[menuNumber].timeAndPrice;
+
+    // treatArray.forEach((array,index)=>{
+    //   const option = document.createElement('option');
+    //   option.innerHTML = array[0]+'分';
+    //   option.value = index;
+    //   select_treat.appendChild(option);
+    // });
+    // select_treat.selectedIndex = info.id === 'new' ? -1 : info.treattime;
+    // div_form_treat.appendChild(select_treat);
+    formElement.appendChild(div_form_treat);
     
 
     //フッターの作成
