@@ -373,6 +373,14 @@ body {
     cursor: pointer;
 }
 
+.label-treat{
+    margin-right: 0.5vw;
+}
+
+.treattime-selector{
+    width:30%;
+}
+
 
 /* スタッフ管理ページ */
 #staffsPage{

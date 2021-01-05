@@ -534,6 +534,7 @@
 
     //施術時間ラベル
     const label_treat = document.createElement('label');
+    label_treat.setAttribute('class','label-treat');
     label_treat.innerHTML = '施術時間';
     div_form_treat.appendChild(label_treat);
 
@@ -563,7 +564,8 @@
       radio.name = 'menu';
       radio.value = MENU_E[index];
       if(menuNumber === index) radio.checked = true;
-      //ラジオボタン変化処理
+
+      //ラジオボタンの選択時変化処理
       radio.addEventListener('change',()=>{
         select_treat.innerHTML = ''
         const array = MENU[index].timeAndPrice;
@@ -573,19 +575,7 @@
           opt.value = ind;
           select_treat.appendChild(opt);
         });
-        // const select_treat = document.createElement('select');
-        // select_treat.setAttribute('class','form-control treattime-selector');
-        // select_treat.name = 'treattime';
-        // const treatArray = MENU[menuNumber].timeAndPrice;
-
-        // treatArray.forEach((array,index)=>{
-        //   const option = document.createElement('option');
-        //   option.innerHTML = array[0]+'分';
-        //   option.value = index;
-        //   select_treat.appendChild(option);
-        // });
-        // select_treat.selectedIndex = info.id === 'new' ? -1 : info.treattime;
-        // div_form_treat.appendChild(select_treat);
+        select_treat.selectedIndex = -1;
       });
 
       //ラベル
@@ -598,7 +588,6 @@
       div_form_menu.appendChild(label);
       formElement.appendChild(div_form_menu);
     });
-    
 
     // //施術時間の選択
     // const div_form_treat = document.createElement('div');
