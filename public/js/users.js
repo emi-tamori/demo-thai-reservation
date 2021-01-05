@@ -83,7 +83,7 @@
                 usersObj.display_name,
                 resistrationDate,
                 nextReservationDate,
-                usresObj.visits
+                usersObj.visits
             ]);
 
             //idの昇順に並び替え
