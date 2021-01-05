@@ -34,6 +34,8 @@ const FUTURE_LIMIT = 3; //何日先まで予約可能かの上限
 const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
 const SHIFTS_LEFT = 7; //何日前までのシフトを残すか
 const PASSWORD = 'パスワード';
+const ADMIN_EMAIL_FROM = 'kentaro523@gmail.com';
+const ADMIN_EMAIL_TO = 'waruemon.xyz@gmail.com';
 
 const config = {
     channelAccessToken:process.env.ACCESS_TOKEN,
@@ -836,40 +838,31 @@ const getNumberOfReservations = (date,shiftInfo) => {
 
 //Gmail送信設定
 const gmailSend = (staffName,date,menu) => {
-  return new Promise((resolve,reject)=> {
-    const select_query = {
-      text: `SELECT email FROM shifts WHERE name='${staffName}';`
-    };
-    connection.query(select_query)
-      .then(address=>{
 
-        //Gmail送信設定
-        const message = {
-          from: 'kentaro523@gmail.com',
-          to: address.rows[0].email,
-          subject: `${staffName}さんに予約が入りました！！`,
-          text: `${date}に${menu}で予約が入りました！`
-        };
+  //Gmail送信設定
+  const message = {
+    from: ADMIN_EMAIL_FROM,
+    to: ADMIN_EMAIL_TO,
+    subject: `${staffName}さんに予約が入りました！！`,
+    text: `${date}に${menu}で予約が入りました！`
+  };
 
-        const auth = {
-          type: 'OAuth2',
-          user: 'kentaro523@gmail.com',
-          clientId: process.env.GMAIL_CLIENT_ID,
-          clientSecret: process.env.GMAIL_CLIENT_SECRET,
-          refreshToken: process.env.GMAIL_REFRESH_TOKEN
-        };
+  const auth = {
+    type: 'OAuth2',
+    user: ADMIN_EMAIL_FROM,
+    clientId: process.env.GMAIL_CLIENT_ID,
+    clientSecret: process.env.GMAIL_CLIENT_SECRET,
+    refreshToken: process.env.GMAIL_REFRESH_TOKEN
+  };
 
-        const transport = {
-          service: 'gmail',
-          auth: auth
-        };
+  const transport = {
+    service: 'gmail',
+    auth: auth
+  };
 
-        const transporter = nodemailer.createTransport(transport);
-        transporter.sendMail(message,(err,response)=>{
-          console.log(err || response);
-          resolve('gmail送信成功');
-        });
-      })
-      .catch(e=>console.log(e));
-  })
+  const transporter = nodemailer.createTransport(transport);
+  transporter.sendMail(message,(err,response)=>{
+    console.log(err || response);
+    resolve('gmail送信成功');
+  });
 }

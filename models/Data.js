@@ -14,6 +14,8 @@ const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることがで�
 const SHIFTS_LEFT = 7; //何日前までのシフトを残すか
 const OPENTIME = 12; //開店時間
 const CLOSETIME = 24; //閉店時間
+const ADMIN_EMAIL_FROM = 'kentaro523@gmail.com';
+const ADMIN_EMAIL_TO = 'waruemon.xyz@gmail.com';
 
 const MENU = [
     {
@@ -148,41 +150,33 @@ const shiftDifferential = (data) => {
 
 //gmailを送る関数
 const gmailSend = (staffName,date,menu) => {
-    return new Promise((resolve,reject)=> {
-      const select_query = {
-        text: `SELECT email FROM shifts WHERE name='${staffName}';`
-      };
-      connection.query(select_query)
-        .then(address=>{
-          //Gmail送信設定
-          const message = {
-            from: 'kentaro523@gmail.com',
-            to: address.rows[0].email,
-            subject: `${staffName}さんに予約が入りました！！`,
-            text: `${date}に${menu}で予約が入りました！`
-          };
-  
-          const auth = {
-            type: 'OAuth2',
-            user: 'kentaro523@gmail.com',
-            clientId: process.env.GMAIL_CLIENT_ID,
-            clientSecret: process.env.GMAIL_CLIENT_SECRET,
-            refreshToken: process.env.GMAIL_REFRESH_TOKEN
-          };
-  
-          const transport = {
-            service: 'gmail',
-            auth: auth
-          };
-  
-          const transporter = nodemailer.createTransport(transport);
-          transporter.sendMail(message,(err,response)=>{
-            console.log(err || response);
-            resolve('gmail送信成功');
-          });
-        })
-        .catch(e=>console.log(e));
-    })
+    
+    //Gmail送信設定
+    const message = {
+    from: ADMIN_EMAIL_FROM,
+    to: ADMIN_EMAIL_TO,
+    subject: `${staffName}さんに予約が入りました！！`,
+    text: `${date}に${menu}で予約が入りました！`
+    };
+
+    const auth = {
+    type: 'OAuth2',
+    user: ADMIN_EMAIL_FROM,
+    clientId: process.env.GMAIL_CLIENT_ID,
+    clientSecret: process.env.GMAIL_CLIENT_SECRET,
+    refreshToken: process.env.GMAIL_REFRESH_TOKEN
+    };
+
+    const transport = {
+    service: 'gmail',
+    auth: auth
+    };
+
+    const transporter = nodemailer.createTransport(transport);
+    transporter.sendMail(message,(err,response)=>{
+    console.log(err || response);
+    resolve('gmail送信成功');
+    });
 }
 
 module.exports = {
