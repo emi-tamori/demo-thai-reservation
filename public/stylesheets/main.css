@@ -24,19 +24,19 @@ body {
 }
 
 #toUsers{
-    margin:2vw 2vw;
+    margin:1rem 1rem;
     width:50vw;
     font-size:1rem;
 }
 
 #toReservations{
-    margin:2vw 2vw;
+    margin:1rem 1rem;
     width:50vw;
     font-size:1rem;
 }
 
 #toStaffs{
-    margin: 2vw 2vw;
+    margin: 1rem 1rem;
     width: 50vw;
     font-size:1rem;
 }
