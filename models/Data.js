@@ -175,7 +175,6 @@ const gmailSend = (staffName,date,menu) => {
     const transporter = nodemailer.createTransport(transport);
     transporter.sendMail(message,(err,response)=>{
     console.log(err || response);
-    resolve('gmail送信成功');
     });
 }
 
@@ -393,12 +392,8 @@ module.exports = {
                         connection.query(insert_query)
                             .then(()=>{
                                 console.log('予約データ作成成功');
-                                gmailSend(staffName,scheduleDate,menu)
-                                    .then(text=>{
-                                        console.log(text);
-                                        resolve('新規予約データ作成成功');
-                                    })
-                                    .catch(e=>console.log(e));
+                                gmailSend(staffName,scheduleDate,menu);
+                                resolve('新規予約データ作成成功');
                             })
                             .catch(e=>console.log(e));
                     }else{

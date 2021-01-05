@@ -439,9 +439,7 @@ const handlePostbackEvent = async (ev) => {
                               "text":`${date}に${MENU[orderedMenu].menu}で予約をお取りしたました（スタッフ：${staffName}）`
                             });
                             //Gmail送信
-                            gmailSend(staffName,date,MENU[orderedMenu].menu)
-                              .then(message=>{console.log(message)})
-                              .catch(e=>console.log(e));
+                            gmailSend(staffName,date,MENU[orderedMenu].menu);
                           })
                           .catch(e=>console.log(e));
                       })
@@ -863,6 +861,5 @@ const gmailSend = (staffName,date,menu) => {
   const transporter = nodemailer.createTransport(transport);
   transporter.sendMail(message,(err,response)=>{
     console.log(err || response);
-    resolve('gmail送信成功');
   });
 }
