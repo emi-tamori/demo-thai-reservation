@@ -64,7 +64,7 @@
     let today = new Date();
     today.setHours(0,0,0,0); //0:00にセット
     today_ts = new Date(today).getTime() - 3*24*60*60*1000;
-    const test_today = new Date(today);
+    const test_today = new Date(today).getTime();
     const dateArray = createDateArray(test_today);
 
     let index = {
