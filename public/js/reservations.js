@@ -661,31 +661,31 @@
       //formDataが適正かのチェックを入れる
       let check = postCheck(formData);
       console.log('check',check);
-      // if(check === 'ok'){
-      //   fetch('/api/reservation',{
-      //     method:'PUT',
-      //     body:formData,
-      //     credentials:'same-origin'
-      //   })
-      //   .then(response=>{
-      //     if(response.ok){
-      //       response.text()
-      //         .then(text=>{
-      //           alert(text);
-      //           document.location.reload();
-      //         })
-      //         .catch(e=>console.log(e));
-      //     }else{
-      //       alert('HTTPレスポンスエラー');
-      //     }
-      //   })
-      //   .catch(error=>{
-      //     alert(error);
-      //     throw error;
-      //   });
-      // }else{
-      //   alert(check);
-      // }
+      if(check === 'ok'){
+        fetch('/api/reservation',{
+          method:'PUT',
+          body:formData,
+          credentials:'same-origin'
+        })
+        .then(response=>{
+          if(response.ok){
+            response.text()
+              .then(text=>{
+                alert(text);
+                document.location.reload();
+              })
+              .catch(e=>console.log(e));
+          }else{
+            alert('HTTPレスポンスエラー');
+          }
+        })
+        .catch(error=>{
+          alert(error);
+          throw error;
+        });
+      }else{
+        alert(check);
+      }
     });
     divFooter.appendChild(updateButton);
 
