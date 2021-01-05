@@ -55,17 +55,17 @@
     const data = Array.from(STAFFS_DATA);
     
     //表示用dateの取得
-    // let today = new Date();
-    // today.setHours(0,0,0,0); //0:00にセット
-    // today_ts = new Date(today).getTime();
-    // const dateArray = createDateArray(today_ts);
-
-    //シフトテスト用
     let today = new Date();
     today.setHours(0,0,0,0); //0:00にセット
-    today_ts = new Date(today).getTime() - 3*24*60*60*1000;
-    const test_today = new Date(today).getTime();
-    const dateArray = createDateArray(test_today);
+    today_ts = new Date(today).getTime();
+    const dateArray = createDateArray(today_ts);
+
+    //シフトテスト用
+    // let today = new Date();
+    // today.setHours(0,0,0,0); //0:00にセット
+    // today_ts = new Date(today).getTime() - 3*24*60*60*1000;
+    // const test_today = new Date(today).getTime();
+    // const dateArray = createDateArray(test_today);
 
     let index = {
       num
