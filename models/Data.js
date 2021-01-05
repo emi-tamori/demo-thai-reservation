@@ -66,6 +66,7 @@ const shiftDifferential = (data) => {
         const differential = today_ts - parseInt(copiedObj.updatedat);
         //differntialの日数換算をする
         const DaysByDifferential = Math.floor(differential/(24*60*60*1000));
+        console.log('difference',today_ts,copiedObj.updatedat,DaysByDifferential)
 
         // 現在と更新日が一致するとき
         if(DaysByDifferential===0){
