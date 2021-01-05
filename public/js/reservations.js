@@ -562,12 +562,14 @@
       radio.setAttribute('id',`check-${MENU_E[index]}-${info.staff}&${info.id}`);
       radio.type = 'radio';
       radio.name = 'menu';
-      radio.value = MENU_E[index];
+      radio.value = index;
       if(menuNumber === index) radio.checked = true;
 
       //ラジオボタンの選択時変化処理
       radio.addEventListener('change',()=>{
         select_treat.innerHTML = ''
+        select_treat.setAttribute('class','form-control treattime-selector');
+        select_treat.name = 'treattime';
         const array = MENU[index].timeAndPrice;
         array.forEach((arr,ind)=>{
           const opt = document.createElement('option');
@@ -589,29 +591,6 @@
       formElement.appendChild(div_form_menu);
     });
 
-    // //施術時間の選択
-    // const div_form_treat = document.createElement('div');
-    // div_form_treat.setAttribute('class','form-group form-inline div-treat');
-
-    // //施術時間ラベル
-    // const label_treat = document.createElement('label');
-    // label_treat.innerHTML = '施術時間';
-    // div_form_treat.appendChild(label_treat);
-
-    // //施術時間 Select
-    // const select_treat = document.createElement('select');
-    // select_treat.setAttribute('class','form-control treattime-selector');
-    // select_treat.name = 'treattime';
-    // const treatArray = MENU[menuNumber].timeAndPrice;
-
-    // treatArray.forEach((array,index)=>{
-    //   const option = document.createElement('option');
-    //   option.innerHTML = array[0]+'分';
-    //   option.value = index;
-    //   select_treat.appendChild(option);
-    // });
-    // select_treat.selectedIndex = info.id === 'new' ? -1 : info.treattime;
-    // div_form_treat.appendChild(select_treat);
     formElement.appendChild(div_form_treat);
     
 
