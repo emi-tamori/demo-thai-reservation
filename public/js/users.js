@@ -1,6 +1,6 @@
 (()=>{
     const API_URL = 'https://linebot-schedule.herokuapp.com/api/';
-    const HEADERS = ['ID','名前','登録日','次回予約','来店回数'];
+    const HEADERS = ['ID','名前','登録日','次回予約','来店'];
     const CLASSES = ['row-id','row-name','row-resist','row-nextrev','row-visit'];
     const MENU = [
         {
@@ -99,7 +99,7 @@
                 usersObj.display_name,
                 resistrationDate,
                 nextReservationData,
-                usersObj.visits
+                usersObj.visits+'回'
             ]);
 
             //idの昇順に並び替え

@@ -101,7 +101,7 @@ body {
 }
 
 .row-name{
-    width:28vw;
+    width:26vw;
     /* font-size:2.5vw; */
 }
 
@@ -111,12 +111,12 @@ body {
 }
 
 .row-nextrev{
-    width:28vw;
+    width:27vw;
     /* font-size:2.5vw; */
 }
 
 .row-visit{
-    width:10vw;
+    width:12vw;
 }
 
 /* 顧客情報カード */
