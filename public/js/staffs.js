@@ -205,10 +205,17 @@
           td.setAttribute('class','tbody-delete');
         }
         else{
-          td.innerHTML = object[`d${index.num}h${i}`];
-          td.addEventListener('click',()=>{
-            toggle(staffNumber,index.num,i,data);
-          });
+          if(index.num>=0){
+            td.innerHTML = object[`d${index.num}h${i}`];
+            td.addEventListener('click',()=>{
+              toggle(staffNumber,index.num,i,data);
+            });
+          }else{
+            td.innerHTML = object[`p${(-1)*index.num}h${i}`];
+            td.addEventListener('click',()=>{
+              toggle(staffNumber,index.num,i,data);
+            });
+          }
           td.setAttribute('class','tbody-shift');
         }
         tr.appendChild(td);
@@ -348,16 +355,26 @@
 
   const toggle = (staffNumber,dateNum,timeNum,data) => {
     const targetObj = data[staffNumber];
-    const targetShift = targetObj[`d${dateNum}h${timeNum}`];
-    if(targetShift === null){
-      STAFFS_DATA[staffNumber][`d${dateNum}h${timeNum}`] = 1;
-    }else if(targetShift === 1){
-      STAFFS_DATA[staffNumber][`d${dateNum}h${timeNum}`] = 0;
+    if(dateNum>=0){
+      const targetShift = targetObj[`d${dateNum}h${timeNum}`];
+      if(targetShift === null){
+        STAFFS_DATA[staffNumber][`d${dateNum}h${timeNum}`] = 1;
+      }else if(targetShift === 1){
+        STAFFS_DATA[staffNumber][`d${dateNum}h${timeNum}`] = 0;
+      }else{
+        STAFFS_DATA[staffNumber][`d${dateNum}h${timeNum}`] = 1;
+      }
     }else{
-      STAFFS_DATA[staffNumber][`d${dateNum}h${timeNum}`] = 1;
+      const dateIndex = (-1)*dateNum;
+      const targetShift = targetObj[`p${dateIndex}h${timeNum}`];
+      if(targetShift === null){
+        STAFFS_DATA[staffNumber][`p${dateIndex}h${timeNum}`] = 1;
+      }else if(targetShift === 1){
+        STAFFS_DATA[staffNumber][`p${dateIndex}h${timeNum}`] = 0;
+      }else{
+        STAFFS_DATA[staffNumber][`p${dateIndex}h${timeNum}`] = 1;
+      }
     }
-    console.log('targetShift',targetObj,targetShift);
-    console.log
     divElement.innerHTML = '';
     createStaffTable(dateNum);
   }
