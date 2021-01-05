@@ -1,7 +1,7 @@
 (()=>{
   const API_URL = 'https://linebot-schedule.herokuapp.com/api/';
   const WEEKS = ["日", "月", "火", "水", "木", "金", "土"];
-  const REGULAR_CLOSE = [4];
+  const REGULAR_CLOSE = [];
   const ONEHOUR = 60*60*1000;
   const ONEDAY = 24*ONEHOUR;
   const ONEWEEK = ONEDAY*7;
@@ -726,6 +726,31 @@
   }
 
   const postCheck = (data) => {
+    const keyParams = [
+      'customerName',
+      'staffName',
+      'selectedYear',
+      'selectedMonth',
+      'selectedDay',
+      'sHour',
+      'sMin',
+      'eHour',
+      'eMin',
+      'menu',
+      'treattime',
+      'id'
+    ]
+
+    //名前未入力チェック
+    if(!data.get('customerName')) return '名前が未入力です';
+
+    //未選択チェック
+    let notSelected = 0;
+    keyParams.forEach(param=>{
+      if(data.get(`${param}`) === null) notSelected++;
+    });
+    if(notSelected>0) return `${noSelected}箇所の未入力があります`;
+
     const name = data.get('customerName');
     const staff = data.get('staffName');
     const year = data.get('selectedYear');
@@ -742,11 +767,6 @@
     const startTime = new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).getTime();
     const endTime = new Date(`${year}/${month}/${day} ${eHour}:${eMin}`).getTime();
     const week = new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).getDay();
-
-    //未入力チェック
-    for (let value of data.entries()) {
-      if(value[1] === '') return '未入力箇所があります';
-    }
 
     //開始時間<終了時間のチェック
     if(startTime>endTime) return '終了時間よりも開始時間が早くなってます';
