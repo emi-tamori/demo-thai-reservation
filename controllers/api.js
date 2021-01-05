@@ -35,10 +35,10 @@ module.exports = {
     },
 
     staffRegistration: (req,res) => {
-        const {name,email} = req.body;
-        console.log('name email in req.body',name,email);
+        const {name} = req.body;
+        console.log('name req.body',name);
         try{
-            Data.staffRegister({name,email})
+            Data.staffRegister({name})
                 .then(message=>{
                     console.log('message=',message);
                     res.status(200).send(message);
