@@ -65,9 +65,9 @@
         //スタッフ名のみ配列化する
         const STAFFS = [];
         data.staffs.forEach(obj=>{
-        STAFFS.push(obj.name);
+            STAFFS.push(obj.name);
         });
-
+        console.log('STAFFS',STAFFS);
         console.log('reservationdata',data.reservations);
 
         // data.usersを２次元配列の形にする
@@ -89,7 +89,7 @@
                 // revData.starttimeを日時文字列へ変換する
                 nextReservationData = (revData.length) ? nextDisplay(revData[0]) : '予約なし';
             });
-
+            console.log('usersDAta',usersData);
             // usersObj.timestampを日時文字列へ変換する
             const resistrationDate = timeConversion(parseInt(usersObj.timestamp),0);
 
