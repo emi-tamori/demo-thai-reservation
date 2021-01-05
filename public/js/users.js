@@ -172,7 +172,7 @@
             staff: data.staff
         }
         console.log('nextData',nextData);
-        const nextHtml = `<span>${nextData.nextDate}</span><br><span>${nextData.menu}</span><br><span>${nextData.treattime}分</span><br><span>スタッフ：${nextData.staff}</span><br>`;
+        const nextHtml = `<span>${nextData.nextDate}</span><br><span>${nextData.menu}</span><br><span>${nextData.treattime}分</span><br><span>スタッフ：${nextData.staff}</span>`;
         return nextHtml;
     }
 
