@@ -212,17 +212,30 @@
         }
         else{
           if(index.num>=0){
-            td.innerHTML = object[`d${index.num}h${i}`];
+            const element = object[`d${index.num}h${i}`];
+            if(element === 1){
+              td.innerHTML = '<i class="far fa-circle"></i>';
+            }else if(element === 0){
+              td.innerHTML = '<i class="fas fa-times"></i>';
+            }else{
+              td.innerHTML = object[`d${index.num}h${i}`];
+            }
             td.addEventListener('click',()=>{
               toggle(staffNumber,index.num,i,data);
             });
           }else{
-            td.innerHTML = object[`p${(-1)*index.num}h${i}`];
-
-            //テスト用　後で削除
-            td.addEventListener('click',()=>{
-              toggle(staffNumber,index.num,i,data);
-            });
+            const element = object[`p${(-1)*index.num}h${i}`];
+            if(element === 1){
+              td.innerHTML = '<i class="far fa-circle"></i>';
+            }else if(element === 0){
+              td.innerHTML = '<i class="fas fa-times"></i>';
+            }else{
+              td.innerHTML = object[`p${(-1)*index.num}h${i}`];
+            }
+            //テスト用
+            // td.addEventListener('click',()=>{
+            //   toggle(staffNumber,index.num,i,data);
+            // });
           }
           td.setAttribute('class','tbody-shift');
         }
