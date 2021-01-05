@@ -57,7 +57,7 @@
     //表示用dateの取得
     let today = new Date();
     today.setHours(0,0,0,0); //0:00にセット
-    today_ts = new Date(today).getTime();
+    today_ts = new Date(today).getTime() + 24*60*60*1000;
     const dateArray = createDateArray(today_ts);
 
     let index = {
