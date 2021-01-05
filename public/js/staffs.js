@@ -63,8 +63,8 @@
     //シフトテスト用
     let today = new Date();
     today.setHours(0,0,0,0); //0:00にセット
-    today_ts = new Date(today).getTime() - 24*60*60*1000;
-    const test_today = today_ts + 2*24*60*60*1000;
+    today_ts = new Date(today).getTime() - 3*24*60*60*1000;
+    const test_today = new Date(today);
     const dateArray = createDateArray(test_today);
 
     let index = {
