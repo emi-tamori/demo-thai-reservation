@@ -355,7 +355,7 @@ const handlePostbackEvent = async (ev) => {
         //予約不可の時間帯は-1が返ってくるためそれを条件分岐
         if(selectedTimeZone !== -1){
           //選んだ時間が過去の時間かを判定する
-          const targetDateTime = new Date(`${selectedDate} ${9+selectedTimeZone}:00`).getTime() - 9*60*60*1000;
+          const targetDateTime = new Date(`${selectedDate} ${OPENTIME+selectedTimeZone}:00`).getTime() - 9*60*60*1000;
           console.log('targetDateTime:',targetDateTime);
           const nowTime = new Date().getTime();
           console.log('nowTime:',nowTime);
