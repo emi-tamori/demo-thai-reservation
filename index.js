@@ -32,6 +32,7 @@ const LAST_ORDER = 1; //閉店の何時間前まで予約可能か
 const REGULAR_CLOSE = []; //定休日の曜日
 const FUTURE_LIMIT = 3; //何日先まで予約可能かの上限
 const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
+const SHIFTS_LEFT = 7; //何日前までのシフトを残すか
 
 const config = {
     channelAccessToken:process.env.ACCESS_TOKEN,
@@ -62,16 +63,22 @@ connection.query(create_userTable)
   .catch(e=>console.log(e));
 
 //シフト文字列の生成
-let shiftText = 'CREATE TABLE IF NOT EXISTS shifts (id SERIAL NOT NULL, name VARCHAR(50), email VARCHAR(100) , updatedat BIGINT, ';
+let shiftText = 'CREATE TABLE IF NOT EXISTS shifts (id SERIAL NOT NULL, name VARCHAR(50), updatedat BIGINT, ';
 for(let i=0; i<NUMBER_OF_SHIFTS; i++){
-  for(j=OPENTIME; j<CLOSETIME; j++){
-    if(i === NUMBER_OF_SHIFTS-1 && j === CLOSETIME-1){
-      shiftText += 'd'+i+'h'+j+' SMALLINT'+');';
-    }else{
+  for(let j=OPENTIME; j<CLOSETIME; j++){
       shiftText += 'd'+i+'h'+j+' SMALLINT'+',';
+  }
+}
+for(let k=1; k<SHIFTS_LEFT+1; k++){
+  for(let l=OPENTIME; l<CLOSETIME; l++){
+    if(k === SHIFTS_LEFT && l === CLOSETIME-1){
+      shiftText += 'p'+k+'h'+l+' SMALLINT'+');';
+    }else{
+      shiftText += 'p'+k+'h'+l+' SMALLINT'+',';
     }
   }
 }
+
 //シフトテーブルの生成
 connection.query(shiftText)
   .then(()=>console.log('shifts created successfully!'))

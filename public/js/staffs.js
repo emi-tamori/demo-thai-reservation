@@ -1,6 +1,7 @@
 (()=>{
   const API_URL = 'https://linebot-schedule.herokuapp.com/api/staffs';
-  const NUMBER_OF_SHIFTS = 14; //何日先のシフトまで入れることができるか
+  const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
+  const SHIFTS_LEFT = 7; //何日前までのシフトを残すか
   const OPENTIME = 12; //開店時間
   const CLOSETIME = 24; //閉店時間
   let STAFFS_DATA; //スタッフシフトデータ格納用
@@ -22,7 +23,7 @@
         const data = await response.json();
         STAFFS_DATA = data;
         divElement.innerHTML='';
-        createStaffTable(7);
+        createStaffTable(0);
       }
     }catch(error){
       console.log('error:',error);
@@ -71,7 +72,9 @@
     //日にち表示エリア
     const span_date = document.createElement('span');
     span_date.setAttribute('class','date-display');
-    span_date.innerHTML = '| '+dateArray[index.num]+' |';
+    
+    if(index.num>=0) span_date.innerHTML = '| '+dateArray[index.num]+' |';
+    if(index.num<0) span_date.innerHTML = '| '+dateArray[NUMBER_OF_SHIFTS-index.num]+' |';
     div_switch.appendChild(span_date);
 
     //戻るボタン
@@ -82,7 +85,7 @@
 
     left_arrow.addEventListener('click',()=>{
       console.log('left clicked!',index.num);
-      if(index.num > 0) index.num--;
+      if(index.num > (-1)*SHIFTS_LEFT) index.num--;
     });
     div_switch.appendChild(left_arrow);
 
@@ -310,10 +313,16 @@
     const weeks = ["日", "月", "火", "水", "木", "金", "土"];
     const oneDay = 24*60*60*1000;
     const dateArray = [];
-    for(let i=-7;i<NUMBER_OF_SHIFTS-7;i++){
+    for(let i=0;i<NUMBER_OF_SHIFTS;i++){
       const month = new Date(today+i*oneDay).getMonth()+1;
       const date = new Date(today+i*oneDay).getDate();
       const day = weeks[new Date(today+i*oneDay).getDay()];
+      dateArray.push(`${month}月${date}日(${day})`);
+    }
+    for(let j=0;j<SHIFTS_LEFT;j++){
+      const month = new Date(today-((j+1)*oneDay)).getMonth()+1;
+      const date = new Date(today-((j+1)*oneDay)).getDate();
+      const day = weeks[new Date(today-((j+1)*oneDay)).getDay()];
       dateArray.push(`${month}月${date}日(${day})`);
     }
     return dateArray;

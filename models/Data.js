@@ -11,6 +11,7 @@ const connection = new Client({
 connection.connect();
 
 const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
+const SHIFTS_LEFT = 7; //何日前までのシフトを残すか
 const OPENTIME = 12; //開店時間
 const CLOSETIME = 24; //閉店時間
 
