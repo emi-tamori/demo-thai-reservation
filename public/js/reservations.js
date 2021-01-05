@@ -567,7 +567,15 @@
 
       //ラジオボタンの選択時変化処理
       radio.addEventListener('change',()=>{
-        select_treat.innerHTML = ''
+        // select_treat.innerHTML = ''
+        //まずは子ノードを全削除
+        if(select_treat.hasChildNodes()){
+          while(select_treat.childNodes.length>0){
+            select_treat.removeChild(select_treat.firstChild);
+          }
+        }
+
+        //新規に子ノードを追加
         const array = MENU[index].timeAndPrice;
         array.forEach((arr,ind)=>{
           const opt = document.createElement('option');
