@@ -74,10 +74,13 @@ const shiftDifferential = (data) => {
         }
         // 現在と更新日の差がNUMBER_OF_SHIFTS以内かつ0より大きいとき
         else if(DaysByDifferential<NUMBER_OF_SHIFTS && DaysByDifferential>0){
+            for(let i=0; i<DaysByDifferential; i++){
+                for(let j=OPENTIME; j<CLOSETIME; j++){
+                    if(i<SHIFTS_LEFT) copiedObj[`p${i+1}h${j}`] = copiedObj[`d${i}h${j}`]
+                }
+            }
             for(let i=0; i<NUMBER_OF_SHIFTS-DaysByDifferential; i++){
                 for(let j=OPENTIME;j<CLOSETIME;j++){
-
-                    if(i<SHIFTS_LEFT) copiedObj[`p${i+1}h${j}`] = copiedObj[`d${i}h${j}`]
                     copiedObj[`d${i}h${j}`] = copiedObj[`d${DaysByDifferential+i}h${j}`];
                 }
             }
