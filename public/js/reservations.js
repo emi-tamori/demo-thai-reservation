@@ -442,16 +442,15 @@
     div_form_time.setAttribute('class','form-group form-inline div-rsv');
 
     //開始時間ラベル
-    // const label_start = document.createElement('label');
-    // label_start.setAttribute('class','label-start-end');
-    // label_start.innerHTML = '開始';
-    // div_form_time.appendChild(label_start);
+    const label_start = document.createElement('label');
+    label_start.setAttribute('class','label-start-end');
+    label_start.innerHTML = '予約時間';
+    div_form_time.appendChild(label_start);
 
     //start-hour Select
     const select_sHour = document.createElement('select');
     select_sHour.setAttribute('class','form-control two-digits-selector');
     select_sHour.name = 'sHour';
-    // const start_hour = new Date(parseInt(info.starttime)).getHours();
     for(let i=OPENTIME; i<CLOSETIME; i++){
       const option = document.createElement('option');
       option.innerHTML = i;
@@ -481,9 +480,9 @@
     div_form_time.appendChild(select_sMin);
 
     //〜ラベル
-    const label_fromTo = document.createElement('label');
-    label_fromTo.innerHTML = '〜';
-    div_form_time.appendChild(label_fromTo);
+    // const label_fromTo = document.createElement('label');
+    // label_fromTo.innerHTML = '〜';
+    // div_form_time.appendChild(label_fromTo);
 
     //終了時間ラベル
     // const label_end = document.createElement('label');
@@ -492,37 +491,37 @@
     // div_form_time.appendChild(label_end);
 
     //end-hour Select
-    const select_eHour = document.createElement('select');
-    select_eHour.setAttribute('class','form-control two-digits-selector');
-    select_eHour.name = 'eHour';
+    // const select_eHour = document.createElement('select');
+    // select_eHour.setAttribute('class','form-control two-digits-selector');
+    // select_eHour.name = 'eHour';
     // const end_hour = new Date(parseInt(info.endtime)).getHours();
-    for(let i=OPENTIME; i<CLOSETIME; i++){
-      const option = document.createElement('option');
-      option.innerHTML = i;
-      option.value = i;
-      select_eHour.appendChild(option);
-    }
-    select_eHour.selectedIndex = info.id === 'new' ? -1 : new Date(parseInt(info.endtime)).getHours()-OPENTIME;
-    div_form_time.appendChild(select_eHour);
+    // for(let i=OPENTIME; i<CLOSETIME; i++){
+    //   const option = document.createElement('option');
+    //   option.innerHTML = i;
+    //   option.value = i;
+    //   select_eHour.appendChild(option);
+    // }
+    // select_eHour.selectedIndex = info.id === 'new' ? -1 : new Date(parseInt(info.endtime)).getHours()-OPENTIME;
+    // div_form_time.appendChild(select_eHour);
 
     //end-hourラベル
-    const label_eHour = document.createElement('label');
-    label_eHour.innerHTML = '：';
-    div_form_time.appendChild(label_eHour);
+    // const label_eHour = document.createElement('label');
+    // label_eHour.innerHTML = '：';
+    // div_form_time.appendChild(label_eHour);
 
     //end-min Select
-    const select_eMin = document.createElement('select');
-    select_eMin.setAttribute('class','form-control two-digits-selector');
+    // const select_eMin = document.createElement('select');
+    // select_eMin.setAttribute('class','form-control two-digits-selector');
     // const end_minutes = new Date(parseInt(info.endtime)).getMinutes();
-    select_eMin.name = 'eMin';
-    for(let i=0; i<12; i++){
-      const option = document.createElement('option');
-      option.innerHTML = ('0'+i*5).slice(-2);
-      option.value = 5*i;
-      select_eMin.appendChild(option);
-    }
-    select_eMin.selectedIndex = info.id === 'new' ? -1 : new Date(parseInt(info.endtime)).getMinutes()/5;
-    div_form_time.appendChild(select_eMin);
+    // select_eMin.name = 'eMin';
+    // for(let i=0; i<12; i++){
+    //   const option = document.createElement('option');
+    //   option.innerHTML = ('0'+i*5).slice(-2);
+    //   option.value = 5*i;
+    //   select_eMin.appendChild(option);
+    // }
+    // select_eMin.selectedIndex = info.id === 'new' ? -1 : new Date(parseInt(info.endtime)).getMinutes()/5;
+    // div_form_time.appendChild(select_eMin);
 
     formElement.appendChild(div_form_time);
 
@@ -734,8 +733,6 @@
       'selectedDay',
       'sHour',
       'sMin',
-      'eHour',
-      'eMin',
       'menu',
       'treattime',
       'id'
@@ -751,32 +748,20 @@
     });
     if(notSelected>0) return `${notSelected}箇所の未入力があります`;
 
-    const name = data.get('customerName');
-    const staff = data.get('staffName');
+    //定休日チェック
     const year = data.get('selectedYear');
     const month = data.get('selectedMonth');
     const day = data.get('selectedDay');
     const sHour = data.get('sHour');
     const sMin = data.get('sMin');
-    const eHour = data.get('eHour');
-    const eMin = data.get('eMin');
-    const menu = data.get('menu');
-    const id = data.get('id');
-
-    //starttimeとendtimeの生成
-    const startTime = new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).getTime();
-    const endTime = new Date(`${year}/${month}/${day} ${eHour}:${eMin}`).getTime();
     const week = new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).getDay();
-
-    //開始時間<終了時間のチェック
-    if(startTime>endTime) return '終了時間よりも開始時間が早くなってます';
-
-    //定休日チェック
-    let regularCheck = 0;
-    REGULAR_CLOSE.forEach(value=>{
-      if(value === week) regularCheck++;
-    });
-    if(regularCheck) return '定休日には予約を入れることができません';
+    if(REGULAR_CLOSE.length){
+      let regularCheck = 0;
+      REGULAR_CLOSE.forEach(value=>{
+        if(value === week) regularCheck++;
+      });
+      if(regularCheck) return '定休日には予約を入れることができません';
+    }
 
     //何も引っ掛からなかったら
     return 'ok';

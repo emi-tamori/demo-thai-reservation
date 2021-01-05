@@ -339,7 +339,7 @@ body {
     width:25%;
 }
 .two-digits-selector{
-    width: 20%;
+    width: 25%;
 }
 
 .menu-check{
@@ -347,7 +347,7 @@ body {
     margin-left: 1rem
 }
 .label-start-end{
-    font-size: 0.8rem;
+    margin-right: 0.5vw;
 }
 
 .button-rsv{
