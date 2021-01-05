@@ -158,7 +158,7 @@
     }
 
     const nextDisplay = (data) => {
-        const timestamp = data.starttime;
+        const timestamp = parseInt(data.starttime);
         const date = new Date(timestamp);
         const y = date.getFullYear();
         const m = ("0" + (date.getMonth()+1)).slice(-2);
