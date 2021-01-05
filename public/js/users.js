@@ -4,15 +4,15 @@
     const CLASSES = ['row-id','row-name','row-resist','row-nextrev','row-visit'];
     const MENU = [
         {
-          menu: 'タイ式（ストレッチ）',
+          menu: 'ストレッチ',
           timeAndPrice: [[30,3000],[45,4000],[60,5000],[90,7000],[120,9000]]
         },
         {
-          menu: 'タイ式（アロマ）',
+          menu: 'アロマ',
           timeAndPrice: [[45,5000],[60,7000],[90,9000],[120,12000]]
         },
         {
-          menu: '足つぼマッサージ',
+          menu: '足つぼ',
           timeAndPrice: [[30,3000],[60,5000]]
         }
       ]
@@ -166,13 +166,14 @@
         const h = ("0" + date.getHours()).slice(-2);
         const i = ("0" + date.getMinutes()).slice(-2);
         const nextData = {
-            nextDate: `${y}/${m}/${d} ${h}:${i}`,
+            nextDate: `${m}/${d} `,
+            nextTime: `${h}:${i}`,
             menu: MENU[data.menu].menu,
             treattime: MENU[data.menu].timeAndPrice[data.treattime][0],
             staff: data.staff
         }
         console.log('nextData',nextData);
-        const nextHtml = `<span>${nextData.nextDate}</span><br><span>${nextData.menu}</span><br><span>${nextData.treattime}分</span><br><span>スタッフ：${nextData.staff}</span>`;
+        const nextHtml = `<span>${nextData.nextDate}</span><br><span>${nextData.nextTime}</span><br><span>${nextData.menu}</span><br><span>${nextData.treattime}分</span><br><span>${nextData.staff}</span>`;
         return nextHtml;
     }
 
