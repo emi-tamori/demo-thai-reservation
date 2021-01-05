@@ -615,7 +615,7 @@
         console.log('formData',...formData.entries());
 
         //formDataが適正かチェックする機能を実装する
-        let check = postCheck(formData);
+        let check = postCheck(formData,props.staffsData); //スタッフのシフトチェックも行う
         console.log('check',check);
         if(check === 'ok'){
           fetch('/api/reservation',{
@@ -659,7 +659,7 @@
       console.log('formData',...formData.entries());
 
       //formDataが適正かのチェックを入れる
-      let check = postCheck(formData);
+      let check = postCheck(formData,props.staffsData);
       console.log('check',check);
       if(check === 'ok'){
         fetch('/api/reservation',{
@@ -723,7 +723,7 @@
     divElement.appendChild(divRow);
   }
 
-  const postCheck = (data) => {
+  const postCheck = (data,staffsData) => {
     const keyParams = [
       'customerName',
       'staffName',

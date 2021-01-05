@@ -1,6 +1,6 @@
 (()=>{
   const API_URL = 'https://linebot-schedule.herokuapp.com/api/staffs';
-  const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
+  const NUMBER_OF_SHIFTS = 14; //何日先のシフトまで入れることができるか
   const OPENTIME = 12; //開店時間
   const CLOSETIME = 24; //閉店時間
   let STAFFS_DATA; //スタッフシフトデータ格納用
@@ -22,7 +22,7 @@
         const data = await response.json();
         STAFFS_DATA = data;
         divElement.innerHTML='';
-        createStaffTable(0);
+        createStaffTable(7);
       }
     }catch(error){
       console.log('error:',error);
@@ -82,7 +82,7 @@
 
     left_arrow.addEventListener('click',()=>{
       console.log('left clicked!',index.num);
-      if(index.num>0) index.num--;
+      if(index.num > 0) index.num--;
     });
     div_switch.appendChild(left_arrow);
 
@@ -310,7 +310,7 @@
     const weeks = ["日", "月", "火", "水", "木", "金", "土"];
     const oneDay = 24*60*60*1000;
     const dateArray = [];
-    for(let i=0;i<NUMBER_OF_SHIFTS;i++){
+    for(let i=-7;i<NUMBER_OF_SHIFTS-7;i++){
       const month = new Date(today+i*oneDay).getMonth()+1;
       const date = new Date(today+i*oneDay).getDate();
       const day = weeks[new Date(today+i*oneDay).getDay()];
