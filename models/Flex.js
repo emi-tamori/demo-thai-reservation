@@ -758,5 +758,51 @@ module.exports = {
       }
     }
     return deleteMessage;
+  },
+
+  makeToAdministration: ()=>{
+    const message = {
+      "type":"flex",
+      "altText":"FlexMessage",
+      "contents":
+        {
+          "type": "bubble",
+          "header": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "管理者画面へ移動しますか?",
+                "color": "#ffffff"
+              }
+            ]
+          },
+          "body": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "button",
+                "action": {
+                  "type": "uri",
+                  "label": "管理者画面へ",
+                  // "uri": "line://app/1654221139-OvDreMvj"
+                  "uri": "https://linebot-schedule.herokuapp.com/"
+                },
+                "style": "link"
+              }
+            ]
+          },
+          "styles": {
+            "header": {
+              "backgroundColor": "#0000ff",
+              "separator": true,
+              "separatorColor": "#ffffff"
+            }
+          }
+        }
+    }
+    return message;
   }
 }

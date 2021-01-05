@@ -33,6 +33,7 @@ const REGULAR_CLOSE = []; //定休日の曜日
 const FUTURE_LIMIT = 3; //何日先まで予約可能かの上限
 const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
 const SHIFTS_LEFT = 7; //何日前までのシフトを残すか
+const PASSWORD = 'パスワード';
 
 const config = {
     channelAccessToken:process.env.ACCESS_TOKEN,
@@ -232,7 +233,11 @@ const handleMessageEvent = async (ev) => {
           "text":"次回予約は入っておりません。"
         });
       }
-    } 
+    }
+    else if(text === PASSWORD){
+      const flexMessage = Flex.makeToAdministration();
+      return client.replyMessage(ev.replyToken,flexMessage);
+    }
     else{
       return client.replyMessage(ev.replyToken,{
         "type":"text",
