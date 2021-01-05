@@ -261,7 +261,8 @@ module.exports = {
             let today = new Date();
             console.log('today:',new Date(today).getTime());
             today.setHours(0,0,0,0); //0:00にセット
-            const today_ts = new Date(today).getTime();
+            const today_ts = new Date(today).getTime() -9*60*60*1000;
+            console.log('today_ts:',new Date(today).getTime());
             let insert_query = 'INSERT INTO shifts (name, updatedat, ';
             let insert_query2 = ` VALUES('${name}',${today_ts},`;
             for(let i=0;i<NUMBER_OF_SHIFTS;i++){
