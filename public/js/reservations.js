@@ -749,7 +749,7 @@
     keyParams.forEach(param=>{
       if(data.get(`${param}`) === null) notSelected++;
     });
-    if(notSelected>0) return `${noSelected}箇所の未入力があります`;
+    if(notSelected>0) return `${notSelected}箇所の未入力があります`;
 
     const name = data.get('customerName');
     const staff = data.get('staffName');
