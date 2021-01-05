@@ -58,7 +58,10 @@
     let today = new Date();
     today.setHours(0,0,0,0); //0:00にセット
     today_ts = new Date(today).getTime();
-    const dateArray = createDateArray(today_ts);
+
+    //テスト用
+    const test_today = today_ts + 24*60*60*1000;
+    const dateArray = createDateArray(test_today);
 
     let index = {
       num
