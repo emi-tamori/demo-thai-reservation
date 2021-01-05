@@ -529,6 +529,9 @@
     const div_form_treat = document.createElement('div');
     div_form_treat.setAttribute('class','form-group form-inline div-treat');
 
+    //選択メニュー選択
+    const menuNumber = info.menu;
+
     //施術時間ラベル
     const label_treat = document.createElement('label');
     label_treat.innerHTML = '施術時間';
@@ -548,9 +551,6 @@
     });
     select_treat.selectedIndex = info.id === 'new' ? -1 : info.treattime;
     div_form_treat.appendChild(select_treat);
-
-    //選択メニュー選択
-    const menuNumber = info.menu;
 
     MENU.forEach((menu,index)=>{
       const div_form_menu = document.createElement('div');
