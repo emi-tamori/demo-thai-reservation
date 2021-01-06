@@ -125,7 +125,8 @@ const shiftDifferential = (data) => {
             console.log('copiedData1',copiedData);
             for(let i=0; i<SHIFTS_LEFT; i++){
                 for(let j=OPENTIME; j<CLOSETIME; j++){
-                    copiedData[`p${SHIFTS_LEFT-i}h${j}`] = shiftArray[i][j];
+                    // copiedData[`p${SHIFTS_LEFT-i}h${j}`] = shiftArray[i][j];
+                    copiedData[`p${SHIFTS_LEFT-i}h${j}`] = 0;
                 }
             }
             console.log('copiedData2',copiedData);
