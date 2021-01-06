@@ -66,9 +66,9 @@ const shiftDifferential = (data) => {
         //ディファレンシャル（シフト更新日と本日の日数差）の算出
         const nowTime = new Date().getTime();
         const today_ts = new Date(new Date(nowTime).toDateString()).getTime() -9*60*60*1000;
-        const differential = Math.floor((today_ts-parseInt(copiedData.updatedat))/(24*60*60*1000));
-
-        console.log('differential',nowTime,today_ts,differential);
+        // const differential = Math.floor((today_ts-parseInt(copiedData.updatedat))/(24*60*60*1000));
+        const differential = 2; //test用
+        console.log('differential',today_ts,copiedData.updatedat,differential);
 
         //ディファレンシャルが存在する時に、シフトデータのシフト処理を行う
         if(differential>0){
@@ -83,6 +83,7 @@ const shiftDifferential = (data) => {
                 }
                 shiftArray.push(tempArray);
             }
+            
 
             //d要素の抽出
             for(let i=0; i<NUMBER_OF_SHIFTS; i++){
@@ -93,6 +94,8 @@ const shiftDifferential = (data) => {
                 shiftArray.push(tempArray);
             }
 
+            console.log('shiftArray1',shiftArray);
+
             if(differential<NUMBER_OF_SHIFTS+SHIFTS_LEFT){
                 shiftArray.splice(0,differential); //配列末尾からdifferential分だけ削除
                 for(let i=0; i<differential; i++){
@@ -102,6 +105,7 @@ const shiftDifferential = (data) => {
                     }
                     shiftArray.push(tempArray);
                 }
+                console.log('shiftArray2',shiftArray);
             }else if(differential>=NUMBER_OF_SHIFTS+SHIFTS_LEFT){
                 shiftArray.splice(0); //配列内全削除
                 for(let i=0; i<NUMBER_OF_SHIFTS+SHIFTS_LEFT; i++){
@@ -111,6 +115,7 @@ const shiftDifferential = (data) => {
                     }
                     shiftArray.push(tempArray);
                 }
+                console.log('shiftArray3',shiftArray);
             }
 
             //加工したshiftArrayでcopiedDataのシフトデータを書き換えにいく
