@@ -718,7 +718,7 @@ const checkReservable = (ev,menu,time,date,staffInfo) => {
           array2.forEach(array=>{
             let interval = array[0];
             let target = array[1];
-            while(interval>min15){
+            while(interval>=min15){
               tempArray.push(target);
               interval -= min15;
               target += min15;
