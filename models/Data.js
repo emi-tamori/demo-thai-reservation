@@ -65,7 +65,7 @@ const shiftDifferential = (data) => {
 
         //ディファレンシャル（シフト更新日と本日の日数差）の算出
         const today = new Date(new Date().getTime()+9*60*60*1000);
-        const today_ts = new Date(`${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()} 00:00:00`).getTime();
+        const today_ts = new Date(`${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()} 00:00:00`).getTime() -9*60*60*1000;
         console.log('ts',today_ts);
         // const today_ts = new Date(new Date(nowTime).toLocaleString()).getTime() -9*60*60*1000;
         const differential = Math.floor((today_ts-parseInt(copiedData.updatedat))/(24*60*60*1000));
