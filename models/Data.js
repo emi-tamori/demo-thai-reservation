@@ -122,14 +122,14 @@ const shiftDifferential = (data) => {
             //pの書き換え
             for(let i=0; i<SHIFTS_LEFT; i++){
                 for(let j=0; j<CLOSETIME-OPENTIME; j++){
-                    copiedData[`p${SHIFTS_LEFT-i}h${j}`] = shiftArray[i][j];
+                    copiedData[`p${SHIFTS_LEFT-i}h${j+OPENTIME}`] = shiftArray[i][j];
                 }
             }
 
             //dの書き換え
             for(let i=0; i<NUMBER_OF_SHIFTS; i++){
                 for(let j=0; j<CLOSETIME-OPENTIME; j++){
-                    copiedData[`d${i}h${j}`] = shiftArray[NUMBER_OF_SHIFTS+i][j];
+                    copiedData[`d${i}h${j+OPENTIME}`] = shiftArray[NUMBER_OF_SHIFTS+i][j];
                 }
             }
             console.log('copiedData after',copiedData);
