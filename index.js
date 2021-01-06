@@ -509,33 +509,6 @@ const dateConversion = (timestamp) => {
   return `${month}月${date}日(${WEEK[day]}) ${hour}:${min}`;
 }
 
-
-const calcTreatTime = (id,menu) => {
-  return new Promise((resolve,reject)=>{
-    const selectQuery = {
-      text: 'SELECT * FROM users WHERE line_uid = $1;',
-      values: [`${id}`]
-    };
-    connection.query(selectQuery)
-      .then(res=>{
-        if(res.rows.length){
-          const info = res.rows[0];
-          const menuArray = menu.split('%');
-          const treatArray = [info.cuttime,info.shampootime,info.colortime,info.spatime,INITIAL_TREAT[4],INITIAL_TREAT[5],INITIAL_TREAT[6]];
-          let treatTime = 0;
-          menuArray.forEach(value=>{
-            treatTime += treatArray[parseInt(value)];
-          });
-          resolve(treatTime);
-        }else{
-          console.log('LINE　IDに一致するユーザーが見つかりません。');
-          return;
-        }
-      })
-      .catch(e=>console.log(e));
-  });
-}
-
 const timeProposal = (ev,menu,time,date,timeZone) => {
 
   //シフトデータの取得
@@ -730,7 +703,9 @@ const checkReservable = (ev,menu,time,date,staffInfo) => {
           }else if(i<separatedByTime.length-1 && separatedByTime[i+1].length){
             intervalArray.push([[separatedByTime[i+1][0][0] - timeStamps[i],timeStamps[i]]]);
           }else{
-            intervalArray.push([[60*60*1000+treatTime*60*1000,timeStamps[i]]]);
+            //ここが15min変更箇所
+            // intervalArray.push([[60*60*1000+treatTime*60*1000,timeStamps[i]]]);
+            intervalArray.push([[60*60*1000,timeStamps[i]]]);
           }      
         }
 
