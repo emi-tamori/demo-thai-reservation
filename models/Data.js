@@ -62,7 +62,6 @@ const shiftDifferential = (data) => {
     data.forEach(obj=>{
         //オブジェクトのディープコピー
         const copiedData = JSON.parse(JSON.stringify(obj));
-        // console.log('copiedData1',copiedData);
 
         //ディファレンシャル（シフト更新日と本日の日数差）の算出
         const nowTime = new Date().getTime();
@@ -84,7 +83,6 @@ const shiftDifferential = (data) => {
                 }
                 shiftArray.push(tempArray);
             }
-            
 
             //d要素の抽出
             for(let i=0; i<NUMBER_OF_SHIFTS; i++){
@@ -102,7 +100,7 @@ const shiftDifferential = (data) => {
                 for(let i=0; i<differential; i++){
                     const tempArray = [];
                     for(let j=OPENTIME; j<CLOSETIME; j++){
-                        tempArray.push('-');
+                        tempArray.push(null);
                     }
                     shiftArray.push(tempArray);
                 }
@@ -113,7 +111,7 @@ const shiftDifferential = (data) => {
                 for(let i=0; i<NUMBER_OF_SHIFTS+SHIFTS_LEFT; i++){
                     const tempArray = [];
                     for(let j=OPENTIME; j<CLOSETIME; j++){
-                        tempArray.push('-');
+                        tempArray.push(null);
                     }
                     shiftArray.push(tempArray);
                 }
