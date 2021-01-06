@@ -95,7 +95,7 @@ const shiftDifferential = (data) => {
                 shiftArray.push(tempArray);
             }
 
-            console.log('shiftArray1',shiftArray);
+            // console.log('shiftArray1',shiftArray);
 
             if(differential<NUMBER_OF_SHIFTS+SHIFTS_LEFT){
                 shiftArray.splice(0,differential); //配列末尾からdifferential分だけ削除
@@ -106,7 +106,7 @@ const shiftDifferential = (data) => {
                     }
                     shiftArray.push(tempArray);
                 }
-                console.log('shiftArray2',shiftArray);
+                // console.log('shiftArray2',shiftArray);
 
             }else if(differential>=NUMBER_OF_SHIFTS+SHIFTS_LEFT){
                 shiftArray.splice(0); //配列内全削除
@@ -117,16 +117,18 @@ const shiftDifferential = (data) => {
                     }
                     shiftArray.push(tempArray);
                 }
-                console.log('shiftArray3',shiftArray);
+                // console.log('shiftArray3',shiftArray);
             }
 
             //加工したshiftArrayでcopiedDataのシフトデータを書き換えにいく
             //pの書き換え
+            console.log('copiedData1',copiedData);
             for(let i=0; i<SHIFTS_LEFT; i++){
                 for(let j=OPENTIME; j<CLOSETIME; j++){
                     copiedData[`p${SHIFTS_LEFT-i}h${j}`] = shiftArray[i][j];
                 }
             }
+            console.log('copiedData2',copiedData);
 
             //dの書き換え
             for(let i=0; i<NUMBER_OF_SHIFTS; i++){
@@ -135,7 +137,7 @@ const shiftDifferential = (data) => {
                 }
             }
         }
-        console.log('copiedData2',copiedData);
+        // console.log('copiedData2',copiedData);
         shiftedData.push(copiedData);
     });
     return shiftedData;
