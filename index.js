@@ -734,17 +734,19 @@ const checkReservable = (ev,menu,time,date,staffInfo) => {
           }      
         }
 
+        //ここが15min仕様変更箇所
         //reservableArrayを生成
         const reservableArray = [];
+        const min15 = 15*60*1000; //15分のミリ秒換算
         intervalArray.forEach(array2=>{
           const tempArray = [];
           array2.forEach(array=>{
             let interval = array[0];
             let target = array[1];
-            while(interval>treatTimeToMs){
+            while(interval>min15){
               tempArray.push(target);
-              interval -= treatTimeToMs;
-              target += treatTimeToMs;
+              interval -= min15;
+              target += min15;
             }            
           });
           reservableArray.push(tempArray);
