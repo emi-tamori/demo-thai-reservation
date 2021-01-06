@@ -122,6 +122,7 @@ const shiftDifferential = (data) => {
 
             //加工したshiftArrayでcopiedDataのシフトデータを書き換えにいく
             //pの書き換え
+            console.log('shiftArray@@@',shiftArray);
             for(let i=0; i<SHIFTS_LEFT; i++){
                 for(let j=OPENTIME; j<CLOSETIME; j++){
                     console.log('copied,shift',copiedData[`p${SHIFTS_LEFT-i}h${j}`],shiftArray[i][j]);
@@ -135,7 +136,7 @@ const shiftDifferential = (data) => {
                     copiedData[`d${i}h${j}`] = shiftArray[NUMBER_OF_SHIFTS+i][j];
                 }
             }
-            console.log('copiedData@@@',copiedData);
+            // console.log('copiedData@@@',copiedData);
         }
         // console.log('copiedData2',copiedData);
         shiftedData.push(copiedData);
