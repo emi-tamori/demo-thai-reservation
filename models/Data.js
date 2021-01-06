@@ -135,7 +135,7 @@ const shiftDifferential = (data) => {
                 }
             }
         }
-        // console.log('copiedData2',copiedData);
+        console.log('copiedData2',copiedData);
         shiftedData.push(copiedData);
     });
     return shiftedData;
