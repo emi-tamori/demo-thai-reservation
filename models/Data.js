@@ -64,13 +64,13 @@ const shiftDifferential = (data) => {
         const copiedData = JSON.parse(JSON.stringify(obj));
 
         //ディファレンシャル（シフト更新日と本日の日数差）の算出
-        const today = new Date() + 9*60*60*1000;
+        const today = new Date(new Date().getTime()+9*60*60*1000);
         const today_ts = new Date(`${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()} 00:00:00`).getTime();
         console.log('ts',today_ts);
         // const today_ts = new Date(new Date(nowTime).toLocaleString()).getTime() -9*60*60*1000;
         const differential = Math.floor((today_ts-parseInt(copiedData.updatedat))/(24*60*60*1000));
         // const differential = 15; //test用
-        console.log('differential',nowTime,today_ts,copiedData.updatedat,differential);
+        console.log('differential',today_ts,copiedData.updatedat,differential);
 
         //ディファレンシャルが存在する時に、シフトデータのシフト処理を行う
         if(differential>0){
