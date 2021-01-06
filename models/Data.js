@@ -67,7 +67,7 @@ const shiftDifferential = (data) => {
         const nowTime = new Date().getTime();
         const today_ts = new Date(new Date(nowTime).toDateString()).getTime() -9*60*60*1000;
         // const differential = Math.floor((today_ts-parseInt(copiedData.updatedat))/(24*60*60*1000));
-        const differential = 2; //test用
+        const differential = 15; //test用
         console.log('differential',today_ts,copiedData.updatedat,differential);
 
         //ディファレンシャルが存在する時に、シフトデータのシフト処理を行う
