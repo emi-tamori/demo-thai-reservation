@@ -66,9 +66,9 @@ const shiftDifferential = (data) => {
         //ディファレンシャル（シフト更新日と本日の日数差）の算出
         const nowTime = new Date().getTime();
         const today_ts = new Date(new Date(nowTime).toDateString()).getTime() -9*60*60*1000;
-        // const differential = Math.floor((today_ts-parseInt(copiedData.updatedat))/(24*60*60*1000));
-        const differential = 15; //test用
-        console.log('differential',today_ts,copiedData.updatedat,differential);
+        const differential = Math.floor((today_ts-parseInt(copiedData.updatedat))/(24*60*60*1000));
+        // const differential = 15; //test用
+        console.log('differential',nowTime,today_ts,copiedData.updatedat,differential);
 
         //ディファレンシャルが存在する時に、シフトデータのシフト処理を行う
         if(differential>0){
@@ -117,7 +117,7 @@ const shiftDifferential = (data) => {
                 }
                 // console.log('shiftArray3',shiftArray);
             }
-            console.log('copiedData before',copiedData);
+            // console.log('copiedData before',copiedData);
             //加工したshiftArrayでcopiedDataのシフトデータを書き換えにいく
             //pの書き換え
             for(let i=0; i<SHIFTS_LEFT; i++){
@@ -132,103 +132,13 @@ const shiftDifferential = (data) => {
                     copiedData[`d${i}h${j+OPENTIME}`] = shiftArray[NUMBER_OF_SHIFTS+i][j];
                 }
             }
-            console.log('copiedData after',copiedData);
+            // console.log('copiedData after',copiedData);
         }
         shiftedData.push(copiedData);
     });
     return shiftedData;
 }
-// const shiftDifferential = (data) => {
-//     const arrangedData = [];
-//     data.forEach(obj=>{
-//         //オブジェクトのディープコピー
-//         const copiedObj = JSON.parse(JSON.stringify(obj))
-//         const nowTime = new Date().getTime(); //現在時刻タイムスタンプ
-//         const today_ts = new Date(new Date(nowTime).toDateString()).getTime() -9*60*60*1000; //0:00のタイムスタンプ
 
-//         //現在のタイムスタンプとシフトが更新されたタイムスタンプの差を求める
-//         const differential = today_ts - parseInt(copiedObj.updatedat);
-//         //differntialの日数換算をする
-//         const DaysByDifferential = Math.floor(differential/(24*60*60*1000));
-//         console.log('difference',today_ts,copiedObj.updatedat,DaysByDifferential)
-
-//         // 現在と更新日が一致するとき
-//         if(DaysByDifferential===0){
-//             arrangedData.push(copiedObj);
-//         }
-//         // 現在と更新日の差がNUMBER_OF_SHIFTS以内かつ0より大きいとき
-//         else if(DaysByDifferential<NUMBER_OF_SHIFTS && DaysByDifferential>0){
-//             //pの処理
-//             if(DaysByDifferential<SHIFTS_LEFT){
-//                 for(let i=0; i<SHIFTS_LEFT-DaysByDifferential; i++){
-//                     for(let j=OPENTIME;j<CLOSETIME;j++){
-//                         copiedObj[`p${DaysByDifferential+1+i}h${j}`] = copiedObj[`p${1+i}h${j}`];
-//                     }
-//                 }
-//                 for(let i=0; i<DaysByDifferential; i++){
-//                     for(let j=OPENTIME;j<CLOSETIME;j++){
-//                         copiedObj[`p${DaysByDifferential-i}h${j}`] = copiedObj[`d${i}h${j}`];
-//                     }
-//                 }
-//             }else{
-//                 //SHIFTS_LEFTよりもディファレンシャルが大きい時
-//                 for(let i=0; i<SHIFTS_LEFT; i++){
-//                     for(let j=OPENTIME;j<CLOSETIME;j++){
-//                         copiedObj[`p${i+1}h${j}`] = copiedObj[`d${DaysByDifferential-1-i}h${j}`];
-//                     }
-//                 }
-//             }
-
-//             //dの処理
-//             for(let i=0; i<NUMBER_OF_SHIFTS-DaysByDifferential; i++){
-//                 for(let j=OPENTIME;j<CLOSETIME;j++){
-//                     copiedObj[`d${i}h${j}`] = copiedObj[`d${DaysByDifferential+i}h${j}`];
-//                 }
-//             }
-//             for(let i=NUMBER_OF_SHIFTS-DaysByDifferential;i<NUMBER_OF_SHIFTS;i++){
-//                 for(let j=OPENTIME;j<CLOSETIME;j++){
-//                     copiedObj[`d${i}h${j}`] = null;
-//                 }
-//             }
-//             arrangedData.push(copiedObj);
-//         }
-//         else if(DaysByDifferential>=NUMBER_OF_SHIFTS && DaysByDifferential<NUMBER_OF_SHIFTS+SHIFTS_LEFT){
-//             const diff = NUMBER_OF_SHIFTS+SHIFTS_LEFT - DaysByDifferential
-//             //pの処理
-//             for(let i=0; i<diff; i++){
-//                 for(let j=OPENTIME;j<CLOSETIME;j++){
-//                     copiedObj[`p${(SHIFTS_LEFT-diff)+1+i}h${j}`] = copiedObj[`d${NUMBER_OF_SHIFTS-1-i}h${j}`];
-//                 }
-//             }
-//             for(let i=0; i<SHIFTS_LEFT-diff; i++){
-//                 for(let j=OPENTIME;j<CLOSETIME;j++){
-//                     copiedObj[`p${i+1}h${j}`] = null;
-//                 }
-//             }
-//             //dの処理
-//             for(let i=0;i<NUMBER_OF_SHIFTS;i++){
-//                 for(let j=OPENTIME;j<CLOSETIME;j++){
-//                     copiedObj[`d${i}h${j}`] = null;
-//                 }
-//             }
-//             arrangedData.push(copiedObj);
-//         }
-//         else{
-//             for(let i=0;i<NUMBER_OF_SHIFTS;i++){
-//                 for(let j=OPENTIME;j<CLOSETIME;j++){
-//                     copiedObj[`d${i}h${j}`] = null;
-//                 }
-//             }
-//             for(let i=0;i<SHIFTS_LEFT;i++){
-//                 for(let j=OPENTIME;j<CLOSETIME;j++){
-//                     copiedObj[`d${i+1}h${j}`] = null;
-//                 }
-//             }
-//             arrangedData.push(copiedObj);
-//         }
-//     });
-//     return arrangedData;
-// }
 
 //gmailを送る関数
 const gmailSend = (staffName,date,menu) => {
