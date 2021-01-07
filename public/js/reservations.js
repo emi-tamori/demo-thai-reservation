@@ -114,7 +114,7 @@
         treattime: '',
         staff: ''
       }
-      createReservationCard(zeroInfo,STAFFS);
+      createReservationCard(zeroInfo,STAFFS,props.staffsData);
     })
     div_menu.appendChild(createReservationButton);
 
@@ -616,7 +616,6 @@
 
         //スタッフ名を取得
         const staffName = formData.get('staffName');
-
         //formDataが適正かチェックする機能を実装する
         let check = postCheck(formData,staffsData[staffs.indexOf(staffName)]); //スタッフのシフトチェックも行う
         console.log('check',check);
@@ -775,6 +774,7 @@
     console.log('updatedat selected',updatedat,selected);
 
     const differential = (selected - parseInt(updatedat))/(24*60*60*1000);
+    console.log('differential',differential);
     const targetShift = staffData[`d${differential}h${sHour}`];
     console.log('shift',targetShift);
 
