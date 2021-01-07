@@ -8,7 +8,6 @@ const apiRouter = require('./routers/api');
 const multipart = require('connect-multiparty');
 const nodemailer = require('nodemailer');
 const Flex = require('./models/Flex');
-const { OPENTIME, CLOSETIME } = require('./params/back');
 
 const PORT = process.env.PORT || 5000
 
@@ -28,15 +27,25 @@ const MENU = [
 ]
 const WEEK = [ "日", "月", "火", "水", "木", "金", "土" ];
 // const OPENTIME = 12; //開店時間
-// const OPENTIME = params.OPENTIME;
 // const CLOSETIME = 24; //閉店時間
-const REGULAR_CLOSE = []; //定休日の曜日
-const FUTURE_LIMIT = 3; //何日先まで予約可能かの上限
-const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
-const SHIFTS_LEFT = 7; //何日前までのシフトを残すか
-const PASSWORD = 'パスワード';
-const ADMIN_EMAIL_FROM = 'kentaro523@gmail.com';
-const ADMIN_EMAIL_TO = 'waruemon.xyz@gmail.com';
+// const REGULAR_CLOSE = []; //定休日の曜日
+// const FUTURE_LIMIT = 3; //何日先まで予約可能かの上限
+// const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
+// const SHIFTS_LEFT = 7; //何日前までのシフトを残すか
+// const PASSWORD = 'パスワード';
+// const ADMIN_EMAIL_FROM = 'kentaro523@gmail.com';
+// const ADMIN_EMAIL_TO = 'waruemon.xyz@gmail.com';
+const {
+  OPENTIME, //開店時間
+  CLOSETIME, //閉店時間
+  REGULAR_CLOSE, //定休日（整数、配列型式で入力）
+  FUTURE_LIMIT, //何日先まで予約可能か
+  NUMBER_OF_SHIFTS, //何日先のシフトまで入力するか
+  SHIFTS_LEFT,　//南日前までのシフトを残すか
+  PASSWORD, //管理画面用URL
+  ADMIN_EMAIL_FROM,
+  ADMIN_EMAIL_TO
+} = require('./params/back');
 const ADMIN_LINEID = process.env.ADMIN_LINEID; //予約確認をLINEプッシュメッセージで送信したい場合に開放
 
 const config = {
