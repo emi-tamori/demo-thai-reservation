@@ -62,6 +62,9 @@
   const createReservationTable = (data,num,staffNum) => {
     console.log('data:',data);
 
+    //予約表のインデックス
+    let pageNumber = num;
+
     //スタッフ名のみ配列化する
     const STAFFS = [];
     data.staffs.forEach(obj=>{
@@ -120,7 +123,7 @@
     let today = new Date();
     today.setHours(0,0,0,0); //0:00にセット
     today_ts = new Date(today).getTime();
-    const dateObject = createDateObject(today_ts+props.index*ONEWEEK);
+    const dateObject = createDateObject(today_ts+pageNumber*ONEWEEK);
 
     const div_menu = document.createElement('div');
     div_menu.setAttribute('class','button-area');
@@ -157,7 +160,9 @@
     left_arrow.innerHTML = '<i class="far fa-arrow-alt-circle-left"></i>戻る'
 
     left_arrow.addEventListener('click',()=>{
-      props.index--;
+      pageNumber--;
+      divElement.innerHTML = '';
+      createReservationTable(data,pageNumber,staffNum);
     });
     div_menu.appendChild(left_arrow);
 
@@ -175,7 +180,9 @@
     right_arrow.setAttribute('class','btn btn-outline-primary menu-button');
     right_arrow.innerHTML = '進む<i class="far fa-arrow-alt-circle-right"></i>';
     right_arrow.addEventListener('click',()=>{
-      props.index++;
+      pageNumber++;
+      divElement.innerHTML = '';
+      createReservationTable(data,pageNumber,staffNum);
     });
     div_menu.appendChild(right_arrow);
     divElement.appendChild(div_menu);
@@ -214,7 +221,7 @@
     const tableBody = document.createElement('tbody');
 
     //起点
-    const startPoint = new Date().setHours(OPENTIME,0,0,0)+props.index*ONEWEEK;
+    const startPoint = new Date().setHours(OPENTIME,0,0,0)+pageNumber*ONEWEEK;
 
     for(let i=0;i<CLOSETIME-OPENTIME;i++){
       const trElement = document.createElement('tr');
