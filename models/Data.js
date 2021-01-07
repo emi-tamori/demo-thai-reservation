@@ -11,27 +11,37 @@ const connection = new Client({
   });
 connection.connect();
 
-const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
-const SHIFTS_LEFT = 7; //何日前までのシフトを残すか
-const OPENTIME = 12; //開店時間
-const CLOSETIME = 24; //閉店時間
-const ADMIN_EMAIL_FROM = 'kentaro523@gmail.com';
-const ADMIN_EMAIL_TO = 'waruemon.xyz@gmail.com';
+const {
+    OPENTIME, //開店時間
+    CLOSETIME, //閉店時間
+    NUMBER_OF_SHIFTS, //何日先のシフトまで入力するか
+    SHIFTS_LEFT,　//南日前までのシフトを残すか
+    ADMIN_EMAIL_FROM, //Gメールの送り元(id,secret,refreshが登録されたもの)
+    ADMIN_EMAIL_TO, //Gメールの送り先
+    MENU //施術メニュー（メニュー名、時間、料金）
+  } = require('../params/back');
 
-const MENU = [
-    {
-        menu: 'タイ式（ストレッチ）',
-        timeAndPrice: [[30,3000],[45,4000],[60,5000],[90,7000],[120,9000]]
-    },
-    {
-        menu: 'タイ式（アロマ）',
-        timeAndPrice: [[45,5000],[60,7000],[90,9000],[120,12000]]
-    },
-    {
-        menu: '足つぼマッサージ',
-        timeAndPrice: [[30,3000],[60,5000]]
-    }
-]
+// const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
+// const SHIFTS_LEFT = 7; //何日前までのシフトを残すか
+// const OPENTIME = 12; //開店時間
+// const CLOSETIME = 24; //閉店時間
+// const ADMIN_EMAIL_FROM = 'kentaro523@gmail.com';
+// const ADMIN_EMAIL_TO = 'waruemon.xyz@gmail.com';
+
+// const MENU = [
+//     {
+//         menu: 'タイ式（ストレッチ）',
+//         timeAndPrice: [[30,3000],[45,4000],[60,5000],[90,7000],[120,9000]]
+//     },
+//     {
+//         menu: 'タイ式（アロマ）',
+//         timeAndPrice: [[45,5000],[60,7000],[90,9000],[120,12000]]
+//     },
+//     {
+//         menu: '足つぼマッサージ',
+//         timeAndPrice: [[30,3000],[60,5000]]
+//     }
+// ]
 
 //予約の重複チェックを行う関数
 const doubleBookingCheck = (startTime,endTime,staffName,id) => {

@@ -1,36 +1,26 @@
-const MENU = [
-  {
-    menu: 'タイ式（ストレッチ）',
-    timeAndPrice: [[30,3000],[45,4000],[60,5000],[90,7000],[120,9000]]
-  },
-  {
-    menu: 'タイ式（アロマ）',
-    timeAndPrice: [[45,5000],[60,7000],[90,9000],[120,12000]]
-  },
-  {
-    menu: '足つぼマッサージ',
-    timeAndPrice: [[30,3000],[60,5000]]
-  }
-]
+const {
+  OPENTIME, //開店時間
+  MENU //施術メニュー（メニュー名、時間、料金）
+} = require('../params/back');
+
+// const MENU = [
+//   {
+//     menu: 'タイ式（ストレッチ）',
+//     timeAndPrice: [[30,3000],[45,4000],[60,5000],[90,7000],[120,9000]]
+//   },
+//   {
+//     menu: 'タイ式（アロマ）',
+//     timeAndPrice: [[45,5000],[60,7000],[90,9000],[120,12000]]
+//   },
+//   {
+//     menu: '足つぼマッサージ',
+//     timeAndPrice: [[30,3000],[60,5000]]
+//   }
+// ]
+// const OPENTIME = 12; //開店時間
 
 const WEEK = [ "日", "月", "火", "水", "木", "金", "土" ];
-const OPENTIME = 12; //開店時間
 
-// const createDateOptions = (stampArray) => {
-//   const options = [];
-//   stampArray.forEach(stamp=>{
-//     const modifiedStamp = stamp + 9*60*60*1000;
-//     const year = new Date(modifiedStamp).getFullYear();
-//     const month = new Date(modifiedStamp).getMonth()+1;
-//     const date = new Date(modifiedStamp).getDate();
-//     const week = WEEK[new Date(modifiedStamp).getDay()];
-//     const hour = new Date(modifiedStamp).getHours();
-//     const minutes = ('0'+new Date(modifiedStamp).getMinutes()).slice(-2);
-//     const text = `${year}/${month}/${date}(${week})  ${hour}:${minutes}〜`;
-//     options.push(text);
-//   });
-//   return options;
-// }
 
 module.exports = {
 
