@@ -35,7 +35,7 @@
     CLOSETIME,
     MENU,
     MENU_E
-  } from '../../params/front';
+  } from '../../params/front.js';
 
   //大元のdiv要素取得
   const divElement = document.getElementById('reservationsPage');
