@@ -268,10 +268,12 @@
             //シフトが非出勤であれば、要素背景をグレーにする
             const shiftData = props.staffsData[index];
             const updatedat = shiftData.updatedat;
-            const target = startPoint + ONEDAY*(j-1) + ONEHOUR*i;
+            const target = startPoint + ONEDAY*(j-1) + ONEHOUR*i -12*ONEHOUR;
             const differential = target - updatedat;
-            console.log('@@@',updatedat,target,differential);
-            if(!shiftData[`d${j-1}h${i+OPENTIME}`]) td.style.backgroundColor='#ccc';
+            const d_element = Math.floor(differential/ONEDAY);
+            const h_element = (differential%ONEDAY)/ONEHOUR + OPENTIME;
+            console.log('@@@',updatedat,target,differential,d_element,h_element);
+            if(!shiftData[`d${d_element}h${h_element}`]) td.style.backgroundColor='#ccc';
           }
           trElement.appendChild(td);
         }
