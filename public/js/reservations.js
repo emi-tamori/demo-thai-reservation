@@ -209,7 +209,7 @@
               if(array.length){
                 array.forEach(reservationInfo=>{
                   if(reservationInfo.starttime>=startPoint3 && reservationInfo.starttime<(startPoint3+ONEHOUR)){
-                    const display = createDataDisplay(reservationInfo,STAFFS);
+                    const display = createDataDisplay(reservationInfo,STAFFS,props.staffsData);
                     td.appendChild(display);
                   }
                 });
@@ -270,7 +270,7 @@
     createReservationTable(data,value);
   }
 
-  const createDataDisplay = (info,staffs) => {
+  const createDataDisplay = (info,staffs,staffsData) => {
     console.log('info:',info);
     const hour = new Date(parseInt(info.starttime)).getHours();
     const minutes = ('0'+new Date(parseInt(info.starttime)).getMinutes()).slice(-2);
@@ -618,7 +618,7 @@
         const staffName = formData.get('staffName');
 
         //formDataが適正かチェックする機能を実装する
-        let check = postCheck(formData,props.staffsData[STAFFS.indexOf(staffName)]); //スタッフのシフトチェックも行う
+        let check = postCheck(formData,staffsData[STAFFS.indexOf(staffName)]); //スタッフのシフトチェックも行う
         console.log('check',check);
         if(check === 'ok'){
           fetch('/api/reservation',{
@@ -665,7 +665,7 @@
       const staffName = formData.get('staffName');
 
       //formDataが適正かのチェックを入れる
-      let check = postCheck(formData,props.staffsData[STAFFS.indexOf(staffName)]);
+      let check = postCheck(formData,staffsData[STAFFS.indexOf(staffName)]);
       console.log('check',check);
       if(check === 'ok'){
         fetch('/api/reservation',{
