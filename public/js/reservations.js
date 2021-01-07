@@ -231,7 +231,8 @@
           td.setAttribute('class','table-element');
 
           // この時間帯に予約データがあるか確認し、あれば、td内に表示
-          if(props.reservationsData.length){
+          //全てのスタッフの予約が選択されている時
+          if(props.reservationsData.length && staffNum === 0){
             props.reservationsData.forEach((array,index)=>{ //ここにindexを指定すればスタッフごとのテーブルを表示できる
               if(array.length){
                 array.forEach(reservationInfo=>{
@@ -240,6 +241,17 @@
                     td.appendChild(display);
                   }
                 });
+              }
+            });
+          }
+          //個別のスタッフの予約表が選択されている時
+          else if(props.reservationsData.length && staffNum !== 0){
+            const index = staffNum -1;
+            const targetReservations = props.reservationsData[index];
+            targetReservations.forEach(reservationInfo=>{
+              if(reservationInfo.starttime>=startPoint3 && reservationInfo.starttime<(startPoint3+ONEHOUR)){
+                const display = createDataDisplay(reservationInfo,STAFFS,props.staffsData);
+                td.appendChild(display);
               }
             });
           }
@@ -253,7 +265,9 @@
 
     //予約表が選択された時
     select_staff.addEventListener('change',()=>{
-      console.log('change');
+      const num = select_staff.selectedIndex;
+      divElement.innerHTML = '';
+      createReservationTable(data,0,num);
     });
   }
 
