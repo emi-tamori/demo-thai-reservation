@@ -561,7 +561,7 @@ const timeProposal = (ev,menu,time,date,timeZone) => {
         const candidates = targets[staffNumber];
         console.log('candidates=',candidates);
 
-        const flexMessage = Flex.makeProposal(menu,time,date,candidates,staffName);
+        const flexMessage = Flex.makeProposal(menu,time,date,timeZone,candidates,staffName);
         return client.replyMessage(ev.replyToken,flexMessage);
 
       }else{

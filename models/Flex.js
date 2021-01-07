@@ -591,135 +591,129 @@ module.exports = {
     return askTimeMessage;
   },
 
-  makeProposal: (menu,time,date,candidates,staffName) => {
-    const numberOfProposal = candidates.length;
-    const options = createDateOptions(candidates);
-    //numberOfProposalの最大値は２であることを想定している
-    if(numberOfProposal === 2){
-      const proposalMessage = {
-        "type":"flex",
-        "altText":"来店希望日時選択",
-        "contents":
-        {
-          "type": "bubble",
-          "header": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "希望時間をお選びください",
-                "size": "lg"
-              }
-            ]
-          },
-          "hero": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": `${MENU[menu].menu} ${MENU[menu].timeAndPrice[time][0]}分`,
-                "align": "center",
-                "adjustMode": "shrink-to-fit",
-                "size": "md",
-                // "wrap": true
-              },
-              {
-                "type": "separator",
-                "margin": "sm"
-              }
-            ]
-          },
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "button",
-                "action": {
-                  "type": "postback",
-                  "label": `${options[0]}`,
-                  "data": `yes&${menu}&${time}&${date}&${candidates[0]}&${staffName}`
-                },
-                "style": "primary",
-                "margin": "md"
-              },
-              {
-                "type": "button",
-                "action": {
-                  "type": "postback",
-                  "label": `${options[1]}`,
-                  "data": `yes&${menu}&${time}&${date}&${candidates[1]}&${staffName}`
-                },
-                "style": "primary",
-                "margin": "md"
-              }
-            ]
-          }
-        }
-      }
-      return proposalMessage;
-    }
+  makeProposal: (menu,time,date,timeZone,candidates,staffName) => {
+    // const numberOfProposal = candidates.length;
+    // const options = createDateOptions(candidates);
+    
+    //numberOfProposalは４つで固定（00分、15分、30分、45分）
+    const timeFlag = [0,0,0,0] //（00分、15分、30分、45分）の選択肢が存在するかのフラグ
+    candidates.forEach(timestamp=>{
+      const minutes = new Date(timestamp).getMinutes();
+      timeFlag[minutes/15] = 1;
+    });
+    console.log('timeflag',timeFlag);
 
-    //candidates.length=1の時
-    else
-    {
-      const proposalMessage = {
-        "type":"flex",
-        "altText":"来店希望日時選択",
-        "contents":
-        {
-          "type": "bubble",
-          "header": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "希望時間をお選びください",
-                "size": "lg"
-              }
-            ]
-          },
-          "hero": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": `${MENU[menu].menu} ${MENU[menu].timeAndPrice[time][0]}分`,
-                "align": "center",
-                "adjustMode": "shrink-to-fit",
-                "size": "md",
-                // "wrap": true
+    const colorArray = [];
+    const postbackData = [];
+    const labelArray = [];
+
+    timeFlag.forEach((value,index)=>{
+      if(value === 0){
+        colorArray.push('#FF0000');
+        postbackData.push('no');
+        labelArray.push('選択できません');
+      }else{
+        colorArray.push('#00AA00');
+        postbackData.push(`yes&${menu}&${time}&${date}&${candidates[index]}&${staffName}`);
+        
+        //ラベル表示用文字列生成
+        const modifiedStamp = candidates[index] + 9*60*60*1000;
+        const year = new Date(modifiedStamp).getFullYear();
+        const month = new Date(modifiedStamp).getMonth()+1;
+        const date = new Date(modifiedStamp).getDate();
+        const week = WEEK[new Date(modifiedStamp).getDay()];
+        const hour = new Date(modifiedStamp).getHours();
+        const minutes = ('0'+new Date(modifiedStamp).getMinutes()).slice(-2);
+        const labelText = `${year}/${month}/${date}(${week})  ${hour}:${minutes}〜`;
+        labelArray.push(labelText);
+      }
+    });
+    console.log('postbackData',postbackData);
+    
+    const proposalMessage = {
+      "type":"flex",
+      "altText":"来店希望日時選択",
+      "contents":
+      {
+        "type": "bubble",
+        "header": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "text": "希望時間をお選びください",
+              "size": "lg"
+            }
+          ]
+        },
+        "hero": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "text": `${MENU[menu].menu} ${MENU[menu].timeAndPrice[time][0]}分`,
+              "align": "center",
+              "adjustMode": "shrink-to-fit",
+              "size": "md",
+              // "wrap": true
+            },
+            {
+              "type": "separator",
+              "margin": "sm"
+            }
+          ]
+        },
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "button",
+              "action": {
+                "type": "postback",
+                "label": `${labelArray[0]}`,
+                "data": `${postbackData[0]}`
               },
-              {
-                "type": "separator",
-                "margin": "sm"
-              }
-            ]
-          },
-          "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "button",
-                "action": {
-                  "type": "postback",
-                  "label": `${options[0]}`,
-                  "data": `yes&${menu}&${time}&${date}&${candidates[0]}&${staffName}`
-                },
-                "style": "primary",
-                "margin": "md"
-              }
-            ]
-          }
+              "style": "primary",
+              "margin": "md"
+            },
+            {
+              "type": "button",
+              "action": {
+                "type": "postback",
+                "label": `${labelArray[1]}`,
+                "data": `${postbackData[1]}`
+              },
+              "style": "primary",
+              "margin": "md"
+            },
+            {
+              "type": "button",
+              "action": {
+                "type": "postback",
+                "label": `${labelArray[2]}`,
+                "data": `${postbackData[2]}`
+              },
+              "style": "primary",
+              "margin": "md"
+            },
+            {
+              "type": "button",
+              "action": {
+                "type": "postback",
+                "label": `${labelArray[3]}`,
+                "data": `${postbackData[3]}`
+              },
+              "style": "primary",
+              "margin": "md"
+            }
+          ]
         }
       }
-      return proposalMessage;
     }
+    return proposalMessage;
   },
 
   makaDeleteMessage: (date,treatTime,menu,staff,id) => {
