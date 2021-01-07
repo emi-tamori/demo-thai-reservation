@@ -285,7 +285,7 @@
   }
 
   //予約データカードの表示
-  const createReservationCard = (info,staffs) =>{
+  const createReservationCard = (info,staffs,staffsData) =>{
 
     //グリッドシステム
     const divRow = document.createElement('div');
