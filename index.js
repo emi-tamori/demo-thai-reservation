@@ -26,7 +26,9 @@ const MENU = [
   }
 ]
 const WEEK = [ "日", "月", "火", "水", "木", "金", "土" ];
-const OPENTIME = 12; //開店時間
+// const OPENTIME = 12; //開店時間
+import OPENTIME from './params/params';
+
 const CLOSETIME = 24; //閉店時間
 const LAST_ORDER = 1; //閉店の何時間前まで予約可能か
 const REGULAR_CLOSE = []; //定休日の曜日
@@ -451,10 +453,10 @@ const handlePostbackEvent = async (ev) => {
                             gmailSend(staffName,date,MENU[orderedMenu].menu);
                             
                             //LINEで通知
-                            client.pushMessage(ADMIN_LINEID,{
-                              "type":"text",
-                              "text":`${date}に${MENU[orderedMenu].menu}(${treatTime}分)で${staffName}さんに予約が入りました`
-                            });
+                            // client.pushMessage(ADMIN_LINEID,{
+                            //   "type":"text",
+                            //   "text":`${date}に${MENU[orderedMenu].menu}(${treatTime}分)で${staffName}さんに予約が入りました`
+                            // });
                           })
                           .catch(e=>console.log(e));
                       })
