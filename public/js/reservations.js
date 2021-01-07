@@ -768,11 +768,14 @@
       if(regularCheck) return '定休日には予約を入れることができません';
     }
 
-    //スタッフのシフトチェック
+    //スタッフのシフトが出勤かチェック
     console.log('shift',staffData);
     const updatedat = staffData.updatedat;
-    const selected = (new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).setHours(0,0,0,0)).getTime();
-    console.log('updatedat selected',updatedat,selected);
+    let selected = new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).setHours(0,0,0,0);
+    const selectedTimestamp = selected.getTime();
+    console.log('updatedat selected',updatedat,selectedTimestamp);
+
+    const differential = selectedTimestamp - updatedat;
 
     return 'test';
 
