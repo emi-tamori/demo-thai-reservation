@@ -205,8 +205,10 @@
 
           // この時間帯に予約データがあるか確認し、あれば、td内に表示
           if(props.reservationsData.length){
-            const reservationData = props.reservationsData[STAFFS.indexOf('emi')]; //test
-            reservationData.forEach(array=>{
+            const emiData = props.reservationsData[1]; //test
+            console.log('emidata',emiData);
+            console.log('emi',STAFFS.indexOf('emi'));
+            emiData.forEach(array=>{ //test
             // props.reservationsData.forEach(array=>{
               if(array.length){
                 array.forEach(reservationInfo=>{
