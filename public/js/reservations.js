@@ -770,6 +770,9 @@
 
     //スタッフのシフトチェック
     console.log('shift',staffData);
+    const updatedat = staffData.updatedat;
+    const selected = (new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).setHours(0,0,0,0)).getTime();
+    console.log('updatedat selected',updatedat,selected);
 
     return 'test';
 
