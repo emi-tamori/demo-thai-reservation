@@ -304,15 +304,23 @@ const handlePostbackEvent = async (ev) => {
                   }
                   console.log('reservableArray:',reservableArray);
 
+                  
+
                   //予約可能時間帯とボタン色配列を生成
                   const time = [];
                   const color = [];
                   for(let i=0; i<CLOSETIME-OPENTIME; i++){
+                    //選んだ時間が過去の時間かを判定する
+                    const targetDateTime = new Date(`${selectedDate} ${OPENTIME+i}:00`).getTime() - 9*60*60*1000;
+                    console.log('targetDateTime:',targetDateTime);
+                    const nowTime = new Date().getTime();
+                    console.log('nowTime:',nowTime);
+
                     let count = 0;
                     for(let j=0; j<reservableArray.length; j++){
                       if(reservableArray[j][i].length) count++;
                     }
-                    if(count>0){
+                    if(count>0 && targetDateTime>nowTime){
                       time.push(i);
                       color.push('#00AA00');
                     }else{
