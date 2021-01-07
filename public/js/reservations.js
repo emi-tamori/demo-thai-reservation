@@ -115,6 +115,10 @@
     div_select_staff.appendChild(select_staff);
     divElement.appendChild(div_select_staff);
 
+    select_staff.addEventListener('change',()=>{
+      console.log('change');
+    })
+
     //表示用　年月、日、曜日の取得
     let today = new Date();
     today.setHours(0,0,0,0); //0:00にセット
