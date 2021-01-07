@@ -7,6 +7,8 @@
   const ONEWEEK = ONEDAY*7;
   const OPENTIME = 12;
   const CLOSETIME = 24;
+  const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
+  const SHIFTS_LEFT = 7; //何日前までのシフトを残すか
   const MENU = [
     {
       menu: 'タイ式（ストレッチ）',
@@ -171,7 +173,9 @@
     thisWeek.setAttribute('class','btn btn-outline-primary menu-button');
     thisWeek.innerHTML = '今週';
     thisWeek.addEventListener('click',()=>{
-      props.index = 0;
+      pageNumber = 0;
+      divElement.innerHTML = '';
+      createReservationTable(data,pageNumber,staffNum);
     });
     div_menu.appendChild(thisWeek);
 
@@ -263,6 +267,10 @@
             });
             //シフトが非出勤であれば、要素背景をグレーにする
             const shiftData = props.staffsData[index];
+            const updatedat = shiftData.updatedat;
+            const target = startPoint + ONEDAY*(j-1) + ONEHOUR*i;
+            const differential = target - updatedat;
+            console.log('@@@',updatedat,target,differential);
             if(!shiftData[`d${j-1}h${i+OPENTIME}`]) td.style.backgroundColor='#ccc';
           }
           trElement.appendChild(td);
