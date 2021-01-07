@@ -674,15 +674,16 @@ const checkReservable = (ev,menu,time,date,staffInfo) => {
               if(pattern === 0 || pattern === 2) separatedByTime[i].push(separatedByTime[i+1][0]);
             }
             else{
-              //次の時間帯に予約が入っていなければとりあえず、timeStamps[i]から1時間+treatTime分のタイムスタンプを格納
-              separatedByTime[i].push([timeStamps[i]+60*60*1000+treatTimeToMs]);
+              //次の時間帯に予約が入っていなければとりあえず、timeStamps[i]から45min+treatTime分のタイムスタンプを格納
+              separatedByTime[i].push([timeStamps[i]+45*60*1000+treatTimeToMs]);
             }
           }
           //対象時間帯の予約が存在し、かつ最後の時間帯の場合（separatedByTime[i+1]を検知できないため特別扱いする）
+          //パターン0,2の時は45分+施術時間をpushする
           else if(separatedByTime[i].length && i === separatedByTime.length-1){
             const l = separatedByTime[i].length - 1;
             const pattern = separatedByTime[i][l][2];
-            if(pattern === 0 || pattern === 2) separatedByTime[i].push([timeStamps[i] + 60*60*1000 + treatTimeToMs]);
+            if(pattern === 0 || pattern === 2) separatedByTime[i].push([timeStamps[i] + 45*60*1000 + treatTimeToMs]);
           }
         }
 
@@ -710,14 +711,14 @@ const checkReservable = (ev,menu,time,date,staffInfo) => {
             intervalArray.push([[separatedByTime[i+1][0][0] - timeStamps[i],timeStamps[i]]]);
           }else{
             
-            intervalArray.push([[60*60*1000+treatTime*60*1000,timeStamps[i]]]);
+            intervalArray.push([[45*60*1000+treatTimeToMs,timeStamps[i]]]);
             //ここが15min変更箇所
             // intervalArray.push([[60*60*1000,timeStamps[i]]]);
           }      
         }
 
         //ここが15min仕様変更箇所
-        //reservableArrayを生
+        //reservableArrayを生成
         const reservableArray = [];
         const min15 = 15*60*1000; //15分のミリ秒換算
         intervalArray.forEach(array2=>{
