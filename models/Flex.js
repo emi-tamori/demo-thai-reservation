@@ -14,6 +14,7 @@ const MENU = [
 ]
 
 const WEEK = [ "日", "月", "火", "水", "木", "金", "土" ];
+const OPENTIME = 12; //開店時間
 
 // const createDateOptions = (stampArray) => {
 //   const options = [];
