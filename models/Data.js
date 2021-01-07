@@ -19,7 +19,8 @@
         SHIFTS_LEFT,　//南日前までのシフトを残すか
         ADMIN_EMAIL_FROM, //Gメールの送り元(id,secret,refreshが登録されたもの)
         ADMIN_EMAIL_TO, //Gメールの送り先
-        MENU //施術メニュー（メニュー名、時間、料金）
+        MENU, //施術メニュー（メニュー名、時間、料金）
+        MENU_E
     } = require('../params/back');
 
     // const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか

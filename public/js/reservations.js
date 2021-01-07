@@ -1,41 +1,27 @@
 (()=>{
-  // const API_URL = 'https://linebot-schedule.herokuapp.com/api/';
-  // const WEEKS = ["日", "月", "火", "水", "木", "金", "土"];
-  // const REGULAR_CLOSE = [];
-  // const ONEHOUR = 60*60*1000;
-  // const ONEDAY = 24*ONEHOUR;
-  // const ONEWEEK = ONEDAY*7;
-  // const OPENTIME = 12;
-  // const CLOSETIME = 24;
-  // const MENU = [
-  //   {
-  //     menu: 'タイ式（ストレッチ）',
-  //     timeAndPrice: [[30,3000],[45,4000],[60,5000],[90,7000],[120,9000]]
-  //   },
-  //   {
-  //     menu: 'タイ式（アロマ）',
-  //     timeAndPrice: [[45,5000],[60,7000],[90,9000],[120,12000]]
-  //   },
-  //   {
-  //     menu: '足つぼマッサージ',
-  //     timeAndPrice: [[30,3000],[60,5000]]
-  //   }
-  // ]
-  // const MENU_E = ['stretch','aroma','foot'];
-  
-  //共通定数の読み込み
-  import {
-    API_URL,
-    WEEKS,
-    REGULAR_CLOSE,
-    ONEHOUR,
-    ONEDAY,
-    ONEWEEK,
-    OPENTIME,
-    CLOSETIME,
-    MENU,
-    MENU_E
-  } from '../../params/front.js';
+  const API_URL = 'https://linebot-schedule.herokuapp.com/api/';
+  const WEEKS = ["日", "月", "火", "水", "木", "金", "土"];
+  const REGULAR_CLOSE = [];
+  const ONEHOUR = 60*60*1000;
+  const ONEDAY = 24*ONEHOUR;
+  const ONEWEEK = ONEDAY*7;
+  const OPENTIME = 12;
+  const CLOSETIME = 24;
+  const MENU = [
+    {
+      menu: 'タイ式（ストレッチ）',
+      timeAndPrice: [[30,3000],[45,4000],[60,5000],[90,7000],[120,9000]]
+    },
+    {
+      menu: 'タイ式（アロマ）',
+      timeAndPrice: [[45,5000],[60,7000],[90,9000],[120,12000]]
+    },
+    {
+      menu: '足つぼマッサージ',
+      timeAndPrice: [[30,3000],[60,5000]]
+    }
+  ]
+  const MENU_E = ['stretch','aroma','foot'];
 
   //大元のdiv要素取得
   const divElement = document.getElementById('reservationsPage');
