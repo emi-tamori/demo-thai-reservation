@@ -596,10 +596,10 @@ module.exports = {
     // const options = createDateOptions(candidates);
     
     //numberOfProposalは４つで固定（00分、15分、30分、45分）
-    const timeFlag = [0,0,0,0] //（00分、15分、30分、45分）の選択肢が存在するかのフラグ
-    candidates.forEach(timestamp=>{
+    const timeFlag = [-1,-1,-1,-1] //（00分、15分、30分、45分）の選択肢が存在するかのフラグ
+    candidates.forEach((timestamp,index)=>{
       const minutes = new Date(timestamp).getMinutes();
-      timeFlag[minutes/15] = 1;
+      timeFlag[minutes/15] = index;
     });
     console.log('timeflag',timeFlag);
 
@@ -609,22 +609,23 @@ module.exports = {
 
     timeFlag.forEach((value,index)=>{
       //ラベル表示用文字列生成
-      const modifiedStamp = parseInt(candidates[index]) + 9*60*60*1000;
-      console.log('ts',modifiedStamp);
-      const year = new Date(modifiedStamp).getFullYear();
-      const month = new Date(modifiedStamp).getMonth()+1;
-      const day = new Date(modifiedStamp).getDate();
-      const week = WEEK[new Date(modifiedStamp).getDay()];
-      const hour = new Date(modifiedStamp).getHours();
-      const minutes = ('0'+new Date(modifiedStamp).getMinutes()).slice(-2);
-      const labelText = `${year}/${month}/${day}(${week})  ${hour}:${minutes}〜`;
+      const labelText = new Date(`${date} ${OPENTIME+timeZone}:${('0'+15*index).slice(-2)}`);
+      // const modifiedStamp = parseInt(candidates[index]) + 9*60*60*1000;
+      // console.log('ts',modifiedStamp);
+      // const year = new Date(modifiedStamp).getFullYear();
+      // const month = new Date(modifiedStamp).getMonth()+1;
+      // const day = new Date(modifiedStamp).getDate();
+      // const week = WEEK[new Date(modifiedStamp).getDay()];
+      // const hour = new Date(modifiedStamp).getHours();
+      // const minutes = ('0'+new Date(modifiedStamp).getMinutes()).slice(-2);
+      // const labelText = `${year}/${month}/${day}(${week})  ${hour}:${minutes}〜`;
       labelArray.push(labelText);
-      if(value === 0){
+      if(value === -1){
         colorArray.push('#FF0000');
         postbackData.push('no');
       }else{
         colorArray.push('#00AA00');
-        postbackData.push(`yes&${menu}&${time}&${date}&${candidates[index]}&${staffName}`);
+        postbackData.push(`yes&${menu}&${time}&${date}&${candidates[value]}&${staffName}`);
       }
     });
     console.log('postbackData',postbackData);
