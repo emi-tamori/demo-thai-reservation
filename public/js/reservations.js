@@ -89,6 +89,32 @@
     title.innerHTML = '予約管理ページ';
     divElement.appendChild(title);
 
+    //予約テーブル表示対象スタッフの選択
+    const div_select_staff = document.createElement('div');
+    div_select_staff.setAttribute('class','form-group form-inline div-rsv');
+
+    //スタッフラベル
+    const label_select = document.createElement('label');
+    label_select.setAttribute('class','label-staff-select');
+    label_select.innerHTML = '予約表を選ぶ';
+    div_select_staff.appendChild(label_select);
+    
+    // スタッフselect
+    const select_staff = document.createElement('select');
+    select_staff.setAttribute('class','form-control select-staff');
+    select_staff.name = 'selectStaff';
+    const selectArray = [...STAFFS];
+    selectArray.unshift('全て');
+    selectArray.forEach(name=>{
+      const option = document.createElement('option');
+      option.innerHTML = name;
+      option.value = name;
+      select_staff.appendChild(option);
+    });
+    select_staff.selectedIndex = 0;
+    div_select_staff.appendChild(select_staff);
+    divElement.appendChild(div_select_staff);
+
     //表示用　年月、日、曜日の取得
     let today = new Date();
     today.setHours(0,0,0,0); //0:00にセット
@@ -205,8 +231,8 @@
 
           // この時間帯に予約データがあるか確認し、あれば、td内に表示
           if(props.reservationsData.length){
-            props.reservationsData.forEach((array,index)=>{
-              if(array.length && index===1){
+            props.reservationsData.forEach(array=>{ //ここにindexを指定すればスタッフごとのテーブルを表示できる
+              if(array.length){
                 array.forEach(reservationInfo=>{
                   if(reservationInfo.starttime>=startPoint3 && reservationInfo.starttime<(startPoint3+ONEHOUR)){
                     const display = createDataDisplay(reservationInfo,STAFFS,props.staffsData);
