@@ -629,6 +629,7 @@ module.exports = {
         postbackData.push(`yes&${menu}&${time}&${date}&${candidates[value]}&${staffName}`);
       }
     });
+    console.log('labelArray',labelArray);
     console.log('postbackData',postbackData);
     
     const proposalMessage = {
