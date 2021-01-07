@@ -445,7 +445,7 @@ const handlePostbackEvent = async (ev) => {
                             //予約確認メッセージ
                             client.replyMessage(ev.replyToken,{
                               "type":"text",
-                              "text":`${date}に${MENU[orderedMenu].menu}(${MENU[orderedMenu].timeAndPrice[selectedTime][0]}分)で予約をお取りしたました（スタッフ：${staffName}）`
+                              "text":`${date}に${MENU[orderedMenu].menu}(${treatTime}分)で予約をお取りしたました（スタッフ：${staffName}）`
                             });
                             //Gmail送信
                             gmailSend(staffName,date,MENU[orderedMenu].menu);
@@ -453,7 +453,7 @@ const handlePostbackEvent = async (ev) => {
                             //LINEで通知
                             client.pushMessage(ADMIN_LINEID,{
                               "type":"text",
-                              "text":`${date}に${MENU[orderedMenu].menu}(${MENU[orderedMenu].timeAndPrice[selectedTime][0]}分)で${staffName}さんに予約が入りました`
+                              "text":`${date}に${MENU[orderedMenu].menu}(${treatTime}分)で${staffName}さんに予約が入りました`
                             });
                           })
                           .catch(e=>console.log(e));
