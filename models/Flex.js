@@ -608,24 +608,23 @@ module.exports = {
     const labelArray = [];
 
     timeFlag.forEach((value,index)=>{
+      //ラベル表示用文字列生成
+      const modifiedStamp = parseInt(candidates[index]) + 9*60*60*1000;
+      console.log('ts',modifiedStamp);
+      const year = new Date(modifiedStamp).getFullYear();
+      const month = new Date(modifiedStamp).getMonth()+1;
+      const day = new Date(modifiedStamp).getDate();
+      const week = WEEK[new Date(modifiedStamp).getDay()];
+      const hour = new Date(modifiedStamp).getHours();
+      const minutes = ('0'+new Date(modifiedStamp).getMinutes()).slice(-2);
+      const labelText = `${year}/${month}/${day}(${week})  ${hour}:${minutes}〜`;
+      labelArray.push(labelText);
       if(value === 0){
         colorArray.push('#FF0000');
         postbackData.push('no');
-        labelArray.push('選択できません');
       }else{
         colorArray.push('#00AA00');
         postbackData.push(`yes&${menu}&${time}&${date}&${candidates[index]}&${staffName}`);
-        
-        //ラベル表示用文字列生成
-        const modifiedStamp = candidates[index] + 9*60*60*1000;
-        const year = new Date(modifiedStamp).getFullYear();
-        const month = new Date(modifiedStamp).getMonth()+1;
-        const day = new Date(modifiedStamp).getDate();
-        const week = WEEK[new Date(modifiedStamp).getDay()];
-        const hour = new Date(modifiedStamp).getHours();
-        const minutes = ('0'+new Date(modifiedStamp).getMinutes()).slice(-2);
-        const labelText = `${year}/${month}/${day}(${week})  ${hour}:${minutes}〜`;
-        labelArray.push(labelText);
       }
     });
     console.log('postbackData',postbackData);
