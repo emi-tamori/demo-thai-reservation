@@ -610,7 +610,7 @@ module.exports = {
 
     timeFlag.forEach((value,index)=>{
       //ラベル表示用文字列生成
-      const labelText = new Date(`${date} ${OPENTIME+timeZone}:${('0'+15*index).slice(-2)}`);
+      const labelText = date + ' '+ (OPENTIME+parseInt(timeZone)) + ':' +('0'+15*index).slice(-2);
       // const modifiedStamp = parseInt(candidates[index]) + 9*60*60*1000;
       // console.log('ts',modifiedStamp);
       // const year = new Date(modifiedStamp).getFullYear();
