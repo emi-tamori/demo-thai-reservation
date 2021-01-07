@@ -771,10 +771,12 @@
     //スタッフのシフトが出勤かチェック
     console.log('shift',staffData);
     const updatedat = staffData.updatedat;
-    const selected = new Date(parseInt(year),parseInt(month),parseInt(day),0,0,0).getTime();
+    const selected = new Date(parseInt(year),parseInt(month)-1,parseInt(day),0,0,0).getTime();
     console.log('updatedat selected',updatedat,selected);
 
-    const differential = selected - updatedat;
+    const differential = selected - parseInt(updatedat);
+    const targetShift = staffData[`d${differential}h${sHour}`];
+    console.log('shift',targetShift);
 
     return 'test';
 
