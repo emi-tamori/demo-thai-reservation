@@ -470,7 +470,7 @@
     select_sMin.setAttribute('class','form-control two-digits-selector');
     select_sMin.name = 'sMin';
     // const start_minutes = new Date(parseInt(info.starttime)).getMinutes();
-    for(let i=0; i<12; i++){
+    for(let i=0; i<4; i++){
       const option = document.createElement('option');
       option.innerHTML = ('0'+i*15).slice(-2);
       option.value = 15*i;
