@@ -1,6 +1,4 @@
-(()=>{
-
-  export const API_URL = 'https://linebot-schedule.herokuapp.com/api/';
+export const API_URL = 'https://linebot-schedule.herokuapp.com/api/';
   export const WEEKS = ["日", "月", "火", "水", "木", "金", "土"];
   export const REGULAR_CLOSE = [];
   export const ONEHOUR = 60*60*1000;
@@ -23,5 +21,7 @@
     }
   ]
   export const MENU_E = ['stretch','aroma','foot'];
+
+(()=>{
 
 })();
