@@ -618,7 +618,7 @@
         const staffName = formData.get('staffName');
 
         //formDataが適正かチェックする機能を実装する
-        let check = postCheck(formData,staffsData[STAFFS.indexOf(staffName)]); //スタッフのシフトチェックも行う
+        let check = postCheck(formData,staffsData[staffs.indexOf(staffName)]); //スタッフのシフトチェックも行う
         console.log('check',check);
         if(check === 'ok'){
           fetch('/api/reservation',{
@@ -665,7 +665,7 @@
       const staffName = formData.get('staffName');
 
       //formDataが適正かのチェックを入れる
-      let check = postCheck(formData,staffsData[STAFFS.indexOf(staffName)]);
+      let check = postCheck(formData,staffsData[staffs.indexOf(staffName)]);
       console.log('check',check);
       if(check === 'ok'){
         fetch('/api/reservation',{
