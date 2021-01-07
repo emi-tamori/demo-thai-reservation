@@ -36,6 +36,7 @@ const SHIFTS_LEFT = 7; //何日前までのシフトを残すか
 const PASSWORD = 'パスワード';
 const ADMIN_EMAIL_FROM = 'kentaro523@gmail.com';
 const ADMIN_EMAIL_TO = 'waruemon.xyz@gmail.com';
+const ADMIN_LINEID = process.env.LINEID;
 
 const config = {
     channelAccessToken:process.env.ACCESS_TOKEN,
@@ -444,10 +445,16 @@ const handlePostbackEvent = async (ev) => {
                             //予約確認メッセージ
                             client.replyMessage(ev.replyToken,{
                               "type":"text",
-                              "text":`${date}に${MENU[orderedMenu].menu}で予約をお取りしたました（スタッフ：${staffName}）`
+                              "text":`${date}に${MENU[orderedMenu].menu}(${MENU[orderedMenu].timeAndPrice[selectedTime][0]}分)で予約をお取りしたました（スタッフ：${staffName}）`
                             });
                             //Gmail送信
                             gmailSend(staffName,date,MENU[orderedMenu].menu);
+                            
+                            //LINEで通知
+                            client.pushMessage(ADMIN_LINEID,{
+                              "type":"text",
+                              "text":`${date}に${MENU[orderedMenu].menu}(${MENU[orderedMenu].timeAndPrice[selectedTime][0]}分)で${staffName}さんに予約が入りました`
+                            });
                           })
                           .catch(e=>console.log(e));
                       })
