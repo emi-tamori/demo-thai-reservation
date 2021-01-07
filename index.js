@@ -8,6 +8,7 @@ const apiRouter = require('./routers/api');
 const multipart = require('connect-multiparty');
 const nodemailer = require('nodemailer');
 const Flex = require('./models/Flex');
+const params = require('./params/back');
 
 const PORT = process.env.PORT || 5000
 
@@ -27,8 +28,7 @@ const MENU = [
 ]
 const WEEK = [ "日", "月", "火", "水", "木", "金", "土" ];
 // const OPENTIME = 12; //開店時間
-import OPENTIME from './params/params';
-
+const OPENTIME = params.OPENTIME;
 const CLOSETIME = 24; //閉店時間
 const LAST_ORDER = 1; //閉店の何時間前まで予約可能か
 const REGULAR_CLOSE = []; //定休日の曜日
