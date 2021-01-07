@@ -677,6 +677,7 @@ module.exports = {
                 "data": `${postbackData[0]}`
               },
               "style": "primary",
+              "color": `${colorArray[0]}`,
               "margin": "md"
             },
             {
@@ -687,6 +688,7 @@ module.exports = {
                 "data": `${postbackData[1]}`
               },
               "style": "primary",
+              "color": `${colorArray[1]}`,
               "margin": "md"
             },
             {
@@ -697,6 +699,7 @@ module.exports = {
                 "data": `${postbackData[2]}`
               },
               "style": "primary",
+              "color": `${colorArray[2]}`,
               "margin": "md"
             },
             {
@@ -707,6 +710,7 @@ module.exports = {
                 "data": `${postbackData[3]}`
               },
               "style": "primary",
+              "color": `${colorArray[3]}`,
               "margin": "md"
             }
           ]
