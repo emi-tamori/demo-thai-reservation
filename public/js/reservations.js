@@ -472,11 +472,11 @@
     // const start_minutes = new Date(parseInt(info.starttime)).getMinutes();
     for(let i=0; i<12; i++){
       const option = document.createElement('option');
-      option.innerHTML = ('0'+i*5).slice(-2);
-      option.value = 5*i;
+      option.innerHTML = ('0'+i*15).slice(-2);
+      option.value = 15*i;
       select_sMin.appendChild(option);
     }
-    select_sMin.selectedIndex = info.id === 'new' ? -1 : new Date(parseInt(info.starttime)).getMinutes()/5;
+    select_sMin.selectedIndex = info.id === 'new' ? -1 : new Date(parseInt(info.starttime)).getMinutes()/15;
     div_form_time.appendChild(select_sMin);
 
     //〜ラベル
