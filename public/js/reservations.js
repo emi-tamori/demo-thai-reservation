@@ -278,7 +278,7 @@
     dataDisplay.setAttribute('class','reservation-data');
     dataDisplay.innerHTML = `･${hour}:${minutes}<br>`
     dataDisplay.addEventListener('click',(e)=>{
-      createReservationCard(info,staffs);
+      createReservationCard(info,staffs,staffsData);
     });
 
     return dataDisplay;
