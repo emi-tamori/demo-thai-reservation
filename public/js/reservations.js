@@ -614,8 +614,11 @@
         formData.append('id',info.id);
         console.log('formData',...formData.entries());
 
+        //スタッフ名を取得
+        const staffName = formData.get('staffName');
+
         //formDataが適正かチェックする機能を実装する
-        let check = postCheck(formData); //スタッフのシフトチェックも行う
+        let check = postCheck(formData,props.staffsData[STAFFS.indexOf(staffName)]); //スタッフのシフトチェックも行う
         console.log('check',check);
         if(check === 'ok'){
           fetch('/api/reservation',{
@@ -658,8 +661,11 @@
       formData.append('id',info.id);
       console.log('formData',...formData.entries());
 
+      //スタッフ名の取得
+      const staffName = formData.get('staffName');
+
       //formDataが適正かのチェックを入れる
-      let check = postCheck(formData);
+      let check = postCheck(formData,props.staffsData[STAFFS.indexOf(staffName)]);
       console.log('check',check);
       if(check === 'ok'){
         fetch('/api/reservation',{
@@ -723,7 +729,7 @@
     divElement.appendChild(divRow);
   }
 
-  const postCheck = (data,staffsData) => {
+  const postCheck = (data,staffData) => {
     const keyParams = [
       'customerName',
       'staffName',
@@ -762,8 +768,13 @@
       if(regularCheck) return '定休日には予約を入れることができません';
     }
 
+    //スタッフのシフトチェック
+    console.log('shift',staffData);
+
+    return 'test';
+
     //何も引っ掛からなかったら
-    return 'ok';
+    // return 'ok';
   }
 
 })();
