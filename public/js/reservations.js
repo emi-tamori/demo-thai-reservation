@@ -771,7 +771,7 @@
     //スタッフのシフトが出勤かチェック
     console.log('shift',staffData);
     const updatedat = staffData.updatedat;
-    let selected = new Date(`${year}/${month}/${day} ${sHour}:${sMin}`).setHours(0,0,0,0);
+    let selected = new Date(`${year}/${month}/${day}`).setHours(0,0,0,0);
     const selectedTimestamp = selected.getTime();
     console.log('updatedat selected',updatedat,selectedTimestamp);
 
