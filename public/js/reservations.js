@@ -91,7 +91,7 @@
 
     //予約テーブル表示対象スタッフの選択
     const div_select_staff = document.createElement('div');
-    div_select_staff.setAttribute('class','form-group form-inline div-rsv');
+    div_select_staff.setAttribute('class','form-group form-inline div-select-rev');
 
     //スタッフラベル
     const label_select = document.createElement('label');
@@ -101,7 +101,7 @@
     
     // スタッフselect
     const select_staff = document.createElement('select');
-    select_staff.setAttribute('class','form-control select-staff');
+    select_staff.setAttribute('class','form-control select-rev');
     select_staff.name = 'selectStaff';
     const selectArray = [...STAFFS];
     selectArray.unshift('全て');

@@ -217,6 +217,18 @@ body {
     position:absolute;
     z-index: 1;
 }
+.div-select-rev{
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+.label-staff-select{
+    margin-right: 0.5rem;
+    margin-top: 0.5rem;
+}
+.select-rev{
+    height: 2.5rem;
+}
+
 .table-header{
     width:12vw;
     height:2.5vw;
