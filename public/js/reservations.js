@@ -254,6 +254,9 @@
                 td.appendChild(display);
               }
             });
+            //シフトが非出勤であれば、要素背景をグレーにする
+            const shiftData = props.staffsData[index];
+            if(!shiftData[`d${j}h${i+OPENTIME}`]) td.style.backgroundColor='#ccc';
           }
           trElement.appendChild(td);
         }
