@@ -451,7 +451,7 @@ const handlePostbackEvent = async (ev) => {
                             gmailSend(staffName,date,MENU[orderedMenu].menu);
                             
                             //LINEで通知
-                            client.pushMessage(`${ADMIN_LINEID}`,{
+                            client.pushMessage(ev.source.userId,{
                               "type":"text",
                               "text":`${date}に${MENU[orderedMenu].menu}(${treatTime}分)で${staffName}さんに予約が入りました`
                             });
