@@ -457,6 +457,12 @@ const handlePostbackEvent = async (ev) => {
             }
           })
     }
+    else if(splitData[0] === 'no'){
+      return client.replyMessage(ev.replyToken,{
+        "type":"text",
+        "text":"申し訳ありません。その時間は予約できません><;"
+      });
+    }
     
     else if(splitData[0] === 'delete'){
       const staff = splitData[1];
@@ -703,9 +709,10 @@ const checkReservable = (ev,menu,time,date,staffInfo) => {
           }else if(i<separatedByTime.length-1 && separatedByTime[i+1].length){
             intervalArray.push([[separatedByTime[i+1][0][0] - timeStamps[i],timeStamps[i]]]);
           }else{
+            
+            intervalArray.push([[60*60*1000+treatTime*60*1000,timeStamps[i]]]);
             //ここが15min変更箇所
-            // intervalArray.push([[60*60*1000+treatTime*60*1000,timeStamps[i]]]);
-            intervalArray.push([[60*60*1000,timeStamps[i]]]);
+            // intervalArray.push([[60*60*1000,timeStamps[i]]]);
           }      
         }
 
@@ -718,7 +725,7 @@ const checkReservable = (ev,menu,time,date,staffInfo) => {
           array2.forEach(array=>{
             let interval = array[0];
             let target = array[1];
-            while(interval>=min15){
+            while(interval>=treatTimeToMs){
               tempArray.push(target);
               interval -= min15;
               target += min15;
@@ -726,6 +733,8 @@ const checkReservable = (ev,menu,time,date,staffInfo) => {
           });
           reservableArray.push(tempArray);
         });
+
+        console.log('reservablearray@@',reservableArray);
 
         //シフトデータを配列化する
           //staffInfoのupdatedatと予約希望日の差を求める
