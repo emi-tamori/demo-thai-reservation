@@ -15,21 +15,21 @@ const MENU = [
 
 const WEEK = [ "日", "月", "火", "水", "木", "金", "土" ];
 
-const createDateOptions = (stampArray) => {
-  const options = [];
-  stampArray.forEach(stamp=>{
-    const modifiedStamp = stamp + 9*60*60*1000;
-    const year = new Date(modifiedStamp).getFullYear();
-    const month = new Date(modifiedStamp).getMonth()+1;
-    const date = new Date(modifiedStamp).getDate();
-    const week = WEEK[new Date(modifiedStamp).getDay()];
-    const hour = new Date(modifiedStamp).getHours();
-    const minutes = ('0'+new Date(modifiedStamp).getMinutes()).slice(-2);
-    const text = `${year}/${month}/${date}(${week})  ${hour}:${minutes}〜`;
-    options.push(text);
-  });
-  return options;
-}
+// const createDateOptions = (stampArray) => {
+//   const options = [];
+//   stampArray.forEach(stamp=>{
+//     const modifiedStamp = stamp + 9*60*60*1000;
+//     const year = new Date(modifiedStamp).getFullYear();
+//     const month = new Date(modifiedStamp).getMonth()+1;
+//     const date = new Date(modifiedStamp).getDate();
+//     const week = WEEK[new Date(modifiedStamp).getDay()];
+//     const hour = new Date(modifiedStamp).getHours();
+//     const minutes = ('0'+new Date(modifiedStamp).getMinutes()).slice(-2);
+//     const text = `${year}/${month}/${date}(${week})  ${hour}:${minutes}〜`;
+//     options.push(text);
+//   });
+//   return options;
+// }
 
 module.exports = {
 
@@ -620,11 +620,11 @@ module.exports = {
         const modifiedStamp = candidates[index] + 9*60*60*1000;
         const year = new Date(modifiedStamp).getFullYear();
         const month = new Date(modifiedStamp).getMonth()+1;
-        const date = new Date(modifiedStamp).getDate();
+        const day = new Date(modifiedStamp).getDate();
         const week = WEEK[new Date(modifiedStamp).getDay()];
         const hour = new Date(modifiedStamp).getHours();
         const minutes = ('0'+new Date(modifiedStamp).getMinutes()).slice(-2);
-        const labelText = `${year}/${month}/${date}(${week})  ${hour}:${minutes}〜`;
+        const labelText = `${year}/${month}/${day}(${week})  ${hour}:${minutes}〜`;
         labelArray.push(labelText);
       }
     });
