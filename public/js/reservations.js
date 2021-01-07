@@ -37,7 +37,7 @@
       if(response.ok){
         const data = await response.json();
         divElement.innerHTML = '';
-        createReservationTable(data,0);
+        createReservationTable(data,0,0);
       }else{
         alert('HTTPレスポンスエラーです');
       }
@@ -59,7 +59,7 @@
     divElement.appendChild(divSpinner);
   }
 
-  const createReservationTable = (data,num) => {
+  const createReservationTable = (data,num,staffNum) => {
     console.log('data:',data);
 
     //スタッフ名のみ配列化する
@@ -94,30 +94,27 @@
     div_select_staff.setAttribute('class','form-group form-inline div-select-rev');
 
     //スタッフラベル
-    const label_select = document.createElement('label');
-    label_select.setAttribute('class','label-staff-select');
-    label_select.innerHTML = '予約表を選ぶ';
-    div_select_staff.appendChild(label_select);
+    // const label_select = document.createElement('label');
+    // label_select.setAttribute('class','label-staff-select');
+    // label_select.innerHTML = '予約表を選ぶ';
+    // div_select_staff.appendChild(label_select);
     
     // スタッフselect
     const select_staff = document.createElement('select');
     select_staff.setAttribute('class','form-control select-rev');
     select_staff.name = 'selectStaff';
     const selectArray = [...STAFFS];
-    selectArray.unshift('全て');
+    selectArray.unshift('全スタッフの予約表');
     selectArray.forEach(name=>{
       const option = document.createElement('option');
       option.innerHTML = name;
       option.value = name;
       select_staff.appendChild(option);
     });
-    select_staff.selectedIndex = 0;
+    select_staff.selectedIndex = staffNum;
     div_select_staff.appendChild(select_staff);
     divElement.appendChild(div_select_staff);
 
-    select_staff.addEventListener('change',()=>{
-      console.log('change');
-    })
 
     //表示用　年月、日、曜日の取得
     let today = new Date();
@@ -235,7 +232,7 @@
 
           // この時間帯に予約データがあるか確認し、あれば、td内に表示
           if(props.reservationsData.length){
-            props.reservationsData.forEach(array=>{ //ここにindexを指定すればスタッフごとのテーブルを表示できる
+            props.reservationsData.forEach((array,index)=>{ //ここにindexを指定すればスタッフごとのテーブルを表示できる
               if(array.length){
                 array.forEach(reservationInfo=>{
                   if(reservationInfo.starttime>=startPoint3 && reservationInfo.starttime<(startPoint3+ONEHOUR)){
@@ -253,6 +250,11 @@
     }
     table.appendChild(tableBody);
     divElement.appendChild(table);
+
+    //予約表が選択された時
+    select_staff.addEventListener('change',()=>{
+      console.log('change');
+    });
   }
 
   const createDateObject = (nowTime) => {
