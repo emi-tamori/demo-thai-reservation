@@ -610,16 +610,9 @@ module.exports = {
 
     timeFlag.forEach((value,index)=>{
       //ラベル表示用文字列生成
-      const labelText = date + ' '+ (OPENTIME+parseInt(timeZone)) + ':' +('0'+15*index).slice(-2);
-      // const modifiedStamp = parseInt(candidates[index]) + 9*60*60*1000;
-      // console.log('ts',modifiedStamp);
-      // const year = new Date(modifiedStamp).getFullYear();
-      // const month = new Date(modifiedStamp).getMonth()+1;
-      // const day = new Date(modifiedStamp).getDate();
-      // const week = WEEK[new Date(modifiedStamp).getDay()];
-      // const hour = new Date(modifiedStamp).getHours();
-      // const minutes = ('0'+new Date(modifiedStamp).getMinutes()).slice(-2);
-      // const labelText = `${year}/${month}/${day}(${week})  ${hour}:${minutes}〜`;
+      const dateArray = date.split('-');
+      const labelText = dateArray[1]+'月'+dateArray[2]+'日' + ' '+ (OPENTIME+parseInt(timeZone)) + ':' +('0'+15*index).slice(-2);
+
       labelArray.push(labelText);
       if(value === -1){
         colorArray.push('#FF0000');
