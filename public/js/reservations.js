@@ -73,9 +73,8 @@
       STAFFS.push(obj.name);
     });
 
-    //変化監視対象プロパティ
+    //プロパティ
     let props = {
-      index: num,
       usersData: data.users,
       reservationsData: data.reservations,
       staffsData: data.staffs
@@ -84,9 +83,9 @@
     console.log('props:',props);
 
     //index.numの変化検知用
-    Object
-    .getOwnPropertyNames(props)
-    .forEach(propName=>watchIndexValue(props,propName,onChange));
+    // Object
+    // .getOwnPropertyNames(props)
+    // .forEach(propName=>watchIndexValue(props,propName,onChange));
 
     //表題
     const title = document.createElement('p');
@@ -311,30 +310,30 @@
     };
   }
 
-  const watchIndexValue = (obj, propName, func) => {
-    let value = obj[propName];
-    Object.defineProperty(obj, propName, {
-      get: () => value,
-      set: newValue => {
-        const oldValue = value;
-        value = newValue;
-        const data = {
-          users: obj['usersData'],
-          staffs: obj['staffsData'],
-          reservations: obj['reservationsData']
-        }
-        console.log('data in watch',data);
-        func(newValue,data);
-      },
-      configurable: true
-    });
-  }
+  // const watchIndexValue = (obj, propName, func) => {
+  //   let value = obj[propName];
+  //   Object.defineProperty(obj, propName, {
+  //     get: () => value,
+  //     set: newValue => {
+  //       const oldValue = value;
+  //       value = newValue;
+  //       const data = {
+  //         users: obj['usersData'],
+  //         staffs: obj['staffsData'],
+  //         reservations: obj['reservationsData']
+  //       }
+  //       console.log('data in watch',data);
+  //       func(newValue,data);
+  //     },
+  //     configurable: true
+  //   });
+  // }
 
-  const onChange = (value,data) => {
-    divElement.innerHTML = '';
-    console.log('data in onchange',data);
-    createReservationTable(data,value);
-  }
+  // const onChange = (value,data) => {
+  //   divElement.innerHTML = '';
+  //   console.log('data in onchange',data);
+  //   createReservationTable(data,value);
+  // }
 
   const createDataDisplay = (info,staffs,staffsData) => {
     console.log('info:',info);
