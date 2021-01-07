@@ -774,7 +774,7 @@
     const selected = new Date(parseInt(year),parseInt(month)-1,parseInt(day),0,0,0).getTime();
     console.log('updatedat selected',updatedat,selected);
 
-    const differential = selected - parseInt(updatedat);
+    const differential = (selected - parseInt(updatedat))/(24*60*60*1000);
     const targetShift = staffData[`d${differential}h${sHour}`];
     console.log('shift',targetShift);
 
