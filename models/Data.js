@@ -252,7 +252,9 @@
                 };
                 connection.query(pickup_staffs)
                     .then(res=>{
+                        console.log('res.rows',res.rows);
                         const arrangedData = shiftDifferential(res.rows);
+                        console.log('arrangedData', arrangedData);
                         resolve(arrangedData);
                     })
                     .catch(e=>console.log(e));
