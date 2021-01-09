@@ -1,5 +1,5 @@
 (()=>{
-  const API_URL = 'https://linebot-schedule.herokuapp.com/api/staffs';
+  const API_URL = 'https://demo-thai-reservation.herokuapp.com/api/staffs';
   const NUMBER_OF_SHIFTS = 7; //何日先のシフトまで入れることができるか
   const SHIFTS_LEFT = 7; //何日前までのシフトを残すか
   const OPENTIME = 12; //開店時間
