@@ -270,9 +270,8 @@
             const target = startPoint + ONEDAY*(j-1) + ONEHOUR*i -12*ONEHOUR;
             const differential = target - updatedat;
             const d_element = Math.floor(differential/ONEDAY);
-            const h_element = (differential%ONEDAY)/ONEHOUR + OPENTIME;
-            console.log('@@@',updatedat,target,differential,d_element,h_element);
-            if(!shiftData[`d${d_element}h${h_element}`]) td.style.backgroundColor='#ccc';
+            console.log('@@@',updatedat,target,differential,d_element);
+            if(d_element>=7 || d_element<0 || !shiftData['d${j-1}h${i+OPENTIME}']) td.style.backgroundColor='#ccc';
           }
           trElement.appendChild(td);
         }
