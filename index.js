@@ -832,7 +832,7 @@
     const message = {
       from: ADMIN_EMAIL_FROM,
       to: ADMIN_EMAIL_TO,
-      subject: `${staffName}さんに予約が入りました！！`,
+      subject: `予約が入りました！！`,
       text: `${date}に${menu}で予約が入りました！`
     };
 

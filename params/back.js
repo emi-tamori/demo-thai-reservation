@@ -9,7 +9,7 @@
     SHIFTS_LEFT: 7,　//何日前までのシフトを残すか
     PASSWORD: 'パスワード', //管理画面用URL
     ADMIN_EMAIL_FROM: 'noball99@gmail.com', //Gメールの送り元(id,secret,refreshが登録されたもの)
-    ADMIN_EMAIL_TO: 'waruemon.xyz@gmail.com', //Gメールの送り先
+    ADMIN_EMAIL_TO: 'wakewakaruwa2yahoo.co.jp', //Gメールの送り先
     MENU: [
             {
               menu: 'タイ式（ストレッチ）',
