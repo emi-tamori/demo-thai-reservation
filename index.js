@@ -152,7 +152,7 @@
       const profile = await client.getProfile(ev.source.userId);
       const text = (ev.message.type === 'text') ? ev.message.text : '';
 
-      if(text === '予約'){
+      if(text === '予約する'){
         const nextReservation = await checkNextReservation(ev);
         console.log('次の予約',nextReservation);
         if(!nextReservation.length){
