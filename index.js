@@ -435,7 +435,7 @@
                               client.replyMessage(ev.replyToken,{
                                 "type":"text",
                                 "wrap": true,
-                                "text":`\n■■■■■■■■■\n\n${date}\n${MENU[orderedMenu].menu}(${treatTime}分)\n\n■■■■■■■■■\nで予約をお取りしたました\nご来店お待ちしています。）`
+                                "text":`予約完了\n■■■■■■■■■\n\n${date}\n${MENU[orderedMenu].menu}(${treatTime}分)\n\n■■■■■■■■■\nご来店お待ちしています。`
                               });
                               //Gmail送信
                               gmailSend(staffName,date,MENU[orderedMenu].menu);
