@@ -163,7 +163,7 @@
         else{
           return client.replyMessage(ev.replyToken,{
             "type":"text",
-            "text": `次回ご予約は${date}\n${menu}でお取りしてます。変更の場合はキャンセル後改めてご予約をお願いします。`
+            "text":"すでに次回予約が入っています><;"
           });
         }
       }
