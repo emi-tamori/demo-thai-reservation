@@ -107,6 +107,7 @@
                 {
                   "type": "text",
                   "text": "施術時間をお選びください",
+                  "align": "center",
                   "size": "lg"
                 }
               ]
@@ -202,6 +203,7 @@
                 {
                   "type": "text",
                   "text": "施術時間をお選びください",
+                  "align": "center",
                   "size": "lg"
                 }
               ]
