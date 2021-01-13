@@ -106,7 +106,7 @@
               "contents": [
                 {
                   "type": "text",
-                  "text": "施術時間をお選びください",
+                  "text": "施術時間を選択してください",
                   "align": "center",
                   "size": "lg"
                 }
