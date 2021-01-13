@@ -24,11 +24,28 @@
             "contents": [
               {
                 "type": "text",
-                "text": "メニューをお選びください",
-                "size": "lg"
+                "text": "メニューを選択してください",
+                "size": "lg",
+                "align": "center"
               },
               {
                 "type": "separator"
+              }
+            ]
+          },
+          "hero": {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "text": "（1つのみ選択可能です）",
+                "size": "md",
+                "align": "center"
+              },
+              {
+                "type": "separator",
+                "margin": "md"
               }
             ]
           },
