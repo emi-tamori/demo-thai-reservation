@@ -726,7 +726,7 @@
             "contents": [
               {
                 "type": "text",
-                "text": `次回の予約は${date}から${treatTime}分間、${menu}でおとりしてます。この予約をキャンセルしますか？`,
+                "text": `次回の予約は\n${date}から${treatTime}分間、${menu}\nでおとりしてます。この予約をキャンセルしますか？`,
                 "size": "lg",
                 "wrap": true
               }
@@ -742,7 +742,9 @@
                   "type": "postback",
                   "label": "予約をキャンセルする",
                   "data": `delete&${staff}&${id}`
-                }
+                },
+                "style": "primary",
+                  "margin": "md"
               }
             ]
           }
