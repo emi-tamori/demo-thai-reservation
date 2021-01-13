@@ -78,8 +78,8 @@
             const today_ts = new Date(`${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()} 00:00:00`).getTime() -9*60*60*1000;
             console.log('ts',today_ts);
             // const today_ts = new Date(new Date(nowTime).toLocaleString()).getTime() -9*60*60*1000;
-            //const differential = Math.floor((today_ts-parseInt(copiedData.updatedat))/(24*60*60*1000));
-             const differential = 3; //test用
+            const differential = Math.floor((today_ts-parseInt(copiedData.updatedat))/(24*60*60*1000));
+            // const differential = 3; //test用
             console.log('differential',today_ts,copiedData.updatedat,differential);
 
             //ディファレンシャルが存在する時に、シフトデータのシフト処理を行う
