@@ -26,6 +26,7 @@
                 "type": "text",
                 "text": "メニューを選択してください",
                 "size": "lg",
+                "margin": "md",
                 "align": "center"
               },
               {
