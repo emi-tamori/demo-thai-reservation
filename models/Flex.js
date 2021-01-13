@@ -756,8 +756,8 @@
                   "action": {
                     "type": "uri",
                     "label": "管理者画面へ",
-                    // "uri": "line://app/1654221139-OvDreMvj"
-                    "uri": "https://linebot-schedule.herokuapp.com/"
+                    //"uri": "https://linebot-schedule.herokuapp.com/"
+                    "uri": "https://demo-thai-reservation.herokuapp.com/"
                   },
                   "style": "link"
                 }
