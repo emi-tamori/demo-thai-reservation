@@ -726,7 +726,7 @@
             "contents": [
               {
                 "type": "text",
-                "text": `次回予約\n■■■■■■■■■\n\n${date}から${treatTime}分間、${menu}\n\n■■■■■■■■■でおとりしてます。この予約をキャンセルしますか？`,
+                "text": `次回予約\n■■■■■■■■■\n\n${date}から${treatTime}分間、${menu}\n\n■■■■■■■■■\nでおとりしてます。この予約をキャンセルしますか？`,
                 "size": "lg",
                 "wrap": true
               }
