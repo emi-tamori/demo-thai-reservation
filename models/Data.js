@@ -112,7 +112,8 @@
                     for(let i=0; i<differential; i++){
                         const tempArray = [];
                         for(let j=OPENTIME; j<CLOSETIME; j++){
-                            tempArray.push(null);
+                            //tempArray.push(null);
+                            tempArray.push(1);
                         }
                         shiftArray.push(tempArray);
                     }
@@ -123,7 +124,8 @@
                     for(let i=0; i<NUMBER_OF_SHIFTS+SHIFTS_LEFT; i++){
                         const tempArray = [];
                         for(let j=OPENTIME; j<CLOSETIME; j++){
-                            tempArray.push(null);
+                            //tempArray.push(null);
+                            tempArray.push(1);
                         }
                         shiftArray.push(tempArray);
                     }
