@@ -634,7 +634,7 @@
             "contents": [
               {
                 "type": "text",
-                "text": "希望時間をお選びください",
+                "text": "希望時間を選択してください",
                 "align": "center",
                 "size": "lg"
               }

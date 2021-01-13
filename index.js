@@ -315,7 +315,7 @@
                         color.push('#00AA00');
                       }else{
                         time.push(-1);
-                        color.push('#FF0000');
+                        color.push('#e8e6e6');
                       }
                     }
                     const flexMessage = Flex.askTime(orderedMenu,selectedTime,selectedDate,time,color);
@@ -434,7 +434,7 @@
                               //予約確認メッセージ
                               client.replyMessage(ev.replyToken,{
                                 "type":"text",
-                                "text":`${date}に${MENU[orderedMenu].menu}(${treatTime}分)で予約をお取りしたました（スタッフ：${staffName}）`
+                                "text":`${date}に${MENU[orderedMenu].menu}(${treatTime}分)で予約をお取りしたました。ご来店お待ちしています。）`
                               });
                               //Gmail送信
                               gmailSend(staffName,date,MENU[orderedMenu].menu);
