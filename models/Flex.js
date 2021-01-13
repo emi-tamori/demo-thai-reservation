@@ -615,7 +615,8 @@
           colorArray.push('#FF0000');
           postbackData.push('no');
         }else{
-          colorArray.push('#00AA00');
+          //colorArray.push('#00AA00');
+          colorArray.push('#e8e6e6');
           postbackData.push(`yes&${menu}&${time}&${date}&${candidates[value]}&${staffName}`);
         }
       });
