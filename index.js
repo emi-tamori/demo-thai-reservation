@@ -434,7 +434,8 @@
                               //予約確認メッセージ
                               client.replyMessage(ev.replyToken,{
                                 "type":"text",
-                                "text":`${date}に${MENU[orderedMenu].menu}(${treatTime}分)で予約をお取りしたました。ご来店お待ちしています。）`
+                                "wrap": true,
+                                "text":`\n■■■■■■■■■\n\n${date}\n${MENU[orderedMenu].menu}(${treatTime}分)\n\n■■■■■■■■■\nで予約をお取りしたました\nご来店お待ちしています。）`
                               });
                               //Gmail送信
                               gmailSend(staffName,date,MENU[orderedMenu].menu);

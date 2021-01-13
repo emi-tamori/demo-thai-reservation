@@ -411,7 +411,7 @@
             "contents": [
               {
                 "type": "text",
-                "text": "ご希望の時間帯を選択してください(緑＝予約可能s)",
+                "text": "ご希望の時間帯を選択してください(緑＝予約可能)",
                 "align": "start",
                 "wrap":true,
                 "align": "center",
