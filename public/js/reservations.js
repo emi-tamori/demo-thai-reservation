@@ -272,7 +272,7 @@
             const d_element = Math.floor(differential/ONEDAY);
             //console.log('@@@',updatedat,target,differential,d_element);
             console.log('@@@',shiftData[`d${j-1}h${i+OPENTIME}`],(d_element>=7 || d_element<0 || !shiftData['d${j-1}h${i+OPENTIME}']));
-            if(d_element>=7 || d_element<0 || !shiftData['d${j-1}h${i+OPENTIME}']) td.style.backgroundColor='#ccc';
+            if(d_element>=7 || d_element<0 || !shiftData[`d${j-1}h${i+OPENTIME}`]) td.style.backgroundColor='#ccc';
           }
           trElement.appendChild(td);
         }
