@@ -359,10 +359,6 @@
                 "text": "来店希望日を選んでください",
                 "size": "md",
                 "align": "center"
-              },
-              {
-                "type": "separator",
-                "margin": "sm"
               }
             ]
           },
@@ -377,7 +373,9 @@
                   "label": "希望日を選択する",
                   "data": `date&${menu}&${time}`,
                   "mode": "date"
-                }
+                },
+                "style": "primary",
+                  "margin": "md"
               }
             ]
           }
