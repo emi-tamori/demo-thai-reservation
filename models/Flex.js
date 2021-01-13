@@ -356,9 +356,13 @@
             "contents": [
               {
                 "type": "text",
-                "text": "来店希望日を選んでください。",
+                "text": "来店希望日を選んでください",
                 "size": "md",
                 "align": "center"
+              },
+              {
+                "type": "separator",
+                "margin": "sm"
               }
             ]
           },
