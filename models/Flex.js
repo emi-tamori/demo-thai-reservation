@@ -414,6 +414,7 @@
                 "text": "ご希望の時間帯を選択してください(緑＝予約可能、赤＝予約不可)",
                 "align": "start",
                 "wrap":true,
+                "align": "center",
                 "size":"lg"
               }
             ]
