@@ -143,7 +143,8 @@
       
       return client.replyMessage(ev.replyToken,{
           "type":"text",
-          "text":`${profile.displayName}さん、フォローありがとうございます\uDBC0\uDC04`
+          //"text":`${profile.displayName}さん、フォローありがとうございます\uDBC0\uDC04`
+          "text":`${profile.displayName}さん、友達登録ありがとうございます\uDBC0\uDC04\n\nタイマッサージ店〇〇です\n\nご予約お待ちしております\uDBC0\uDC01\uDBC0\uDC2D\uDBC0\uDC2D`
       });
   }
 
@@ -162,7 +163,7 @@
         else{
           return client.replyMessage(ev.replyToken,{
             "type":"text",
-            "text":"すでに次回予約が入っています><;"
+            "text": `次回ご予約は${date}\n${menu}でお取りしてます。変更の場合はキャンセル後改めてご予約をお願いします。`
           });
         }
       }
@@ -186,7 +187,8 @@
 
           return client.replyMessage(ev.replyToken,{
             "type":"text",
-            "text":`次回予約は${date}から${treatTime}分間、${menu}でお取りしてます\uDBC0\uDC22`
+            //"text":`次回予約は${date}から${treatTime}分間、${menu}でお取りしてます\uDBC0\uDC22`
+            "text":`次回予約は\n■■■■■■■■■\n\n${date}~\n${menu}${treatTime}分\n\n■■■■■■■■■\nでお取りしてます\uDBC0\uDC22`
           });
         }else{
           return client.replyMessage(ev.replyToken,{
@@ -233,7 +235,7 @@
       else{
         return client.replyMessage(ev.replyToken,{
           "type":"text",
-          "text":`${text}`
+          "text":`${profile.displayName}さん\nメッセージありがとうございます。\n\n申し訳ございませんが、このアカウントでは個別の返信をしておりません。\n\n＜お問い合わせ＞\nご質問などお問い合わせは店舗にお願いします。`
         });
     }
   }
@@ -329,7 +331,7 @@
             }else{
               return client.replyMessage(ev.replyToken,{
                 "type":"text",
-                "text":`${FUTURE_LIMIT}日より先の予約はできません><;`
+                "text":`${FUTURE_LIMIT}日より先の予約はできません。`
               });
             }
           }else{
