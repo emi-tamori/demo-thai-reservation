@@ -30,6 +30,7 @@
                 "align": "center"
               },
               {
+                "margin": "md",
                 "type": "separator"
               }
             ]
