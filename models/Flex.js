@@ -33,22 +33,6 @@
               }
             ]
           },
-          "hero": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-              {
-                "type": "text",
-                "text": "（1つのみ選択可能です）",
-                "size": "md",
-                "align": "center"
-              },
-              {
-                "type": "separator",
-                "margin": "md"
-              }
-            ]
-          },
           "body": {
             "type": "box",
             "layout": "vertical",
