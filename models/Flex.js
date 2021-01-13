@@ -29,10 +29,6 @@
                 "margin": "md",
                 "align": "center"
               },
-              {
-                "margin": "md",
-                "type": "separator"
-              }
             ]
           },
           "hero": {
