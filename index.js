@@ -118,6 +118,10 @@
         case 'postback':
           promises.push(handlePostbackEvent(ev));
           break;
+        
+        case 'unfollow':
+          promises.push(delete_user(ev));
+          break;
       }
     }
 
