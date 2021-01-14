@@ -29,6 +29,19 @@
 
   const ADMIN_LINEID = process.env.ADMIN_LINEID; //予約確認をLINEプッシュメッセージで送信したい場合に開放
 
+  //LINE友達登録解除時の動作
+  const delete_user = (ev) => {
+    const delete_query = {
+        text:'DELETE FROM users WHERE line_uid=$1;',
+        values: [`${ev.source.userId}`]
+    };
+    connection.query(delete_query)
+        .then(()=>{
+            console.log('ユーザーデータをテーブルから削除');
+        })
+        .catch(e=>console.log(e));
+  }
+
   const config = {
       channelAccessToken:process.env.ACCESS_TOKEN,
       channelSecret:process.env.CHANNEL_SECRET
