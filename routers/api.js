@@ -38,4 +38,8 @@ router
     .route('/reservation')
     .post(controller.createReservation);
 
+router
+    .route('/judge-staff')
+    .post(controller.judgeStaff);
+
 module.exports = router;

@@ -103,7 +103,6 @@
     .post('/hook',line.middleware(config),(req,res)=> lineBot(req,res))
     .use(express.json()) //これが/apiルーティングの前にこないと、ダメ
     .use(express.urlencoded({extended:true}))　//これが/apiルーティングの前にこないと、ダメ
-    .post('/api',(req,res)=> getUserInfo(req,res))//新追加！
     .use('/',router)
     .use('/api',apiRouter)
     .set('views', path.join(__dirname, 'views'))

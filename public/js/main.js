@@ -16,7 +16,7 @@ window.onload = () => {
               id_token: idToken
             });
             
-            fetch('/api',{
+            fetch('/api/judge-staff',{
               method: 'POST',
               headers: {
                 'Content-Type':'application/json'
@@ -29,14 +29,7 @@ window.onload = () => {
             })
             .catch(e=>console.log(e));
             
-            //プロフィール情報の取得
-            liff.getProfile()
-              .then(profile=>{
-                const name = profile.displayNam;
-                const lineId = profile.userId;
-                const staff = profile.staff;
-                divElement.innerHTML=`あなたは${staff}です。LINE IDは${lineId}です。`;
-              });
+            
           })
 
     }else{
