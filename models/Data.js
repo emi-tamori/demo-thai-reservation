@@ -445,6 +445,10 @@
                     })
                     .catch(e=>console.log(e));
             });
+        },
+        judgeStaff: (idToken) => {　
+            console.log('idtoken',idToken);
         }
     }
+  
 })();
