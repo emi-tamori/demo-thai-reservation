@@ -59,9 +59,8 @@
 
   //お客さまテーブルの作成
   const create_userTable = {
-    text:'CREATE TABLE IF NOT EXISTS users (id SERIAL NOT NULL, line_uid VARCHAR(100), display_name VARCHAR(50), timestamp BIGINT, visits SMALLINT);'
-  };
-    
+    text:'CREATE TABLE IF NOT EXISTS users (id SERIAL NOT NULL, line_uid VARCHAR(100), display_name VARCHAR(50), timestamp BIGINT, visits SMALLINT, staff char(1));'
+ }; 
   connection.query(create_userTable)
     .then(()=>{
         console.log('table users created successfully!!');
