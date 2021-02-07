@@ -35,7 +35,7 @@ window.onload = () => {
                 const name = profile.displayNam;
                 const lineId = profile.userId;
                 const staff = profile.staff;
-                divElement.innerHTML=`あなたの名前は${name}です。LINE IDは${lineId}です。`;
+                divElement.innerHTML=`あなたは${staff}です。LINE IDは${lineId}です。`;
               });
           })
 
