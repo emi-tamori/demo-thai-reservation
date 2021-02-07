@@ -5,7 +5,7 @@
 </head>
 <body>
     <%- include ("../partials/nav.ejs") %>
-    <div class="toppage">
+    <div id="indexPage" class="toppage">
         <img src="/massage.jpg" class="img">
         <div>
             <a type="button" class="btn btn-lg btn-outline-primary" id="toUsers" href="/users"><i class="fas fa-users"></i> 顧客情報</a>
@@ -19,5 +19,10 @@
     </div>
 
     <%- include ("../partials/footer.ejs") %>
+
+    <!-- liffを使うためのCDN -->
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src='js/main.js'></script>
+
 </body>
 </html>
