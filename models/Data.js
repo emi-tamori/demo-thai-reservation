@@ -2,6 +2,7 @@
     const { Client } = require('pg');
     const nodemailer = require('nodemailer');
     const e = require('express');
+    const fetch = require('node-fetch');
 
     const connection = new Client({
         connectionString: process.env.DATABASE_URL,
@@ -446,8 +447,29 @@
                     .catch(e=>console.log(e));
             });
         },
+        
         judgeStaff: (idToken) => {　
-            console.log('idtoken',idToken);
+            　return new Promise(resolve=>{
+                　　const getUserInfo = (req,res) => {
+                    const data = req.body;
+                    const postData = `id_token=${data.id_token}&client_id=${process.env.LOGIN_CHANNEL_ID}`;
+                    fetch('https://api.line.me/oauth2/v2.1/verify',{
+                        method: 'POST',
+                        headers: {
+                          'Content-Type':'application/x-www-form-urlencoded'
+                        },
+                        body: postData
+                      })
+                      .then(response=>{
+                        response.json()
+                          .then(json=>{
+                            console.log('response data:',json);
+                            //ここにPostgresからデータを取得する処理を実装する
+                          });
+                      })
+                      .catch(e=>console.log(e));
+                   }
+            　});
         }
     }
   
