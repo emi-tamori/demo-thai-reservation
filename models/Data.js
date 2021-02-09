@@ -2,7 +2,6 @@
     const { Client } = require('pg');
     const nodemailer = require('nodemailer');
     const e = require('express');
-    const fetch = require('node-fetch');
 
     const connection = new Client({
         connectionString: process.env.DATABASE_URL,
