@@ -9,7 +9,7 @@
   const multipart = require('connect-multiparty');
   const nodemailer = require('nodemailer');
   const Flex = require('./models/Flex');
-  const fetch = require('node-fetch');
+
 
   const PORT = process.env.PORT || 5000
 
