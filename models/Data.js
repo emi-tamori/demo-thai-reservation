@@ -469,8 +469,8 @@
                             };
                             connection.query(select_query)
                             .then(data=>{
-                                console.log('data.rows[5]:',data.rows[5]);
-                                const staff = data.rows[5].staff;
+                                console.log('data.rows[0]:',data.rows[0]);
+                                const staff = data.rows[0].staff;
                                 res.status(200).send({staff});
                             })
                             .catch(e=>console.log(e));
