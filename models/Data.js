@@ -463,6 +463,17 @@
                           .then(json=>{
                             console.log('response data:',json);
                             //ここにPostgresからデータを取得する処理を実装する
+                            const lineId = json.sub;
+                            const select_query = {
+                                text: `SELECT * FROM users WHERE line_uid='${lineId}';`
+                            };
+                            connection.query(select_query)
+                            .then(data=>{
+                                console.log('data.rows[5]:',data.rows[5]);
+                                const staff = data.rows[5].staff;
+                                res.status(200).send({staff});
+                            })
+                            .catch(e=>console.log(e));
                           });
                       })
                       .catch(e=>console.log(e));
