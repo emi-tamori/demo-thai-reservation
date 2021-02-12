@@ -4,7 +4,7 @@ window.onload = () => {
     const divElement = document.getElementById('indexPage');
     //LIFFで立ち上げているかどうかの判定
     if(liff.isInClient()){
-        divElement.innerHTML='これはLIFF画面です'
+        //divElement.innerHTML='これはLIFF画面です'
         //LIFF初期化
         liff.init({
             liffId: myLiffId
