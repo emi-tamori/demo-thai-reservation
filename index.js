@@ -149,7 +149,7 @@
 
         const table_insert = {
           text:'INSERT INTO users (line_uid,display_name,timestamp,visits,staff) VALUES($1,$2,$3,$4,$5);',
-          values:[ev.source.userId,profile.displayName,ev.timestamp,0]
+          values:[ev.source.userId,profile.displayName,ev.timestamp,0,'0']
         };
 
 
