@@ -121,5 +121,9 @@ module.exports = {
         const data = req.body;
         console.log('data=',data);
         Data.judgeStaff(data.id_token)
+        .then(response => {
+            const staff = response.staff;
+            //スタッフが0だったらfalse,1だったらtrueをres.sendしてあげれば良い
+        })
     }
 }
