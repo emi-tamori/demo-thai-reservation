@@ -471,7 +471,7 @@
                             .then(data=>{
                                 console.log('data.rows[0]:',data.rows[0]);
                                 const staff = data.rows[0].staff;
-                                res.status(200).send({staff});
+                                resolve({staff})
                             })
                             .catch(e=>console.log(e));
                           });
