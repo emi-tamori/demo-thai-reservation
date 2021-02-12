@@ -28,11 +28,9 @@ window.onload = () => {
               //ここにレスポンス返ってくる
               response.text()
               .then(text=>{
-                if(text === '1'){
-                  divElement.innerHTML='スタッフです';
-                }else{
-                  divElement.innerHTML='このページには入れません';
-                }
+                if(text === '0'){
+                  　　　　divElement.innerHTML='スタッフ以外は管理ページへ入れません';
+                  }
               })
             })
             .catch(e=>console.log(e));
