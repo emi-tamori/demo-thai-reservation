@@ -26,6 +26,13 @@ window.onload = () => {
             })
             .then(res=>{
               //ここにレスポンス返ってくる
+              const staff = response.staff;
+              if(staff == true){
+                divElement.innerHTML='スタッフです';
+              }else{
+                divElement.innerHTML='このページには入れません';
+              }
+
             })
             .catch(e=>console.log(e));
             
