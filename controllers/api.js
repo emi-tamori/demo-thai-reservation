@@ -122,14 +122,8 @@ module.exports = {
         console.log('data=',data);
         Data.judgeStaff(data.id_token)
         .then(response => {
-            console.log('response',response);
             const staff = response.staff;
-            //スタッフが0だったらfalse,1だったらtrueをres.sendしてあげれば良い
-            if(staff == '0'){
-                res.status(200).send(false);
-            }else{
-                res.status(200).send(true);
-            }          
-        })
+            res.status(200).send(staff);    
+          })
     }
 }
