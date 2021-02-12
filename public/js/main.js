@@ -24,7 +24,7 @@ window.onload = () => {
               body: jsonData,
               creadentials: 'same-origin'
             })
-            .then(res=>{
+            .then(response=>{
               //ここにレスポンス返ってくる
               const staff = response.staff;
               if(staff == true){
