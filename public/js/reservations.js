@@ -430,6 +430,10 @@
       select_staff.appendChild(option);
     });
     select_staff.selectedIndex = info.id === 'new' ? -1 : staffs.indexOf(info.staff);　//新規の場合は未選択状態にする
+
+    //スタッフ選択無効化(新規予約以外はdisabledとする)
+    select_staff.disabled = info.id === 'new' ? false : true;
+
     div_form_staff.appendChild(select_staff);
     formElement.appendChild(div_form_staff);
 
@@ -724,6 +728,9 @@
       const formData = new FormData(formElement);
       formData.append('id',info.id);
       console.log('formData',...formData.entries());
+
+      //新規予約でない場合は、select_staffがdisabledのため、formDataにスタッフ名をappendする必要がある
+      if(info.id !== 'new') formData.append('staffName',info.staff);
 
       //スタッフ名の取得
       const staffName = formData.get('staffName');
