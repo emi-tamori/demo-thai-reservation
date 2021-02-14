@@ -1,36 +1,3 @@
-
-window.onload = () => {
-  const myLiffId = '1655646641-AMjnKW7z';
-  //div要素の取得
-  const divElement = document.getElementById('indexPage');
-  //LIFFで立ち上げているかどうかの判定
-  if(liff.isInClient()){
-      //LIFF初期化
-      liff.init({
-          liffId: myLiffId
-      })
-      .then(()=>{
-          //idトークンによるスタッフ情報の取得
-          const idToken = liff.getIDToken();
-          const jsonData = JSON.stringify({
-            id_token: idToken
-          });
-          fetch('/api/judge-staff',{
-            method: 'POST',
-            headers: {
-              'Content-Type':'application/json'
-            },
-            body: jsonData,
-            creadentials: 'same-origin'
-          })
-          .then(response=>{
-            //ここにレスポンス返ってくる
-            response.text()
-            .then(text=>{
-              if(text === '0'){
-                divElement.innerHTML='スタッフ以外は管理ページへ入れません';
-              }else{
-　　　　　　　　　　 //ここに本来のreservations.jsなどの処理をコピペする
 (()=>{
   const API_URL = 'https://demo-thai-reservation.herokuapp.com/api/';
   const WEEKS = ["日", "月", "火", "水", "木", "金", "土"];
@@ -894,14 +861,3 @@ window.onload = () => {
   }
 
 })();
-
-
-            })
-          })
-          .catch(e=>console.log(e));
-        })
-  }else{
-      divElement.innerHTML='お使いのデバイスからは管理ページに入ることはできません'
-  }
-  divPage.appendChild(divElement);
- }
