@@ -58,12 +58,12 @@ window.onload = () => {
   const MENU_E = ['stretch','aroma','foot'];
 
   //大元のdiv要素取得
-  const divElement = document.getElementById('reservationsPage');
+  //const divElement = document.getElementById('reservationsPage');
 
-  window.addEventListener('load',()=>{
+  //window.addEventListener('load',()=>{
     displaySpinner();
     fetchData();
-  });
+  //});
 
   const fetchData = async () => {
     try{
