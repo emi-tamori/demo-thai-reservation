@@ -1,7 +1,8 @@
 window.onload = () => {
   const myLiffId = '1655646641-AMjnKW7z';
   //div要素の取得
-  const divElement = document.getElementById('indexPage');
+  //const divElement = document.getElementById('indexPage');
+  const divElement = document.getElementById('reservationsPage');
   //LIFFで立ち上げているかどうかの判定
   if(liff.isInClient()){
       //LIFF初期化
