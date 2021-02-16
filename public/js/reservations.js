@@ -893,7 +893,7 @@ window.onload = () => {
   }
 
 })();
-            })
+            }})
           })
           .catch(e=>console.log(e));
         })
