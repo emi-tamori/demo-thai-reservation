@@ -30,7 +30,7 @@ window.onload = () => {
                 divElement.innerHTML='スタッフ以外は管理ページへ入れません';
               }else{
 　　　　　　　　　　 //ここに本来のreservations.jsなどの処理をコピペする
-(()=>{
+//(()=>{
   const API_URL = 'https://demo-thai-reservation.herokuapp.com/api/';
   const WEEKS = ["日", "月", "火", "水", "木", "金", "土"];
   const REGULAR_CLOSE = [];
@@ -892,7 +892,7 @@ window.onload = () => {
     return 'ok';
   }
 
-})();
+//})();
             }})
           })
           .catch(e=>console.log(e));
