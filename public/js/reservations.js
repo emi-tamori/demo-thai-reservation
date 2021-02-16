@@ -901,5 +901,5 @@ window.onload = () => {
   }else{
       divElement.innerHTML='お使いのデバイスからは管理ページに入ることはできません'
   }
-  divPage.appendChild(divElement);
+  //divPage.appendChild(divElement);
  }
